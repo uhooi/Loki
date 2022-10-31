@@ -5,7 +5,7 @@ import RecordsFeature
 struct FullApp: App {
     var body: some Scene {
         WindowGroup {
-            RecordMainPage()
+            RecordListPage()
         }
     }
 }
