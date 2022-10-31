@@ -23,7 +23,7 @@ Totonoi（整い）は、サ活の記録に特化したアプリです。
 
 - UIの実装: SwiftUI
 - アーキテクチャ: MVVM
-- ブランチモデル: GitHub-flow
+- ブランチモデル: GitHub flow
 
 ### セットアップ
 
