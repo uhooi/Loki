@@ -7,7 +7,24 @@ public struct RecordListPage: View {
     public init() {}
     
     public var body: some View {
-        RecordListView(sakatsus: viewModel.uiState.sakatsus)
+        NavigationView {
+            RecordListView(sakatsus: viewModel.uiState.sakatsus)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        NavigationLink {
+                            RecordInputPage()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+        }
+    }
+}
+
+struct RecordListPage_Previews: PreviewProvider {
+    static var previews: some View {
+        RecordListPage()
     }
 }
 
@@ -22,7 +39,7 @@ private struct RecordListView: View {
     }
 }
 
-struct RecordsListView: PreviewProvider {
+struct RecordListView_Previews: PreviewProvider {
     static var previews: some View {
         RecordListView(sakatsus: [Sakatsu.preview])
     }
