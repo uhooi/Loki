@@ -8,7 +8,6 @@ Totonoi（整い）は、サ活の記録に特化したアプリです。
 
 - [開発](#開発)
 - [貢献](#貢献)
-- [スタッツ](#スタッツ)
 
 ## 開発
 
@@ -48,7 +47,3 @@ Totonoi（整い）は、サ活の記録に特化したアプリです。
 
 - [新しいイシュー](https://github.com/uhooi/Totonoi-iOS/issues/new)
 - [新しいプルリクエスト](https://github.com/uhooi/Totonoi-iOS/compare)
-
-## スタッツ
-
-TBD
