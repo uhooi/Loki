@@ -14,7 +14,7 @@ struct RecordInputScreen_Previews: PreviewProvider {
     }
 }
 
-struct RecordInputView: View {
+private struct RecordInputView: View {
     var body: some View {
         Text("Foo")
     }
