@@ -1,7 +1,7 @@
 import SwiftUI
 import RecordsData
 
-public struct RecordListPage: View {
+public struct RecordListScreen: View {
     @StateObject private var viewModel = RecordListViewModel()
     
     public init() {}
@@ -22,9 +22,9 @@ public struct RecordListPage: View {
     }
 }
 
-struct RecordListPage_Previews: PreviewProvider {
+struct RecordListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RecordListPage()
+        RecordListScreen()
     }
 }
 
