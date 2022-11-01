@@ -12,7 +12,7 @@ public struct RecordListPage: View {
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         NavigationLink {
-                            RecordInputPage()
+                            RecordInputScreen()
                         } label: {
                             Image(systemName: "plus")
                         }

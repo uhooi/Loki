@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RecordInputPage: View {
+struct RecordInputScreen: View {
     @StateObject private var viewModel = RecordInputViewModel()
     
     var body: some View {
