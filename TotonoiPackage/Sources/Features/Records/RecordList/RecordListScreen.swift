@@ -4,8 +4,6 @@ import RecordsData
 public struct RecordListScreen: View {
     @StateObject private var viewModel = RecordListViewModel()
     
-    public init() {}
-    
     public var body: some View {
         NavigationView {
             RecordListView(sakatsus: viewModel.uiState.sakatsus)
@@ -20,6 +18,8 @@ public struct RecordListScreen: View {
                 }
         }
     }
+    
+    public init() {}
 }
 
 struct RecordListScreen_Previews: PreviewProvider {

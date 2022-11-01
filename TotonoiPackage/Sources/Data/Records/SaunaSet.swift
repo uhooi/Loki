@@ -1,12 +1,12 @@
 import Foundation
 
 public struct SaunaSet {
-    public let sauna: Sauna
-    public let coolBath: CoolBath
-    public let relaxation: Relaxation
+    public var sauna: Sauna
+    public var coolBath: CoolBath
+    public var relaxation: Relaxation
     
     public struct Sauna {
-        public let time: TimeInterval?
+        public var time: TimeInterval?
         
         public init(time: TimeInterval?) {
             self.time = time
@@ -14,7 +14,7 @@ public struct SaunaSet {
     }
     
     public struct CoolBath {
-        public let time: TimeInterval?
+        public var time: TimeInterval?
         
         public init(time: TimeInterval?) {
             self.time = time
@@ -28,9 +28,9 @@ public struct SaunaSet {
             case other
         }
         
-        public let time: TimeInterval?
-        public let place: RelaxationPlace?
-        public let way: String?
+        public var time: TimeInterval?
+        public var place: RelaxationPlace?
+        public var way: String?
         
         public init(time: TimeInterval?, place: RelaxationPlace?, way: String?) {
             self.time = time
