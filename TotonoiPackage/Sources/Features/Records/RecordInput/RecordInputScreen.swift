@@ -8,6 +8,12 @@ struct RecordInputScreen: View {
     }
 }
 
+struct RecordInputScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        RecordInputScreen()
+    }
+}
+
 struct RecordInputView: View {
     var body: some View {
         Text("Foo")
