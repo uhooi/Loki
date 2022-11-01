@@ -32,12 +32,12 @@ struct RecordRowView: View {
                 if let saunaTime = saunaSet.sauna.time {
                     saunaSetView(emoji: "🧖", time: saunaTime)
                 }
-                arrowImage
                 if let coolBathTime = saunaSet.coolBath.time {
+                    arrowImage
                     saunaSetView(emoji: "💧", time: coolBathTime)
                 }
-                arrowImage
                 if let relaxationTime = saunaSet.relaxation.time {
+                    arrowImage
                     saunaSetView(emoji: "🍃", time: relaxationTime)
                 }
             }
