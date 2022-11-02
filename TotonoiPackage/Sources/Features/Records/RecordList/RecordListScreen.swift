@@ -7,6 +7,7 @@ public struct RecordListScreen: View {
     public var body: some View {
         NavigationView {
             RecordListView(sakatsus: viewModel.uiState.sakatsus)
+                .navigationTitle("サ活一覧")
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         NavigationLink {

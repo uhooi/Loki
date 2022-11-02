@@ -20,7 +20,7 @@ struct RecordInputScreen: View {
                 viewModel.onRelaxationTimeChange(relaxationTime: relaxationTime)
             }
         )
-        .navigationTitle("サ活")
+        .navigationTitle("サ活登録")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("保存") {
