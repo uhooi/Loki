@@ -11,10 +11,11 @@ struct RecordInputUiState {
 final class RecordInputViewModel: ObservableObject {
     @Published private(set) var uiState = RecordInputUiState(
         isLoading: true,
-        sakatsu: Sakatsu.preview // TODO: Use real data
+        sakatsu: .init(facilityName: "", visitingDate: .now, saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))], comment: nil)
     )
     
     init() {
+        // TODO: Use real data
     }
     
     func didTapSaveButton() {
