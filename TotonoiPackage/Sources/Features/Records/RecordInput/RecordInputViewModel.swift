@@ -17,6 +17,10 @@ final class RecordInputViewModel: ObservableObject {
     init() {
     }
     
+    func didTapSaveButton() {
+        // TODO:
+    }
+    
     func onFacilityNameChange(facilityName: String) {
         guard validate(facilityName: facilityName) else {
             return

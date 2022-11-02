@@ -21,6 +21,13 @@ struct RecordInputScreen: View {
             }
         )
         .navigationTitle("サ活")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("保存") {
+                    viewModel.didTapSaveButton()
+                }
+            }
+        }
     }
 }
 
