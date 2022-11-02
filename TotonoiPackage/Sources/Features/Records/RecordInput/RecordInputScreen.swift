@@ -8,7 +8,9 @@ struct RecordInputScreen: View {
     var body: some View {
         RecordInputView(
             sakatsu: viewModel.uiState.sakatsu,
-            onFacilityNameChange: { facilityName in
+            didTapAddNewSaunaSetButton: {
+                viewModel.didTapAddNewSaunaSetButton()
+            }, onFacilityNameChange: { facilityName in
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
@@ -48,6 +50,7 @@ private struct RecordInputView: View {
     )
     
     // FIXME: Use `let`
+    private var didTapAddNewSaunaSetButton: (() -> Void) = {}
     private var onFacilityNameChange: ((String) -> Void) = { _ in }
     private var onVisitingDateChange: ((Date) -> Void) = { _ in }
     private var onSaunaTimeChange: ((TimeInterval?) -> Void) = { _ in }
@@ -109,17 +112,24 @@ private struct RecordInputView: View {
                     }
                 }
             }
+            Section {
+                Button("新しいセットを追加") {
+                    didTapAddNewSaunaSetButton()
+                }
+            }
         }
     }
     
     init(
         sakatsu: Sakatsu,
+        didTapAddNewSaunaSetButton: @escaping () -> Void,
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
         onSaunaTimeChange: @escaping (TimeInterval?) -> Void,
         onCoolBathTimeChange: @escaping (TimeInterval?) -> Void,
         onRelaxationTimeChange: @escaping (TimeInterval?) -> Void
     ) {
+        self.didTapAddNewSaunaSetButton = didTapAddNewSaunaSetButton
         self.sakatsu = sakatsu
         self.onFacilityNameChange = onFacilityNameChange
         self.onVisitingDateChange = onVisitingDateChange
@@ -133,7 +143,9 @@ struct RecordInputView_Previews: PreviewProvider {
     static var previews: some View {
         RecordInputView(
             sakatsu: Sakatsu.preview,
-            onFacilityNameChange: { facilityName in
+            didTapAddNewSaunaSetButton: {
+                print("didTapAddNewSaunaSetButton")
+            }, onFacilityNameChange: { facilityName in
                 print("facilityName: \(facilityName)")
             }, onVisitingDateChange: { visitingDate in
                 print("visitingDate: \(visitingDate)")
