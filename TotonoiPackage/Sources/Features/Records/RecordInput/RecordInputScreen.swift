@@ -42,7 +42,7 @@ struct RecordInputScreen_Previews: PreviewProvider {
 }
 
 private struct RecordInputView: View {
-    @State private var sakatsu: Sakatsu = .init(
+    private var sakatsu: Sakatsu = .init(
         facilityName: "",
         visitingDate: .now,
         saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))],
