@@ -35,7 +35,7 @@ final class RecordInputViewModel: ObservableObject {
         guard validate(saunaTime: saunaTime) else {
             return
         }
-//        uiState.sakatsu.saunaSets.first?.sauna.time = saunaTime // TODO:
+//        uiState.sakatsu.saunaSets.first?.sauna.time = saunaTime * 60 // TODO:
     }
     
     func onCoolBathTimeChange(coolBathTime: TimeInterval?) {
@@ -49,7 +49,7 @@ final class RecordInputViewModel: ObservableObject {
         guard validate(relaxationTime: relaxationTime) else {
             return
         }
-//        uiState.sakatsu.saunaSets.first?.relaxation.time = relaxationTime // TODO:
+//        uiState.sakatsu.saunaSets.first?.relaxation.time = relaxationTime * 60 // TODO:
     }
    
     private func validate(facilityName: String) -> Bool {

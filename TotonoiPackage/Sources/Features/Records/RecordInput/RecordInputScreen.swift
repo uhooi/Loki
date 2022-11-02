@@ -71,13 +71,13 @@ private struct RecordInputView: View {
             Section(header: Text("サウナ🧖")) {
                 HStack {
                     Text("時間")
-                    TextField("300", value: .init(get: {
-                        sakatsu.saunaSets.first?.sauna.time // TODO:
+                    TextField("5", value: .init(get: {
+                        sakatsu.saunaSets.first?.sauna.time // TODO: `/ 60`
                     }, set: { newValue in
                         onSaunaTimeChange(newValue)
                     }), format: .number)
                     .keyboardType(.numberPad)
-                    Text("秒")
+                    Text("分")
                 }
             }
             Section(header: Text("水風呂💧")) {
@@ -95,13 +95,13 @@ private struct RecordInputView: View {
             Section(header: Text("休憩🍃")) {
                 HStack {
                     Text("時間")
-                    TextField("600", value: .init(get: {
-                        sakatsu.saunaSets.first?.relaxation.time // TODO:
+                    TextField("10", value: .init(get: {
+                        sakatsu.saunaSets.first?.relaxation.time // TODO: `/ 60`
                     }, set: { newValue in
                         onRelaxationTimeChange(newValue)
                     }), format: .number)
                     .keyboardType(.numberPad)
-                    Text("秒")
+                    Text("分")
                 }
             }
         }
