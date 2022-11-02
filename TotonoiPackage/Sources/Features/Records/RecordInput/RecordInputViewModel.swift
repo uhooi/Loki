@@ -17,25 +17,39 @@ final class RecordInputViewModel: ObservableObject {
     init() {
     }
     
-    func onSubmitFacilityName(facilityName: String) {
+    func onFacilityNameChange(facilityName: String) {
         guard validate(facilityName: facilityName) else {
             return
         }
         uiState.sakatsu.facilityName = facilityName
     }
     
-    func onSubmitVisitingDate(visitingDate: Date) {
+    func onVisitingDateChange(visitingDate: Date) {
         guard validate(visitingDate: visitingDate) else {
             return
         }
         uiState.sakatsu.visitingDate = visitingDate
     }
     
-    func onSubmitSaunaTime(saunaTime: TimeInterval?) {
+    func onSaunaTimeChange(saunaTime: TimeInterval?) {
         guard validate(saunaTime: saunaTime) else {
             return
         }
 //        uiState.sakatsu.saunaSets.first?.sauna.time = saunaTime // TODO:
+    }
+    
+    func onCoolBathTimeChange(coolBathTime: TimeInterval?) {
+        guard validate(coolBathTime: coolBathTime) else {
+            return
+        }
+//        uiState.sakatsu.saunaSets.first?.coolBath.time = coolBathTime // TODO:
+    }
+    
+    func onRelaxationTimeChange(relaxationTime: TimeInterval?) {
+        guard validate(relaxationTime: relaxationTime) else {
+            return
+        }
+//        uiState.sakatsu.saunaSets.first?.relaxation.time = relaxationTime // TODO:
     }
    
     private func validate(facilityName: String) -> Bool {
@@ -47,6 +61,14 @@ final class RecordInputViewModel: ObservableObject {
     }
     
     private func validate(saunaTime: TimeInterval?) -> Bool {
+        return true // TODO: Validate
+    }
+    
+    private func validate(coolBathTime: TimeInterval?) -> Bool {
+        return true // TODO: Validate
+    }
+    
+    private func validate(relaxationTime: TimeInterval?) -> Bool {
         return true // TODO: Validate
     }
 }

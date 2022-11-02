@@ -7,15 +7,17 @@ struct RecordInputScreen: View {
     
     var body: some View {
         RecordInputView(
-            facilityName: viewModel.uiState.sakatsu.facilityName,
-            visitingDate: viewModel.uiState.sakatsu.visitingDate,
-            saunaTime: viewModel.uiState.sakatsu.saunaSets.first?.sauna.time, // TODO:
-            onSubmitFacilityName: { facilityName in
-                viewModel.onSubmitFacilityName(facilityName: facilityName)
-            }, onSubmitVisitingDate: { visitingDate in
-                viewModel.onSubmitVisitingDate(visitingDate: visitingDate)
-            }, onSubmitSaunaTime: { saunaTime in
-                viewModel.onSubmitSaunaTime(saunaTime: saunaTime)
+            sakatsu: viewModel.uiState.sakatsu,
+            onFacilityNameChange: { facilityName in
+                viewModel.onFacilityNameChange(facilityName: facilityName)
+            }, onVisitingDateChange: { visitingDate in
+                viewModel.onVisitingDateChange(visitingDate: visitingDate)
+            }, onSaunaTimeChange: { saunaTime in
+                viewModel.onSaunaTimeChange(saunaTime: saunaTime)
+            }, onCoolBathTimeChange: { coolBathTime in
+                viewModel.onCoolBathTimeChange(coolBathTime: coolBathTime)
+            }, onRelaxationTimeChange: { relaxationTime in
+                viewModel.onRelaxationTimeChange(relaxationTime: relaxationTime)
             }
         )
         .navigationTitle("サ活")
@@ -31,100 +33,108 @@ struct RecordInputScreen_Previews: PreviewProvider {
 }
 
 private struct RecordInputView: View {
-    @State private var facilityName: String = ""
-    @State private var visitingDate: Date = .now
-    @State private var saunaTime: TimeInterval? = nil
-    @State private var coolBathTime: TimeInterval? = nil
-    @State private var relaxationTime: TimeInterval? = nil
+    @State private var sakatsu: Sakatsu = .init(
+        facilityName: "",
+        visitingDate: .now,
+        saunaSets: [],
+        comment: nil
+    )
     
     // FIXME: Use `let`
-    private var onSubmitFacilityName: ((String) -> Void) = { _ in }
-    private var onSubmitVisitingDate: ((Date) -> Void) = { _ in }
-    private var onSubmitSaunaTime: ((TimeInterval?) -> Void) = { _ in }
-    private var onSubmitCoolBathTime: ((TimeInterval?) -> Void) = { _ in }
-    private var onSubmitRelaxationTime: ((TimeInterval?) -> Void) = { _ in }
+    private var onFacilityNameChange: ((String) -> Void) = { _ in }
+    private var onVisitingDateChange: ((Date) -> Void) = { _ in }
+    private var onSaunaTimeChange: ((TimeInterval?) -> Void) = { _ in }
+    private var onCoolBathTimeChange: ((TimeInterval?) -> Void) = { _ in }
+    private var onRelaxationTimeChange: ((TimeInterval?) -> Void) = { _ in }
     
     var body: some View {
         Form {
             Section {
                 HStack {
                     Text("施設名")
-                    TextField("施設名", text: $facilityName)
-                        .onSubmit {
-                            onSubmitFacilityName(facilityName)
-                        }
+                    TextField("施設名", text: .init(get: {
+                        sakatsu.facilityName
+                    }, set: { newValue in
+                        onFacilityNameChange(newValue)
+                    }))
                 }
                 DatePicker(
                     "訪問日",
-                    selection: $visitingDate,
+                    selection: .init(get: {
+                        sakatsu.visitingDate
+                    }, set: { newValue in
+                        onVisitingDateChange(newValue)
+                    }),
                     displayedComponents: [.date]
                 )
-                .onSubmit {
-                    onSubmitVisitingDate(visitingDate)
-                }
             }
             Section(header: Text("サウナ🧖")) {
                 HStack {
                     Text("時間（秒）")
-                    TextField("時間", value: $saunaTime, format: .number)
-                        .keyboardType(.numberPad)
-                        .onSubmit {
-                            onSubmitSaunaTime(saunaTime)
-                        }
+                    TextField("時間", value: .init(get: {
+                        sakatsu.saunaSets.first?.sauna.time // TODO:
+                    }, set: { newValue in
+                        onSaunaTimeChange(newValue)
+                    }), format: .number)
+                    .keyboardType(.numberPad)
                 }
             }
             Section(header: Text("水風呂💧")) {
                 HStack {
                     Text("時間（秒）")
-                    TextField("時間", value: $coolBathTime, format: .number)
-                        .keyboardType(.numberPad)
-                        .onSubmit {
-                            onSubmitCoolBathTime(coolBathTime)
-                        }
+                    TextField("時間", value: .init(get: {
+                        sakatsu.saunaSets.first?.coolBath.time // TODO:
+                    }, set: { newValue in
+                        onCoolBathTimeChange(newValue)
+                    }), format: .number)
+                    .keyboardType(.numberPad)
                 }
             }
             Section(header: Text("休憩🍃")) {
                 HStack {
                     Text("時間（秒）")
-                    TextField("時間", value: $relaxationTime, format: .number)
-                        .keyboardType(.numberPad)
-                        .onSubmit {
-                            onSubmitRelaxationTime(relaxationTime)
-                        }
+                    TextField("時間", value: .init(get: {
+                        sakatsu.saunaSets.first?.relaxation.time // TODO:
+                    }, set: { newValue in
+                        onRelaxationTimeChange(newValue)
+                    }), format: .number)
+                    .keyboardType(.numberPad)
                 }
             }
         }
     }
     
     init(
-        facilityName: String,
-        visitingDate: Date,
-        saunaTime: TimeInterval? = nil,
-        onSubmitFacilityName: @escaping (String) -> Void,
-        onSubmitVisitingDate: @escaping (Date) -> Void,
-        onSubmitSaunaTime: @escaping (TimeInterval?) -> Void
+        sakatsu: Sakatsu,
+        onFacilityNameChange: @escaping (String) -> Void,
+        onVisitingDateChange: @escaping (Date) -> Void,
+        onSaunaTimeChange: @escaping (TimeInterval?) -> Void,
+        onCoolBathTimeChange: @escaping (TimeInterval?) -> Void,
+        onRelaxationTimeChange: @escaping (TimeInterval?) -> Void
     ) {
-        self.facilityName = facilityName
-        self.visitingDate = visitingDate
-        self.saunaTime = saunaTime
-        self.onSubmitFacilityName = onSubmitFacilityName
-        self.onSubmitVisitingDate = onSubmitVisitingDate
-        self.onSubmitSaunaTime = onSubmitSaunaTime
+        self.sakatsu = sakatsu
+        self.onFacilityNameChange = onFacilityNameChange
+        self.onVisitingDateChange = onVisitingDateChange
+        self.onSaunaTimeChange = onSaunaTimeChange
+        self.onCoolBathTimeChange = onCoolBathTimeChange
+        self.onRelaxationTimeChange = onRelaxationTimeChange
     }
 }
 
 struct RecordInputView_Previews: PreviewProvider {
     static var previews: some View {
         RecordInputView(
-            facilityName: Sakatsu.preview.facilityName,
-            visitingDate: Sakatsu.preview.visitingDate,
-            saunaTime: SaunaSet.preview.sauna.time,
-            onSubmitFacilityName: { facilityName in
+            sakatsu: Sakatsu.preview,
+            onFacilityNameChange: { facilityName in
                 print("facilityName: \(facilityName)")
-            }, onSubmitVisitingDate: { visitingDate in
+            }, onVisitingDateChange: { visitingDate in
                 print("visitingDate: \(visitingDate)")
-            }, onSubmitSaunaTime: { saunaTime in
+            }, onSaunaTimeChange: { saunaTime in
                 print("saunaTime: \(saunaTime?.formatted() ?? "")")
+            }, onCoolBathTimeChange: { coolBathTime in
+                print("coolBathTime: \(coolBathTime?.formatted() ?? "")")
+            }, onRelaxationTimeChange: { relaxationTime in
+                print("relaxationTime: \(relaxationTime?.formatted() ?? "")")
             }
         )
     }
