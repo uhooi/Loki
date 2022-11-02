@@ -10,7 +10,9 @@ struct RecordRowView: View {
                 visitingDateText
                 facilityNameText
             }
-            saunaSetsView
+            GroupBox {
+                saunaSetsView
+            }
             commentText
         }
     }
