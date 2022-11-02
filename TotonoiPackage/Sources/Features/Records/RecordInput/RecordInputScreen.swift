@@ -43,7 +43,7 @@ private struct RecordInputView: View {
     @State private var sakatsu: Sakatsu = .init(
         facilityName: "",
         visitingDate: .now,
-        saunaSets: [],
+        saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))],
         comment: nil
     )
     
@@ -75,40 +75,38 @@ private struct RecordInputView: View {
                     displayedComponents: [.date]
                 )
             }
-            Section(header: Text("サウナ🧖")) {
-                HStack {
-                    Text("時間")
-                    TextField("5", value: .init(get: {
-                        sakatsu.saunaSets.first?.sauna.time // TODO: `/ 60`
-                    }, set: { newValue in
-                        onSaunaTimeChange(newValue)
-                    }), format: .number)
-                    .keyboardType(.numberPad)
-                    Text("分")
-                }
-            }
-            Section(header: Text("水風呂💧")) {
-                HStack {
-                    Text("時間")
-                    TextField("30", value: .init(get: {
-                        sakatsu.saunaSets.first?.coolBath.time // TODO:
-                    }, set: { newValue in
-                        onCoolBathTimeChange(newValue)
-                    }), format: .number)
-                    .keyboardType(.numberPad)
-                    Text("秒")
-                }
-            }
-            Section(header: Text("休憩🍃")) {
-                HStack {
-                    Text("時間")
-                    TextField("10", value: .init(get: {
-                        sakatsu.saunaSets.first?.relaxation.time // TODO: `/ 60`
-                    }, set: { newValue in
-                        onRelaxationTimeChange(newValue)
-                    }), format: .number)
-                    .keyboardType(.numberPad)
-                    Text("分")
+            ForEach(sakatsu.saunaSets) { saunaSet in
+                Section(header: Text("1セット目")) { // TODO: Use real number
+                    HStack {
+                        Text("サウナ🧖")
+                        TextField("5", value: .init(get: {
+                            saunaSet.sauna.time // TODO: `/ 60`
+                        }, set: { newValue in
+                            onSaunaTimeChange(newValue)
+                        }), format: .number)
+                        .keyboardType(.numberPad)
+                        Text("分")
+                    }
+                    HStack {
+                        Text("水風呂💧")
+                        TextField("30", value: .init(get: {
+                            saunaSet.coolBath.time
+                        }, set: { newValue in
+                            onCoolBathTimeChange(newValue)
+                        }), format: .number)
+                        .keyboardType(.numberPad)
+                        Text("秒")
+                    }
+                    HStack {
+                        Text("休憩🍃")
+                        TextField("10", value: .init(get: {
+                            saunaSet.relaxation.time // TODO: `/ 60`
+                        }, set: { newValue in
+                            onRelaxationTimeChange(newValue)
+                        }), format: .number)
+                        .keyboardType(.numberPad)
+                        Text("分")
+                    }
                 }
             }
         }

@@ -5,6 +5,12 @@ public struct SaunaSet {
     public var coolBath: CoolBath
     public var relaxation: Relaxation
     
+    public init(sauna: Sauna, coolBath: CoolBath, relaxation: Relaxation) {
+        self.sauna = sauna
+        self.coolBath = coolBath
+        self.relaxation = relaxation
+    }
+    
     public struct Sauna {
         public var time: TimeInterval?
         
@@ -47,7 +53,7 @@ extension SaunaSet: Identifiable {
 #if DEBUG
 extension SaunaSet {
     public static let preview: Self = .init(
-        sauna: .init(time: 8 * 60),
+        sauna: .init(time: 5 * 60),
         coolBath: .init(time: 30),
         relaxation: .init(
             time: 10 * 60,
