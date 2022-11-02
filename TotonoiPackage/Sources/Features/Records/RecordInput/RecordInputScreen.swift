@@ -70,35 +70,38 @@ private struct RecordInputView: View {
             }
             Section(header: Text("サウナ🧖")) {
                 HStack {
-                    Text("時間（秒）")
-                    TextField("時間", value: .init(get: {
+                    Text("時間")
+                    TextField("300", value: .init(get: {
                         sakatsu.saunaSets.first?.sauna.time // TODO:
                     }, set: { newValue in
                         onSaunaTimeChange(newValue)
                     }), format: .number)
                     .keyboardType(.numberPad)
+                    Text("秒")
                 }
             }
             Section(header: Text("水風呂💧")) {
                 HStack {
-                    Text("時間（秒）")
-                    TextField("時間", value: .init(get: {
+                    Text("時間")
+                    TextField("30", value: .init(get: {
                         sakatsu.saunaSets.first?.coolBath.time // TODO:
                     }, set: { newValue in
                         onCoolBathTimeChange(newValue)
                     }), format: .number)
                     .keyboardType(.numberPad)
+                    Text("秒")
                 }
             }
             Section(header: Text("休憩🍃")) {
                 HStack {
-                    Text("時間（秒）")
-                    TextField("時間", value: .init(get: {
+                    Text("時間")
+                    TextField("600", value: .init(get: {
                         sakatsu.saunaSets.first?.relaxation.time // TODO:
                     }, set: { newValue in
                         onRelaxationTimeChange(newValue)
                     }), format: .number)
                     .keyboardType(.numberPad)
+                    Text("秒")
                 }
             }
         }
