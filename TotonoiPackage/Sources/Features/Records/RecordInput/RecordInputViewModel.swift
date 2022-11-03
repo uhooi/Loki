@@ -9,6 +9,7 @@ struct RecordInputUiState {
 
 @MainActor
 final class RecordInputViewModel: ObservableObject {
+    // FIXME: Publishing changes from within view updates is not allowed, this will cause undefined behavior.
     @Published private(set) var uiState = RecordInputUiState(
         isLoading: true,
         sakatsu: .init(facilityName: "", visitingDate: .now, saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))], comment: nil)
