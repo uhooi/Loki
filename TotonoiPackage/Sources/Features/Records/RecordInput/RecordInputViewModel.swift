@@ -24,7 +24,7 @@ final class RecordInputViewModel: ObservableObject {
     }
     
     func onAddNewSaunaSetButtonClick() {
-        uiState.sakatsu.saunaSets.append(SaunaSet(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil)))
+        uiState.sakatsu.saunaSets.append(.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil)))
     }
     
     func onFacilityNameChange(facilityName: String) {
