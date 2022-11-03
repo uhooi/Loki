@@ -63,22 +63,22 @@ final class RecordInputViewModel: ObservableObject {
     }
    
     private func validate(facilityName: String) -> Bool {
-        return true // TODO: Validate
+        facilityName != ""
     }
     
     private func validate(visitingDate: Date) -> Bool {
-        return true // TODO: Validate
+        true // TODO: Disable future dates
     }
     
     private func validate(saunaTime: TimeInterval) -> Bool {
-        return true // TODO: Validate
+        saunaTime >= 0
     }
     
     private func validate(coolBathTime: TimeInterval) -> Bool {
-        return true // TODO: Validate
+        coolBathTime >= 0
     }
     
     private func validate(relaxationTime: TimeInterval) -> Bool {
-        return true // TODO: Validate
+        relaxationTime >= 0
     }
 }
