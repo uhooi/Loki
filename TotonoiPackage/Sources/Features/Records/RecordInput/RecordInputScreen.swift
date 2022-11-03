@@ -88,6 +88,7 @@ private struct RecordInputView: View {
                             onSaunaTimeChange(newValue)
                         }), format: .number)
                         .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
                         Text("分")
                     }
                     HStack {
@@ -98,6 +99,7 @@ private struct RecordInputView: View {
                             onCoolBathTimeChange(newValue)
                         }), format: .number)
                         .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
                         Text("秒")
                     }
                     HStack {
@@ -108,6 +110,7 @@ private struct RecordInputView: View {
                             onRelaxationTimeChange(newValue)
                         }), format: .number)
                         .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
                         Text("分")
                     }
                 }
