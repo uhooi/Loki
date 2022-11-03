@@ -8,8 +8,8 @@ struct RecordInputScreen: View {
     var body: some View {
         RecordInputView(
             sakatsu: viewModel.uiState.sakatsu,
-            didTapAddNewSaunaSetButton: {
-                viewModel.didTapAddNewSaunaSetButton()
+            onAddNewSaunaSetButtonClick: {
+                viewModel.onAddNewSaunaSetButtonClick()
             }, onFacilityNameChange: { facilityName in
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
@@ -50,7 +50,7 @@ private struct RecordInputView: View {
     )
     
     // FIXME: Use `let`
-    private var didTapAddNewSaunaSetButton: (() -> Void) = {}
+    private var onAddNewSaunaSetButtonClick: (() -> Void) = {}
     private var onFacilityNameChange: ((String) -> Void) = { _ in }
     private var onVisitingDateChange: ((Date) -> Void) = { _ in }
     private var onSaunaTimeChange: ((TimeInterval?) -> Void) = { _ in }
@@ -117,7 +117,7 @@ private struct RecordInputView: View {
             }
             Section {
                 Button("新しいセットを追加") {
-                    didTapAddNewSaunaSetButton()
+                    onAddNewSaunaSetButtonClick()
                 }
             }
         }
@@ -125,14 +125,14 @@ private struct RecordInputView: View {
     
     init(
         sakatsu: Sakatsu,
-        didTapAddNewSaunaSetButton: @escaping () -> Void,
+        onAddNewSaunaSetButtonClick: @escaping () -> Void,
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
         onSaunaTimeChange: @escaping (TimeInterval?) -> Void,
         onCoolBathTimeChange: @escaping (TimeInterval?) -> Void,
         onRelaxationTimeChange: @escaping (TimeInterval?) -> Void
     ) {
-        self.didTapAddNewSaunaSetButton = didTapAddNewSaunaSetButton
+        self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
         self.sakatsu = sakatsu
         self.onFacilityNameChange = onFacilityNameChange
         self.onVisitingDateChange = onVisitingDateChange
@@ -146,8 +146,8 @@ struct RecordInputView_Previews: PreviewProvider {
     static var previews: some View {
         RecordInputView(
             sakatsu: Sakatsu.preview,
-            didTapAddNewSaunaSetButton: {
-                print("didTapAddNewSaunaSetButton")
+            onAddNewSaunaSetButtonClick: {
+                print("onAddNewSaunaSetButtonClick")
             }, onFacilityNameChange: { facilityName in
                 print("facilityName: \(facilityName)")
             }, onVisitingDateChange: { visitingDate in
