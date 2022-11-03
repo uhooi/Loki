@@ -78,7 +78,7 @@ private struct RecordInputView: View {
                     displayedComponents: [.date]
                 )
             }
-            ForEach(0..<sakatsu.saunaSets.count) { saunaSetIndex in
+            ForEach(0..<sakatsu.saunaSets.count, id: \.self) { saunaSetIndex in
                 let saunaSet = sakatsu.saunaSets[saunaSetIndex]
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) { // TODO: Use real number
                     HStack {
