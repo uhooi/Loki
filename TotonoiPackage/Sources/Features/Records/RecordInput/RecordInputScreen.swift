@@ -84,7 +84,7 @@ private struct RecordInputView: View {
                     HStack {
                         Text("サウナ🧖")
                         TextField("5", value: .init(get: {
-                            saunaSet.sauna.time == nil ? nil : saunaSet.sauna.time! / 60
+                            saunaSet.sauna.time.map { $0 / 60 }
                         }, set: { newValue in
                             onSaunaTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
@@ -106,7 +106,7 @@ private struct RecordInputView: View {
                     HStack {
                         Text("休憩🍃")
                         TextField("10", value: .init(get: {
-                            saunaSet.relaxation.time == nil ? nil : saunaSet.relaxation.time! / 60
+                            saunaSet.relaxation.time.map { $0 / 60 }
                         }, set: { newValue in
                             onRelaxationTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
