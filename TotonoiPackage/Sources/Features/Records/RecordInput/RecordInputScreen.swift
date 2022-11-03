@@ -26,7 +26,7 @@ struct RecordInputScreen: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("保存") {
-                    viewModel.didTapSaveButton()
+                    viewModel.onSaveButtonClick()
                 }
             }
         }

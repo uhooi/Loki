@@ -19,7 +19,7 @@ final class RecordInputViewModel: ObservableObject {
         // TODO: Use real data
     }
     
-    func didTapSaveButton() {
+    func onSaveButtonClick() {
         // TODO:
     }
     
