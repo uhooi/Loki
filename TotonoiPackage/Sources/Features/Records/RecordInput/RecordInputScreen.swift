@@ -62,7 +62,7 @@ private struct RecordInputView: View {
             Section {
                 HStack {
                     Text("施設名")
-                    TextField("施設名", text: .init(get: {
+                    TextField("", text: .init(get: {
                         sakatsu.facilityName
                     }, set: { newValue in
                         onFacilityNameChange(newValue)
@@ -83,7 +83,7 @@ private struct RecordInputView: View {
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) { // TODO: Use real number
                     HStack {
                         Text("サウナ🧖")
-                        TextField("5", value: .init(get: {
+                        TextField("オプション", value: .init(get: {
                             saunaSet.sauna.time.map { $0 / 60 }
                         }, set: { newValue in
                             onSaunaTimeChange(saunaSetIndex, newValue)
@@ -94,7 +94,7 @@ private struct RecordInputView: View {
                     }
                     HStack {
                         Text("水風呂💧")
-                        TextField("30", value: .init(get: {
+                        TextField("オプション", value: .init(get: {
                             saunaSet.coolBath.time
                         }, set: { newValue in
                             onCoolBathTimeChange(saunaSetIndex, newValue)
@@ -105,7 +105,7 @@ private struct RecordInputView: View {
                     }
                     HStack {
                         Text("休憩🍃")
-                        TextField("10", value: .init(get: {
+                        TextField("オプション", value: .init(get: {
                             saunaSet.relaxation.time.map { $0 / 60 }
                         }, set: { newValue in
                             onRelaxationTimeChange(saunaSetIndex, newValue)
