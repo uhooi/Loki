@@ -28,6 +28,7 @@ struct RecordInputScreen: View {
                 Button("保存") {
                     viewModel.onSaveButtonClick()
                 }
+                .disabled(viewModel.uiState.sakatsu.facilityName == "")
             }
         }
     }
