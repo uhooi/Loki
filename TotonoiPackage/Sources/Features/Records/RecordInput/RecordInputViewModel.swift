@@ -41,25 +41,25 @@ final class RecordInputViewModel: ObservableObject {
         uiState.sakatsu.visitingDate = visitingDate
     }
     
-    func onSaunaTimeChange(saunaTime: TimeInterval?) {
-        guard validate(saunaTime: saunaTime) else {
+    func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
+        guard let saunaTime, validate(saunaTime: saunaTime) else {
             return
         }
-//        uiState.sakatsu.saunaSets.first?.sauna.time = saunaTime * 60 // TODO:
+        uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime * 60
     }
     
-    func onCoolBathTimeChange(coolBathTime: TimeInterval?) {
-        guard validate(coolBathTime: coolBathTime) else {
+    func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
+        guard let coolBathTime, validate(coolBathTime: coolBathTime) else {
             return
         }
-//        uiState.sakatsu.saunaSets.first?.coolBath.time = coolBathTime // TODO:
+        uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
     }
     
-    func onRelaxationTimeChange(relaxationTime: TimeInterval?) {
-        guard validate(relaxationTime: relaxationTime) else {
+    func onRelaxationTimeChange(saunaSetIndex: Int, relaxationTime: TimeInterval?) {
+        guard let relaxationTime, validate(relaxationTime: relaxationTime) else {
             return
         }
-//        uiState.sakatsu.saunaSets.first?.relaxation.time = relaxationTime * 60 // TODO:
+        uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime * 60
     }
    
     private func validate(facilityName: String) -> Bool {
@@ -70,15 +70,15 @@ final class RecordInputViewModel: ObservableObject {
         return true // TODO: Validate
     }
     
-    private func validate(saunaTime: TimeInterval?) -> Bool {
+    private func validate(saunaTime: TimeInterval) -> Bool {
         return true // TODO: Validate
     }
     
-    private func validate(coolBathTime: TimeInterval?) -> Bool {
+    private func validate(coolBathTime: TimeInterval) -> Bool {
         return true // TODO: Validate
     }
     
-    private func validate(relaxationTime: TimeInterval?) -> Bool {
+    private func validate(relaxationTime: TimeInterval) -> Bool {
         return true // TODO: Validate
     }
 }

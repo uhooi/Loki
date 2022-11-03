@@ -14,12 +14,12 @@ struct RecordInputScreen: View {
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
-            }, onSaunaTimeChange: { saunaTime in
-                viewModel.onSaunaTimeChange(saunaTime: saunaTime)
-            }, onCoolBathTimeChange: { coolBathTime in
-                viewModel.onCoolBathTimeChange(coolBathTime: coolBathTime)
-            }, onRelaxationTimeChange: { relaxationTime in
-                viewModel.onRelaxationTimeChange(relaxationTime: relaxationTime)
+            }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
+                viewModel.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime)
+            }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
+                viewModel.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime)
+            }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
+                viewModel.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime)
             }
         )
         .navigationTitle("サ活登録")
@@ -53,9 +53,9 @@ private struct RecordInputView: View {
     private var onAddNewSaunaSetButtonClick: (() -> Void) = {}
     private var onFacilityNameChange: ((String) -> Void) = { _ in }
     private var onVisitingDateChange: ((Date) -> Void) = { _ in }
-    private var onSaunaTimeChange: ((TimeInterval?) -> Void) = { _ in }
-    private var onCoolBathTimeChange: ((TimeInterval?) -> Void) = { _ in }
-    private var onRelaxationTimeChange: ((TimeInterval?) -> Void) = { _ in }
+    private var onSaunaTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
+    private var onCoolBathTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
+    private var onRelaxationTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
     
     var body: some View {
         Form {
@@ -78,14 +78,15 @@ private struct RecordInputView: View {
                     displayedComponents: [.date]
                 )
             }
-            ForEach(sakatsu.saunaSets) { saunaSet in
-                Section(header: Text("1セット目")) { // TODO: Use real number
+            ForEach(0..<sakatsu.saunaSets.count) { saunaSetIndex in
+                let saunaSet = sakatsu.saunaSets[saunaSetIndex]
+                Section(header: Text("\(saunaSetIndex + 1)セット目")) { // TODO: Use real number
                     HStack {
                         Text("サウナ🧖")
                         TextField("5", value: .init(get: {
                             saunaSet.sauna.time // TODO: `/ 60`
                         }, set: { newValue in
-                            onSaunaTimeChange(newValue)
+                            onSaunaTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
@@ -96,7 +97,7 @@ private struct RecordInputView: View {
                         TextField("30", value: .init(get: {
                             saunaSet.coolBath.time
                         }, set: { newValue in
-                            onCoolBathTimeChange(newValue)
+                            onCoolBathTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
@@ -107,7 +108,7 @@ private struct RecordInputView: View {
                         TextField("10", value: .init(get: {
                             saunaSet.relaxation.time // TODO: `/ 60`
                         }, set: { newValue in
-                            onRelaxationTimeChange(newValue)
+                            onRelaxationTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
@@ -128,9 +129,9 @@ private struct RecordInputView: View {
         onAddNewSaunaSetButtonClick: @escaping () -> Void,
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
-        onSaunaTimeChange: @escaping (TimeInterval?) -> Void,
-        onCoolBathTimeChange: @escaping (TimeInterval?) -> Void,
-        onRelaxationTimeChange: @escaping (TimeInterval?) -> Void
+        onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
+        onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
+        onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void
     ) {
         self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
         self.sakatsu = sakatsu
@@ -152,11 +153,14 @@ struct RecordInputView_Previews: PreviewProvider {
                 print("facilityName: \(facilityName)")
             }, onVisitingDateChange: { visitingDate in
                 print("visitingDate: \(visitingDate)")
-            }, onSaunaTimeChange: { saunaTime in
+            }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
+                print("saunaSetIndex: \(saunaSetIndex)")
                 print("saunaTime: \(saunaTime?.formatted() ?? "")")
-            }, onCoolBathTimeChange: { coolBathTime in
+            }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
+                print("saunaSetIndex: \(saunaSetIndex)")
                 print("coolBathTime: \(coolBathTime?.formatted() ?? "")")
-            }, onRelaxationTimeChange: { relaxationTime in
+            }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
+                print("saunaSetIndex: \(saunaSetIndex)")
                 print("relaxationTime: \(relaxationTime?.formatted() ?? "")")
             }
         )
