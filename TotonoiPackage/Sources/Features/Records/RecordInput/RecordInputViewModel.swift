@@ -15,7 +15,7 @@ final class RecordInputViewModel<Repository: SakatsuRepository>: ObservableObjec
     )
     private let repository: Repository
     
-    init(repository: Repository = SakatsuUserDefaultsClient()) {
+    init(repository: Repository = SakatsuUserDefaultsClient.shared) {
         self.repository = repository
     }
     

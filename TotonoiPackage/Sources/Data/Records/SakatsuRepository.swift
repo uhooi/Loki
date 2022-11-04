@@ -6,9 +6,10 @@ public protocol SakatsuRepository {
 }
 
 public struct SakatsuUserDefaultsClient {
+    public static let shared = Self()
     private static let sakatsusKey = "sakatsus"
     
-    public init() {}
+    private init() {}
 }
 
 extension SakatsuUserDefaultsClient: SakatsuRepository {
