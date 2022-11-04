@@ -13,12 +13,17 @@ final class RecordInputViewModel<Repository: SakatsuRepository>: ObservableObjec
         isLoading: true,
         sakatsu: .init(facilityName: "", visitingDate: .now, saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))], comment: nil)
     )
+    
     private let repository: Repository
     
-    init(repository: Repository = SakatsuUserDefaultsClient.shared) {
+    nonisolated init(repository: Repository = SakatsuUserDefaultsClient.shared) {
         self.repository = repository
     }
-    
+}
+
+// MARK: Event handler
+
+extension RecordInputViewModel {
     func onSaveButtonClick() async {
         var sakatsus = (try? await repository.sakatsus()) ?? []
         sakatsus.append(uiState.sakatsu)
