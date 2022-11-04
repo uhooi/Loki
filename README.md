@@ -16,7 +16,7 @@ Totonoi（整い）は、サ活の記録に特化したアプリです。
 ### 必要条件
 
 - macOS 12.5+
-- Xcode 14.0.1 (Swift 5.7)
+- Xcode 14.1 (Swift 5.7.1)
 - Make
 
 ### 構成
