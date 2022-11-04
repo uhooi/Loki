@@ -24,6 +24,10 @@ final class RecordListViewModel<Repository: SakatsuRepository>: ObservableObject
         await refreshSakatsus()
     }
     
+    func onEditButtonClick() {
+        // TODO:
+    }
+    
     func onDelete(at offsets: IndexSet) async throws {
         uiState.sakatsus.remove(atOffsets: offsets)
         try await repository.saveSakatsus(uiState.sakatsus)

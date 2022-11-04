@@ -10,7 +10,9 @@ public struct RecordListScreen: View {
         NavigationView {
             RecordListView(
                 sakatsus: viewModel.uiState.sakatsus,
-                onDelete: { offsets in
+                onEditButtonClick: {
+                    viewModel.onEditButtonClick()
+                }, onDelete: { offsets in
                     Task {
                         try? await viewModel.onDelete(at: offsets) // TODO: Error handling
                     }
@@ -50,13 +52,17 @@ struct RecordListScreen_Previews: PreviewProvider {
 
 private struct RecordListView: View {
     let sakatsus: [Sakatsu]
+    let onEditButtonClick: () -> Void
     let onDelete: (IndexSet) -> Void
     
     var body: some View {
         List {
             ForEach(sakatsus) { sakatsu in
-                RecordRowView(sakatsu: sakatsu)
-                    .padding(.vertical)
+                RecordRowView(
+                    sakatsu: sakatsu,
+                    onEditButtonClick: {
+                        onEditButtonClick()
+                    })
             }
             .onDelete { offsets in
                 onDelete(offsets)
@@ -69,6 +75,7 @@ struct RecordListView_Previews: PreviewProvider {
     static var previews: some View {
         RecordListView(
             sakatsus: [Sakatsu.preview],
+            onEditButtonClick: {},
             onDelete: { offsets in
                 print("onDelete")
             }

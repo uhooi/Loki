@@ -3,6 +3,7 @@ import RecordsData
 
 struct RecordRowView: View {
     var sakatsu: Sakatsu
+    let onEditButtonClick: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -11,12 +12,12 @@ struct RecordRowView: View {
                     visitingDateText
                     facilityNameText
                 }
-                Button {
-                    print("Foo") // TODO: 
+                Menu {
+                    Button("編集", action: onEditButtonClick)
+                    
                 } label: {
                     Image(systemName: "ellipsis")
                 }
-                .buttonStyle(.borderless)
                 .frame(maxWidth: .infinity, alignment: .topTrailing)
             }
             GroupBox {
@@ -78,6 +79,9 @@ struct RecordRowView: View {
 
 struct RecordRowView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordRowView(sakatsu: Sakatsu.preview)
+        RecordRowView(
+            sakatsu: Sakatsu.preview,
+            onEditButtonClick: {}
+        )
     }
 }
