@@ -21,6 +21,17 @@ final class RecordListViewModel: ObservableObject {
         refreshSakatsus()
     }
     
+    func onDelete(at offsets: IndexSet) {
+        uiState.sakatsus.remove(atOffsets: offsets)
+        
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
+        guard let data = try? jsonEncoder.encode(uiState.sakatsus) else {
+            return
+        }
+        UserDefaults.standard.set(data, forKey: Self.sakatsusKey)
+    }
+    
     private func refreshSakatsus() {
         uiState.isLoading = true
         let jsonDecoder = JSONDecoder()
