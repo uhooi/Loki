@@ -49,13 +49,7 @@ struct RecordInputScreen_Previews: PreviewProvider {
 }
 
 private struct RecordInputView: View {
-    var sakatsu: Sakatsu = .init(
-        facilityName: "",
-        visitingDate: .now,
-        saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))],
-        comment: nil
-    )
-    
+    let sakatsu: Sakatsu
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)

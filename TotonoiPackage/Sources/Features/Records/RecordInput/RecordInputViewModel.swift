@@ -11,7 +11,7 @@ struct RecordInputUiState {
 final class RecordInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = RecordInputUiState(
         isLoading: true,
-        sakatsu: .init(facilityName: "", visitingDate: .now, saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))], comment: nil)
+        sakatsu: .empty
     )
     
     private let repository: Repository
@@ -31,7 +31,7 @@ extension RecordInputViewModel {
     }
     
     func onAddNewSaunaSetButtonClick() {
-        uiState.sakatsu.saunaSets.append(.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil)))
+        uiState.sakatsu.saunaSets.append(.empty)
     }
     
     func onFacilityNameChange(facilityName: String) {
