@@ -10,7 +10,9 @@ struct RecordRowView: View {
                 visitingDateText
                 facilityNameText
             }
-            saunaSetsView
+            GroupBox {
+                saunaSetsView
+            }
             commentText
         }
     }
@@ -30,15 +32,15 @@ struct RecordRowView: View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
                 if let saunaTime = saunaSet.sauna.time {
-                    saunaSetView(emoji: "🧖", time: saunaTime)
+                    saunaSetView(emoji: "🧖", time: saunaTime / 60, unit: "分")
                 }
-                arrowImage
                 if let coolBathTime = saunaSet.coolBath.time {
-                    saunaSetView(emoji: "💧", time: coolBathTime)
+                    arrowImage
+                    saunaSetView(emoji: "💧", time: coolBathTime, unit: "秒")
                 }
-                arrowImage
                 if let relaxationTime = saunaSet.relaxation.time {
-                    saunaSetView(emoji: "🍃", time: relaxationTime)
+                    arrowImage
+                    saunaSetView(emoji: "🍃", time: relaxationTime / 60, unit: "分")
                 }
             }
         }
@@ -54,12 +56,12 @@ struct RecordRowView: View {
             .font(.body)
     }
     
-    private func saunaSetView(emoji: String, time: TimeInterval) -> some View {
+    private func saunaSetView(emoji: String, time: TimeInterval, unit: String) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             Text(emoji)
             Text("\(time.formatted())")
                 .font(.system(.title2, design: .rounded))
-            Text("秒")
+            Text(unit)
                 .font(.caption)
         }
     }

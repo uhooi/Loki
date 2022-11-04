@@ -1,10 +1,10 @@
 import Foundation
 
 public struct Sakatsu {
-    public let facilityName: String
-    public let visitingDate: Date
-    public let saunaSets: [SaunaSet]
-    public let comment: String?
+    public var facilityName: String
+    public var visitingDate: Date
+    public var saunaSets: [SaunaSet]
+    public var comment: String?
     
     public init(facilityName: String, visitingDate: Date, saunaSets: [SaunaSet], comment: String?) {
         self.facilityName = facilityName
@@ -23,7 +23,7 @@ extension Sakatsu {
     public static let preview: Self = .init(
         facilityName: "サウナウホーイ",
         visitingDate: .now,
-        saunaSets: [SaunaSet.preview],
+        saunaSets: [SaunaSet.preview, SaunaSet.preview, SaunaSet.preview],
         comment: "コメントテスト"
     )
 }
