@@ -6,9 +6,18 @@ struct RecordRowView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            VStack(alignment: .leading) {
-                visitingDateText
-                facilityNameText
+            HStack {
+                VStack(alignment: .leading) {
+                    visitingDateText
+                    facilityNameText
+                }
+                Button {
+                    print("Foo") // TODO: 
+                } label: {
+                    Image(systemName: "ellipsis")
+                }
+                .buttonStyle(.borderless)
+                .frame(maxWidth: .infinity, alignment: .topTrailing)
             }
             GroupBox {
                 saunaSetsView
