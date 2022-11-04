@@ -80,7 +80,7 @@ struct RecordRowView: View {
 struct RecordRowView_Previews: PreviewProvider {
     static var previews: some View {
         RecordRowView(
-            sakatsu: Sakatsu.preview,
+            sakatsu: .preview,
             onEditButtonClick: {}
         )
     }

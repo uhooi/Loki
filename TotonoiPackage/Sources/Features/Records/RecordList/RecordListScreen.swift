@@ -74,11 +74,9 @@ private struct RecordListView: View {
 struct RecordListView_Previews: PreviewProvider {
     static var previews: some View {
         RecordListView(
-            sakatsus: [Sakatsu.preview],
+            sakatsus: [.preview],
             onEditButtonClick: {},
-            onDelete: { offsets in
-                print("onDelete")
-            }
+            onDelete: { _ in }
         )
     }
 }

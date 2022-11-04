@@ -9,7 +9,10 @@ struct RecordListUiState {
 
 @MainActor
 final class RecordListViewModel<Repository: SakatsuRepository>: ObservableObject {
-    @Published private(set) var uiState = RecordListUiState(isLoading: true, sakatsus: [])
+    @Published private(set) var uiState = RecordListUiState(
+        isLoading: true,
+        sakatsus: []
+    )
     
     private let repository: Repository
     

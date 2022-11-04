@@ -28,7 +28,7 @@ extension Sakatsu {
     public static let preview: Self = .init(
         facilityName: "サウナウホーイ",
         visitingDate: .now,
-        saunaSets: [SaunaSet.preview, SaunaSet.preview, SaunaSet.preview],
+        saunaSets: [.preview, .preview, .preview],
         comment: "コメントテスト"
     )
 }
