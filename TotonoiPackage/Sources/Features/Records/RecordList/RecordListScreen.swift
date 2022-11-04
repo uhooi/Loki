@@ -21,6 +21,7 @@ public struct RecordListScreen: View {
                             NavigationView {
                                 RecordInputScreen(onSakatsuSave: {
                                     isShowingSheet = false
+                                    viewModel.onSakatsuSave()
                                 })
                             }
                         }

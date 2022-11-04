@@ -17,6 +17,10 @@ final class RecordListViewModel: ObservableObject {
         refreshSakatsus()
     }
     
+    func onSakatsuSave() {
+        refreshSakatsus()
+    }
+    
     private func refreshSakatsus() {
         uiState.isLoading = true
         let jsonDecoder = JSONDecoder()
