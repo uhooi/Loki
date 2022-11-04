@@ -29,8 +29,10 @@ struct RecordInputScreen: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("保存") {
-                    viewModel.onSaveButtonClick()
-                    onSakatsuSave()
+                    Task {
+                        await viewModel.onSaveButtonClick()
+                        onSakatsuSave()
+                    }
                 }
                 .disabled(viewModel.uiState.sakatsu.facilityName == "")
             }
@@ -47,20 +49,19 @@ struct RecordInputScreen_Previews: PreviewProvider {
 }
 
 private struct RecordInputView: View {
-    private var sakatsu: Sakatsu = .init(
+    var sakatsu: Sakatsu = .init(
         facilityName: "",
         visitingDate: .now,
         saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))],
         comment: nil
     )
     
-    // FIXME: Use `let`
-    private var onAddNewSaunaSetButtonClick: (() -> Void) = {}
-    private var onFacilityNameChange: ((String) -> Void) = { _ in }
-    private var onVisitingDateChange: ((Date) -> Void) = { _ in }
-    private var onSaunaTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
-    private var onCoolBathTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
-    private var onRelaxationTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
+    let onAddNewSaunaSetButtonClick: (() -> Void)
+    let onFacilityNameChange: ((String) -> Void)
+    let onVisitingDateChange: ((Date) -> Void)
+    let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
+    let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
+    let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
     
     var body: some View {
         Form {
