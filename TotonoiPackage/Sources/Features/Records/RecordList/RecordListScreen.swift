@@ -4,16 +4,25 @@ import RecordsData
 public struct RecordListScreen: View {
     @StateObject private var viewModel = RecordListViewModel()
     
+    @State private var isShowingSheet = false
+    
     public var body: some View {
         NavigationView {
             RecordListView(sakatsus: viewModel.uiState.sakatsus)
                 .navigationTitle("サ活一覧")
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
-                        NavigationLink {
-                            RecordInputScreen()
+                        Button {
+                            isShowingSheet = true
                         } label: {
                             Image(systemName: "plus")
+                        }
+                        .sheet(isPresented: $isShowingSheet) {
+                            NavigationView {
+                                RecordInputScreen(onSakatsuSave: {
+                                    isShowingSheet = false
+                                })
+                            }
                         }
                     }
                 }
