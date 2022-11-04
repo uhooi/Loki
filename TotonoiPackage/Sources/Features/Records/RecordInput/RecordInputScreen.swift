@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import RecordsData
+import Algorithms
 
 struct RecordInputScreen: View {
     @StateObject private var viewModel = RecordInputViewModel()
