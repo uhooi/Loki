@@ -122,9 +122,7 @@ private struct RecordInputView: View {
                 }
             }
             Section {
-                Button("新しいセットを追加") {
-                    onAddNewSaunaSetButtonClick()
-                }
+                Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
         }
     }
