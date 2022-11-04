@@ -17,6 +17,7 @@ let package = Package(
             ]),
     ],
     dependencies: [
+        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
     ],
     targets: [
         // Feature layer
@@ -24,6 +25,7 @@ let package = Package(
             name: "RecordsFeature",
             dependencies: [
                 "RecordsData",
+                .product(name: "Algorithms", package: "swift-algorithms")
             ],
             path: "./Sources/Features/Records"),
         .testTarget(
