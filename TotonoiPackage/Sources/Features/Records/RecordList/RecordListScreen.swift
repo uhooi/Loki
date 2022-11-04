@@ -11,7 +11,9 @@ public struct RecordListScreen: View {
             RecordListView(
                 sakatsus: viewModel.uiState.sakatsus,
                 onDelete: { offsets in
-                    viewModel.onDelete(at: offsets)
+                    Task {
+                        try? await viewModel.onDelete(at: offsets)
+                    }
                 }
             )
             .navigationTitle("サ活一覧")
@@ -26,8 +28,10 @@ public struct RecordListScreen: View {
                         NavigationView {
                             RecordInputScreen(onSakatsuSave: {
                                 isShowingSheet = false
-                                viewModel.onSakatsuSave()
-                            })
+                                Task {
+                                    await viewModel.onSakatsuSave()
+                                }
+                                })
                         }
                     }
                 }

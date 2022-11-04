@@ -8,38 +8,30 @@ struct RecordListUiState {
 }
 
 @MainActor
-final class RecordListViewModel: ObservableObject {
-    private static let sakatsusKey = "sakatsus"
-    
+final class RecordListViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = RecordListUiState(isLoading: true, sakatsus: [])
     
-    init() {
-        refreshSakatsus()
+    private let repository: Repository
+    
+    init(repository: Repository = SakatsuUserDefaultsClient()) {
+        self.repository = repository
+        Task {
+            await refreshSakatsus()
+        }
     }
     
-    func onSakatsuSave() {
-        refreshSakatsus()
+    func onSakatsuSave() async {
+        await refreshSakatsus()
     }
     
-    func onDelete(at offsets: IndexSet) {
+    func onDelete(at offsets: IndexSet) async throws {
         uiState.sakatsus.remove(atOffsets: offsets)
-        
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
-        guard let data = try? jsonEncoder.encode(uiState.sakatsus) else {
-            return
-        }
-        UserDefaults.standard.set(data, forKey: Self.sakatsusKey)
+        try await repository.saveSakatsus(uiState.sakatsus)
     }
     
-    private func refreshSakatsus() {
+    private func refreshSakatsus() async {
         uiState.isLoading = true
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        if let data = UserDefaults.standard.data(forKey: Self.sakatsusKey),
-           let sakatsus = try? jsonDecoder.decode([Sakatsu].self, from: data) {
-            uiState.sakatsus = sakatsus
-        }
+        uiState.sakatsus = (try? await repository.sakatsus()) ?? [] // FIXME:
         uiState.isLoading = false
     }
 }
