@@ -9,17 +9,30 @@ struct RecordInputUiState {
 
 @MainActor
 final class RecordInputViewModel: ObservableObject {
+    private static let sakatsusKey = "sakatsus"
+    
     @Published private(set) var uiState = RecordInputUiState(
         isLoading: true,
         sakatsu: .init(facilityName: "", visitingDate: .now, saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))], comment: nil)
     )
     
-    init() {
-        // TODO: Use real data
-    }
-    
     func onSaveButtonClick() {
-        // TODO:
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+        var sakatsus: [Sakatsu]
+        if let data = UserDefaults.standard.data(forKey: Self.sakatsusKey) {
+            sakatsus = (try? jsonDecoder.decode([Sakatsu].self, from: data)) ?? []
+        } else {
+            sakatsus = []
+        }
+        sakatsus.append(uiState.sakatsu)
+        
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
+        guard let data = try? jsonEncoder.encode(sakatsus) else {
+            return
+        }
+        UserDefaults.standard.set(data, forKey: Self.sakatsusKey)
     }
     
     func onAddNewSaunaSetButtonClick() {

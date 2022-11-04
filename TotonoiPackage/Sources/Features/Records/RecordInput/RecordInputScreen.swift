@@ -5,6 +5,8 @@ import RecordsData
 struct RecordInputScreen: View {
     @StateObject private var viewModel = RecordInputViewModel()
     
+    let onSakatsuSave: () -> Void
+    
     var body: some View {
         RecordInputView(
             sakatsu: viewModel.uiState.sakatsu,
@@ -27,6 +29,7 @@ struct RecordInputScreen: View {
             ToolbarItem(placement: .primaryAction) {
                 Button("保存") {
                     viewModel.onSaveButtonClick()
+                    onSakatsuSave()
                 }
                 .disabled(viewModel.uiState.sakatsu.facilityName == "")
             }
@@ -37,7 +40,7 @@ struct RecordInputScreen: View {
 struct RecordInputScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            RecordInputScreen()
+            RecordInputScreen(onSakatsuSave: {})
         }
     }
 }
