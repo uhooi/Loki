@@ -12,7 +12,7 @@ public struct RecordListScreen: View {
                 sakatsus: viewModel.uiState.sakatsus,
                 onDelete: { offsets in
                     Task {
-                        try? await viewModel.onDelete(at: offsets)
+                        try? await viewModel.onDelete(at: offsets) // TODO: Error handling
                     }
                 }
             )

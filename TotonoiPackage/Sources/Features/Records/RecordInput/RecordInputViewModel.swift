@@ -22,7 +22,7 @@ final class RecordInputViewModel<Repository: SakatsuRepository>: ObservableObjec
     func onSaveButtonClick() async {
         var sakatsus = (try? await repository.sakatsus()) ?? []
         sakatsus.append(uiState.sakatsu)
-        try? await repository.saveSakatsus(sakatsus)
+        try? await repository.saveSakatsus(sakatsus) // TODO: Error handling
     }
     
     func onAddNewSaunaSetButtonClick() {
