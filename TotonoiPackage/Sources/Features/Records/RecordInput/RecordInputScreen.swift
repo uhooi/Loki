@@ -55,12 +55,12 @@ private struct RecordInputView: View {
         comment: nil
     )
     
-    var onAddNewSaunaSetButtonClick: (() -> Void) = {}
-    var onFacilityNameChange: ((String) -> Void) = { _ in }
-    var onVisitingDateChange: ((Date) -> Void) = { _ in }
-    var onSaunaTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
-    var onCoolBathTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
-    var onRelaxationTimeChange: ((Int, TimeInterval?) -> Void) = { _, _ in }
+    let onAddNewSaunaSetButtonClick: (() -> Void)
+    let onFacilityNameChange: ((String) -> Void)
+    let onVisitingDateChange: ((Date) -> Void)
+    let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
+    let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
+    let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
     
     var body: some View {
         Form {
