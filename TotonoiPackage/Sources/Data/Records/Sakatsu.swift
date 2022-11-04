@@ -18,6 +18,9 @@ extension Sakatsu: Identifiable {
     public var id: String { facilityName + visitingDate.formatted() }
 }
 
+// For save UserDefaults
+extension Sakatsu: Codable {}
+
 #if DEBUG
 extension Sakatsu {
     public static let preview: Self = .init(

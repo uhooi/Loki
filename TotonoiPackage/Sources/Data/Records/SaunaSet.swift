@@ -50,6 +50,13 @@ extension SaunaSet: Identifiable {
     public var id: UUID { UUID() }
 }
 
+// For save UserDefaults
+extension SaunaSet: Codable {}
+extension SaunaSet.Sauna: Codable {}
+extension SaunaSet.CoolBath: Codable {}
+extension SaunaSet.Relaxation: Codable {}
+extension SaunaSet.Relaxation.RelaxationPlace: Codable {}
+
 #if DEBUG
 extension SaunaSet {
     public static let preview: Self = .init(
