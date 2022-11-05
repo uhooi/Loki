@@ -14,7 +14,6 @@ struct RecordRowView: View {
                 }
                 Menu {
                     Button("編集", action: onEditButtonClick)
-                    
                 } label: {
                     Image(systemName: "ellipsis")
                 }
