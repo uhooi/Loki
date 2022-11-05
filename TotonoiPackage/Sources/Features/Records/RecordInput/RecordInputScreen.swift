@@ -34,7 +34,7 @@ struct RecordInputScreen: View {
                         onSakatsuSave()
                     }
                 }
-                .disabled(viewModel.uiState.sakatsu.facilityName == "")
+                .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
             }
         }
     }
@@ -49,13 +49,7 @@ struct RecordInputScreen_Previews: PreviewProvider {
 }
 
 private struct RecordInputView: View {
-    var sakatsu: Sakatsu = .init(
-        facilityName: "",
-        visitingDate: .now,
-        saunaSets: [.init(sauna: .init(time: nil), coolBath: .init(time: nil), relaxation: .init(time: nil, place: nil, way: nil))],
-        comment: nil
-    )
-    
+    let sakatsu: Sakatsu
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
@@ -85,7 +79,7 @@ private struct RecordInputView: View {
                 )
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
-                Section(header: Text("\(saunaSetIndex + 1)セット目")) { // TODO: Use real number
+                Section(header: Text("\(saunaSetIndex + 1)セット目")) {
                     HStack {
                         Text("サウナ🧖")
                         TextField("オプション", value: .init(get: {
@@ -122,9 +116,7 @@ private struct RecordInputView: View {
                 }
             }
             Section {
-                Button("新しいセットを追加") {
-                    onAddNewSaunaSetButtonClick()
-                }
+                Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
         }
     }
@@ -152,22 +144,12 @@ struct RecordInputView_Previews: PreviewProvider {
     static var previews: some View {
         RecordInputView(
             sakatsu: Sakatsu.preview,
-            onAddNewSaunaSetButtonClick: {
-                print("onAddNewSaunaSetButtonClick")
-            }, onFacilityNameChange: { facilityName in
-                print("facilityName: \(facilityName)")
-            }, onVisitingDateChange: { visitingDate in
-                print("visitingDate: \(visitingDate)")
-            }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
-                print("saunaSetIndex: \(saunaSetIndex)")
-                print("saunaTime: \(saunaTime?.formatted() ?? "")")
-            }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
-                print("saunaSetIndex: \(saunaSetIndex)")
-                print("coolBathTime: \(coolBathTime?.formatted() ?? "")")
-            }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
-                print("saunaSetIndex: \(saunaSetIndex)")
-                print("relaxationTime: \(relaxationTime?.formatted() ?? "")")
-            }
+            onAddNewSaunaSetButtonClick: {},
+            onFacilityNameChange: { _ in },
+            onVisitingDateChange: { _ in },
+            onSaunaTimeChange: { _, _ in },
+            onCoolBathTimeChange: {_, _ in },
+            onRelaxationTimeChange: { _, _ in }
         )
     }
 }

@@ -1,6 +1,8 @@
 import Foundation
 
 public struct Sakatsu {
+    public static let empty: Self = .init(facilityName: "", visitingDate: .now, saunaSets: [.empty], comment: nil)
+    
     public var facilityName: String
     public var visitingDate: Date
     public var saunaSets: [SaunaSet]
@@ -26,7 +28,7 @@ extension Sakatsu {
     public static let preview: Self = .init(
         facilityName: "サウナウホーイ",
         visitingDate: .now,
-        saunaSets: [SaunaSet.preview, SaunaSet.preview, SaunaSet.preview],
+        saunaSets: [.preview, .preview, .preview],
         comment: "コメントテスト"
     )
 }

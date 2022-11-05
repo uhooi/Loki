@@ -6,7 +6,7 @@ public protocol SakatsuRepository {
 }
 
 public struct SakatsuUserDefaultsClient {
-    public static let shared = Self()
+    public static let shared: Self = .init()
     private static let sakatsusKey = "sakatsus"
     
     private init() {}

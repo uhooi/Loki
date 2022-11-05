@@ -1,6 +1,8 @@
 import Foundation
 
 public struct SaunaSet {
+    public static let empty: Self = .init(sauna: .empty, coolBath: .empty, relaxation: .empty)
+    
     public var sauna: Sauna
     public var coolBath: CoolBath
     public var relaxation: Relaxation
@@ -12,6 +14,8 @@ public struct SaunaSet {
     }
     
     public struct Sauna {
+        static let empty: Self = .init(time: nil)
+        
         public var time: TimeInterval?
         
         public init(time: TimeInterval?) {
@@ -20,6 +24,8 @@ public struct SaunaSet {
     }
     
     public struct CoolBath {
+        static let empty: Self = .init(time: nil)
+        
         public var time: TimeInterval?
         
         public init(time: TimeInterval?) {
@@ -33,6 +39,8 @@ public struct SaunaSet {
             case indoorAirBath
             case other
         }
+        
+        static let empty: Self = .init(time: nil, place: nil, way: nil)
         
         public var time: TimeInterval?
         public var place: RelaxationPlace?
