@@ -37,7 +37,7 @@ let package = Package(
         .target(
             name: "SakatsuData",
             dependencies: [
-                "DatabaseCore",
+                "UserDefaultsCore",
             ],
             path: "./Sources/Data/Sakatsu"),
         .testTarget(
@@ -47,12 +47,12 @@ let package = Package(
 
         // Core layer
         .target(
-            name: "DatabaseCore",
+            name: "UserDefaultsCore",
             dependencies: [],
-            path: "./Sources/Core/Database"),
+            path: "./Sources/Core/UserDefaults"),
         .testTarget(
-            name: "DatabaseCoreTests",
-            dependencies: ["DatabaseCore"],
-            path: "./Tests/Core/DatabaseTests"),
+            name: "UserDefaultsCoreTests",
+            dependencies: ["UserDefaultsCore"],
+            path: "./Tests/Core/UserDefaultsTests"),
     ]
 )
