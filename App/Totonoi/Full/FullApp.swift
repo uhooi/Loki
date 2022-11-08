@@ -5,7 +5,7 @@ import SakatsuFeature
 struct FullApp: App {
     var body: some Scene {
         WindowGroup {
-            RecordListScreen()
+            SakatsuListScreen()
         }
     }
 }

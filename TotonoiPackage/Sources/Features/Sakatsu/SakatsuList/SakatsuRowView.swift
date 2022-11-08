@@ -1,7 +1,7 @@
 import SwiftUI
 import SakatsuData
 
-struct RecordRowView: View {
+struct SakatsuRowView: View {
     var sakatsu: Sakatsu
     let onEditButtonClick: () -> Void
     
@@ -76,9 +76,9 @@ struct RecordRowView: View {
     }
 }
 
-struct RecordRowView_Previews: PreviewProvider {
+struct SakatsuRowView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordRowView(
+        SakatsuRowView(
             sakatsu: .preview,
             onEditButtonClick: {}
         )

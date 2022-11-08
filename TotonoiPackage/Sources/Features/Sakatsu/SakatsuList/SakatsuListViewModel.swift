@@ -2,14 +2,14 @@ import Foundation
 import Combine
 import SakatsuData
 
-struct RecordListUiState {
+struct SakatsuListUiState {
     var isLoading: Bool
     var sakatsus: [Sakatsu]
 }
 
 @MainActor
-final class RecordListViewModel<Repository: SakatsuRepository>: ObservableObject {
-    @Published private(set) var uiState = RecordListUiState(
+final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
+    @Published private(set) var uiState = SakatsuListUiState(
         isLoading: true,
         sakatsus: []
     )
@@ -32,7 +32,7 @@ final class RecordListViewModel<Repository: SakatsuRepository>: ObservableObject
 
 // MARK: Event handler
 
-extension RecordListViewModel {
+extension SakatsuListViewModel {
     func onSakatsuSave() async {
         await refreshSakatsus()
     }

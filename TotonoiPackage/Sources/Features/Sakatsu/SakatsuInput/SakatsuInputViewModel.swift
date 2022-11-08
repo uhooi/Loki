@@ -2,14 +2,14 @@ import Foundation
 import Combine
 import SakatsuData
 
-struct RecordInputUiState {
+struct SakatsuInputUiState {
     var isLoading: Bool
     var sakatsu: Sakatsu
 }
 
 @MainActor
-final class RecordInputViewModel<Repository: SakatsuRepository>: ObservableObject {
-    @Published private(set) var uiState = RecordInputUiState(
+final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
+    @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
         sakatsu: .empty
     )
@@ -23,7 +23,7 @@ final class RecordInputViewModel<Repository: SakatsuRepository>: ObservableObjec
 
 // MARK: Event handler
 
-extension RecordInputViewModel {
+extension SakatsuInputViewModel {
     func onSaveButtonClick() async {
         var sakatsus = (try? await repository.sakatsus()) ?? []
         sakatsus.append(uiState.sakatsu)
