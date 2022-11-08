@@ -1,4 +1,4 @@
-import Foundation
+import UserDefaultsCore
 
 public protocol SakatsuRepository {
     func sakatsus() async throws -> [Sakatsu]
@@ -14,20 +14,10 @@ public struct SakatsuUserDefaultsClient {
 
 extension SakatsuUserDefaultsClient: SakatsuRepository {
     public func sakatsus() async throws -> [Sakatsu] {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let data = UserDefaults.standard.data(forKey: Self.sakatsusKey) else {
-            return [] // TODO: Throw error
-        }
-        return try jsonDecoder.decode([Sakatsu].self, from: data)
+        try await UserDefaultsClient.shared.object(forKey: Self.sakatsusKey)
     }
     
     public func saveSakatsus(_ sakatsus: [Sakatsu]) async throws {
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
-        guard let data = try? jsonEncoder.encode(sakatsus) else {
-            return // TODO: Throw error
-        }
-        UserDefaults.standard.set(data, forKey: Self.sakatsusKey)
+        try await UserDefaultsClient.shared.setObject(sakatsus, forKey: Self.sakatsusKey)
     }
 }
