@@ -1,5 +1,5 @@
 import XCTest
-@testable import RecordsData
+@testable import SakatsuData
 
 final class SakatsuTests: XCTestCase {
     func testExample() throws {

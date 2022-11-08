@@ -1,14 +1,14 @@
 import SwiftUI
-import RecordsData
+import SakatsuData
 
-public struct RecordListScreen: View {
-    @StateObject private var viewModel = RecordListViewModel()
+public struct SakatsuListScreen: View {
+    @StateObject private var viewModel = SakatsuListViewModel()
     
     @State private var isShowingSheet = false
     
     public var body: some View {
         NavigationView {
-            RecordListView(
+            SakatsuListView(
                 sakatsus: viewModel.uiState.sakatsus,
                 onEditButtonClick: {
                     viewModel.onEditButtonClick()
@@ -28,7 +28,7 @@ public struct RecordListScreen: View {
                     }
                     .sheet(isPresented: $isShowingSheet) {
                         NavigationView {
-                            RecordInputScreen(onSakatsuSave: {
+                            SakatsuInputScreen(onSakatsuSave: {
                                 isShowingSheet = false
                                 Task {
                                     await viewModel.onSakatsuSave()
@@ -44,13 +44,13 @@ public struct RecordListScreen: View {
     public init() {}
 }
 
-struct RecordListScreen_Previews: PreviewProvider {
+struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RecordListScreen()
+        SakatsuListScreen()
     }
 }
 
-private struct RecordListView: View {
+private struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
     let onEditButtonClick: () -> Void
     let onDelete: (IndexSet) -> Void
@@ -58,7 +58,7 @@ private struct RecordListView: View {
     var body: some View {
         List {
             ForEach(sakatsus) { sakatsu in
-                RecordRowView(
+                SakatsuRowView(
                     sakatsu: sakatsu,
                     onEditButtonClick: {
                         onEditButtonClick()
@@ -71,9 +71,9 @@ private struct RecordListView: View {
     }
 }
 
-struct RecordListView_Previews: PreviewProvider {
+struct SakatsuListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordListView(
+        SakatsuListView(
             sakatsus: [.preview],
             onEditButtonClick: {},
             onDelete: { _ in }

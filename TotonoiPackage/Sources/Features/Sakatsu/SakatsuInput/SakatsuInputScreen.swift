@@ -1,15 +1,15 @@
 import Foundation
 import SwiftUI
-import RecordsData
 import Algorithms
+import SakatsuData
 
-struct RecordInputScreen: View {
-    @StateObject private var viewModel = RecordInputViewModel()
+struct SakatsuInputScreen: View {
+    @StateObject private var viewModel = SakatsuInputViewModel()
     
     let onSakatsuSave: () -> Void
     
     var body: some View {
-        RecordInputView(
+        SakatsuInputView(
             sakatsu: viewModel.uiState.sakatsu,
             onAddNewSaunaSetButtonClick: {
                 viewModel.onAddNewSaunaSetButtonClick()
@@ -40,15 +40,15 @@ struct RecordInputScreen: View {
     }
 }
 
-struct RecordInputScreen_Previews: PreviewProvider {
+struct SakatsuInputScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            RecordInputScreen(onSakatsuSave: {})
+            SakatsuInputScreen(onSakatsuSave: {})
         }
     }
 }
 
-private struct RecordInputView: View {
+private struct SakatsuInputView: View {
     let sakatsu: Sakatsu
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
@@ -140,9 +140,9 @@ private struct RecordInputView: View {
     }
 }
 
-struct RecordInputView_Previews: PreviewProvider {
+struct SakatsuInputView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordInputView(
+        SakatsuInputView(
             sakatsu: Sakatsu.preview,
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
