@@ -1,5 +1,5 @@
 import SwiftUI
-import RecordsFeature
+import SakatsuFeature
 
 @main
 struct FullApp: App {

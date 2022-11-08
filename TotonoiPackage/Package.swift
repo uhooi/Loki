@@ -13,7 +13,7 @@ let package = Package(
         .library(
             name: "FullApp",
             targets: [
-                "RecordsFeature",
+                "SakatsuFeature",
             ]),
     ],
     dependencies: [
@@ -22,28 +22,28 @@ let package = Package(
     targets: [
         // Feature layer
         .target(
-            name: "RecordsFeature",
+            name: "SakatsuFeature",
             dependencies: [
-                "RecordsData",
+                "SakatsuData",
                 .product(name: "Algorithms", package: "swift-algorithms")
             ],
-            path: "./Sources/Features/Records"),
+            path: "./Sources/Features/Sakatsu"),
         .testTarget(
-            name: "RecordsFeatureTests",
-            dependencies: ["RecordsFeature"],
-            path: "./Tests/Features/RecordsTests"),
+            name: "SakatsuFeatureTests",
+            dependencies: ["SakatsuFeature"],
+            path: "./Tests/Features/SakatsuTests"),
 
         // Data layer
         .target(
-            name: "RecordsData",
+            name: "SakatsuData",
             dependencies: [
                 "DatabaseCore",
             ],
-            path: "./Sources/Data/Records"),
+            path: "./Sources/Data/Sakatsu"),
         .testTarget(
-            name: "RecordsDataTests",
-            dependencies: ["RecordsData"],
-            path: "./Tests/Data/RecordsTests"),
+            name: "SakatsuDataTests",
+            dependencies: ["SakatsuData"],
+            path: "./Tests/Data/SakatsuTests"),
 
         // Core layer
         .target(

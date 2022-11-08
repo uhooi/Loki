@@ -1,5 +1,5 @@
 import SwiftUI
-import RecordsData
+import SakatsuData
 
 struct RecordRowView: View {
     var sakatsu: Sakatsu

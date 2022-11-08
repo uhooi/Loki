@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import RecordsData
+import SakatsuData
 
 struct RecordListUiState {
     var isLoading: Bool

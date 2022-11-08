@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import RecordsData
+import SakatsuData
 import Algorithms
 
 struct RecordInputScreen: View {

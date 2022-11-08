@@ -1,5 +1,5 @@
 import SwiftUI
-import RecordsData
+import SakatsuData
 
 public struct RecordListScreen: View {
     @StateObject private var viewModel = RecordListViewModel()
