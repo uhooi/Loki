@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Sakatsu {
-    public static var empty: Self { .init(facilityName: "", visitingDate: .now, saunaSets: [.empty], comment: nil) }
+    public static var `default`: Self { .init(facilityName: "", visitingDate: .now, saunaSets: [.null], comment: nil) }
     
     public var facilityName: String
     public var visitingDate: Date

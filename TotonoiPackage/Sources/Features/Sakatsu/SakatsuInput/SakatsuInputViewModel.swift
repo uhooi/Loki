@@ -11,7 +11,7 @@ struct SakatsuInputUiState {
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
-        sakatsu: .empty
+        sakatsu: .default
     )
     
     private let repository: Repository
@@ -31,7 +31,7 @@ extension SakatsuInputViewModel {
     }
     
     func onAddNewSaunaSetButtonClick() {
-        uiState.sakatsu.saunaSets.append(.empty)
+        uiState.sakatsu.saunaSets.append(.null)
     }
     
     func onFacilityNameChange(facilityName: String) {
