@@ -1,7 +1,7 @@
 import Foundation
 
 public struct SaunaSet {
-    public static let empty: Self = .init(sauna: .empty, coolBath: .empty, relaxation: .empty)
+    public static var null: Self { .init(sauna: .null, coolBath: .null, relaxation: .null) }
     
     public var sauna: Sauna
     public var coolBath: CoolBath
@@ -14,7 +14,7 @@ public struct SaunaSet {
     }
     
     public struct Sauna {
-        static let empty: Self = .init(time: nil)
+        static var null: Self { .init(time: nil) }
         
         public var time: TimeInterval?
         
@@ -24,7 +24,7 @@ public struct SaunaSet {
     }
     
     public struct CoolBath {
-        static let empty: Self = .init(time: nil)
+        static var null: Self { .init(time: nil) }
         
         public var time: TimeInterval?
         
@@ -40,7 +40,7 @@ public struct SaunaSet {
             case other
         }
         
-        static let empty: Self = .init(time: nil, place: nil, way: nil)
+        static var null: Self { .init(time: nil, place: nil, way: nil) }
         
         public var time: TimeInterval?
         public var place: RelaxationPlace?
@@ -67,14 +67,16 @@ extension SaunaSet.Relaxation.RelaxationPlace: Codable {}
 
 #if DEBUG
 extension SaunaSet {
-    public static let preview: Self = .init(
-        sauna: .init(time: 5 * 60),
-        coolBath: .init(time: 30),
-        relaxation: .init(
-            time: 10 * 60,
-            place: .outdoorAirBath,
-            way: "インフィニティチェア"
+    public static var preview: Self {
+        .init(
+            sauna: .init(time: 5 * 60),
+            coolBath: .init(time: 30),
+            relaxation: .init(
+                time: 10 * 60,
+                place: .outdoorAirBath,
+                way: "インフィニティチェア"
+            )
         )
-    )
+    }
 }
 #endif
