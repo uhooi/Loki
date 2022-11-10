@@ -1,11 +1,15 @@
 import Foundation
 
+public typealias UserDefaultsReadable = Decodable
+public typealias UserDefaultsWritable = Encodable
+public typealias UserDefaultsCodable = UserDefaultsReadable & UserDefaultsWritable
+
 public struct UserDefaultsClient {
     public static let shared: Self = .init()
     
     private init() {}
     
-    public func object<V: Decodable>(forKey defaultName: String) async throws -> V {
+    public func object<V: UserDefaultsReadable>(forKey defaultName: String) async throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let data = UserDefaults.standard.data(forKey: defaultName) else {
@@ -14,7 +18,7 @@ public struct UserDefaultsClient {
         return try jsonDecoder.decode(V.self, from: data)
     }
     
-    public func setObject<V: Encodable>(_ value: V, forKey defaultName: String) async throws {
+    public func setObject<V: UserDefaultsWritable>(_ value: V, forKey defaultName: String) async throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         guard let data = try? jsonEncoder.encode(value) else {

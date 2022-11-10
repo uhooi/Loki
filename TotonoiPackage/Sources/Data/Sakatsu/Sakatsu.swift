@@ -1,4 +1,5 @@
 import Foundation
+import UserDefaultsCore
 
 public struct Sakatsu {
     public static var `default`: Self { .init(facilityName: "", visitingDate: .now, saunaSets: [.null], comment: nil) }
@@ -20,8 +21,7 @@ extension Sakatsu: Identifiable {
     public var id: String { facilityName + visitingDate.formatted() }
 }
 
-// For save UserDefaults
-extension Sakatsu: Codable {}
+extension Sakatsu: UserDefaultsCodable {}
 
 #if DEBUG
 extension Sakatsu {
