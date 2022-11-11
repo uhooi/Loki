@@ -59,11 +59,11 @@ extension SaunaSet: Identifiable {
     public var id: UUID { UUID() }
 }
 
-extension SaunaSet: UserDefaultsCodable {}
-extension SaunaSet.Sauna: UserDefaultsCodable {}
-extension SaunaSet.CoolBath: UserDefaultsCodable {}
-extension SaunaSet.Relaxation: UserDefaultsCodable {}
-extension SaunaSet.Relaxation.RelaxationPlace: UserDefaultsCodable {}
+extension SaunaSet: UserDefaultsPersistable {}
+extension SaunaSet.Sauna: UserDefaultsPersistable {}
+extension SaunaSet.CoolBath: UserDefaultsPersistable {}
+extension SaunaSet.Relaxation: UserDefaultsPersistable {}
+extension SaunaSet.Relaxation.RelaxationPlace: UserDefaultsPersistable {}
 
 #if DEBUG
 extension SaunaSet {

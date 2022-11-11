@@ -2,7 +2,7 @@ import Foundation
 
 public typealias UserDefaultsGettable = Decodable
 public typealias UserDefaultsSettable = Encodable
-public typealias UserDefaultsCodable = UserDefaultsGettable & UserDefaultsSettable
+public typealias UserDefaultsPersistable = UserDefaultsGettable & UserDefaultsSettable
 
 public struct UserDefaultsClient {
     public static let shared: Self = .init()

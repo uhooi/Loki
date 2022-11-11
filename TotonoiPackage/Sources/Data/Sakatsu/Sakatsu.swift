@@ -21,7 +21,7 @@ extension Sakatsu: Identifiable {
     public var id: String { facilityName + visitingDate.formatted() }
 }
 
-extension Sakatsu: UserDefaultsCodable {}
+extension Sakatsu: UserDefaultsPersistable {}
 
 #if DEBUG
 extension Sakatsu {
