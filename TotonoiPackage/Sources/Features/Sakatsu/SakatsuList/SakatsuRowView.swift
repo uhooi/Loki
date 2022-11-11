@@ -12,12 +12,13 @@ struct SakatsuRowView: View {
                     visitingDateText
                     facilityNameText
                 }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
                 Menu {
                     Button("編集", action: onEditButtonClick)
                 } label: {
                     Image(systemName: "ellipsis")
                 }
-                .frame(maxWidth: .infinity, alignment: .topTrailing)
+                .frame(alignment: .topTrailing)
             }
             GroupBox {
                 saunaSetsView
