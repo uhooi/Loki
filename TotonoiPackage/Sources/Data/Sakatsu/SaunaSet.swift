@@ -1,4 +1,5 @@
 import Foundation
+import UserDefaultsCore
 
 public struct SaunaSet {
     public static var null: Self { .init(sauna: .null, coolBath: .null, relaxation: .null) }
@@ -58,12 +59,11 @@ extension SaunaSet: Identifiable {
     public var id: UUID { UUID() }
 }
 
-// For save UserDefaults
-extension SaunaSet: Codable {}
-extension SaunaSet.Sauna: Codable {}
-extension SaunaSet.CoolBath: Codable {}
-extension SaunaSet.Relaxation: Codable {}
-extension SaunaSet.Relaxation.RelaxationPlace: Codable {}
+extension SaunaSet: UserDefaultsPersistable {}
+extension SaunaSet.Sauna: UserDefaultsPersistable {}
+extension SaunaSet.CoolBath: UserDefaultsPersistable {}
+extension SaunaSet.Relaxation: UserDefaultsPersistable {}
+extension SaunaSet.Relaxation.RelaxationPlace: UserDefaultsPersistable {}
 
 #if DEBUG
 extension SaunaSet {
