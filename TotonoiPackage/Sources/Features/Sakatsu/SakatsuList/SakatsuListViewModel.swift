@@ -18,16 +18,14 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     
     private let repository: Repository
     
-    nonisolated init(repository: Repository = SakatsuUserDefaultsClient.shared) {
+    init(repository: Repository = SakatsuUserDefaultsClient.shared) {
         self.repository = repository
-        Task {
-            await refreshSakatsus()
-        }
+        refreshSakatsus()
     }
     
-    private func refreshSakatsus() async {
+    private func refreshSakatsus() {
         uiState.isLoading = true
-        uiState.sakatsus = (try? await repository.sakatsus()) ?? [] // FIXME:
+        uiState.sakatsus = (try? repository.sakatsus()) ?? [] // FIXME:
         uiState.isLoading = false
     }
 }
@@ -35,8 +33,8 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
 // MARK: Event handler
 
 extension SakatsuListViewModel {
-    func onSakatsuSave() async {
-        await refreshSakatsus()
+    func onSakatsuSave() {
+        refreshSakatsus()
     }
     
     func onEditButtonClick() {
@@ -48,9 +46,9 @@ extension SakatsuListViewModel {
         uiState.sakatsuText = text
     }
     
-    func onDelete(at offsets: IndexSet) async throws {
+    func onDelete(at offsets: IndexSet) throws {
         uiState.sakatsus.remove(atOffsets: offsets)
-        try await repository.saveSakatsus(uiState.sakatsus)
+        try repository.saveSakatsus(uiState.sakatsus)
     }
     
     private func outputSakatsuText(sakatsu: Sakatsu) -> String {

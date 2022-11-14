@@ -16,9 +16,7 @@ public struct SakatsuListScreen: View {
                 }, onOutputSakatsuTextButtonClick: { sakatsuIndex in
                     viewModel.onOutputSakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
-                    Task {
-                        try? await viewModel.onDelete(at: offsets) // TODO: Error handling
-                    }
+                    try? viewModel.onDelete(at: offsets) // TODO: Error handling
                 }
             )
             .navigationTitle("サ活一覧")
@@ -33,9 +31,7 @@ public struct SakatsuListScreen: View {
                         NavigationView {
                             SakatsuInputScreen(onSakatsuSave: {
                                 isShowingSheet = false
-                                Task {
-                                    await viewModel.onSakatsuSave()
-                                }
+                                viewModel.onSakatsuSave()
                             })
                         }
                     }
