@@ -130,7 +130,7 @@ private struct SakatsuInputView: View {
             Section {
                 Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
-            Section(header: Text("コメント")) {
+            Section(header: Text("あとがき")) {
                 TextField("オプション", text: .init(get: {
                     sakatsu.afterword ?? ""
                 }, set: { newValue in
