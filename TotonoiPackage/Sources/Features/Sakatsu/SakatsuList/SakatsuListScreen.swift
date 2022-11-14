@@ -5,7 +5,7 @@ public struct SakatsuListScreen: View {
     @StateObject private var viewModel = SakatsuListViewModel()
     
     @State private var isShowingInputSheet = false
-    @State private var isPresentingAlert = false
+    @State private var isPresentingCopyingSakatsuTextAlert = false
     
     public var body: some View {
         NavigationView {
@@ -37,11 +37,15 @@ public struct SakatsuListScreen: View {
                     }
                 }
             }
-            .onChange(of: viewModel.uiState.sakatsuText) { newValue in
-                UIPasteboard.general.string = newValue
-                isPresentingAlert = true
+            .onChange(of: viewModel.uiState.shouldPresentCopyingSakatsuTextAlert) { _ in
+                guard viewModel.uiState.shouldPresentCopyingSakatsuTextAlert else {
+                    return
+                }
+                UIPasteboard.general.string = viewModel.uiState.sakatsuText
+                isPresentingCopyingSakatsuTextAlert = true
+                viewModel.onSakatsuTextCopy()
             }
-            .alert("コピー", isPresented: $isPresentingAlert) {
+            .alert("コピー", isPresented: $isPresentingCopyingSakatsuTextAlert) {
             } message: {
                 Text("サ活用のテキストをコピーしました。")
             }
