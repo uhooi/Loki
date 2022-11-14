@@ -85,7 +85,7 @@ extension SakatsuListViewModel {
     }
     
     private func sakatsuText(sakatsu: Sakatsu) -> String {
-        var text: String = ""
+        var text = ""
         
         if let foreword = sakatsu.foreword {
             text += foreword
