@@ -39,7 +39,7 @@ extension SakatsuListViewModel {
         refreshSakatsus()
     }
     
-    func onEditButtonClick() {
+    func onEditButtonClick(sakatsuIndex: Int) {
         // TODO:
     }
     
