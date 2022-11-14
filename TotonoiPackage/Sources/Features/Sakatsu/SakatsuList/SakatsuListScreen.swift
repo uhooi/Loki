@@ -4,7 +4,7 @@ import SakatsuData
 public struct SakatsuListScreen: View {
     @StateObject private var viewModel = SakatsuListViewModel()
     
-    @State private var isShowingSheet = false
+    @State private var isShowingInputSheet = false
     @State private var isPresentingAlert = false
     
     public var body: some View {
@@ -23,14 +23,14 @@ public struct SakatsuListScreen: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        isShowingSheet = true
+                        isShowingInputSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowingSheet) {
+                    .sheet(isPresented: $isShowingInputSheet) {
                         NavigationView {
                             SakatsuInputScreen(onSakatsuSave: {
-                                isShowingSheet = false
+                                isShowingInputSheet = false
                                 viewModel.onSakatsuSave()
                             })
                         }
