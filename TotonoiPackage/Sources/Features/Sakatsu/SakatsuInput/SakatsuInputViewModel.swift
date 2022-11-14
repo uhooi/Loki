@@ -108,7 +108,7 @@ extension SakatsuInputViewModel {
         guard validate(comment: comment) else {
             return
         }
-        uiState.sakatsu.comment = comment
+        uiState.sakatsu.afterword = comment
     }
 }
 

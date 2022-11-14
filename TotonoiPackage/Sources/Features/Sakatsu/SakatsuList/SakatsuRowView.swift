@@ -64,7 +64,7 @@ struct SakatsuRowView: View {
     }
     
     private var commentText: some View {
-        Text(sakatsu.comment ?? "")
+        Text(sakatsu.afterword ?? "")
             .font(.body)
     }
     

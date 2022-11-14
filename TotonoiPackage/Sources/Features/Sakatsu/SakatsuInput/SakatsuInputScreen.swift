@@ -132,7 +132,7 @@ private struct SakatsuInputView: View {
             }
             Section(header: Text("コメント")) {
                 TextField("オプション", text: .init(get: {
-                    sakatsu.comment ?? ""
+                    sakatsu.afterword ?? ""
                 }, set: { newValue in
                     onCommentChange(newValue)
                 }))

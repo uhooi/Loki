@@ -2,18 +2,23 @@ import Foundation
 import UserDefaultsCore
 
 public struct Sakatsu {
-    public static var `default`: Self { .init(facilityName: "", visitingDate: .now, saunaSets: [.null], comment: nil) }
+    public static var `default`: Self { .init(
+        facilityName: "",
+        visitingDate: .now,
+        saunaSets: [.null],
+        afterword: nil
+    )}
     
     public var facilityName: String
     public var visitingDate: Date
     public var saunaSets: [SaunaSet]
-    public var comment: String?
+    public var afterword: String?
     
-    public init(facilityName: String, visitingDate: Date, saunaSets: [SaunaSet], comment: String?) {
+    public init(facilityName: String, visitingDate: Date, saunaSets: [SaunaSet], afterword: String?) {
         self.facilityName = facilityName
         self.visitingDate = visitingDate
         self.saunaSets = saunaSets
-        self.comment = comment
+        self.afterword = afterword
     }
 }
 
@@ -30,7 +35,7 @@ extension Sakatsu {
             facilityName: "サウナウホーイ",
             visitingDate: .now,
             saunaSets: [.preview, .preview, .preview],
-            comment: "コメントテスト"
+            afterword: "あとがきテスト"
         )
     }
 }
