@@ -5,13 +5,15 @@ import SakatsuData
 struct SakatsuInputUiState {
     var isLoading: Bool
     var sakatsu: Sakatsu
+    var savingErrorText: String?
 }
 
 @MainActor
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
-        sakatsu: .default
+        sakatsu: .default,
+        savingErrorText: nil
     )
     
     private let repository: Repository
@@ -25,9 +27,17 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
 
 extension SakatsuInputViewModel {
     func onSaveButtonClick() {
-        var sakatsus = (try? repository.sakatsus()) ?? []
-        sakatsus.append(uiState.sakatsu)
-        try? repository.saveSakatsus(sakatsus) // TODO: Error handling
+        do {
+            var sakatsus = (try? repository.sakatsus()) ?? []
+            sakatsus.append(uiState.sakatsu)
+            try repository.saveSakatsus(sakatsus)
+        } catch {
+            uiState.savingErrorText = "サ活の保存に失敗しました。"
+        }
+    }
+    
+    func onSavingErrorAlertDismiss() {
+        uiState.savingErrorText = nil
     }
     
     func onAddNewSaunaSetButtonClick() {

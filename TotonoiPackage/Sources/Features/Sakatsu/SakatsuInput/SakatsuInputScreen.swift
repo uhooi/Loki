@@ -37,6 +37,17 @@ struct SakatsuInputScreen: View {
                 .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
             }
         }
+        .alert(
+            "エラー",
+            isPresented: .constant(viewModel.uiState.savingErrorText != nil),
+            presenting: viewModel.uiState.savingErrorText
+        ) { _ in
+            Button("OK") {
+                viewModel.onSavingErrorAlertDismiss()
+            }
+        } message: { savingErrorText in
+            Text(savingErrorText)
+        }
     }
 }
 
