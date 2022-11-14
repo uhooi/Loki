@@ -68,6 +68,13 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime * 60
     }
+    
+    func onCommentChange(comment: String?) {
+        guard validate(comment: comment) else {
+            return
+        }
+        uiState.sakatsu.comment = comment
+    }
    
     private func validate(facilityName: String) -> Bool {
         facilityName != ""
@@ -87,5 +94,9 @@ extension SakatsuInputViewModel {
     
     private func validate(relaxationTime: TimeInterval) -> Bool {
         relaxationTime >= 0
+    }
+    
+    private func validate(comment: String?) -> Bool {
+        true
     }
 }
