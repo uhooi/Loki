@@ -21,7 +21,7 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
     }
 }
 
-// MARK: Event handler
+// MARK: - Event handler
 
 extension SakatsuInputViewModel {
     func onSaveButtonClick() {
@@ -75,9 +75,13 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.comment = comment
     }
-   
+}
+
+// MARK: - Validate
+
+extension SakatsuInputViewModel {
     private func validate(facilityName: String) -> Bool {
-        facilityName != ""
+        !facilityName.isEmpty
     }
     
     private func validate(visitingDate: Date) -> Bool {
