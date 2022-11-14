@@ -83,6 +83,13 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.visitingDate = visitingDate
     }
     
+    func onForewordChange(foreword: String?) {
+        guard validate(foreword: foreword) else {
+            return
+        }
+        uiState.sakatsu.foreword = foreword
+    }
+    
     func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
         guard let saunaTime, validate(saunaTime: saunaTime) else {
             return
@@ -121,6 +128,10 @@ extension SakatsuInputViewModel {
     
     private func validate(visitingDate: Date) -> Bool {
         true // TODO: Disable future dates
+    }
+    
+    private func validate(foreword: String?) -> Bool {
+        true
     }
     
     private func validate(saunaTime: TimeInterval) -> Bool {

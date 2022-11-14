@@ -17,6 +17,8 @@ struct SakatsuInputScreen: View {
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
+            }, onForewordChange: { foreword in
+                viewModel.onForewordChange(foreword: foreword)
             }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
                 viewModel.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime)
             }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
@@ -64,6 +66,7 @@ private struct SakatsuInputView: View {
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
+    let onForewordChange: ((String?) -> Void)
     let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
     let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
     let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
@@ -89,6 +92,13 @@ private struct SakatsuInputView: View {
                     }),
                     displayedComponents: [.date]
                 )
+            }
+            Section(header: Text("まえがき")) {
+                TextField("オプション", text: .init(get: {
+                    sakatsu.foreword ?? ""
+                }, set: { newValue in
+                    onForewordChange(newValue)
+                }))
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) {
@@ -145,6 +155,7 @@ private struct SakatsuInputView: View {
         onAddNewSaunaSetButtonClick: @escaping () -> Void,
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
+        onForewordChange: @escaping (String?) -> Void,
         onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void,
@@ -154,6 +165,7 @@ private struct SakatsuInputView: View {
         self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
         self.onFacilityNameChange = onFacilityNameChange
         self.onVisitingDateChange = onVisitingDateChange
+        self.onForewordChange = onForewordChange
         self.onSaunaTimeChange = onSaunaTimeChange
         self.onCoolBathTimeChange = onCoolBathTimeChange
         self.onRelaxationTimeChange = onRelaxationTimeChange
@@ -168,6 +180,7 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
+            onForewordChange: { _ in },
             onSaunaTimeChange: { _, _ in },
             onCoolBathTimeChange: {_, _ in },
             onRelaxationTimeChange: { _, _ in },

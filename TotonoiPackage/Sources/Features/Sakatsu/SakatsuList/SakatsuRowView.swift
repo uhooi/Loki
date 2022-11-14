@@ -22,6 +22,7 @@ struct SakatsuRowView: View {
                 }
                 .frame(alignment: .topTrailing)
             }
+            forewordText
             GroupBox {
                 saunaSetsView
             }
@@ -38,6 +39,11 @@ struct SakatsuRowView: View {
     private var facilityNameText: some View {
         Text(sakatsu.facilityName)
             .font(.title)
+    }
+    
+    private var forewordText: some View {
+        Text(sakatsu.foreword ?? "")
+            .font(.body)
     }
     
     private var saunaSetsView: some View {

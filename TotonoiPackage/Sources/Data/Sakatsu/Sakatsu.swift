@@ -5,18 +5,21 @@ public struct Sakatsu {
     public static var `default`: Self { .init(
         facilityName: "",
         visitingDate: .now,
+        foreword: nil,
         saunaSets: [.null],
         afterword: nil
     )}
     
     public var facilityName: String
     public var visitingDate: Date
+    public var foreword: String?
     public var saunaSets: [SaunaSet]
     public var afterword: String?
     
-    public init(facilityName: String, visitingDate: Date, saunaSets: [SaunaSet], afterword: String?) {
+    public init(facilityName: String, visitingDate: Date, foreword: String?, saunaSets: [SaunaSet], afterword: String?) {
         self.facilityName = facilityName
         self.visitingDate = visitingDate
+        self.foreword = foreword
         self.saunaSets = saunaSets
         self.afterword = afterword
     }
@@ -34,6 +37,7 @@ extension Sakatsu {
         .init(
             facilityName: "サウナウホーイ",
             visitingDate: .now,
+            foreword: "まえがきテスト",
             saunaSets: [.preview, .preview, .preview],
             afterword: "あとがきテスト"
         )
