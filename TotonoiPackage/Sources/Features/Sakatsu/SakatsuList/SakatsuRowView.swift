@@ -44,7 +44,7 @@ struct SakatsuRowView: View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
                 if let saunaTime = saunaSet.sauna.time {
-                    saunaSetView(emoji: "🧖", time: saunaTime / 60, unit: "分")
+                    saunaSetView(emoji: "🧖", time: saunaTime, unit: "分")
                 }
                 if let coolBathTime = saunaSet.coolBath.time {
                     arrowImage
@@ -52,7 +52,7 @@ struct SakatsuRowView: View {
                 }
                 if let relaxationTime = saunaSet.relaxation.time {
                     arrowImage
-                    saunaSetView(emoji: "🍃", time: relaxationTime / 60, unit: "分")
+                    saunaSetView(emoji: "🍃", time: relaxationTime, unit: "分")
                 }
             }
         }

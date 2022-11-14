@@ -87,7 +87,7 @@ extension SakatsuInputViewModel {
         guard let saunaTime, validate(saunaTime: saunaTime) else {
             return
         }
-        uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime * 60
+        uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
     }
     
     func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
@@ -101,7 +101,7 @@ extension SakatsuInputViewModel {
         guard let relaxationTime, validate(relaxationTime: relaxationTime) else {
             return
         }
-        uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime * 60
+        uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
     }
     
     func onCommentChange(comment: String?) {

@@ -95,7 +95,7 @@ private struct SakatsuInputView: View {
                     HStack {
                         Text("サウナ🧖")
                         TextField("オプション", value: .init(get: {
-                            saunaSet.sauna.time.map { $0 / 60 }
+                            saunaSet.sauna.time
                         }, set: { newValue in
                             onSaunaTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
@@ -117,7 +117,7 @@ private struct SakatsuInputView: View {
                     HStack {
                         Text("休憩🍃")
                         TextField("オプション", value: .init(get: {
-                            saunaSet.relaxation.time.map { $0 / 60 }
+                            saunaSet.relaxation.time
                         }, set: { newValue in
                             onRelaxationTimeChange(saunaSetIndex, newValue)
                         }), format: .number)
