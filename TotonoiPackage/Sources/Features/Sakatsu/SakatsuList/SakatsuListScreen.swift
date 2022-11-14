@@ -13,8 +13,8 @@ public struct SakatsuListScreen: View {
                 sakatsus: viewModel.uiState.sakatsus,
                 onEditButtonClick: {
                     viewModel.onEditButtonClick()
-                }, onOutputSakatsuTextButtonClick: { sakatsuIndex in
-                    viewModel.onOutputSakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
+                }, onCopySakatsuTextButtonClick: { sakatsuIndex in
+                    viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
                     try? viewModel.onDelete(at: offsets) // TODO: Error handling
                 }
@@ -64,7 +64,7 @@ struct SakatsuListScreen_Previews: PreviewProvider {
 private struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
     let onEditButtonClick: () -> Void
-    let onOutputSakatsuTextButtonClick: (Int) -> Void
+    let onCopySakatsuTextButtonClick: (Int) -> Void
     let onDelete: (IndexSet) -> Void
     
     var body: some View {
@@ -74,8 +74,8 @@ private struct SakatsuListView: View {
                     sakatsu: sakatsu,
                     onEditButtonClick: {
                         onEditButtonClick()
-                    }, onOutputSakatsuTextButtonClick: {
-                        onOutputSakatsuTextButtonClick(sakatsuIndex)
+                    }, onCopySakatsuTextButtonClick: {
+                        onCopySakatsuTextButtonClick(sakatsuIndex)
                     }
                 )
             }
@@ -91,7 +91,7 @@ struct SakatsuListView_Previews: PreviewProvider {
         SakatsuListView(
             sakatsus: [.preview],
             onEditButtonClick: {},
-            onOutputSakatsuTextButtonClick: { _ in },
+            onCopySakatsuTextButtonClick: { _ in },
             onDelete: { _ in }
         )
     }

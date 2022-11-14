@@ -43,9 +43,8 @@ extension SakatsuListViewModel {
         // TODO:
     }
     
-    func onOutputSakatsuTextButtonClick(sakatsuIndex: Int) {
-        let text = outputSakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
-        uiState.sakatsuText = text
+    func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
+        uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
         uiState.shouldPresentCopyingSakatsuTextAlert = true
     }
     
@@ -58,7 +57,7 @@ extension SakatsuListViewModel {
         uiState.shouldPresentCopyingSakatsuTextAlert = false
     }
     
-    private func outputSakatsuText(sakatsu: Sakatsu) -> String {
+    private func sakatsuText(sakatsu: Sakatsu) -> String {
         var text = "\(sakatsu.saunaSets.count)セット行いました。"
         for saunaSets in sakatsu.saunaSets {
             text += "\n"
