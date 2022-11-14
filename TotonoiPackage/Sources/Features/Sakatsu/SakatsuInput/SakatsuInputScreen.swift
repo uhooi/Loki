@@ -93,8 +93,8 @@ private struct SakatsuInputView: View {
                     displayedComponents: [.date]
                 )
             }
-            Section(header: Text("まえがき")) {
-                TextField("オプション", text: .init(get: {
+            Section(header: Text("まえがき（オプション）")) {
+                TextEditor(text: .init(get: {
                     sakatsu.foreword ?? ""
                 }, set: { newValue in
                     onForewordChange(newValue)
@@ -140,8 +140,8 @@ private struct SakatsuInputView: View {
             Section {
                 Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
-            Section(header: Text("あとがき")) {
-                TextField("オプション", text: .init(get: {
+            Section(header: Text("あとがき（オプション）")) {
+                TextEditor(text: .init(get: {
                     sakatsu.afterword ?? ""
                 }, set: { newValue in
                     onAfterwordChange(newValue)
