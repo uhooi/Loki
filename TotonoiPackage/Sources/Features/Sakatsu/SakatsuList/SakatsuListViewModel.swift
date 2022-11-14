@@ -85,7 +85,13 @@ extension SakatsuListViewModel {
     }
     
     private func sakatsuText(sakatsu: Sakatsu) -> String {
-        var text = "\(sakatsu.saunaSets.count)セット行いました。"
+        var text: String = ""
+        
+        if let foreword = sakatsu.foreword {
+            text += foreword
+        }
+        
+        text += "\n\n\(sakatsu.saunaSets.count)セット行いました。"
         for saunaSets in sakatsu.saunaSets {
             text += "\n"
             if let saunaTime = saunaSets.sauna.time {
@@ -98,6 +104,11 @@ extension SakatsuListViewModel {
                 text += "→休憩🍃（\(relaxationTime.formatted())分）"
             }
         }
+        
+        if let afterword = sakatsu.afterword {
+            text += "\n\n\(afterword)"
+        }
+        
         return text
     }
 }
