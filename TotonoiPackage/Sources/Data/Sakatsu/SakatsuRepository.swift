@@ -1,8 +1,8 @@
 import UserDefaultsCore
 
 public protocol SakatsuRepository {
-    func sakatsus() async throws -> [Sakatsu]
-    func saveSakatsus(_ sakatsus: [Sakatsu]) async throws
+    func sakatsus() throws -> [Sakatsu]
+    func saveSakatsus(_ sakatsus: [Sakatsu]) throws
 }
 
 public struct SakatsuUserDefaultsClient {
@@ -13,11 +13,11 @@ public struct SakatsuUserDefaultsClient {
 }
 
 extension SakatsuUserDefaultsClient: SakatsuRepository {
-    public func sakatsus() async throws -> [Sakatsu] {
-        try await UserDefaultsClient.shared.object(forKey: Self.sakatsusKey)
+    public func sakatsus() throws -> [Sakatsu] {
+        try UserDefaultsClient.shared.object(forKey: Self.sakatsusKey)
     }
     
-    public func saveSakatsus(_ sakatsus: [Sakatsu]) async throws {
-        try await UserDefaultsClient.shared.setObject(sakatsus, forKey: Self.sakatsusKey)
+    public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
+        try UserDefaultsClient.shared.setObject(sakatsus, forKey: Self.sakatsusKey)
     }
 }
