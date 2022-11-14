@@ -4,6 +4,24 @@ public typealias UserDefaultsGettable = Decodable
 public typealias UserDefaultsSettable = Encodable
 public typealias UserDefaultsPersistable = UserDefaultsGettable & UserDefaultsSettable
 
+private enum UserDefaultsError: LocalizedError {
+    case gettingFailed(key: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .gettingFailed:
+            return "オブジェクトの取得に失敗しました。"
+        }
+    }
+    
+    var failureReason: String? {
+        switch self {
+        case .gettingFailed:
+            return "詳しい原因はわかりません。"
+        }
+    }
+}
+
 public struct UserDefaultsClient {
     public static let shared: Self = .init()
     
@@ -13,7 +31,7 @@ public struct UserDefaultsClient {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let data = UserDefaults.standard.data(forKey: defaultName) else {
-            throw NSError(domain: "TODO", code: 0) // TODO: Throw error
+            throw UserDefaultsError.gettingFailed(key: defaultName)
         }
         return try jsonDecoder.decode(V.self, from: data)
     }
@@ -21,9 +39,7 @@ public struct UserDefaultsClient {
     public func setObject<V: UserDefaultsSettable>(_ value: V, forKey defaultName: String) throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
-        guard let data = try? jsonEncoder.encode(value) else {
-            return // TODO: Throw error
-        }
+        let data = try jsonEncoder.encode(value)
         UserDefaults.standard.set(data, forKey: defaultName)
     }
 }

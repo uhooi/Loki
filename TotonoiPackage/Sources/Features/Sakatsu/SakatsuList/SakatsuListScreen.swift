@@ -15,7 +15,7 @@ public struct SakatsuListScreen: View {
                 }, onCopySakatsuTextButtonClick: { sakatsuIndex in
                     viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
-                    try? viewModel.onDelete(at: offsets) // TODO: Error handling
+                    viewModel.onDelete(at: offsets)
                 }
             )
             .navigationTitle("サ活一覧")
@@ -49,6 +49,16 @@ public struct SakatsuListScreen: View {
                     .onAppear {
                         UIPasteboard.general.string = sakatsuText
                     }
+            }
+            .alert(
+                isPresented: .constant(viewModel.uiState.sakatsuListError != nil),
+                error: viewModel.uiState.sakatsuListError
+            ) { _ in
+                Button("OK") {
+                    viewModel.onErrorAlertDismiss()
+                }
+            } message: { sakatsuListError in
+                Text((sakatsuListError.failureReason ?? "") + (sakatsuListError.recoverySuggestion ?? ""))
             }
         }
     }
