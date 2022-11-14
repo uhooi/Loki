@@ -17,14 +17,16 @@ struct SakatsuInputScreen: View {
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
+            }, onForewordChange: { foreword in
+                viewModel.onForewordChange(foreword: foreword)
             }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
                 viewModel.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime)
             }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
                 viewModel.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime)
             }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
                 viewModel.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime)
-            }, onCommentChange: { comment in
-                viewModel.onCommentChange(comment: comment)
+            }, onAfterwordChange: { afterword in
+                viewModel.onAfterwordChange(afterword: afterword)
             }
         )
         .navigationTitle("サ活登録")
@@ -64,10 +66,11 @@ private struct SakatsuInputView: View {
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
+    let onForewordChange: ((String?) -> Void)
     let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
     let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
     let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
-    let onCommentChange: ((String?) -> Void)
+    let onAfterwordChange: ((String?) -> Void)
     
     var body: some View {
         Form {
@@ -89,6 +92,13 @@ private struct SakatsuInputView: View {
                     }),
                     displayedComponents: [.date]
                 )
+            }
+            Section(header: Text("まえがき")) {
+                TextField("オプション", text: .init(get: {
+                    sakatsu.foreword ?? ""
+                }, set: { newValue in
+                    onForewordChange(newValue)
+                }))
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) {
@@ -130,11 +140,11 @@ private struct SakatsuInputView: View {
             Section {
                 Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
-            Section(header: Text("コメント")) {
+            Section(header: Text("あとがき")) {
                 TextField("オプション", text: .init(get: {
-                    sakatsu.comment ?? ""
+                    sakatsu.afterword ?? ""
                 }, set: { newValue in
-                    onCommentChange(newValue)
+                    onAfterwordChange(newValue)
                 }))
             }
         }
@@ -145,19 +155,21 @@ private struct SakatsuInputView: View {
         onAddNewSaunaSetButtonClick: @escaping () -> Void,
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
+        onForewordChange: @escaping (String?) -> Void,
         onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onCommentChange: @escaping (String?) -> Void
+        onAfterwordChange: @escaping (String?) -> Void
     ) {
         self.sakatsu = sakatsu
         self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
         self.onFacilityNameChange = onFacilityNameChange
         self.onVisitingDateChange = onVisitingDateChange
+        self.onForewordChange = onForewordChange
         self.onSaunaTimeChange = onSaunaTimeChange
         self.onCoolBathTimeChange = onCoolBathTimeChange
         self.onRelaxationTimeChange = onRelaxationTimeChange
-        self.onCommentChange = onCommentChange
+        self.onAfterwordChange = onAfterwordChange
     }
 }
 
@@ -168,10 +180,11 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
+            onForewordChange: { _ in },
             onSaunaTimeChange: { _, _ in },
             onCoolBathTimeChange: {_, _ in },
             onRelaxationTimeChange: { _, _ in },
-            onCommentChange: { _ in }
+            onAfterwordChange: { _ in }
         )
     }
 }
