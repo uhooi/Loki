@@ -24,10 +24,10 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
 // MARK: Event handler
 
 extension SakatsuInputViewModel {
-    func onSaveButtonClick() async {
-        var sakatsus = (try? await repository.sakatsus()) ?? []
+    func onSaveButtonClick() {
+        var sakatsus = (try? repository.sakatsus()) ?? []
         sakatsus.append(uiState.sakatsu)
-        try? await repository.saveSakatsus(sakatsus) // TODO: Error handling
+        try? repository.saveSakatsus(sakatsus) // TODO: Error handling
     }
     
     func onAddNewSaunaSetButtonClick() {

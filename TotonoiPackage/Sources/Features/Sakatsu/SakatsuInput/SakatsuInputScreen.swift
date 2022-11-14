@@ -29,10 +29,8 @@ struct SakatsuInputScreen: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("保存") {
-                    Task {
-                        await viewModel.onSaveButtonClick()
-                        onSakatsuSave()
-                    }
+                    viewModel.onSaveButtonClick()
+                    onSakatsuSave()
                 }
                 .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
             }
