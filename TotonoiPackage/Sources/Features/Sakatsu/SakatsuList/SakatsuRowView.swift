@@ -41,9 +41,12 @@ struct SakatsuRowView: View {
             .font(.title)
     }
     
+    @ViewBuilder
     private var forewordText: some View {
-        Text(sakatsu.foreword ?? "")
-            .font(.body)
+        if let foreword = sakatsu.foreword {
+            Text(foreword)
+                .font(.body)
+        }
     }
     
     private var saunaSetsView: some View {
@@ -69,9 +72,12 @@ struct SakatsuRowView: View {
             .font(.caption)
     }
     
+    @ViewBuilder
     private var afterwordText: some View {
-        Text(sakatsu.afterword ?? "")
-            .font(.body)
+        if let afterword = sakatsu.afterword {
+            Text(afterword)
+                .font(.body)
+        }
     }
     
     private func saunaSetView(emoji: String, time: TimeInterval, unit: String) -> some View {
