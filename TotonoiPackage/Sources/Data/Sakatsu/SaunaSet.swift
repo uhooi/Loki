@@ -17,7 +17,15 @@ public struct SaunaSet {
     public struct Sauna {
         static var null: Self { .init(time: nil) }
         
-        public var time: TimeInterval?
+        private var _time: TimeInterval?
+        public var time: TimeInterval? {
+            get {
+                _time.map { $0 / 60 }
+            }
+            set {
+                _time = newValue.map { $0 * 60 }
+            }
+        }
         
         public init(time: TimeInterval?) {
             self.time = time
@@ -43,7 +51,15 @@ public struct SaunaSet {
         
         static var null: Self { .init(time: nil, place: nil, way: nil) }
         
-        public var time: TimeInterval?
+        private var _time: TimeInterval?
+        public var time: TimeInterval? {
+            get {
+                _time.map { $0 / 60 }
+            }
+            set {
+                _time = newValue.map { $0 * 60 }
+            }
+        }
         public var place: RelaxationPlace?
         public var way: String?
         
