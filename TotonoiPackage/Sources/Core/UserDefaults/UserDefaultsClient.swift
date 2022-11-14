@@ -13,13 +13,6 @@ private enum UserDefaultsError: LocalizedError {
             return "オブジェクトの取得に失敗しました。"
         }
     }
-    
-    var failureReason: String? {
-        switch self {
-        case .gettingFailed:
-            return "詳しい原因はわかりません。"
-        }
-    }
 }
 
 public struct UserDefaultsClient {
