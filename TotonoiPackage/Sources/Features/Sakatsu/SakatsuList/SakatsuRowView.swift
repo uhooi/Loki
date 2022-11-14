@@ -4,6 +4,7 @@ import SakatsuData
 struct SakatsuRowView: View {
     var sakatsu: Sakatsu
     let onEditButtonClick: () -> Void
+    let onCopySakatsuTextButtonClick: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -15,6 +16,7 @@ struct SakatsuRowView: View {
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 Menu {
                     Button("編集", action: onEditButtonClick)
+                    Button("サ活用テキストコピー", action: onCopySakatsuTextButtonClick)
                 } label: {
                     Image(systemName: "ellipsis")
                 }
@@ -81,7 +83,8 @@ struct SakatsuRowView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuRowView(
             sakatsu: .preview,
-            onEditButtonClick: {}
+            onEditButtonClick: {},
+            onCopySakatsuTextButtonClick: {}
         )
     }
 }

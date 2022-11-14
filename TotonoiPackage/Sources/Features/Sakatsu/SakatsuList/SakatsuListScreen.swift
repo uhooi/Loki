@@ -4,7 +4,8 @@ import SakatsuData
 public struct SakatsuListScreen: View {
     @StateObject private var viewModel = SakatsuListViewModel()
     
-    @State private var isShowingSheet = false
+    @State private var isShowingInputSheet = false
+    @State private var isPresentingCopyingSakatsuTextAlert = false
     
     public var body: some View {
         NavigationView {
@@ -12,6 +13,8 @@ public struct SakatsuListScreen: View {
                 sakatsus: viewModel.uiState.sakatsus,
                 onEditButtonClick: {
                     viewModel.onEditButtonClick()
+                }, onCopySakatsuTextButtonClick: { sakatsuIndex in
+                    viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
                     try? viewModel.onDelete(at: offsets) // TODO: Error handling
                 }
@@ -20,19 +23,31 @@ public struct SakatsuListScreen: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        isShowingSheet = true
+                        isShowingInputSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowingSheet) {
+                    .sheet(isPresented: $isShowingInputSheet) {
                         NavigationView {
                             SakatsuInputScreen(onSakatsuSave: {
-                                isShowingSheet = false
+                                isShowingInputSheet = false
                                 viewModel.onSakatsuSave()
                             })
                         }
                     }
                 }
+            }
+            .onChange(of: viewModel.uiState.shouldPresentCopyingSakatsuTextAlert) { _ in
+                guard viewModel.uiState.shouldPresentCopyingSakatsuTextAlert else {
+                    return
+                }
+                UIPasteboard.general.string = viewModel.uiState.sakatsuText
+                isPresentingCopyingSakatsuTextAlert = true
+                viewModel.onSakatsuTextCopy()
+            }
+            .alert("コピー", isPresented: $isPresentingCopyingSakatsuTextAlert) {
+            } message: {
+                Text("サ活用のテキストをコピーしました。")
             }
         }
     }
@@ -49,16 +64,20 @@ struct SakatsuListScreen_Previews: PreviewProvider {
 private struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
     let onEditButtonClick: () -> Void
+    let onCopySakatsuTextButtonClick: (Int) -> Void
     let onDelete: (IndexSet) -> Void
     
     var body: some View {
         List {
-            ForEach(sakatsus) { sakatsu in
+            ForEach(sakatsus.indexed(), id: \.index) { sakatsuIndex, sakatsu in
                 SakatsuRowView(
                     sakatsu: sakatsu,
                     onEditButtonClick: {
                         onEditButtonClick()
-                    })
+                    }, onCopySakatsuTextButtonClick: {
+                        onCopySakatsuTextButtonClick(sakatsuIndex)
+                    }
+                )
             }
             .onDelete { offsets in
                 onDelete(offsets)
@@ -72,6 +91,7 @@ struct SakatsuListView_Previews: PreviewProvider {
         SakatsuListView(
             sakatsus: [.preview],
             onEditButtonClick: {},
+            onCopySakatsuTextButtonClick: { _ in },
             onDelete: { _ in }
         )
     }
