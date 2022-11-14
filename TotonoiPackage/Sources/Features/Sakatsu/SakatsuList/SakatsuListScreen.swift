@@ -45,7 +45,7 @@ public struct SakatsuListScreen: View {
                     viewModel.onCopyingSakatsuTextAlertDismiss()
                 }
             } message: { sakatsuText in
-                Text("サ活用のテキストをコピーしました。")
+                Text("サ活のテキストをコピーしました。")
                     .onAppear {
                         UIPasteboard.general.string = sakatsuText
                     }
