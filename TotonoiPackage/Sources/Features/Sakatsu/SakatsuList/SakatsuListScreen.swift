@@ -40,13 +40,15 @@ public struct SakatsuListScreen: View {
                 "コピー",
                 isPresented: .constant(viewModel.uiState.sakatsuText != nil),
                 presenting: viewModel.uiState.sakatsuText
-            ) { sakatsuText in
+            ) { _ in
                 Button("OK") {
-                    UIPasteboard.general.string = sakatsuText
                     viewModel.onCopyingSakatsuTextAlertDismiss()
                 }
-            } message: { _ in
+            } message: { sakatsuText in
                 Text("サ活用のテキストをコピーしました。")
+                    .onAppear {
+                        UIPasteboard.general.string = sakatsuText
+                    }
             }
         }
     }
