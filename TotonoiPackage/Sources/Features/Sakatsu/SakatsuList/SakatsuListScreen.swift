@@ -5,6 +5,7 @@ public struct SakatsuListScreen: View {
     @StateObject private var viewModel = SakatsuListViewModel()
     
     @State private var isShowingSheet = false
+    @State private var isPresentingAlert = false
     
     public var body: some View {
         NavigationView {
@@ -12,6 +13,8 @@ public struct SakatsuListScreen: View {
                 sakatsus: viewModel.uiState.sakatsus,
                 onEditButtonClick: {
                     viewModel.onEditButtonClick()
+                }, onOutputSakatsuTextButtonClick: { sakatsuIndex in
+                    viewModel.onOutputSakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
                     Task {
                         try? await viewModel.onDelete(at: offsets) // TODO: Error handling
@@ -33,10 +36,18 @@ public struct SakatsuListScreen: View {
                                 Task {
                                     await viewModel.onSakatsuSave()
                                 }
-                                })
+                            })
                         }
                     }
                 }
+            }
+            .onChange(of: viewModel.uiState.sakatsuText) { newValue in
+                UIPasteboard.general.string = newValue
+                isPresentingAlert = true
+            }
+            .alert("コピー", isPresented: $isPresentingAlert) {
+            } message: {
+                Text("サ活用のテキストをコピーしました。")
             }
         }
     }
@@ -53,16 +64,20 @@ struct SakatsuListScreen_Previews: PreviewProvider {
 private struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
     let onEditButtonClick: () -> Void
+    let onOutputSakatsuTextButtonClick: (Int) -> Void
     let onDelete: (IndexSet) -> Void
     
     var body: some View {
         List {
-            ForEach(sakatsus) { sakatsu in
+            ForEach(sakatsus.indexed(), id: \.index) { sakatsuIndex, sakatsu in
                 SakatsuRowView(
                     sakatsu: sakatsu,
                     onEditButtonClick: {
                         onEditButtonClick()
-                    })
+                    }, onOutputSakatsuTextButtonClick: {
+                        onOutputSakatsuTextButtonClick(sakatsuIndex)
+                    }
+                )
             }
             .onDelete { offsets in
                 onDelete(offsets)
@@ -76,6 +91,7 @@ struct SakatsuListView_Previews: PreviewProvider {
         SakatsuListView(
             sakatsus: [.preview],
             onEditButtonClick: {},
+            onOutputSakatsuTextButtonClick: { _ in },
             onDelete: { _ in }
         )
     }
