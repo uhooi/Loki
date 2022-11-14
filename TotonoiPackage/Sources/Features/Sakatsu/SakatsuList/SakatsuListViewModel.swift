@@ -6,7 +6,6 @@ struct SakatsuListUiState {
     var isLoading: Bool
     var sakatsus: [Sakatsu]
     var sakatsuText: String?
-    var shouldPresentCopyingSakatsuTextAlert: Bool
 }
 
 @MainActor
@@ -14,8 +13,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     @Published private(set) var uiState = SakatsuListUiState(
         isLoading: true,
         sakatsus: [],
-        sakatsuText: nil,
-        shouldPresentCopyingSakatsuTextAlert: false
+        sakatsuText: nil
     )
     
     private let repository: Repository
@@ -45,7 +43,6 @@ extension SakatsuListViewModel {
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
-        uiState.shouldPresentCopyingSakatsuTextAlert = true
     }
     
     func onDelete(at offsets: IndexSet) throws {
@@ -53,8 +50,8 @@ extension SakatsuListViewModel {
         try repository.saveSakatsus(uiState.sakatsus)
     }
     
-    func onSakatsuTextCopy() {
-        uiState.shouldPresentCopyingSakatsuTextAlert = false
+    func onCopyingSakatsuTextAlertDismiss() {
+        uiState.sakatsuText = nil
     }
     
     private func sakatsuText(sakatsu: Sakatsu) -> String {
