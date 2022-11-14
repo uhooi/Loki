@@ -25,7 +25,7 @@ struct SakatsuRowView: View {
             GroupBox {
                 saunaSetsView
             }
-            commentText
+            afterwordText
         }
     }
     
@@ -63,7 +63,7 @@ struct SakatsuRowView: View {
             .font(.caption)
     }
     
-    private var commentText: some View {
+    private var afterwordText: some View {
         Text(sakatsu.afterword ?? "")
             .font(.body)
     }

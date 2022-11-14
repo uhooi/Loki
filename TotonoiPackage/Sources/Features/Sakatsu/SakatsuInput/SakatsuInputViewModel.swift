@@ -104,11 +104,11 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
     }
     
-    func onCommentChange(comment: String?) {
-        guard validate(comment: comment) else {
+    func onAfterwordChange(afterword: String?) {
+        guard validate(afterword: afterword) else {
             return
         }
-        uiState.sakatsu.afterword = comment
+        uiState.sakatsu.afterword = afterword
     }
 }
 
@@ -135,7 +135,7 @@ extension SakatsuInputViewModel {
         relaxationTime >= 0
     }
     
-    private func validate(comment: String?) -> Bool {
+    private func validate(afterword: String?) -> Bool {
         true
     }
 }
