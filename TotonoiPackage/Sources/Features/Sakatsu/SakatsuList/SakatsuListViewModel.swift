@@ -89,13 +89,13 @@ extension SakatsuListViewModel {
         for saunaSets in sakatsu.saunaSets {
             text += "\n"
             if let saunaTime = saunaSets.sauna.time {
-                text += "サウナ（\(saunaTime.formatted())分）"
+                text += "サウナ🔥（\(saunaTime.formatted())分）"
             }
             if let coolBathTime = saunaSets.coolBath.time {
-                text += "→水風呂（\(coolBathTime.formatted())秒）"
+                text += "→水風呂💧（\(coolBathTime.formatted())秒）"
             }
             if let relaxationTime = saunaSets.relaxation.time {
-                text += "→休憩（\(relaxationTime.formatted())分）"
+                text += "→休憩🍃（\(relaxationTime.formatted())分）"
             }
         }
         return text

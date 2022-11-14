@@ -103,7 +103,7 @@ private struct SakatsuInputView: View {
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) {
                     HStack {
-                        Text("サウナ🧖")
+                        Text("サウナ🔥")
                         TextField("オプション", value: .init(get: {
                             saunaSet.sauna.time
                         }, set: { newValue in
