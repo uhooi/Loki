@@ -5,7 +5,32 @@ import SakatsuData
 struct SakatsuInputUiState {
     var isLoading: Bool
     var sakatsu: Sakatsu
-    var savingErrorText: String?
+    var savingSakatsuError: SavingSakatsuError?
+}
+
+enum SavingSakatsuError: LocalizedError {
+    case sakatsuSaveFailed
+    
+    var errorDescription: String? {
+        switch self {
+        case .sakatsuSaveFailed:
+            return "サ活の保存に失敗しました。"
+        }
+    }
+    
+    var failureReason: String? {
+        switch self {
+        case .sakatsuSaveFailed:
+            return "詳しい原因はわかりません。"
+        }
+    }
+    
+    var recoverySuggestion: String? {
+        switch self {
+        case .sakatsuSaveFailed:
+            return "時間をおいて再度お試しください。"
+        }
+    }
 }
 
 @MainActor
@@ -13,7 +38,7 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
         sakatsu: .default,
-        savingErrorText: nil
+        savingSakatsuError: nil
     )
     
     private let repository: Repository
@@ -32,12 +57,12 @@ extension SakatsuInputViewModel {
             sakatsus.append(uiState.sakatsu)
             try repository.saveSakatsus(sakatsus)
         } catch {
-            uiState.savingErrorText = "サ活の保存に失敗しました。"
+            uiState.savingSakatsuError = .sakatsuSaveFailed
         }
     }
     
     func onSavingErrorAlertDismiss() {
-        uiState.savingErrorText = nil
+        uiState.savingSakatsuError = nil
     }
     
     func onAddNewSaunaSetButtonClick() {

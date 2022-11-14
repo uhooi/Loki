@@ -38,15 +38,14 @@ struct SakatsuInputScreen: View {
             }
         }
         .alert(
-            "エラー",
-            isPresented: .constant(viewModel.uiState.savingErrorText != nil),
-            presenting: viewModel.uiState.savingErrorText
+            isPresented: .constant(viewModel.uiState.savingSakatsuError != nil),
+            error: viewModel.uiState.savingSakatsuError
         ) { _ in
             Button("OK") {
                 viewModel.onSavingErrorAlertDismiss()
             }
-        } message: { savingErrorText in
-            Text(savingErrorText)
+        } message: { savingSakatsuError in
+            Text(savingSakatsuError.failureReason! + savingSakatsuError.recoverySuggestion!)
         }
     }
 }
