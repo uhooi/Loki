@@ -6,7 +6,21 @@ struct SakatsuListUiState {
     var isLoading: Bool
     var sakatsus: [Sakatsu]
     var sakatsuText: String?
-    var shouldPresentCopyingSakatsuTextAlert: Bool
+    var sakatsuListError: SakatsuListError?
+}
+
+enum SakatsuListError: LocalizedError {
+    case sakatsuFetchFailed(localizedDescription: String)
+    case sakatsuDeleteFailed(localizedDescription: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case let .sakatsuFetchFailed(localizedDescription):
+            return localizedDescription
+        case let .sakatsuDeleteFailed(localizedDescription):
+            return localizedDescription
+        }
+    }
 }
 
 @MainActor
@@ -15,7 +29,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
         isLoading: true,
         sakatsus: [],
         sakatsuText: nil,
-        shouldPresentCopyingSakatsuTextAlert: false
+        sakatsuListError: nil
     )
     
     private let repository: Repository
@@ -27,7 +41,11 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     
     private func refreshSakatsus() {
         uiState.isLoading = true
-        uiState.sakatsus = (try? repository.sakatsus()) ?? [] // FIXME:
+        do {
+            uiState.sakatsus = try repository.sakatsus()
+        } catch {
+            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
+        }
         uiState.isLoading = false
     }
 }
@@ -45,16 +63,25 @@ extension SakatsuListViewModel {
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
-        uiState.shouldPresentCopyingSakatsuTextAlert = true
     }
     
-    func onDelete(at offsets: IndexSet) throws {
+    func onCopyingSakatsuTextAlertDismiss() {
+        uiState.sakatsuText = nil
+    }
+    
+    func onDelete(at offsets: IndexSet) {
+        let oldValue = uiState.sakatsus
         uiState.sakatsus.remove(atOffsets: offsets)
-        try repository.saveSakatsus(uiState.sakatsus)
+        do {
+            try repository.saveSakatsus(uiState.sakatsus)
+        } catch {
+            uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
+            uiState.sakatsus = oldValue
+        }
     }
     
-    func onSakatsuTextCopy() {
-        uiState.shouldPresentCopyingSakatsuTextAlert = false
+    func onErrorAlertDismiss() {
+        uiState.sakatsuListError = nil
     }
     
     private func sakatsuText(sakatsu: Sakatsu) -> String {

@@ -5,7 +5,6 @@ public struct SakatsuListScreen: View {
     @StateObject private var viewModel = SakatsuListViewModel()
     
     @State private var isShowingInputSheet = false
-    @State private var isPresentingCopyingSakatsuTextAlert = false
     
     public var body: some View {
         NavigationView {
@@ -16,7 +15,7 @@ public struct SakatsuListScreen: View {
                 }, onCopySakatsuTextButtonClick: { sakatsuIndex in
                     viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
-                    try? viewModel.onDelete(at: offsets) // TODO: Error handling
+                    viewModel.onDelete(at: offsets)
                 }
             )
             .navigationTitle("サ活一覧")
@@ -37,17 +36,29 @@ public struct SakatsuListScreen: View {
                     }
                 }
             }
-            .onChange(of: viewModel.uiState.shouldPresentCopyingSakatsuTextAlert) { _ in
-                guard viewModel.uiState.shouldPresentCopyingSakatsuTextAlert else {
-                    return
+            .alert(
+                "コピー",
+                isPresented: .constant(viewModel.uiState.sakatsuText != nil),
+                presenting: viewModel.uiState.sakatsuText
+            ) { _ in
+                Button("OK") {
+                    viewModel.onCopyingSakatsuTextAlertDismiss()
                 }
-                UIPasteboard.general.string = viewModel.uiState.sakatsuText
-                isPresentingCopyingSakatsuTextAlert = true
-                viewModel.onSakatsuTextCopy()
-            }
-            .alert("コピー", isPresented: $isPresentingCopyingSakatsuTextAlert) {
-            } message: {
+            } message: { sakatsuText in
                 Text("サ活用のテキストをコピーしました。")
+                    .onAppear {
+                        UIPasteboard.general.string = sakatsuText
+                    }
+            }
+            .alert(
+                isPresented: .constant(viewModel.uiState.sakatsuListError != nil),
+                error: viewModel.uiState.sakatsuListError
+            ) { _ in
+                Button("OK") {
+                    viewModel.onErrorAlertDismiss()
+                }
+            } message: { sakatsuListError in
+                Text((sakatsuListError.failureReason ?? "") + (sakatsuListError.recoverySuggestion ?? ""))
             }
         }
     }

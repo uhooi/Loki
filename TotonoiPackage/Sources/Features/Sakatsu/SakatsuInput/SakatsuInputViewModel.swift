@@ -5,13 +5,40 @@ import SakatsuData
 struct SakatsuInputUiState {
     var isLoading: Bool
     var sakatsu: Sakatsu
+    var savingSakatsuError: SavingSakatsuError?
+}
+
+enum SavingSakatsuError: LocalizedError {
+    case sakatsuSaveFailed
+    
+    var errorDescription: String? {
+        switch self {
+        case .sakatsuSaveFailed:
+            return "サ活の保存に失敗しました。"
+        }
+    }
+    
+    var failureReason: String? {
+        switch self {
+        case .sakatsuSaveFailed:
+            return "詳しい原因はわかりません。"
+        }
+    }
+    
+    var recoverySuggestion: String? {
+        switch self {
+        case .sakatsuSaveFailed:
+            return "時間をおいて再度お試しください。"
+        }
+    }
 }
 
 @MainActor
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
-        sakatsu: .default
+        sakatsu: .default,
+        savingSakatsuError: nil
     )
     
     private let repository: Repository
@@ -21,13 +48,21 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
     }
 }
 
-// MARK: Event handler
+// MARK: - Event handler
 
 extension SakatsuInputViewModel {
     func onSaveButtonClick() {
-        var sakatsus = (try? repository.sakatsus()) ?? []
-        sakatsus.append(uiState.sakatsu)
-        try? repository.saveSakatsus(sakatsus) // TODO: Error handling
+        do {
+            var sakatsus = (try? repository.sakatsus()) ?? []
+            sakatsus.append(uiState.sakatsu)
+            try repository.saveSakatsus(sakatsus)
+        } catch {
+            uiState.savingSakatsuError = .sakatsuSaveFailed
+        }
+    }
+    
+    func onSavingErrorAlertDismiss() {
+        uiState.savingSakatsuError = nil
     }
     
     func onAddNewSaunaSetButtonClick() {
@@ -75,9 +110,13 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.comment = comment
     }
-   
+}
+
+// MARK: - Validate
+
+extension SakatsuInputViewModel {
     private func validate(facilityName: String) -> Bool {
-        facilityName != ""
+        !facilityName.isEmpty
     }
     
     private func validate(visitingDate: Date) -> Bool {

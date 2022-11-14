@@ -37,6 +37,16 @@ struct SakatsuInputScreen: View {
                 .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
             }
         }
+        .alert(
+            isPresented: .constant(viewModel.uiState.savingSakatsuError != nil),
+            error: viewModel.uiState.savingSakatsuError
+        ) { _ in
+            Button("OK") {
+                viewModel.onSavingErrorAlertDismiss()
+            }
+        } message: { savingSakatsuError in
+            Text(savingSakatsuError.failureReason! + savingSakatsuError.recoverySuggestion!)
+        }
     }
 }
 
@@ -50,6 +60,7 @@ struct SakatsuInputScreen_Previews: PreviewProvider {
 
 private struct SakatsuInputView: View {
     let sakatsu: Sakatsu
+    
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
@@ -139,8 +150,8 @@ private struct SakatsuInputView: View {
         onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onCommentChange: @escaping (String?) -> Void
     ) {
-        self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
         self.sakatsu = sakatsu
+        self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
         self.onFacilityNameChange = onFacilityNameChange
         self.onVisitingDateChange = onVisitingDateChange
         self.onSaunaTimeChange = onSaunaTimeChange
