@@ -3,7 +3,6 @@ import Combine
 import SakatsuData
 
 struct SakatsuListUiState {
-    var isLoading: Bool
     var sakatsus: [Sakatsu]
     var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
@@ -32,7 +31,6 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     
     init(repository: Repository = SakatsuUserDefaultsClient.shared) {
         self.uiState = SakatsuListUiState(
-            isLoading: true,
             sakatsus: [],
             selectedSakatsu: nil,
             sakatsuText: nil,
@@ -43,13 +41,11 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     }
     
     private func refreshSakatsus() {
-        uiState.isLoading = true
         do {
             uiState.sakatsus = try repository.sakatsus()
         } catch {
             uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
         }
-        uiState.isLoading = false
     }
 }
 
