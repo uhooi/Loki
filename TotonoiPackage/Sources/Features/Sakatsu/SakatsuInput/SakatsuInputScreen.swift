@@ -31,6 +31,8 @@ struct SakatsuInputScreen: View {
                 viewModel.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, relaxationTitle: relaxationTitle)
             }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
                 viewModel.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime)
+            }, onRemoveSaunaSetButtonClick: { saunaSetIndex in
+                viewModel.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex)
             }, onAfterwordChange: { afterword in
                 viewModel.onAfterwordChange(afterword: afterword)
             }
@@ -46,14 +48,14 @@ struct SakatsuInputScreen: View {
             }
         }
         .alert(
-            isPresented: .constant(viewModel.uiState.savingSakatsuError != nil),
-            error: viewModel.uiState.savingSakatsuError
+            isPresented: .constant(viewModel.uiState.sakatsuInputError != nil),
+            error: viewModel.uiState.sakatsuInputError
         ) { _ in
             Button("OK") {
                 viewModel.onSavingErrorAlertDismiss()
             }
-        } message: { savingSakatsuError in
-            Text(savingSakatsuError.failureReason! + savingSakatsuError.recoverySuggestion!)
+        } message: { sakatsuInputError in
+            Text((sakatsuInputError.failureReason ?? "") + (sakatsuInputError.recoverySuggestion ?? ""))
         }
     }
 }
@@ -79,6 +81,7 @@ private struct SakatsuInputView: View {
     let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
     let onRelaxationTitleChange: ((Int, String) -> Void)
     let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
+    let onRemoveSaunaSetButtonClick: ((Int) -> Void)
     let onAfterwordChange: ((String?) -> Void)
     
     var body: some View {
@@ -110,7 +113,7 @@ private struct SakatsuInputView: View {
                 }))
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
-                Section(header: Text("\(saunaSetIndex + 1)セット目")) {
+                Section {
                     saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.sauna,
@@ -129,6 +132,13 @@ private struct SakatsuInputView: View {
                         onTitleChange: onRelaxationTitleChange,
                         onTimeChange: onRelaxationTimeChange
                     )
+                } header: {
+                    Text("\(saunaSetIndex + 1)セット目")
+                } footer: {
+                    Button("セットを削除", role: .destructive) {
+                        onRemoveSaunaSetButtonClick(saunaSetIndex)
+                    }
+                    .font(.footnote)
                 }
             }
             Section {
@@ -185,6 +195,7 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onCoolBathTimeChange: {_, _ in },
             onRelaxationTitleChange: { _, _ in },
             onRelaxationTimeChange: { _, _ in },
+            onRemoveSaunaSetButtonClick: { _ in },
             onAfterwordChange: { _ in }
         )
     }
