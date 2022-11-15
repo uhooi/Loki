@@ -66,7 +66,7 @@ extension SakatsuInputViewModel {
     }
     
     func onAddNewSaunaSetButtonClick() {
-        uiState.sakatsu.saunaSets.append(.null)
+        uiState.sakatsu.saunaSets.append(.init())
     }
     
     func onFacilityNameChange(facilityName: String) {

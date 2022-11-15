@@ -6,7 +6,7 @@ public struct Sakatsu {
         facilityName: "",
         visitingDate: .now,
         foreword: nil,
-        saunaSets: [.null],
+        saunaSets: [.init()],
         afterword: nil
     )}
     
