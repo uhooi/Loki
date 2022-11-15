@@ -37,7 +37,7 @@ enum SavingSakatsuError: LocalizedError {
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
-        sakatsu: .default,
+        sakatsu: .init(),
         savingSakatsuError: nil
     )
     

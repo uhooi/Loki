@@ -202,7 +202,7 @@ private struct SakatsuInputView: View {
 struct SakatsuInputView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuInputView(
-            sakatsu: Sakatsu.preview,
+            sakatsu: .preview,
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
