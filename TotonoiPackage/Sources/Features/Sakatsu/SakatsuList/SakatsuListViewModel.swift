@@ -92,16 +92,18 @@ extension SakatsuListViewModel {
         }
         
         text += "\n\n\(sakatsu.saunaSets.count)セット行いました。"
-        for saunaSets in sakatsu.saunaSets {
+        for saunaSet in sakatsu.saunaSets {
             text += "\n"
-            if let saunaTime = saunaSets.sauna.time {
-                text += "サウナ🔥（\(saunaTime.formatted())分）"
+            if let saunaTime = saunaSet.sauna.time {
+                text += "\(saunaSet.sauna.emoji)\(saunaSet.sauna.title)（\(saunaTime.formatted())\(saunaSet.sauna.unit)）"
             }
-            if let coolBathTime = saunaSets.coolBath.time {
-                text += "→水風呂💧（\(coolBathTime.formatted())秒）"
+            if let coolBathTime = saunaSet.coolBath.time {
+                text += "→"
+                text += "\(saunaSet.coolBath.emoji)\(saunaSet.coolBath.title)（\(coolBathTime.formatted())\(saunaSet.coolBath.unit)）"
             }
-            if let relaxationTime = saunaSets.relaxation.time {
-                text += "→休憩🍃（\(relaxationTime.formatted())分）"
+            if let relaxationTime = saunaSet.relaxation.time {
+                text += "→"
+                text += "\(saunaSet.relaxation.emoji)\(saunaSet.relaxation.title)（\(relaxationTime.formatted())\(saunaSet.relaxation.unit)）"
             }
         }
         
