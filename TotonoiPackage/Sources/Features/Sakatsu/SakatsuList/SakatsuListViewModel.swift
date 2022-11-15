@@ -5,6 +5,7 @@ import SakatsuData
 struct SakatsuListUiState {
     var isLoading: Bool
     var sakatsus: [Sakatsu]
+    var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
     var sakatsuListError: SakatsuListError?
 }
@@ -28,6 +29,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     @Published private(set) var uiState = SakatsuListUiState(
         isLoading: true,
         sakatsus: [],
+        selectedSakatsu: nil,
         sakatsuText: nil,
         sakatsuListError: nil
     )
@@ -57,8 +59,12 @@ extension SakatsuListViewModel {
         refreshSakatsus()
     }
     
+    func onAddButtonClick() {
+        uiState.selectedSakatsu = nil
+    }
+    
     func onEditButtonClick(sakatsuIndex: Int) {
-        // TODO:
+        uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
     }
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {

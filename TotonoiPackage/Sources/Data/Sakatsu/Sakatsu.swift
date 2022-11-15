@@ -1,7 +1,8 @@
 import Foundation
 import UserDefaultsCore
 
-public struct Sakatsu {
+public struct Sakatsu: Identifiable {
+    public var id = UUID()
     public var facilityName: String = ""
     public var visitingDate: Date = .now
     public var foreword: String? = nil
@@ -11,8 +12,10 @@ public struct Sakatsu {
     public init() {}
 }
 
-extension Sakatsu: Identifiable {
-    public var id: String { facilityName + visitingDate.formatted() }
+extension Sakatsu: Equatable {
+    public static func == (lhs: Sakatsu, rhs: Sakatsu) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 extension Sakatsu: UserDefaultsPersistable {}

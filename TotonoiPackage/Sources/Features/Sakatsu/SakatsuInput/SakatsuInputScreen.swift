@@ -4,9 +4,9 @@ import Algorithms
 import SakatsuData
 
 struct SakatsuInputScreen: View {
-    @StateObject private var viewModel = SakatsuInputViewModel()
+    @StateObject private var viewModel: SakatsuInputViewModel<SakatsuUserDefaultsClient>
     
-    let onSakatsuSave: () -> Void
+    private let onSakatsuSave: () -> Void
     
     var body: some View {
         SakatsuInputView(
@@ -58,12 +58,23 @@ struct SakatsuInputScreen: View {
             Text((sakatsuInputError.failureReason ?? "") + (sakatsuInputError.recoverySuggestion ?? ""))
         }
     }
+    
+    init(
+        sakatsu: Sakatsu?,
+        onSakatsuSave: @escaping () -> Void
+    ) {
+        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(sakatsu: sakatsu ?? .init()))
+        self.onSakatsuSave = onSakatsuSave
+    }
 }
 
 struct SakatsuInputScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SakatsuInputScreen(onSakatsuSave: {})
+            SakatsuInputScreen(
+                sakatsu: .preview,
+                onSakatsuSave: {}
+            )
         }
     }
 }

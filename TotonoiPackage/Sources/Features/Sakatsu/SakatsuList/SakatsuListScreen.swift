@@ -12,6 +12,7 @@ public struct SakatsuListScreen: View {
                 sakatsus: viewModel.uiState.sakatsus,
                 onEditButtonClick: { sakatsuIndex in
                     viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
+                    isShowingInputSheet = true
                 }, onCopySakatsuTextButtonClick: { sakatsuIndex in
                     viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
@@ -22,16 +23,20 @@ public struct SakatsuListScreen: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
+                        viewModel.onAddButtonClick()
                         isShowingInputSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $isShowingInputSheet) {
                         NavigationView {
-                            SakatsuInputScreen(onSakatsuSave: {
-                                isShowingInputSheet = false
-                                viewModel.onSakatsuSave()
-                            })
+                            SakatsuInputScreen(
+                                sakatsu: viewModel.uiState.selectedSakatsu,
+                                onSakatsuSave: {
+                                    isShowingInputSheet = false
+                                    viewModel.onSakatsuSave()
+                                }
+                            )
                         }
                     }
                 }
