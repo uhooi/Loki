@@ -88,20 +88,19 @@ extension SakatsuListViewModel {
         var text = ""
         
         if let foreword = sakatsu.foreword {
-            text += foreword
+            text += "\(foreword)\n\n"
         }
         
-        text += "\n\n\(sakatsu.saunaSets.count)セット行いました。"
-        for saunaSets in sakatsu.saunaSets {
-            text += "\n"
-            if let saunaTime = saunaSets.sauna.time {
-                text += "サウナ🔥（\(saunaTime.formatted())分）"
-            }
-            if let coolBathTime = saunaSets.coolBath.time {
-                text += "→水風呂💧（\(coolBathTime.formatted())秒）"
-            }
-            if let relaxationTime = saunaSets.relaxation.time {
-                text += "→休憩🍃（\(relaxationTime.formatted())分）"
+        text += "\(sakatsu.saunaSets.count)セット行いました。"
+        for saunaSet in sakatsu.saunaSets {
+            var saunaSetItemTexts: [String] = []
+            saunaSetItemText(saunaSetItem: saunaSet.sauna).map { saunaSetItemTexts.append($0) }
+            saunaSetItemText(saunaSetItem: saunaSet.coolBath).map { saunaSetItemTexts.append($0) }
+            saunaSetItemText(saunaSetItem: saunaSet.relaxation).map { saunaSetItemTexts.append($0) }
+            
+            if !saunaSetItemTexts.isEmpty {
+                text += "\n"
+                text += saunaSetItemTexts.joined(separator: "→")
             }
         }
         
@@ -110,5 +109,12 @@ extension SakatsuListViewModel {
         }
         
         return text
+    }
+    
+    private func saunaSetItemText(saunaSetItem: any SaunaSetItemProtocol) -> String? {
+        guard let time = saunaSetItem.time else {
+            return nil
+        }
+        return "\(saunaSetItem.emoji)\(saunaSetItem.title)（\(time.formatted())\(saunaSetItem.unit)）"
     }
 }

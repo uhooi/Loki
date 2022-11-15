@@ -102,39 +102,21 @@ private struct SakatsuInputView: View {
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) {
-                    HStack {
-                        Text("サウナ🔥")
-                        TextField("オプション", value: .init(get: {
-                            saunaSet.sauna.time
-                        }, set: { newValue in
-                            onSaunaTimeChange(saunaSetIndex, newValue)
-                        }), format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        Text("分")
-                    }
-                    HStack {
-                        Text("水風呂💧")
-                        TextField("オプション", value: .init(get: {
-                            saunaSet.coolBath.time
-                        }, set: { newValue in
-                            onCoolBathTimeChange(saunaSetIndex, newValue)
-                        }), format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        Text("秒")
-                    }
-                    HStack {
-                        Text("休憩🍃")
-                        TextField("オプション", value: .init(get: {
-                            saunaSet.relaxation.time
-                        }, set: { newValue in
-                            onRelaxationTimeChange(saunaSetIndex, newValue)
-                        }), format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        Text("分")
-                    }
+                    saunaSetItemTimeInputView(
+                        saunaSetIndex: saunaSetIndex,
+                        saunaSetItem: saunaSet.sauna,
+                        onTimeChange: onSaunaTimeChange
+                    )
+                    saunaSetItemTimeInputView(
+                        saunaSetIndex: saunaSetIndex,
+                        saunaSetItem: saunaSet.coolBath,
+                        onTimeChange: onCoolBathTimeChange
+                    )
+                    saunaSetItemTimeInputView(
+                        saunaSetIndex: saunaSetIndex,
+                        saunaSetItem: saunaSet.relaxation,
+                        onTimeChange: onRelaxationTimeChange
+                    )
                 }
             }
             Section {
@@ -170,6 +152,24 @@ private struct SakatsuInputView: View {
         self.onCoolBathTimeChange = onCoolBathTimeChange
         self.onRelaxationTimeChange = onRelaxationTimeChange
         self.onAfterwordChange = onAfterwordChange
+    }
+    
+    private func saunaSetItemTimeInputView(
+        saunaSetIndex: Int,
+        saunaSetItem: any SaunaSetItemProtocol,
+        onTimeChange: @escaping (Int, TimeInterval?) -> Void
+    ) -> some View {
+        HStack {
+            Text("\(saunaSetItem.emoji)\(saunaSetItem.title)")
+            TextField("オプション", value: .init(get: {
+                saunaSetItem.time
+            }, set: { newValue in
+                onTimeChange(saunaSetIndex, newValue)
+            }), format: .number)
+            .keyboardType(.numberPad)
+            .multilineTextAlignment(.trailing)
+            Text(saunaSetItem.unit)
+        }
     }
 }
 

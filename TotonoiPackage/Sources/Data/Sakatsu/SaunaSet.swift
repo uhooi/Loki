@@ -1,6 +1,13 @@
 import Foundation
 import UserDefaultsCore
 
+public protocol SaunaSetItemProtocol {
+    var emoji: String { get }
+    var title: String { get }
+    var unit: String { get }
+    var time: TimeInterval? { get set }
+}
+
 public struct SaunaSet {
     public static var null: Self { .init(sauna: .null, coolBath: .null, relaxation: .null) }
     
@@ -14,8 +21,12 @@ public struct SaunaSet {
         self.relaxation = relaxation
     }
     
-    public struct Sauna {
+    public struct Sauna: SaunaSetItemProtocol {
         static var null: Self { .init(time: nil) }
+        
+        public var emoji: String { "🔥" }
+        public var title: String { "サウナ" }
+        public var unit: String { "分" }
         
         private var _time: TimeInterval?
         public var time: TimeInterval? {
@@ -32,8 +43,12 @@ public struct SaunaSet {
         }
     }
     
-    public struct CoolBath {
+    public struct CoolBath: SaunaSetItemProtocol {
         static var null: Self { .init(time: nil) }
+        
+        public var emoji: String { "💧" }
+        public var title: String { "水風呂" }
+        public var unit: String { "秒" }
         
         public var time: TimeInterval?
         
@@ -42,7 +57,7 @@ public struct SaunaSet {
         }
     }
     
-    public struct Relaxation {
+    public struct Relaxation: SaunaSetItemProtocol {
         public enum RelaxationPlace {
             case outdoorAirBath
             case indoorAirBath
@@ -50,6 +65,10 @@ public struct SaunaSet {
         }
         
         static var null: Self { .init(time: nil, place: nil, way: nil) }
+        
+        public var emoji: String { "🍃" }
+        public var title: String { "休憩" }
+        public var unit: String { "分" }
         
         private var _time: TimeInterval?
         public var time: TimeInterval? {
