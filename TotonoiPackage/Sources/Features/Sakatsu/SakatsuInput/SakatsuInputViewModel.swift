@@ -61,7 +61,7 @@ extension SakatsuInputViewModel {
             } else {
                 sakatsus.append(uiState.sakatsu)
             }
-            try repository.saveSakatsus(sakatsus)
+            try repository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
         } catch {
             uiState.sakatsuInputError = .sakatsuSaveFailed
         }
