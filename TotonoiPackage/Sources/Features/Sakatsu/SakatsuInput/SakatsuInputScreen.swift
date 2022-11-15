@@ -77,7 +77,7 @@ private struct SakatsuInputView: View {
             Section {
                 HStack {
                     Text("施設名")
-                    TextField("", text: .init(get: {
+                    TextField("必須", text: .init(get: {
                         sakatsu.facilityName
                     }, set: { newValue in
                         onFacilityNameChange(newValue)
