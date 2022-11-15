@@ -58,13 +58,7 @@ public struct SaunaSet {
     }
     
     public struct Relaxation: SaunaSetItemProtocol {
-        public enum RelaxationPlace {
-            case outdoorAirBath
-            case indoorAirBath
-            case other
-        }
-        
-        static var null: Self { .init(time: nil, place: nil, way: nil) }
+        static var null: Self { .init(time: nil) }
         
         public var emoji: String { "🍃" }
         public var title: String { "休憩" }
@@ -79,13 +73,9 @@ public struct SaunaSet {
                 _time = newValue.map { $0 * 60 }
             }
         }
-        public var place: RelaxationPlace?
-        public var way: String?
         
-        public init(time: TimeInterval?, place: RelaxationPlace?, way: String?) {
+        public init(time: TimeInterval?) {
             self.time = time
-            self.place = place
-            self.way = way
         }
     }
 }
@@ -98,7 +88,6 @@ extension SaunaSet: UserDefaultsPersistable {}
 extension SaunaSet.Sauna: UserDefaultsPersistable {}
 extension SaunaSet.CoolBath: UserDefaultsPersistable {}
 extension SaunaSet.Relaxation: UserDefaultsPersistable {}
-extension SaunaSet.Relaxation.RelaxationPlace: UserDefaultsPersistable {}
 
 #if DEBUG
 extension SaunaSet {
@@ -106,11 +95,7 @@ extension SaunaSet {
         .init(
             sauna: .init(time: 5 * 60),
             coolBath: .init(time: 30),
-            relaxation: .init(
-                time: 10 * 60,
-                place: .outdoorAirBath,
-                way: "インフィニティチェア"
-            )
+            relaxation: .init(time: 10 * 60)
         )
     }
 }
