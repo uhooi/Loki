@@ -23,8 +23,10 @@ struct SakatsuRowView: View {
                 .frame(alignment: .topTrailing)
             }
             forewordText
-            GroupBox {
-                saunaSetsView
+            if !sakatsu.saunaSets.isEmpty {
+                GroupBox {
+                    saunaSetsView
+                }
             }
             afterwordText
         }
@@ -56,15 +58,21 @@ struct SakatsuRowView: View {
                     saunaSetItemView(saunaSetItem: saunaSet.sauna)
                 }
                 if !saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil {
-                    arrowImage
+                    if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
+                        arrowImage
+                    }
                     saunaSetItemView(saunaSetItem: saunaSet.coolBath)
                 }
                 if !saunaSet.relaxation.title.isEmpty || saunaSet.relaxation.time != nil {
-                    arrowImage
+                    if (!saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil) ||
+                        (!saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil) {
+                        arrowImage
+                    }
                     saunaSetItemView(saunaSetItem: saunaSet.relaxation)
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var arrowImage: some View {
