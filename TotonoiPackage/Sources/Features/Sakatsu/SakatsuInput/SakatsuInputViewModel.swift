@@ -37,7 +37,7 @@ enum SavingSakatsuError: LocalizedError {
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
-        sakatsu: .default,
+        sakatsu: .init(),
         savingSakatsuError: nil
     )
     
@@ -66,7 +66,7 @@ extension SakatsuInputViewModel {
     }
     
     func onAddNewSaunaSetButtonClick() {
-        uiState.sakatsu.saunaSets.append(.null)
+        uiState.sakatsu.saunaSets.append(.init())
     }
     
     func onFacilityNameChange(facilityName: String) {
@@ -90,6 +90,13 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.foreword = foreword
     }
     
+    func onSaunaTitleChange(saunaSetIndex: Int, saunaTitle: String) {
+        guard validate(saunaTitle: saunaTitle) else {
+            return
+        }
+        uiState.sakatsu.saunaSets[saunaSetIndex].sauna.title = saunaTitle
+    }
+    
     func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
         guard let saunaTime, validate(saunaTime: saunaTime) else {
             return
@@ -97,11 +104,25 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
     }
     
+    func onCoolBathTitleChange(saunaSetIndex: Int, coolBathTitle: String) {
+        guard validate(coolBathTitle: coolBathTitle) else {
+            return
+        }
+        uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.title = coolBathTitle
+    }
+    
     func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
         guard let coolBathTime, validate(coolBathTime: coolBathTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
+    }
+    
+    func onRelaxationTitleChange(saunaSetIndex: Int, relaxationTitle: String) {
+        guard validate(relaxationTitle: relaxationTitle) else {
+            return
+        }
+        uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.title = relaxationTitle
     }
     
     func onRelaxationTimeChange(saunaSetIndex: Int, relaxationTime: TimeInterval?) {
@@ -134,12 +155,24 @@ extension SakatsuInputViewModel {
         true
     }
     
+    private func validate(saunaTitle: String?) -> Bool {
+        true
+    }
+    
     private func validate(saunaTime: TimeInterval) -> Bool {
         saunaTime >= 0
     }
     
+    private func validate(coolBathTitle: String?) -> Bool {
+        true
+    }
+    
     private func validate(coolBathTime: TimeInterval) -> Bool {
         coolBathTime >= 0
+    }
+    
+    private func validate(relaxationTitle: String?) -> Bool {
+        true
     }
     
     private func validate(relaxationTime: TimeInterval) -> Bool {

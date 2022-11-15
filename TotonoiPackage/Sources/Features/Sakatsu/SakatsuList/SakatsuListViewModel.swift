@@ -112,9 +112,15 @@ extension SakatsuListViewModel {
     }
     
     private func saunaSetItemText(saunaSetItem: any SaunaSetItemProtocol) -> String? {
-        guard let time = saunaSetItem.time else {
+        guard !(saunaSetItem.title.isEmpty && saunaSetItem.time == nil) else {
             return nil
         }
-        return "\(saunaSetItem.emoji)\(saunaSetItem.title)（\(time.formatted())\(saunaSetItem.unit)）"
+        
+        var text = "\(saunaSetItem.emoji)\(saunaSetItem.title)"
+        if let time = saunaSetItem.time {
+            text += "（\(time.formatted())\(saunaSetItem.unit)）"
+        }
+        
+        return text
     }
 }
