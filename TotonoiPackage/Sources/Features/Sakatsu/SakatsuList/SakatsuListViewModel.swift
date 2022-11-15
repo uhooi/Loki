@@ -26,17 +26,18 @@ enum SakatsuListError: LocalizedError {
 
 @MainActor
 final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
-    @Published private(set) var uiState = SakatsuListUiState(
-        isLoading: true,
-        sakatsus: [],
-        selectedSakatsu: nil,
-        sakatsuText: nil,
-        sakatsuListError: nil
-    )
+    @Published private(set) var uiState: SakatsuListUiState
     
     private let repository: Repository
     
     init(repository: Repository = SakatsuUserDefaultsClient.shared) {
+        self.uiState = SakatsuListUiState(
+            isLoading: true,
+            sakatsus: [],
+            selectedSakatsu: nil,
+            sakatsuText: nil,
+            sakatsuListError: nil
+        )
         self.repository = repository
         refreshSakatsus()
     }

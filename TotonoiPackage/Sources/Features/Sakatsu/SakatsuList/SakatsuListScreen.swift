@@ -2,7 +2,7 @@ import SwiftUI
 import SakatsuData
 
 public struct SakatsuListScreen: View {
-    @StateObject private var viewModel = SakatsuListViewModel()
+    @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
     
     @State private var isShowingInputSheet = false
     
@@ -68,7 +68,9 @@ public struct SakatsuListScreen: View {
         }
     }
     
-    public init() {}
+    public init() {
+        self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
+    }
 }
 
 struct SakatsuListScreen_Previews: PreviewProvider {
