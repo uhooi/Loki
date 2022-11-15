@@ -103,7 +103,7 @@ private struct SakatsuInputView: View {
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) {
                     HStack {
-                        Text("サウナ🔥")
+                        Text("\(saunaSet.sauna.emoji)\(saunaSet.sauna.title)")
                         TextField("オプション", value: .init(get: {
                             saunaSet.sauna.time
                         }, set: { newValue in
@@ -111,10 +111,10 @@ private struct SakatsuInputView: View {
                         }), format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
-                        Text("分")
+                        Text(saunaSet.sauna.unit)
                     }
                     HStack {
-                        Text("水風呂💧")
+                        Text("\(saunaSet.coolBath.emoji)\(saunaSet.coolBath.title)")
                         TextField("オプション", value: .init(get: {
                             saunaSet.coolBath.time
                         }, set: { newValue in
@@ -122,10 +122,10 @@ private struct SakatsuInputView: View {
                         }), format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
-                        Text("秒")
+                        Text(saunaSet.coolBath.unit)
                     }
                     HStack {
-                        Text("休憩🍃")
+                        Text("\(saunaSet.relaxation.emoji)\(saunaSet.relaxation.title)")
                         TextField("オプション", value: .init(get: {
                             saunaSet.relaxation.time
                         }, set: { newValue in
@@ -133,7 +133,7 @@ private struct SakatsuInputView: View {
                         }), format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
-                        Text("分")
+                        Text(saunaSet.relaxation.unit)
                     }
                 }
             }

@@ -3,6 +3,7 @@ import UserDefaultsCore
 
 public protocol SaunaSetItemProtocol {
     var emoji: String { get }
+    var title: String { get }
     var unit: String { get }
     var time: TimeInterval? { get set }
 }
@@ -24,6 +25,7 @@ public struct SaunaSet {
         static var null: Self { .init(time: nil) }
         
         public var emoji: String { "🔥" }
+        public var title: String { "サウナ" }
         public var unit: String { "分" }
         
         private var _time: TimeInterval?
@@ -45,6 +47,7 @@ public struct SaunaSet {
         static var null: Self { .init(time: nil) }
         
         public var emoji: String { "💧" }
+        public var title: String { "水風呂" }
         public var unit: String { "秒" }
         
         public var time: TimeInterval?
@@ -64,6 +67,7 @@ public struct SaunaSet {
         static var null: Self { .init(time: nil, place: nil, way: nil) }
         
         public var emoji: String { "🍃" }
+        public var title: String { "休憩" }
         public var unit: String { "分" }
         
         private var _time: TimeInterval?
