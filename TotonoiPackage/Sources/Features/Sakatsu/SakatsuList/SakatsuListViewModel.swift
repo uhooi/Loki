@@ -88,10 +88,10 @@ extension SakatsuListViewModel {
         var text = ""
         
         if let foreword = sakatsu.foreword {
-            text += foreword
+            text += "\(foreword)\n\n"
         }
         
-        text += "\n\n\(sakatsu.saunaSets.count)セット行いました。"
+        text += "\(sakatsu.saunaSets.count)セット行いました。"
         for saunaSet in sakatsu.saunaSets {
             text += "\n"
             if let saunaTime = saunaSet.sauna.time {
