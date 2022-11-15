@@ -5,14 +5,17 @@ import SakatsuData
 struct SakatsuInputUiState {
     var isLoading: Bool
     var sakatsu: Sakatsu
-    var savingSakatsuError: SavingSakatsuError?
+    var sakatsuInputError: SakatsuInputError?
 }
 
-enum SavingSakatsuError: LocalizedError {
+enum SakatsuInputError: LocalizedError {
+    case saunaSetRemoveFailed
     case sakatsuSaveFailed
     
     var errorDescription: String? {
         switch self {
+        case .saunaSetRemoveFailed:
+            return "セットの削除に失敗しました。"
         case .sakatsuSaveFailed:
             return "サ活の保存に失敗しました。"
         }
@@ -20,14 +23,14 @@ enum SavingSakatsuError: LocalizedError {
     
     var failureReason: String? {
         switch self {
-        case .sakatsuSaveFailed:
+        case .saunaSetRemoveFailed, .sakatsuSaveFailed:
             return "詳しい原因はわかりません。"
         }
     }
     
     var recoverySuggestion: String? {
         switch self {
-        case .sakatsuSaveFailed:
+        case .saunaSetRemoveFailed, .sakatsuSaveFailed:
             return "時間をおいて再度お試しください。"
         }
     }
@@ -38,7 +41,7 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
     @Published private(set) var uiState = SakatsuInputUiState(
         isLoading: true,
         sakatsu: .init(),
-        savingSakatsuError: nil
+        sakatsuInputError: nil
     )
     
     private let repository: Repository
@@ -57,12 +60,12 @@ extension SakatsuInputViewModel {
             sakatsus.append(uiState.sakatsu)
             try repository.saveSakatsus(sakatsus)
         } catch {
-            uiState.savingSakatsuError = .sakatsuSaveFailed
+            uiState.sakatsuInputError = .sakatsuSaveFailed
         }
     }
     
     func onSavingErrorAlertDismiss() {
-        uiState.savingSakatsuError = nil
+        uiState.sakatsuInputError = nil
     }
     
     func onAddNewSaunaSetButtonClick() {
@@ -98,38 +101,51 @@ extension SakatsuInputViewModel {
     }
     
     func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
-        guard validate(saunaTime: saunaTime) else {
+        guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
+              validate(saunaTime: saunaTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
     }
     
     func onCoolBathTitleChange(saunaSetIndex: Int, coolBathTitle: String) {
-        guard validate(coolBathTitle: coolBathTitle) else {
+        guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
+              validate(coolBathTitle: coolBathTitle) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.title = coolBathTitle
     }
     
     func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
-        guard validate(coolBathTime: coolBathTime) else {
+        guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
+              validate(coolBathTime: coolBathTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
     }
     
     func onRelaxationTitleChange(saunaSetIndex: Int, relaxationTitle: String) {
-        guard validate(relaxationTitle: relaxationTitle) else {
+        guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
+              validate(relaxationTitle: relaxationTitle) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.title = relaxationTitle
     }
     
     func onRelaxationTimeChange(saunaSetIndex: Int, relaxationTime: TimeInterval?) {
-        guard validate(relaxationTime: relaxationTime) else {
+        guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
+              validate(relaxationTime: relaxationTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
+    }
+    
+    func onRemoveSaunaSetButtonClick(saunaSetIndex: Int) {
+        guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex) else {
+            uiState.sakatsuInputError = .saunaSetRemoveFailed
+            return
+        }
+        uiState.sakatsu.saunaSets.remove(at: saunaSetIndex)
     }
     
     func onAfterwordChange(afterword: String?) {
