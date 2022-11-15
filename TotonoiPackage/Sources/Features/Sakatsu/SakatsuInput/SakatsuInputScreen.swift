@@ -73,11 +73,11 @@ private struct SakatsuInputView: View {
     private let onFacilityNameChange: ((String) -> Void)
     private let onVisitingDateChange: ((Date) -> Void)
     private let onForewordChange: ((String?) -> Void)
-    private let onSaunaTitleChange: ((Int, String?) -> Void)
+    private let onSaunaTitleChange: ((Int, String) -> Void)
     private let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
-    private let onCoolBathTitleChange: ((Int, String?) -> Void)
+    private let onCoolBathTitleChange: ((Int, String) -> Void)
     private let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
-    private let onRelaxationTitleChange: ((Int, String?) -> Void)
+    private let onRelaxationTitleChange: ((Int, String) -> Void)
     private let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
     private let onAfterwordChange: ((String?) -> Void)
     
@@ -150,11 +150,11 @@ private struct SakatsuInputView: View {
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
         onForewordChange: @escaping (String?) -> Void,
-        onSaunaTitleChange: @escaping (Int, String?) -> Void,
+        onSaunaTitleChange: @escaping (Int, String) -> Void,
         onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onCoolBathTitleChange: @escaping (Int, String?) -> Void,
+        onCoolBathTitleChange: @escaping (Int, String) -> Void,
         onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onRelaxationTitleChange: @escaping (Int, String?) -> Void,
+        onRelaxationTitleChange: @escaping (Int, String) -> Void,
         onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onAfterwordChange: @escaping (String?) -> Void
     ) {
@@ -175,14 +175,14 @@ private struct SakatsuInputView: View {
     private func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
-        onTitleChange: @escaping (Int, String?) -> Void,
+        onTitleChange: @escaping (Int, String) -> Void,
         onTimeChange: @escaping (Int, TimeInterval?) -> Void
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
                 Text("\(saunaSetItem.emoji)")
                 TextField("オプション", text: .init(get: {
-                    saunaSetItem.title ?? ""
+                    saunaSetItem.title
                 }, set: { newValue in
                     onTitleChange(saunaSetIndex, newValue)
                 }))

@@ -90,7 +90,7 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.foreword = foreword
     }
     
-    func onSaunaTitleChange(saunaSetIndex: Int, saunaTitle: String?) {
+    func onSaunaTitleChange(saunaSetIndex: Int, saunaTitle: String) {
         guard validate(saunaTitle: saunaTitle) else {
             return
         }
@@ -104,7 +104,7 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
     }
     
-    func onCoolBathTitleChange(saunaSetIndex: Int, coolBathTitle: String?) {
+    func onCoolBathTitleChange(saunaSetIndex: Int, coolBathTitle: String) {
         guard validate(coolBathTitle: coolBathTitle) else {
             return
         }
@@ -118,7 +118,7 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
     }
     
-    func onRelaxationTitleChange(saunaSetIndex: Int, relaxationTitle: String?) {
+    func onRelaxationTitleChange(saunaSetIndex: Int, relaxationTitle: String) {
         guard validate(relaxationTitle: relaxationTitle) else {
             return
         }

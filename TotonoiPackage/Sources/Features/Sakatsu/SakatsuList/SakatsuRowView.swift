@@ -52,14 +52,14 @@ struct SakatsuRowView: View {
     private var saunaSetsView: some View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
-                if saunaSet.sauna.time != nil {
+                if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
                     saunaSetItemView(saunaSetItem: saunaSet.sauna)
                 }
-                if saunaSet.coolBath.time != nil {
+                if !saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil {
                     arrowImage
                     saunaSetItemView(saunaSetItem: saunaSet.coolBath)
                 }
-                if saunaSet.relaxation.time != nil {
+                if !saunaSet.relaxation.title.isEmpty || saunaSet.relaxation.time != nil {
                     arrowImage
                     saunaSetItemView(saunaSetItem: saunaSet.relaxation)
                 }
@@ -80,13 +80,16 @@ struct SakatsuRowView: View {
         }
     }
     
+    @ViewBuilder
     private func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             Text(saunaSetItem.emoji)
-            Text("\(saunaSetItem.time!.formatted())")
-                .font(.system(.title2, design: .rounded))
-            Text(saunaSetItem.unit)
-                .font(.caption)
+            if let time = saunaSetItem.time {
+                Text("\(time.formatted())")
+                    .font(.system(.title2, design: .rounded))
+                Text(saunaSetItem.unit)
+                    .font(.caption)
+            }
         }
     }
 }
