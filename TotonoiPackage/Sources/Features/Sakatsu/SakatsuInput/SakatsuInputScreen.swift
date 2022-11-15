@@ -102,17 +102,17 @@ private struct SakatsuInputView: View {
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section(header: Text("\(saunaSetIndex + 1)セット目")) {
-                    saunaSetItemInputView(
+                    saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.sauna,
                         onTimeChange: onSaunaTimeChange
                     )
-                    saunaSetItemInputView(
+                    saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.coolBath,
                         onTimeChange: onCoolBathTimeChange
                     )
-                    saunaSetItemInputView(
+                    saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.relaxation,
                         onTimeChange: onRelaxationTimeChange
@@ -154,7 +154,7 @@ private struct SakatsuInputView: View {
         self.onAfterwordChange = onAfterwordChange
     }
     
-    private func saunaSetItemInputView(
+    private func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
         onTimeChange: @escaping (Int, TimeInterval?) -> Void
