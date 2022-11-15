@@ -98,7 +98,7 @@ extension SakatsuInputViewModel {
     }
     
     func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
-        guard let saunaTime, validate(saunaTime: saunaTime) else {
+        guard validate(saunaTime: saunaTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
@@ -112,7 +112,7 @@ extension SakatsuInputViewModel {
     }
     
     func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
-        guard let coolBathTime, validate(coolBathTime: coolBathTime) else {
+        guard validate(coolBathTime: coolBathTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
@@ -126,7 +126,7 @@ extension SakatsuInputViewModel {
     }
     
     func onRelaxationTimeChange(saunaSetIndex: Int, relaxationTime: TimeInterval?) {
-        guard let relaxationTime, validate(relaxationTime: relaxationTime) else {
+        guard validate(relaxationTime: relaxationTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
@@ -159,24 +159,36 @@ extension SakatsuInputViewModel {
         true
     }
     
-    private func validate(saunaTime: TimeInterval) -> Bool {
-        saunaTime >= 0
+    private func validate(saunaTime: TimeInterval?) -> Bool {
+        if let saunaTime {
+            return saunaTime >= 0
+        } else {
+            return true
+        }
     }
     
     private func validate(coolBathTitle: String?) -> Bool {
         true
     }
     
-    private func validate(coolBathTime: TimeInterval) -> Bool {
-        coolBathTime >= 0
+    private func validate(coolBathTime: TimeInterval?) -> Bool {
+        if let coolBathTime {
+            return coolBathTime >= 0
+        } else {
+            return true
+        }
     }
     
     private func validate(relaxationTitle: String?) -> Bool {
         true
     }
     
-    private func validate(relaxationTime: TimeInterval) -> Bool {
-        relaxationTime >= 0
+    private func validate(relaxationTime: TimeInterval?) -> Bool {
+        if let relaxationTime {
+            return relaxationTime >= 0
+        } else {
+            return true
+        }
     }
     
     private func validate(afterword: String?) -> Bool {
