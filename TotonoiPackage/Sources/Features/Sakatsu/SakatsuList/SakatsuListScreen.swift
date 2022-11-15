@@ -2,7 +2,7 @@ import SwiftUI
 import SakatsuData
 
 public struct SakatsuListScreen: View {
-    @StateObject private var viewModel = SakatsuListViewModel()
+    @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
     
     @State private var isShowingInputSheet = false
     
@@ -10,8 +10,9 @@ public struct SakatsuListScreen: View {
         NavigationView {
             SakatsuListView(
                 sakatsus: viewModel.uiState.sakatsus,
-                onEditButtonClick: {
-                    viewModel.onEditButtonClick()
+                onEditButtonClick: { sakatsuIndex in
+                    viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
+                    isShowingInputSheet = true
                 }, onCopySakatsuTextButtonClick: { sakatsuIndex in
                     viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
@@ -22,16 +23,20 @@ public struct SakatsuListScreen: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
+                        viewModel.onAddButtonClick()
                         isShowingInputSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $isShowingInputSheet) {
                         NavigationView {
-                            SakatsuInputScreen(onSakatsuSave: {
-                                isShowingInputSheet = false
-                                viewModel.onSakatsuSave()
-                            })
+                            SakatsuInputScreen(
+                                sakatsu: viewModel.uiState.selectedSakatsu,
+                                onSakatsuSave: {
+                                    isShowingInputSheet = false
+                                    viewModel.onSakatsuSave()
+                                }
+                            )
                         }
                     }
                 }
@@ -63,7 +68,9 @@ public struct SakatsuListScreen: View {
         }
     }
     
-    public init() {}
+    public init() {
+        self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
+    }
 }
 
 struct SakatsuListScreen_Previews: PreviewProvider {
@@ -74,7 +81,7 @@ struct SakatsuListScreen_Previews: PreviewProvider {
 
 private struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
-    let onEditButtonClick: () -> Void
+    let onEditButtonClick: (Int) -> Void
     let onCopySakatsuTextButtonClick: (Int) -> Void
     let onDelete: (IndexSet) -> Void
     
@@ -84,7 +91,7 @@ private struct SakatsuListView: View {
                 SakatsuRowView(
                     sakatsu: sakatsu,
                     onEditButtonClick: {
-                        onEditButtonClick()
+                        onEditButtonClick(sakatsuIndex)
                     }, onCopySakatsuTextButtonClick: {
                         onCopySakatsuTextButtonClick(sakatsuIndex)
                     }
@@ -101,7 +108,7 @@ struct SakatsuListView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuListView(
             sakatsus: [.preview],
-            onEditButtonClick: {},
+            onEditButtonClick: { _ in },
             onCopySakatsuTextButtonClick: { _ in },
             onDelete: { _ in }
         )

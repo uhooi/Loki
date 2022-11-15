@@ -38,15 +38,16 @@ enum SakatsuInputError: LocalizedError {
 
 @MainActor
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
-    @Published private(set) var uiState = SakatsuInputUiState(
-        isLoading: true,
-        sakatsu: .init(),
-        sakatsuInputError: nil
-    )
+    @Published private(set) var uiState: SakatsuInputUiState
     
     private let repository: Repository
     
-    nonisolated init(repository: Repository = SakatsuUserDefaultsClient.shared) {
+    init(sakatsu: Sakatsu, repository: Repository = SakatsuUserDefaultsClient.shared) {
+        self.uiState = SakatsuInputUiState(
+            isLoading: true,
+            sakatsu: sakatsu,
+            sakatsuInputError: nil
+        )
         self.repository = repository
     }
 }
@@ -57,7 +58,11 @@ extension SakatsuInputViewModel {
     func onSaveButtonClick() {
         do {
             var sakatsus = (try? repository.sakatsus()) ?? []
-            sakatsus.append(uiState.sakatsu)
+            if let index = sakatsus.firstIndex(of: uiState.sakatsu) {
+                sakatsus[index] = uiState.sakatsu
+            } else {
+                sakatsus.append(uiState.sakatsu)
+            }
             try repository.saveSakatsus(sakatsus)
         } catch {
             uiState.sakatsuInputError = .sakatsuSaveFailed

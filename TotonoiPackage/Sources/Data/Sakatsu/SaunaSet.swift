@@ -8,7 +8,8 @@ public protocol SaunaSetItemProtocol {
     var time: TimeInterval? { get set }
 }
 
-public struct SaunaSet {
+public struct SaunaSet: Identifiable {
+    public var id = UUID()
     public var sauna: Sauna = .init()
     public var coolBath: CoolBath = .init()
     public var relaxation: Relaxation = .init()
@@ -54,10 +55,6 @@ public struct SaunaSet {
             }
         }
     }
-}
-
-extension SaunaSet: Identifiable {
-    public var id: UUID { UUID() }
 }
 
 extension SaunaSet: UserDefaultsPersistable {}
