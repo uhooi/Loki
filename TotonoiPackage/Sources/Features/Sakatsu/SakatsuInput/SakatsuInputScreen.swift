@@ -17,12 +17,24 @@ struct SakatsuInputScreen: View {
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
+            }, onForewordChange: { foreword in
+                viewModel.onForewordChange(foreword: foreword)
+            }, onSaunaTitleChange: { saunaSetIndex, saunaTitle in
+                viewModel.onSaunaTitleChange(saunaSetIndex: saunaSetIndex, saunaTitle: saunaTitle)
             }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
                 viewModel.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime)
+            }, onCoolBathTitleChange: { saunaSetIndex, coolBathTitle in
+                viewModel.onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, coolBathTitle: coolBathTitle)
             }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
                 viewModel.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime)
+            }, onRelaxationTitleChange: { saunaSetIndex, relaxationTitle in
+                viewModel.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, relaxationTitle: relaxationTitle)
             }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
                 viewModel.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime)
+            }, onRemoveSaunaSetButtonClick: { saunaSetIndex in
+                viewModel.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex)
+            }, onAfterwordChange: { afterword in
+                viewModel.onAfterwordChange(afterword: afterword)
             }
         )
         .navigationTitle("サ活登録")
@@ -34,6 +46,16 @@ struct SakatsuInputScreen: View {
                 }
                 .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
             }
+        }
+        .alert(
+            isPresented: .constant(viewModel.uiState.sakatsuInputError != nil),
+            error: viewModel.uiState.sakatsuInputError
+        ) { _ in
+            Button("OK") {
+                viewModel.onSavingErrorAlertDismiss()
+            }
+        } message: { sakatsuInputError in
+            Text((sakatsuInputError.failureReason ?? "") + (sakatsuInputError.recoverySuggestion ?? ""))
         }
     }
 }
@@ -48,19 +70,26 @@ struct SakatsuInputScreen_Previews: PreviewProvider {
 
 private struct SakatsuInputView: View {
     let sakatsu: Sakatsu
+    
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
+    let onForewordChange: ((String?) -> Void)
+    let onSaunaTitleChange: ((Int, String) -> Void)
     let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
+    let onCoolBathTitleChange: ((Int, String) -> Void)
     let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
+    let onRelaxationTitleChange: ((Int, String) -> Void)
     let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
+    let onRemoveSaunaSetButtonClick: ((Int) -> Void)
+    let onAfterwordChange: ((String?) -> Void)
     
     var body: some View {
         Form {
             Section {
                 HStack {
                     Text("施設名")
-                    TextField("", text: .init(get: {
+                    TextField("必須", text: .init(get: {
                         sakatsu.facilityName
                     }, set: { newValue in
                         onFacilityNameChange(newValue)
@@ -76,78 +105,98 @@ private struct SakatsuInputView: View {
                     displayedComponents: [.date]
                 )
             }
+            Section(header: Text("まえがき")) {
+                TextField("オプション", text: .init(get: {
+                    sakatsu.foreword ?? ""
+                }, set: { newValue in
+                    onForewordChange(newValue)
+                }))
+            }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
-                Section(header: Text("\(saunaSetIndex + 1)セット目")) {
-                    HStack {
-                        Text("サウナ🧖")
-                        TextField("オプション", value: .init(get: {
-                            saunaSet.sauna.time.map { $0 / 60 }
-                        }, set: { newValue in
-                            onSaunaTimeChange(saunaSetIndex, newValue)
-                        }), format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        Text("分")
+                Section {
+                    saunaSetItemTimeInputView(
+                        saunaSetIndex: saunaSetIndex,
+                        saunaSetItem: saunaSet.sauna,
+                        onTitleChange: onSaunaTitleChange,
+                        onTimeChange: onSaunaTimeChange
+                    )
+                    saunaSetItemTimeInputView(
+                        saunaSetIndex: saunaSetIndex,
+                        saunaSetItem: saunaSet.coolBath,
+                        onTitleChange: onCoolBathTitleChange,
+                        onTimeChange: onCoolBathTimeChange
+                    )
+                    saunaSetItemTimeInputView(
+                        saunaSetIndex: saunaSetIndex,
+                        saunaSetItem: saunaSet.relaxation,
+                        onTitleChange: onRelaxationTitleChange,
+                        onTimeChange: onRelaxationTimeChange
+                    )
+                } header: {
+                    Text("\(saunaSetIndex + 1)セット目")
+                } footer: {
+                    Button("セットを削除", role: .destructive) {
+                        onRemoveSaunaSetButtonClick(saunaSetIndex)
                     }
-                    HStack {
-                        Text("水風呂💧")
-                        TextField("オプション", value: .init(get: {
-                            saunaSet.coolBath.time
-                        }, set: { newValue in
-                            onCoolBathTimeChange(saunaSetIndex, newValue)
-                        }), format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        Text("秒")
-                    }
-                    HStack {
-                        Text("休憩🍃")
-                        TextField("オプション", value: .init(get: {
-                            saunaSet.relaxation.time.map { $0 / 60 }
-                        }, set: { newValue in
-                            onRelaxationTimeChange(saunaSetIndex, newValue)
-                        }), format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        Text("分")
-                    }
+                    .font(.footnote)
                 }
             }
             Section {
                 Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
+            Section(header: Text("あとがき")) {
+                TextField("オプション", text: .init(get: {
+                    sakatsu.afterword ?? ""
+                }, set: { newValue in
+                    onAfterwordChange(newValue)
+                }))
+            }
         }
     }
     
-    init(
-        sakatsu: Sakatsu,
-        onAddNewSaunaSetButtonClick: @escaping () -> Void,
-        onFacilityNameChange: @escaping (String) -> Void,
-        onVisitingDateChange: @escaping (Date) -> Void,
-        onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void
-    ) {
-        self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
-        self.sakatsu = sakatsu
-        self.onFacilityNameChange = onFacilityNameChange
-        self.onVisitingDateChange = onVisitingDateChange
-        self.onSaunaTimeChange = onSaunaTimeChange
-        self.onCoolBathTimeChange = onCoolBathTimeChange
-        self.onRelaxationTimeChange = onRelaxationTimeChange
+    private func saunaSetItemTimeInputView(
+        saunaSetIndex: Int,
+        saunaSetItem: any SaunaSetItemProtocol,
+        onTitleChange: @escaping (Int, String) -> Void,
+        onTimeChange: @escaping (Int, TimeInterval?) -> Void
+    ) -> some View {
+        HStack {
+            HStack(spacing: 0) {
+                Text("\(saunaSetItem.emoji)")
+                TextField("オプション", text: .init(get: {
+                    saunaSetItem.title
+                }, set: { newValue in
+                    onTitleChange(saunaSetIndex, newValue)
+                }))
+            }
+            TextField("オプション", value: .init(get: {
+                saunaSetItem.time
+            }, set: { newValue in
+                onTimeChange(saunaSetIndex, newValue)
+            }), format: .number)
+            .keyboardType(.numberPad)
+            .multilineTextAlignment(.trailing)
+            Text(saunaSetItem.unit)
+        }
     }
 }
 
 struct SakatsuInputView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuInputView(
-            sakatsu: Sakatsu.preview,
+            sakatsu: .preview,
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
+            onForewordChange: { _ in },
+            onSaunaTitleChange: { _, _ in },
             onSaunaTimeChange: { _, _ in },
+            onCoolBathTitleChange: { _, _ in },
             onCoolBathTimeChange: {_, _ in },
-            onRelaxationTimeChange: { _, _ in }
+            onRelaxationTitleChange: { _, _ in },
+            onRelaxationTimeChange: { _, _ in },
+            onRemoveSaunaSetButtonClick: { _ in },
+            onAfterwordChange: { _ in }
         )
     }
 }

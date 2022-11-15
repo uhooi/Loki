@@ -16,16 +16,19 @@ struct SakatsuRowView: View {
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 Menu {
                     Button("編集", action: onEditButtonClick)
-                    Button("サ活用テキストコピー", action: onCopySakatsuTextButtonClick)
+                    Button("サ活テキストコピー", action: onCopySakatsuTextButtonClick)
                 } label: {
                     Image(systemName: "ellipsis")
                 }
                 .frame(alignment: .topTrailing)
             }
-            GroupBox {
-                saunaSetsView
+            forewordText
+            if !sakatsu.saunaSets.isEmpty {
+                GroupBox {
+                    saunaSetsView
+                }
             }
-            commentText
+            afterwordText
         }
     }
     
@@ -40,22 +43,36 @@ struct SakatsuRowView: View {
             .font(.title)
     }
     
+    @ViewBuilder
+    private var forewordText: some View {
+        if let foreword = sakatsu.foreword {
+            Text(foreword)
+                .font(.body)
+        }
+    }
+    
     private var saunaSetsView: some View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
-                if let saunaTime = saunaSet.sauna.time {
-                    saunaSetView(emoji: "🧖", time: saunaTime / 60, unit: "分")
+                if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
+                    saunaSetItemView(saunaSetItem: saunaSet.sauna)
                 }
-                if let coolBathTime = saunaSet.coolBath.time {
-                    arrowImage
-                    saunaSetView(emoji: "💧", time: coolBathTime, unit: "秒")
+                if !saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil {
+                    if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
+                        arrowImage
+                    }
+                    saunaSetItemView(saunaSetItem: saunaSet.coolBath)
                 }
-                if let relaxationTime = saunaSet.relaxation.time {
-                    arrowImage
-                    saunaSetView(emoji: "🍃", time: relaxationTime / 60, unit: "分")
+                if !saunaSet.relaxation.title.isEmpty || saunaSet.relaxation.time != nil {
+                    if (!saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil) ||
+                        (!saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil) {
+                        arrowImage
+                    }
+                    saunaSetItemView(saunaSetItem: saunaSet.relaxation)
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var arrowImage: some View {
@@ -63,18 +80,24 @@ struct SakatsuRowView: View {
             .font(.caption)
     }
     
-    private var commentText: some View {
-        Text(sakatsu.comment ?? "")
-            .font(.body)
+    @ViewBuilder
+    private var afterwordText: some View {
+        if let afterword = sakatsu.afterword {
+            Text(afterword)
+                .font(.body)
+        }
     }
     
-    private func saunaSetView(emoji: String, time: TimeInterval, unit: String) -> some View {
+    @ViewBuilder
+    private func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
-            Text(emoji)
-            Text("\(time.formatted())")
-                .font(.system(.title2, design: .rounded))
-            Text(unit)
-                .font(.caption)
+            Text(saunaSetItem.emoji)
+            if let time = saunaSetItem.time {
+                Text("\(time.formatted())")
+                    .font(.system(.title2, design: .rounded))
+                Text(saunaSetItem.unit)
+                    .font(.caption)
+            }
         }
     }
 }
