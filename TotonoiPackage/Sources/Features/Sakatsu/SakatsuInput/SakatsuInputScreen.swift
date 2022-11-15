@@ -19,10 +19,16 @@ struct SakatsuInputScreen: View {
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
             }, onForewordChange: { foreword in
                 viewModel.onForewordChange(foreword: foreword)
+            }, onSaunaTitleChange: { saunaSetIndex, saunaTitle in
+                viewModel.onSaunaTitleChange(saunaSetIndex: saunaSetIndex, saunaTitle: saunaTitle)
             }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
                 viewModel.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime)
+            }, onCoolBathTitleChange: { saunaSetIndex, coolBathTitle in
+                viewModel.onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, coolBathTitle: coolBathTitle)
             }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
                 viewModel.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime)
+            }, onRelaxationTitleChange: { saunaSetIndex, relaxationTitle in
+                viewModel.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, relaxationTitle: relaxationTitle)
             }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
                 viewModel.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime)
             }, onAfterwordChange: { afterword in
@@ -61,16 +67,19 @@ struct SakatsuInputScreen_Previews: PreviewProvider {
 }
 
 private struct SakatsuInputView: View {
-    let sakatsu: Sakatsu
+    private let sakatsu: Sakatsu
     
-    let onAddNewSaunaSetButtonClick: (() -> Void)
-    let onFacilityNameChange: ((String) -> Void)
-    let onVisitingDateChange: ((Date) -> Void)
-    let onForewordChange: ((String?) -> Void)
-    let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
-    let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
-    let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
-    let onAfterwordChange: ((String?) -> Void)
+    private let onAddNewSaunaSetButtonClick: (() -> Void)
+    private let onFacilityNameChange: ((String) -> Void)
+    private let onVisitingDateChange: ((Date) -> Void)
+    private let onForewordChange: ((String?) -> Void)
+    private let onSaunaTitleChange: ((Int, String?) -> Void)
+    private let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
+    private let onCoolBathTitleChange: ((Int, String?) -> Void)
+    private let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
+    private let onRelaxationTitleChange: ((Int, String?) -> Void)
+    private let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
+    private let onAfterwordChange: ((String?) -> Void)
     
     var body: some View {
         Form {
@@ -105,16 +114,19 @@ private struct SakatsuInputView: View {
                     saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.sauna,
+                        onTitleChange: onSaunaTitleChange,
                         onTimeChange: onSaunaTimeChange
                     )
                     saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.coolBath,
+                        onTitleChange: onCoolBathTitleChange,
                         onTimeChange: onCoolBathTimeChange
                     )
                     saunaSetItemTimeInputView(
                         saunaSetIndex: saunaSetIndex,
                         saunaSetItem: saunaSet.relaxation,
+                        onTitleChange: onRelaxationTitleChange,
                         onTimeChange: onRelaxationTimeChange
                     )
                 }
@@ -138,8 +150,11 @@ private struct SakatsuInputView: View {
         onFacilityNameChange: @escaping (String) -> Void,
         onVisitingDateChange: @escaping (Date) -> Void,
         onForewordChange: @escaping (String?) -> Void,
+        onSaunaTitleChange: @escaping (Int, String?) -> Void,
         onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
+        onCoolBathTitleChange: @escaping (Int, String?) -> Void,
         onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
+        onRelaxationTitleChange: @escaping (Int, String?) -> Void,
         onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void,
         onAfterwordChange: @escaping (String?) -> Void
     ) {
@@ -148,8 +163,11 @@ private struct SakatsuInputView: View {
         self.onFacilityNameChange = onFacilityNameChange
         self.onVisitingDateChange = onVisitingDateChange
         self.onForewordChange = onForewordChange
+        self.onSaunaTitleChange = onSaunaTitleChange
         self.onSaunaTimeChange = onSaunaTimeChange
+        self.onCoolBathTitleChange = onCoolBathTitleChange
         self.onCoolBathTimeChange = onCoolBathTimeChange
+        self.onRelaxationTitleChange = onRelaxationTitleChange
         self.onRelaxationTimeChange = onRelaxationTimeChange
         self.onAfterwordChange = onAfterwordChange
     }
@@ -157,10 +175,18 @@ private struct SakatsuInputView: View {
     private func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
+        onTitleChange: @escaping (Int, String?) -> Void,
         onTimeChange: @escaping (Int, TimeInterval?) -> Void
     ) -> some View {
         HStack {
-            Text("\(saunaSetItem.emoji)\(saunaSetItem.title)")
+            HStack(spacing: 0) {
+                Text("\(saunaSetItem.emoji)")
+                TextField("オプション", text: .init(get: {
+                    saunaSetItem.title ?? ""
+                }, set: { newValue in
+                    onTitleChange(saunaSetIndex, newValue)
+                }))
+            }
             TextField("オプション", value: .init(get: {
                 saunaSetItem.time
             }, set: { newValue in
@@ -181,8 +207,11 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
             onForewordChange: { _ in },
+            onSaunaTitleChange: { _, _ in },
             onSaunaTimeChange: { _, _ in },
+            onCoolBathTitleChange: { _, _ in },
             onCoolBathTimeChange: {_, _ in },
+            onRelaxationTitleChange: { _, _ in },
             onRelaxationTimeChange: { _, _ in },
             onAfterwordChange: { _ in }
         )
