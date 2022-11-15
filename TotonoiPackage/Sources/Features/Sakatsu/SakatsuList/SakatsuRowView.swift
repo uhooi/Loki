@@ -53,15 +53,15 @@ struct SakatsuRowView: View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
                 if saunaSet.sauna.time != nil {
-                    saunaSetView(saunaSetItem: saunaSet.sauna)
+                    saunaSetItemView(saunaSetItem: saunaSet.sauna)
                 }
                 if saunaSet.coolBath.time != nil {
                     arrowImage
-                    saunaSetView(saunaSetItem: saunaSet.coolBath)
+                    saunaSetItemView(saunaSetItem: saunaSet.coolBath)
                 }
                 if saunaSet.relaxation.time != nil {
                     arrowImage
-                    saunaSetView(saunaSetItem: saunaSet.relaxation)
+                    saunaSetItemView(saunaSetItem: saunaSet.relaxation)
                 }
             }
         }
@@ -80,7 +80,7 @@ struct SakatsuRowView: View {
         }
     }
     
-    private func saunaSetView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
+    private func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             Text(saunaSetItem.emoji)
             Text("\(saunaSetItem.time!.formatted())")
