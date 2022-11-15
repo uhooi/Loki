@@ -52,16 +52,16 @@ struct SakatsuRowView: View {
     private var saunaSetsView: some View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
-                if let saunaTime = saunaSet.sauna.time {
-                    saunaSetView(emoji: "🔥", time: saunaTime, unit: "分")
+                if saunaSet.sauna.time != nil {
+                    saunaSetView(saunaSetItem: saunaSet.sauna)
                 }
-                if let coolBathTime = saunaSet.coolBath.time {
+                if saunaSet.coolBath.time != nil {
                     arrowImage
-                    saunaSetView(emoji: "💧", time: coolBathTime, unit: "秒")
+                    saunaSetView(saunaSetItem: saunaSet.coolBath)
                 }
-                if let relaxationTime = saunaSet.relaxation.time {
+                if saunaSet.relaxation.time != nil {
                     arrowImage
-                    saunaSetView(emoji: "🍃", time: relaxationTime, unit: "分")
+                    saunaSetView(saunaSetItem: saunaSet.relaxation)
                 }
             }
         }
@@ -80,12 +80,12 @@ struct SakatsuRowView: View {
         }
     }
     
-    private func saunaSetView(emoji: String, time: TimeInterval, unit: String) -> some View {
+    private func saunaSetView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
-            Text(emoji)
-            Text("\(time.formatted())")
+            Text(saunaSetItem.emoji)
+            Text("\(saunaSetItem.time!.formatted())")
                 .font(.system(.title2, design: .rounded))
-            Text(unit)
+            Text(saunaSetItem.unit)
                 .font(.caption)
         }
     }
