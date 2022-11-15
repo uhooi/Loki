@@ -23,8 +23,10 @@ struct SakatsuRowView: View {
                 .frame(alignment: .topTrailing)
             }
             forewordText
-            GroupBox {
-                saunaSetsView
+            if !sakatsu.saunaSets.isEmpty {
+                GroupBox {
+                    saunaSetsView
+                }
             }
             afterwordText
         }
