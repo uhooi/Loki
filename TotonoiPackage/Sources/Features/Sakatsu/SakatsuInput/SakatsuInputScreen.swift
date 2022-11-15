@@ -67,19 +67,19 @@ struct SakatsuInputScreen_Previews: PreviewProvider {
 }
 
 private struct SakatsuInputView: View {
-    private let sakatsu: Sakatsu
+    let sakatsu: Sakatsu
     
-    private let onAddNewSaunaSetButtonClick: (() -> Void)
-    private let onFacilityNameChange: ((String) -> Void)
-    private let onVisitingDateChange: ((Date) -> Void)
-    private let onForewordChange: ((String?) -> Void)
-    private let onSaunaTitleChange: ((Int, String) -> Void)
-    private let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
-    private let onCoolBathTitleChange: ((Int, String) -> Void)
-    private let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
-    private let onRelaxationTitleChange: ((Int, String) -> Void)
-    private let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
-    private let onAfterwordChange: ((String?) -> Void)
+    let onAddNewSaunaSetButtonClick: (() -> Void)
+    let onFacilityNameChange: ((String) -> Void)
+    let onVisitingDateChange: ((Date) -> Void)
+    let onForewordChange: ((String?) -> Void)
+    let onSaunaTitleChange: ((Int, String) -> Void)
+    let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
+    let onCoolBathTitleChange: ((Int, String) -> Void)
+    let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
+    let onRelaxationTitleChange: ((Int, String) -> Void)
+    let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
+    let onAfterwordChange: ((String?) -> Void)
     
     var body: some View {
         Form {
@@ -142,34 +142,6 @@ private struct SakatsuInputView: View {
                 }))
             }
         }
-    }
-    
-    init(
-        sakatsu: Sakatsu,
-        onAddNewSaunaSetButtonClick: @escaping () -> Void,
-        onFacilityNameChange: @escaping (String) -> Void,
-        onVisitingDateChange: @escaping (Date) -> Void,
-        onForewordChange: @escaping (String?) -> Void,
-        onSaunaTitleChange: @escaping (Int, String) -> Void,
-        onSaunaTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onCoolBathTitleChange: @escaping (Int, String) -> Void,
-        onCoolBathTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onRelaxationTitleChange: @escaping (Int, String) -> Void,
-        onRelaxationTimeChange: @escaping (Int, TimeInterval?) -> Void,
-        onAfterwordChange: @escaping (String?) -> Void
-    ) {
-        self.sakatsu = sakatsu
-        self.onAddNewSaunaSetButtonClick = onAddNewSaunaSetButtonClick
-        self.onFacilityNameChange = onFacilityNameChange
-        self.onVisitingDateChange = onVisitingDateChange
-        self.onForewordChange = onForewordChange
-        self.onSaunaTitleChange = onSaunaTitleChange
-        self.onSaunaTimeChange = onSaunaTimeChange
-        self.onCoolBathTitleChange = onCoolBathTitleChange
-        self.onCoolBathTimeChange = onCoolBathTimeChange
-        self.onRelaxationTitleChange = onRelaxationTitleChange
-        self.onRelaxationTimeChange = onRelaxationTimeChange
-        self.onAfterwordChange = onAfterwordChange
     }
     
     private func saunaSetItemTimeInputView(
