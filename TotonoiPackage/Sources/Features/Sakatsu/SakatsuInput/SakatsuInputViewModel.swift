@@ -3,7 +3,6 @@ import Combine
 import SakatsuData
 
 struct SakatsuInputUiState {
-    var isLoading: Bool
     var sakatsu: Sakatsu
     var sakatsuInputError: SakatsuInputError?
 }
@@ -44,7 +43,6 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
     
     init(sakatsu: Sakatsu, repository: Repository = SakatsuUserDefaultsClient.shared) {
         self.uiState = SakatsuInputUiState(
-            isLoading: true,
             sakatsu: sakatsu,
             sakatsuInputError: nil
         )
