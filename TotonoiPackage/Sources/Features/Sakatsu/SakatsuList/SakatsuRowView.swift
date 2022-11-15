@@ -15,8 +15,12 @@ struct SakatsuRowView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 Menu {
-                    Button("編集", action: onEditButtonClick)
-                    Button("サ活テキストコピー", action: onCopySakatsuTextButtonClick)
+                    Button(action: onCopySakatsuTextButtonClick) {
+                        Label("サ活のテキストをコピー", systemImage: "doc.on.doc")
+                    }
+                    Button(action: onEditButtonClick) {
+                        Label("編集", systemImage: "square.and.pencil")
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                 }
