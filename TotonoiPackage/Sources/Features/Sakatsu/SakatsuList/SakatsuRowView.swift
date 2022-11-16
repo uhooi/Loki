@@ -3,6 +3,7 @@ import SakatsuData
 
 struct SakatsuRowView: View {
     var sakatsu: Sakatsu
+    
     let onCopySakatsuTextButtonClick: () -> Void
     let onEditButtonClick: () -> Void
     
@@ -14,17 +15,8 @@ struct SakatsuRowView: View {
                     facilityNameText
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                Menu {
-                    Button(action: onCopySakatsuTextButtonClick) {
-                        Label("サ活のテキストをコピー", systemImage: "doc.on.doc")
-                    }
-                    Button(action: onEditButtonClick) {
-                        Label("編集", systemImage: "square.and.pencil")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis")
-                }
-                .frame(alignment: .topTrailing)
+                menu
+                    .frame(alignment: .topTrailing)
             }
             forewordText
             if !sakatsu.saunaSets.isEmpty {
@@ -45,6 +37,19 @@ struct SakatsuRowView: View {
     private var facilityNameText: some View {
         Text(sakatsu.facilityName)
             .font(.title)
+    }
+    
+    private var menu: some View {
+        Menu {
+            Button(action: onCopySakatsuTextButtonClick) {
+                Label("サ活のテキストをコピー", systemImage: "doc.on.doc")
+            }
+            Button(action: onEditButtonClick) {
+                Label("編集", systemImage: "square.and.pencil")
+            }
+        } label: {
+            Image(systemName: "ellipsis")
+        }
     }
     
     @ViewBuilder
