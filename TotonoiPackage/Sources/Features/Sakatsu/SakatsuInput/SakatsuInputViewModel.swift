@@ -2,10 +2,14 @@ import Foundation
 import Combine
 import SakatsuData
 
+// MARK: UI state
+
 struct SakatsuInputUiState {
     var sakatsu: Sakatsu
-    var sakatsuInputError: SakatsuInputError?
+    var sakatsuInputError: SakatsuInputError? = nil
 }
+
+// MARK: - Error
 
 enum SakatsuInputError: LocalizedError {
     case saunaSetRemoveFailed
@@ -35,6 +39,8 @@ enum SakatsuInputError: LocalizedError {
     }
 }
 
+// MARK: - View model
+
 @MainActor
 final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
@@ -42,10 +48,7 @@ final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObje
     private let repository: Repository
     
     init(sakatsu: Sakatsu, repository: Repository = SakatsuUserDefaultsClient.shared) {
-        self.uiState = SakatsuInputUiState(
-            sakatsu: sakatsu,
-            sakatsuInputError: nil
-        )
+        self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
         self.repository = repository
     }
 }
