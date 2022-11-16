@@ -8,6 +8,8 @@ struct SakatsuInputScreen: View {
     
     private let onSakatsuSave: () -> Void
     
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         SakatsuInputView(
             sakatsu: viewModel.uiState.sakatsu,
@@ -39,12 +41,19 @@ struct SakatsuInputScreen: View {
         )
         .navigationTitle("サ活登録")
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button("保存") {
                     viewModel.onSaveButtonClick()
                     onSakatsuSave()
                 }
                 .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                }
             }
         }
         .alert(
