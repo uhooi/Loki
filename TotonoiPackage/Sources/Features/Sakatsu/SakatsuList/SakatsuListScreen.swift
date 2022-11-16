@@ -42,12 +42,13 @@ public struct SakatsuListScreen: View {
             }
             .alert(
                 "コピー",
-                isPresented: .constant(viewModel.uiState.sakatsuText != nil),
+                isPresented: .init(get: {
+                    viewModel.uiState.sakatsuText != nil
+                }, set: { _ in
+                    viewModel.onCopyingSakatsuTextAlertDismiss()
+                }),
                 presenting: viewModel.uiState.sakatsuText
             ) { _ in
-                Button("OK") {
-                    viewModel.onCopyingSakatsuTextAlertDismiss()
-                }
             } message: { sakatsuText in
                 Text("サ活のテキストをコピーしました。")
                     .onAppear {
@@ -55,12 +56,13 @@ public struct SakatsuListScreen: View {
                     }
             }
             .alert(
-                isPresented: .constant(viewModel.uiState.sakatsuListError != nil),
+                isPresented: .init(get: {
+                    viewModel.uiState.sakatsuListError != nil
+                }, set: { _ in
+                    viewModel.onErrorAlertDismiss()
+                }),
                 error: viewModel.uiState.sakatsuListError
             ) { _ in
-                Button("OK") {
-                    viewModel.onErrorAlertDismiss()
-                }
             } message: { sakatsuListError in
                 Text((sakatsuListError.failureReason ?? "") + (sakatsuListError.recoverySuggestion ?? ""))
             }
