@@ -37,6 +37,7 @@ struct SakatsuRowView: View {
     private var facilityNameText: some View {
         Text(sakatsu.facilityName)
             .font(.title)
+            .textSelection(.enabled)
     }
     
     private var menu: some View {
@@ -57,6 +58,7 @@ struct SakatsuRowView: View {
         if let foreword = sakatsu.foreword {
             Text(foreword)
                 .font(.body)
+                .textSelection(.enabled)
         }
     }
     
@@ -94,6 +96,7 @@ struct SakatsuRowView: View {
         if let afterword = sakatsu.afterword {
             Text(afterword)
                 .font(.body)
+                .textSelection(.enabled)
         }
     }
     
