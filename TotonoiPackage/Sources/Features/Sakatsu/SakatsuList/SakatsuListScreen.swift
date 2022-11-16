@@ -18,7 +18,8 @@ public struct SakatsuListScreen: View {
             )
             .navigationTitle("サ活一覧")
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    EditButton()
                     Button {
                         viewModel.onAddButtonClick()
                     } label: {
