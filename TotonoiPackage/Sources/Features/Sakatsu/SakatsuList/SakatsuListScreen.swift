@@ -26,7 +26,11 @@ public struct SakatsuListScreen: View {
                     }
                 }
             }
-            .sheet(isPresented: .constant(viewModel.uiState.shouldShowInputSheet)) {
+            .sheet(isPresented: .init(get: {
+                viewModel.uiState.shouldShowInputSheet
+            }, set: { _ in
+                viewModel.onInputSheetDismiss()
+            })) {
                 NavigationView {
                     SakatsuInputScreen(
                         sakatsu: viewModel.uiState.selectedSakatsu,

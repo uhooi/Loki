@@ -73,6 +73,10 @@ extension SakatsuListViewModel {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
     }
     
+    func onInputSheetDismiss() {
+        uiState.shouldShowInputSheet = false
+    }
+    
     func onCopyingSakatsuTextAlertDismiss() {
         uiState.sakatsuText = nil
     }
