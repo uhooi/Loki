@@ -70,7 +70,7 @@ extension SakatsuInputViewModel {
         }
     }
     
-    func onSavingErrorAlertDismiss() {
+    func onErrorAlertDismiss() {
         uiState.sakatsuInputError = nil
     }
     

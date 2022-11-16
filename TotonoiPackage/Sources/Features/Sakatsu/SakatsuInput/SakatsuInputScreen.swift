@@ -51,7 +51,7 @@ struct SakatsuInputScreen: View {
             isPresented: .init(get: {
                 viewModel.uiState.sakatsuInputError != nil
             }, set: { _ in
-                viewModel.onSavingErrorAlertDismiss()
+                viewModel.onErrorAlertDismiss()
             }),
             error: viewModel.uiState.sakatsuInputError
         ) { _ in
