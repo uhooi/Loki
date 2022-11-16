@@ -6,6 +6,7 @@ struct SakatsuListUiState {
     var sakatsus: [Sakatsu]
     var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
+    var shouldShowInputSheet: Bool
     var sakatsuListError: SakatsuListError?
 }
 
@@ -34,6 +35,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
             sakatsus: [],
             selectedSakatsu: nil,
             sakatsuText: nil,
+            shouldShowInputSheet: false,
             sakatsuListError: nil
         )
         self.repository = repository
@@ -53,15 +55,18 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
 
 extension SakatsuListViewModel {
     func onSakatsuSave() {
+        uiState.shouldShowInputSheet = false
         refreshSakatsus()
     }
     
     func onAddButtonClick() {
         uiState.selectedSakatsu = nil
+        uiState.shouldShowInputSheet = true
     }
     
     func onEditButtonClick(sakatsuIndex: Int) {
         uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
+        uiState.shouldShowInputSheet = true
     }
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {

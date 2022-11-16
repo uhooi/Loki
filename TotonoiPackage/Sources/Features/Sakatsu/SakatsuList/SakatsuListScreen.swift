@@ -4,8 +4,6 @@ import SakatsuData
 public struct SakatsuListScreen: View {
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
     
-    @State private var isShowingInputSheet = false
-    
     public var body: some View {
         NavigationView {
             SakatsuListView(
@@ -14,7 +12,6 @@ public struct SakatsuListScreen: View {
                     viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onEditButtonClick: { sakatsuIndex in
                     viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
-                    isShowingInputSheet = true
                 }, onDelete: { offsets in
                     viewModel.onDelete(at: offsets)
                 }
@@ -24,16 +21,14 @@ public struct SakatsuListScreen: View {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         viewModel.onAddButtonClick()
-                        isShowingInputSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowingInputSheet) {
+                    .sheet(isPresented: .constant(viewModel.uiState.shouldShowInputSheet)) {
                         NavigationView {
                             SakatsuInputScreen(
                                 sakatsu: viewModel.uiState.selectedSakatsu,
                                 onSakatsuSave: {
-                                    isShowingInputSheet = false
                                     viewModel.onSakatsuSave()
                                 }
                             )
