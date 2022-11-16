@@ -48,12 +48,13 @@ struct SakatsuInputScreen: View {
             }
         }
         .alert(
-            isPresented: .constant(viewModel.uiState.sakatsuInputError != nil),
+            isPresented: .init(get: {
+                viewModel.uiState.sakatsuInputError != nil
+            }, set: { _ in
+                viewModel.onSavingErrorAlertDismiss()
+            }),
             error: viewModel.uiState.sakatsuInputError
         ) { _ in
-            Button("OK") {
-                viewModel.onSavingErrorAlertDismiss()
-            }
         } message: { sakatsuInputError in
             Text((sakatsuInputError.failureReason ?? "") + (sakatsuInputError.recoverySuggestion ?? ""))
         }
