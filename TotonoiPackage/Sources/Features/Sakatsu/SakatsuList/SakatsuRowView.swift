@@ -3,8 +3,8 @@ import SakatsuData
 
 struct SakatsuRowView: View {
     var sakatsu: Sakatsu
-    let onEditButtonClick: () -> Void
     let onCopySakatsuTextButtonClick: () -> Void
+    let onEditButtonClick: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -110,8 +110,8 @@ struct SakatsuRowView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuRowView(
             sakatsu: .preview,
-            onEditButtonClick: {},
-            onCopySakatsuTextButtonClick: {}
+            onCopySakatsuTextButtonClick: {},
+            onEditButtonClick: {}
         )
     }
 }

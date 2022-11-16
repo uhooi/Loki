@@ -10,11 +10,11 @@ public struct SakatsuListScreen: View {
         NavigationView {
             SakatsuListView(
                 sakatsus: viewModel.uiState.sakatsus,
-                onEditButtonClick: { sakatsuIndex in
+                onCopySakatsuTextButtonClick: { sakatsuIndex in
+                    viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
+                }, onEditButtonClick: { sakatsuIndex in
                     viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
                     isShowingInputSheet = true
-                }, onCopySakatsuTextButtonClick: { sakatsuIndex in
-                    viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
                 }, onDelete: { offsets in
                     viewModel.onDelete(at: offsets)
                 }
@@ -81,8 +81,9 @@ struct SakatsuListScreen_Previews: PreviewProvider {
 
 private struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
-    let onEditButtonClick: (Int) -> Void
+    
     let onCopySakatsuTextButtonClick: (Int) -> Void
+    let onEditButtonClick: (Int) -> Void
     let onDelete: (IndexSet) -> Void
     
     var body: some View {
@@ -90,10 +91,10 @@ private struct SakatsuListView: View {
             ForEach(sakatsus.indexed(), id: \.index) { sakatsuIndex, sakatsu in
                 SakatsuRowView(
                     sakatsu: sakatsu,
-                    onEditButtonClick: {
-                        onEditButtonClick(sakatsuIndex)
-                    }, onCopySakatsuTextButtonClick: {
+                    onCopySakatsuTextButtonClick: {
                         onCopySakatsuTextButtonClick(sakatsuIndex)
+                    }, onEditButtonClick: {
+                        onEditButtonClick(sakatsuIndex)
                     }
                 )
             }
@@ -108,8 +109,8 @@ struct SakatsuListView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuListView(
             sakatsus: [.preview],
-            onEditButtonClick: { _ in },
             onCopySakatsuTextButtonClick: { _ in },
+            onEditButtonClick: { _ in },
             onDelete: { _ in }
         )
     }
