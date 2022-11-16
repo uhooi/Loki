@@ -24,16 +24,16 @@ public struct SakatsuListScreen: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: .constant(viewModel.uiState.shouldShowInputSheet)) {
-                        NavigationView {
-                            SakatsuInputScreen(
-                                sakatsu: viewModel.uiState.selectedSakatsu,
-                                onSakatsuSave: {
-                                    viewModel.onSakatsuSave()
-                                }
-                            )
+                }
+            }
+            .sheet(isPresented: .constant(viewModel.uiState.shouldShowInputSheet)) {
+                NavigationView {
+                    SakatsuInputScreen(
+                        sakatsu: viewModel.uiState.selectedSakatsu,
+                        onSakatsuSave: {
+                            viewModel.onSakatsuSave()
                         }
-                    }
+                    )
                 }
             }
             .alert(
