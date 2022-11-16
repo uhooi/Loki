@@ -2,13 +2,17 @@ import Foundation
 import Combine
 import SakatsuData
 
+// MARK: UI state
+
 struct SakatsuListUiState {
-    var sakatsus: [Sakatsu]
-    var selectedSakatsu: Sakatsu?
-    var sakatsuText: String?
-    var shouldShowInputSheet: Bool
-    var sakatsuListError: SakatsuListError?
+    var sakatsus: [Sakatsu] = []
+    var selectedSakatsu: Sakatsu? = nil
+    var sakatsuText: String? = nil
+    var shouldShowInputSheet: Bool = false
+    var sakatsuListError: SakatsuListError? = nil
 }
+
+// MARK: - Error
 
 enum SakatsuListError: LocalizedError {
     case sakatsuFetchFailed(localizedDescription: String)
@@ -24,6 +28,8 @@ enum SakatsuListError: LocalizedError {
     }
 }
 
+// MARK: - View model
+
 @MainActor
 final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
@@ -31,13 +37,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     private let repository: Repository
     
     init(repository: Repository = SakatsuUserDefaultsClient.shared) {
-        self.uiState = SakatsuListUiState(
-            sakatsus: [],
-            selectedSakatsu: nil,
-            sakatsuText: nil,
-            shouldShowInputSheet: false,
-            sakatsuListError: nil
-        )
+        self.uiState = SakatsuListUiState()
         self.repository = repository
         refreshSakatsus()
     }
