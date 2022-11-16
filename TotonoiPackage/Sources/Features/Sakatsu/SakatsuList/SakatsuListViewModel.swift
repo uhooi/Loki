@@ -75,6 +75,7 @@ extension SakatsuListViewModel {
     
     func onInputSheetDismiss() {
         uiState.shouldShowInputSheet = false
+        uiState.selectedSakatsu = nil
     }
     
     func onCopyingSakatsuTextAlertDismiss() {
