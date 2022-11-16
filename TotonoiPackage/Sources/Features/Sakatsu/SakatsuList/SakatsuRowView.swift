@@ -2,7 +2,7 @@ import SwiftUI
 import SakatsuData
 
 struct SakatsuRowView: View {
-    var sakatsu: Sakatsu
+    let sakatsu: Sakatsu
     
     let onCopySakatsuTextButtonClick: () -> Void
     let onEditButtonClick: () -> Void
