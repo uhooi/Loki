@@ -20,6 +20,6 @@ extension SakatsuUserDefaultsClient: SakatsuRepository {
     }
     
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try userDefaultsClient.setObject(sakatsus, forKey: Self.sakatsusKey)
+        try userDefaultsClient.set(sakatsus, forKey: Self.sakatsusKey)
     }
 }

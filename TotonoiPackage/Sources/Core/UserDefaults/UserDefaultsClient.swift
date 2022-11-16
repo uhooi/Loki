@@ -31,7 +31,7 @@ public struct UserDefaultsClient {
         return try jsonDecoder.decode(V.self, from: data)
     }
     
-    public func setObject<V: UserDefaultsSettable>(_ value: V, forKey defaultName: String) throws {
+    public func set<V: UserDefaultsSettable>(_ value: V, forKey defaultName: String) throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         let data = try jsonEncoder.encode(value)
