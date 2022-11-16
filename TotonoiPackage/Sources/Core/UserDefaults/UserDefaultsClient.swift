@@ -18,12 +18,14 @@ private enum UserDefaultsError: LocalizedError {
 public struct UserDefaultsClient {
     public static let shared: Self = .init()
     
+    private let userDefaults = UserDefaults.standard
+    
     private init() {}
     
     public func object<V: UserDefaultsGettable>(forKey defaultName: String) throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let data = UserDefaults.standard.data(forKey: defaultName) else {
+        guard let data = userDefaults.data(forKey: defaultName) else {
             throw UserDefaultsError.gettingFailed(key: defaultName)
         }
         return try jsonDecoder.decode(V.self, from: data)
@@ -33,6 +35,6 @@ public struct UserDefaultsClient {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         let data = try jsonEncoder.encode(value)
-        UserDefaults.standard.set(data, forKey: defaultName)
+        userDefaults.set(data, forKey: defaultName)
     }
 }

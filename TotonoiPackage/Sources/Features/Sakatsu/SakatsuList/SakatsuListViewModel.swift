@@ -49,7 +49,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     }
 }
 
-// MARK: Event handler
+// MARK: - Event handler
 
 extension SakatsuListViewModel {
     func onSakatsuSave() {
