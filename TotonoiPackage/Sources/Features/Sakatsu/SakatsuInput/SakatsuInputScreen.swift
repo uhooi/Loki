@@ -48,12 +48,13 @@ struct SakatsuInputScreen: View {
             }
         }
         .alert(
-            isPresented: .constant(viewModel.uiState.sakatsuInputError != nil),
+            isPresented: .init(get: {
+                viewModel.uiState.sakatsuInputError != nil
+            }, set: { _ in
+                viewModel.onErrorAlertDismiss()
+            }),
             error: viewModel.uiState.sakatsuInputError
         ) { _ in
-            Button("OK") {
-                viewModel.onSavingErrorAlertDismiss()
-            }
         } message: { sakatsuInputError in
             Text((sakatsuInputError.failureReason ?? "") + (sakatsuInputError.recoverySuggestion ?? ""))
         }
@@ -116,12 +117,14 @@ private struct SakatsuInputView: View {
                     displayedComponents: [.date]
                 )
             }
-            Section(header: Text("まえがき")) {
+            Section {
                 TextField("オプション", text: .init(get: {
                     sakatsu.foreword ?? ""
                 }, set: { newValue in
                     onForewordChange(newValue)
                 }))
+            } header: {
+                Text("まえがき")
             }
             ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
                 Section {
@@ -155,12 +158,14 @@ private struct SakatsuInputView: View {
             Section {
                 Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
             }
-            Section(header: Text("あとがき")) {
+            Section {
                 TextField("オプション", text: .init(get: {
                     sakatsu.afterword ?? ""
                 }, set: { newValue in
                     onAfterwordChange(newValue)
                 }))
+            } header: {
+                Text("あとがき")
             }
         }
     }

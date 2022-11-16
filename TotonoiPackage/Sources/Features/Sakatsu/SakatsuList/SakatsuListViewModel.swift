@@ -2,12 +2,17 @@ import Foundation
 import Combine
 import SakatsuData
 
+// MARK: UI state
+
 struct SakatsuListUiState {
-    var sakatsus: [Sakatsu]
-    var selectedSakatsu: Sakatsu?
-    var sakatsuText: String?
-    var sakatsuListError: SakatsuListError?
+    var sakatsus: [Sakatsu] = []
+    var selectedSakatsu: Sakatsu? = nil
+    var sakatsuText: String? = nil
+    var shouldShowInputSheet: Bool = false
+    var sakatsuListError: SakatsuListError? = nil
 }
+
+// MARK: - Error
 
 enum SakatsuListError: LocalizedError {
     case sakatsuFetchFailed(localizedDescription: String)
@@ -23,6 +28,8 @@ enum SakatsuListError: LocalizedError {
     }
 }
 
+// MARK: - View model
+
 @MainActor
 final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
@@ -30,12 +37,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     private let repository: Repository
     
     init(repository: Repository = SakatsuUserDefaultsClient.shared) {
-        self.uiState = SakatsuListUiState(
-            sakatsus: [],
-            selectedSakatsu: nil,
-            sakatsuText: nil,
-            sakatsuListError: nil
-        )
+        self.uiState = SakatsuListUiState()
         self.repository = repository
         refreshSakatsus()
     }
@@ -49,23 +51,31 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
     }
 }
 
-// MARK: Event handler
+// MARK: - Event handler
 
 extension SakatsuListViewModel {
     func onSakatsuSave() {
+        uiState.shouldShowInputSheet = false
         refreshSakatsus()
     }
     
     func onAddButtonClick() {
         uiState.selectedSakatsu = nil
+        uiState.shouldShowInputSheet = true
     }
     
     func onEditButtonClick(sakatsuIndex: Int) {
         uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
+        uiState.shouldShowInputSheet = true
     }
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
+    }
+    
+    func onInputSheetDismiss() {
+        uiState.shouldShowInputSheet = false
+        uiState.selectedSakatsu = nil
     }
     
     func onCopyingSakatsuTextAlertDismiss() {
