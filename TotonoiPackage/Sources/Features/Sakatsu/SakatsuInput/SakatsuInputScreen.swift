@@ -19,6 +19,10 @@ struct SakatsuInputScreen: View {
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
+            }, onTemperatureTitleChange: { temperatureIndex, temperatureTitle in
+                viewModel.onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle)
+            }, onTemperatureChange: { temperatureIndex, temperature in
+                viewModel.onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature)
             }, onForewordChange: { foreword in
                 viewModel.onForewordChange(foreword: foreword)
             }, onSaunaTitleChange: { saunaSetIndex, saunaTitle in
@@ -95,6 +99,8 @@ private struct SakatsuInputView: View {
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
+    let onTemperatureTitleChange: (Int, String) -> Void
+    let onTemperatureChange: (Int, Float?) -> Void
     let onForewordChange: ((String?) -> Void)
     let onSaunaTitleChange: ((Int, String) -> Void)
     let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
@@ -125,6 +131,18 @@ private struct SakatsuInputView: View {
                     }),
                     displayedComponents: [.date]
                 )
+            }
+            Section {
+                ForEach(sakatsu.saunaTemperatures.indexed(), id: \.index) { saunaTemperatureIndex, saunaTemperature in
+                    saunaTemperatureInputView(
+                        saunaTemperatureIndex: saunaTemperatureIndex,
+                        saunaTemperature: saunaTemperature,
+                        onTitleChange: onTemperatureTitleChange,
+                        onTemperatureChange: onTemperatureChange
+                    )
+                }
+            } header: {
+                Text("温度")
             }
             Section {
                 TextField("オプション", text: .init(get: {
@@ -179,6 +197,32 @@ private struct SakatsuInputView: View {
         }
     }
     
+    private func saunaTemperatureInputView(
+        saunaTemperatureIndex: Int,
+        saunaTemperature: SaunaTemperature,
+        onTitleChange: @escaping (Int, String) -> Void,
+        onTemperatureChange: @escaping (Int, Float?) -> Void
+    ) -> some View {
+        HStack {
+            HStack(spacing: 0) {
+                Text("\(saunaTemperature.emoji)")
+                TextField("オプション", text: .init(get: {
+                    saunaTemperature.title
+                }, set: { newValue in
+                    onTitleChange(saunaTemperatureIndex, newValue)
+                }))
+            }
+            TextField("オプション", value: .init(get: {
+                saunaTemperature.temperature
+            }, set: { newValue in
+                onTemperatureChange(saunaTemperatureIndex, newValue)
+            }), format: .number)
+            .keyboardType(.numberPad)
+            .multilineTextAlignment(.trailing)
+            Text("℃")
+        }
+    }
+    
     private func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
@@ -213,6 +257,8 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
+            onTemperatureTitleChange: { _, _ in },
+            onTemperatureChange: { _, _ in },
             onForewordChange: { _ in },
             onSaunaTitleChange: { _, _ in },
             onSaunaTimeChange: { _, _ in },

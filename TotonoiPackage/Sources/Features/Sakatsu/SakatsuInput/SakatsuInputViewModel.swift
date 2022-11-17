@@ -92,6 +92,22 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.visitingDate = visitingDate
     }
     
+    func onTemperatureTitleChange(temperatureIndex: Int, temperatureTitle: String) {
+        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
+              validate(temperatureTitle: temperatureTitle) else {
+            return
+        }
+        uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
+    }
+    
+    func onTemperatureChange(temperatureIndex: Int, temperature: Float?) {
+        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
+              validate(temperature: temperature) else {
+            return
+        }
+        uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
+    }
+    
     func onForewordChange(foreword: String?) {
         guard validate(foreword: foreword) else {
             return
@@ -173,11 +189,23 @@ extension SakatsuInputViewModel {
         true // TODO: Disable future dates
     }
     
+    private func validate(temperatureTitle: String) -> Bool {
+        true
+    }
+    
+    private func validate(temperature: Float?) -> Bool {
+        if let temperature {
+            return (0 <= temperature && temperature < 1_000)
+        } else {
+            return true
+        }
+    }
+    
     private func validate(foreword: String?) -> Bool {
         true
     }
     
-    private func validate(saunaTitle: String?) -> Bool {
+    private func validate(saunaTitle: String) -> Bool {
         true
     }
     
@@ -189,7 +217,7 @@ extension SakatsuInputViewModel {
         }
     }
     
-    private func validate(coolBathTitle: String?) -> Bool {
+    private func validate(coolBathTitle: String) -> Bool {
         true
     }
     
@@ -201,7 +229,7 @@ extension SakatsuInputViewModel {
         }
     }
     
-    private func validate(relaxationTitle: String?) -> Bool {
+    private func validate(relaxationTitle: String) -> Bool {
         true
     }
     
