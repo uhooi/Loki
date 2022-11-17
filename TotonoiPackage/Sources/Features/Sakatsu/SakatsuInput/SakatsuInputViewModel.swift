@@ -160,6 +160,22 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.afterword = afterword
     }
+    
+    func onTemperatureTitleChange(temperatureIndex: Int, temperatureTitle: String) {
+        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
+              validate(temperatureTitle: temperatureTitle) else {
+            return
+        }
+        uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
+    }
+    
+    func onTemperatureChange(temperatureIndex: Int, temperature: Decimal?) {
+        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
+              validate(temperature: temperature) else {
+            return
+        }
+        uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
+    }
 }
 
 // MARK: - Validate
@@ -177,7 +193,7 @@ extension SakatsuInputViewModel {
         true
     }
     
-    private func validate(saunaTitle: String?) -> Bool {
+    private func validate(saunaTitle: String) -> Bool {
         true
     }
     
@@ -189,7 +205,7 @@ extension SakatsuInputViewModel {
         }
     }
     
-    private func validate(coolBathTitle: String?) -> Bool {
+    private func validate(coolBathTitle: String) -> Bool {
         true
     }
     
@@ -201,7 +217,7 @@ extension SakatsuInputViewModel {
         }
     }
     
-    private func validate(relaxationTitle: String?) -> Bool {
+    private func validate(relaxationTitle: String) -> Bool {
         true
     }
     
@@ -215,5 +231,17 @@ extension SakatsuInputViewModel {
     
     private func validate(afterword: String?) -> Bool {
         true
+    }
+    
+    private func validate(temperatureTitle: String) -> Bool {
+        true
+    }
+    
+    private func validate(temperature: Decimal?) -> Bool {
+        if let temperature {
+            return (0 <= temperature && temperature < 1_000)
+        } else {
+            return true
+        }
     }
 }

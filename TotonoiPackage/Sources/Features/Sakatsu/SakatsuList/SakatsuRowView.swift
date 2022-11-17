@@ -25,6 +25,9 @@ struct SakatsuRowView: View {
                 }
             }
             afterwordText
+            if !sakatsu.saunaTemperatures.isEmpty && sakatsu.saunaTemperatures.allSatisfy({ $0.temperature != nil }) {
+                temperaturesView
+            }
         }
     }
     
@@ -113,6 +116,24 @@ struct SakatsuRowView: View {
                 Text(saunaSetItem.unit)
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
+        }
+    }
+    
+    private var temperaturesView: some View {
+        HStack {
+            ForEach(sakatsu.saunaTemperatures) { saunaTemperature in
+                if let temperature = saunaTemperature.temperature {
+                    HStack(alignment: .firstTextBaseline, spacing: 0) {
+                        Text(saunaTemperature.emoji)
+                            .font(.footnote)
+                        Text(temperature.formatted())
+                            .font(.system(.footnote, design: .rounded))
+                        Text("℃")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
         }
     }
