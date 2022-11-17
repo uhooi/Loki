@@ -100,7 +100,7 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
     }
     
-    func onTemperatureChange(temperatureIndex: Int, temperature: Float?) {
+    func onTemperatureChange(temperatureIndex: Int, temperature: Decimal?) {
         guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
               validate(temperature: temperature) else {
             return
@@ -193,7 +193,7 @@ extension SakatsuInputViewModel {
         true
     }
     
-    private func validate(temperature: Float?) -> Bool {
+    private func validate(temperature: Decimal?) -> Bool {
         if let temperature {
             return (0 <= temperature && temperature < 1_000)
         } else {

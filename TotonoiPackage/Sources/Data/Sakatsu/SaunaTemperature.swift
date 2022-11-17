@@ -1,9 +1,11 @@
+import Foundation
 import UserDefaultsCore
 
-public struct SaunaTemperature {
+public struct SaunaTemperature: Identifiable {
+    public var id = UUID()
     public var emoji: String
     public var title: String
-    public var temperature: Float?
+    public var temperature: Decimal?
 }
 
 extension SaunaTemperature {

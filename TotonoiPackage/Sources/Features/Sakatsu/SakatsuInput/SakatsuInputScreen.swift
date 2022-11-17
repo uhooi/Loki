@@ -100,7 +100,7 @@ private struct SakatsuInputView: View {
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
     let onTemperatureTitleChange: (Int, String) -> Void
-    let onTemperatureChange: (Int, Float?) -> Void
+    let onTemperatureChange: (Int, Decimal?) -> Void
     let onForewordChange: ((String?) -> Void)
     let onSaunaTitleChange: ((Int, String) -> Void)
     let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
@@ -201,7 +201,7 @@ private struct SakatsuInputView: View {
         saunaTemperatureIndex: Int,
         saunaTemperature: SaunaTemperature,
         onTitleChange: @escaping (Int, String) -> Void,
-        onTemperatureChange: @escaping (Int, Float?) -> Void
+        onTemperatureChange: @escaping (Int, Decimal?) -> Void
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
@@ -217,7 +217,7 @@ private struct SakatsuInputView: View {
             }, set: { newValue in
                 onTemperatureChange(saunaTemperatureIndex, newValue)
             }), format: .number)
-            .keyboardType(.numberPad)
+            .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
             Text("℃")
         }
