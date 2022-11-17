@@ -113,87 +113,111 @@ private struct SakatsuInputView: View {
     
     var body: some View {
         Form {
+            generalSection
+            forewordSection
+            saunaSetSections
+            newSaunaSetSection
+            afterwordSection
+            temperaturesSection
+        }
+    }
+    
+    private var generalSection: some View {
+        Section {
+            HStack {
+                Text("施設名")
+                TextField("必須", text: .init(get: {
+                    sakatsu.facilityName
+                }, set: { newValue in
+                    onFacilityNameChange(newValue)
+                }))
+            }
+            DatePicker(
+                "訪問日",
+                selection: .init(get: {
+                    sakatsu.visitingDate
+                }, set: { newValue in
+                    onVisitingDateChange(newValue)
+                }),
+                displayedComponents: [.date]
+            )
+        }
+    }
+    
+    private var forewordSection: some View {
+        Section {
+            TextField("オプション", text: .init(get: {
+                sakatsu.foreword ?? ""
+            }, set: { newValue in
+                onForewordChange(newValue)
+            }))
+        } header: {
+            Text("まえがき")
+        }
+    }
+    
+    private var saunaSetSections: some View {
+        ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
             Section {
-                HStack {
-                    Text("施設名")
-                    TextField("必須", text: .init(get: {
-                        sakatsu.facilityName
-                    }, set: { newValue in
-                        onFacilityNameChange(newValue)
-                    }))
+                saunaSetItemTimeInputView(
+                    saunaSetIndex: saunaSetIndex,
+                    saunaSetItem: saunaSet.sauna,
+                    onTitleChange: onSaunaTitleChange,
+                    onTimeChange: onSaunaTimeChange
+                )
+                saunaSetItemTimeInputView(
+                    saunaSetIndex: saunaSetIndex,
+                    saunaSetItem: saunaSet.coolBath,
+                    onTitleChange: onCoolBathTitleChange,
+                    onTimeChange: onCoolBathTimeChange
+                )
+                saunaSetItemTimeInputView(
+                    saunaSetIndex: saunaSetIndex,
+                    saunaSetItem: saunaSet.relaxation,
+                    onTitleChange: onRelaxationTitleChange,
+                    onTimeChange: onRelaxationTimeChange
+                )
+            } header: {
+                Text("\(saunaSetIndex + 1)セット目")
+            } footer: {
+                Button("セットを削除", role: .destructive) {
+                    onRemoveSaunaSetButtonClick(saunaSetIndex)
                 }
-                DatePicker(
-                    "訪問日",
-                    selection: .init(get: {
-                        sakatsu.visitingDate
-                    }, set: { newValue in
-                        onVisitingDateChange(newValue)
-                    }),
-                    displayedComponents: [.date]
+                .font(.footnote)
+            }
+        }
+    }
+    
+    private var newSaunaSetSection: some View {
+        Section {
+            Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
+        }
+    }
+    
+    private var afterwordSection: some View {
+        Section {
+            TextField("オプション", text: .init(get: {
+                sakatsu.afterword ?? ""
+            }, set: { newValue in
+                onAfterwordChange(newValue)
+            }))
+        } header: {
+            Text("あとがき")
+        }
+    }
+    
+    private var temperaturesSection: some View {
+        Section {
+            ForEach(sakatsu.saunaTemperatures.indexed(), id: \.index) { saunaTemperatureIndex, saunaTemperature in
+                saunaTemperatureInputView(
+                    saunaTemperatureIndex: saunaTemperatureIndex,
+                    saunaTemperature: saunaTemperature,
+                    onTitleChange: onTemperatureTitleChange,
+                    onTemperatureChange: onTemperatureChange
                 )
             }
-            Section {
-                TextField("オプション", text: .init(get: {
-                    sakatsu.foreword ?? ""
-                }, set: { newValue in
-                    onForewordChange(newValue)
-                }))
-            } header: {
-                Text("まえがき")
-            }
-            ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
-                Section {
-                    saunaSetItemTimeInputView(
-                        saunaSetIndex: saunaSetIndex,
-                        saunaSetItem: saunaSet.sauna,
-                        onTitleChange: onSaunaTitleChange,
-                        onTimeChange: onSaunaTimeChange
-                    )
-                    saunaSetItemTimeInputView(
-                        saunaSetIndex: saunaSetIndex,
-                        saunaSetItem: saunaSet.coolBath,
-                        onTitleChange: onCoolBathTitleChange,
-                        onTimeChange: onCoolBathTimeChange
-                    )
-                    saunaSetItemTimeInputView(
-                        saunaSetIndex: saunaSetIndex,
-                        saunaSetItem: saunaSet.relaxation,
-                        onTitleChange: onRelaxationTitleChange,
-                        onTimeChange: onRelaxationTimeChange
-                    )
-                } header: {
-                    Text("\(saunaSetIndex + 1)セット目")
-                } footer: {
-                    Button("セットを削除", role: .destructive) {
-                        onRemoveSaunaSetButtonClick(saunaSetIndex)
-                    }
-                    .font(.footnote)
-                }
-            }
-            Section {
-                Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
-            }
-            Section {
-                TextField("オプション", text: .init(get: {
-                    sakatsu.afterword ?? ""
-                }, set: { newValue in
-                    onAfterwordChange(newValue)
-                }))
-            } header: {
-                Text("あとがき")
-            }
-            Section {
-                ForEach(sakatsu.saunaTemperatures.indexed(), id: \.index) { saunaTemperatureIndex, saunaTemperature in
-                    saunaTemperatureInputView(
-                        saunaTemperatureIndex: saunaTemperatureIndex,
-                        saunaTemperature: saunaTemperature,
-                        onTitleChange: onTemperatureTitleChange,
-                        onTemperatureChange: onTemperatureChange
-                    )
-                }
-            } header: {
-                Text("温度")
-            }
+        } header: {
+            Text("温度")
         }
     }
     
