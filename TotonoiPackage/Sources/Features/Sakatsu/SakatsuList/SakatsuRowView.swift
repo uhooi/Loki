@@ -108,7 +108,7 @@ struct SakatsuRowView: View {
             Text(saunaSetItem.emoji)
                 .font(.body)
             if let time = saunaSetItem.time {
-                Text("\(time.formatted())")
+                Text(time.formatted())
                     .font(.system(.title2, design: .rounded))
                 Text(saunaSetItem.unit)
                     .font(.caption)
