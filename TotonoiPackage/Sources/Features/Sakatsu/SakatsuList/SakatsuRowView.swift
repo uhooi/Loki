@@ -23,6 +23,10 @@ struct SakatsuRowView: View {
                 GroupBox {
                     saunaSetsView
                 }
+                .overlay {
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color(uiColor: .tertiaryLabel))
+                }
             }
             afterwordText
             if !sakatsu.saunaTemperatures.isEmpty && sakatsu.saunaTemperatures.allSatisfy({ $0.temperature != nil }) {
@@ -130,6 +134,7 @@ struct SakatsuRowView: View {
                             .font(.footnote)
                         Text(temperature.formatted())
                             .font(.system(.footnote, design: .rounded))
+                            .textSelection(.enabled)
                         Text("℃")
                             .font(.caption2)
                             .foregroundColor(.secondary)
