@@ -183,7 +183,7 @@ extension SakatsuInputViewModel {
     
     private func validate(saunaTime: TimeInterval?) -> Bool {
         if let saunaTime {
-            return saunaTime >= 0
+            return (0 <= saunaTime && saunaTime < 1_000)
         } else {
             return true
         }
@@ -195,7 +195,7 @@ extension SakatsuInputViewModel {
     
     private func validate(coolBathTime: TimeInterval?) -> Bool {
         if let coolBathTime {
-            return coolBathTime >= 0
+            return (0 <= coolBathTime && coolBathTime < 60 * 60)
         } else {
             return true
         }
@@ -207,7 +207,7 @@ extension SakatsuInputViewModel {
     
     private func validate(relaxationTime: TimeInterval?) -> Bool {
         if let relaxationTime {
-            return relaxationTime >= 0
+            return (0 <= relaxationTime && relaxationTime < 1_000)
         } else {
             return true
         }
