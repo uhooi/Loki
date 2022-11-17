@@ -65,6 +65,7 @@ struct SakatsuRowView: View {
     private var saunaSetsView: some View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
+                // TODO: Refactor logic
                 if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
                     saunaSetItemView(saunaSetItem: saunaSet.sauna)
                 }
@@ -89,6 +90,7 @@ struct SakatsuRowView: View {
     private var arrowImage: some View {
         Image(systemName: "arrow.right")
             .font(.caption)
+            .foregroundColor(.secondary)
     }
     
     @ViewBuilder
@@ -106,7 +108,7 @@ struct SakatsuRowView: View {
             Text(saunaSetItem.emoji)
                 .font(.body)
             if let time = saunaSetItem.time {
-                Text("\(time.formatted())")
+                Text(time.formatted())
                     .font(.system(.title2, design: .rounded))
                 Text(saunaSetItem.unit)
                     .font(.caption)
