@@ -92,22 +92,6 @@ extension SakatsuInputViewModel {
         uiState.sakatsu.visitingDate = visitingDate
     }
     
-    func onTemperatureTitleChange(temperatureIndex: Int, temperatureTitle: String) {
-        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
-              validate(temperatureTitle: temperatureTitle) else {
-            return
-        }
-        uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
-    }
-    
-    func onTemperatureChange(temperatureIndex: Int, temperature: Decimal?) {
-        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
-              validate(temperature: temperature) else {
-            return
-        }
-        uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
-    }
-    
     func onForewordChange(foreword: String?) {
         guard validate(foreword: foreword) else {
             return
@@ -175,6 +159,22 @@ extension SakatsuInputViewModel {
             return
         }
         uiState.sakatsu.afterword = afterword
+    }
+    
+    func onTemperatureTitleChange(temperatureIndex: Int, temperatureTitle: String) {
+        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
+              validate(temperatureTitle: temperatureTitle) else {
+            return
+        }
+        uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
+    }
+    
+    func onTemperatureChange(temperatureIndex: Int, temperature: Decimal?) {
+        guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
+              validate(temperature: temperature) else {
+            return
+        }
+        uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
     }
 }
 
