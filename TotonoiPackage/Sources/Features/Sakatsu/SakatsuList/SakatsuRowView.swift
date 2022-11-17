@@ -53,6 +53,7 @@ struct SakatsuRowView: View {
             }
         } label: {
             Image(systemName: "ellipsis")
+                .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
         }
     }
     
