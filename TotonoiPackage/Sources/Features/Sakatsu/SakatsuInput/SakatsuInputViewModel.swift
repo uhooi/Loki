@@ -195,7 +195,7 @@ extension SakatsuInputViewModel {
     
     private func validate(coolBathTime: TimeInterval?) -> Bool {
         if let coolBathTime {
-            return (0 <= coolBathTime && coolBathTime < 60 * 60)
+            return (0 <= coolBathTime && coolBathTime < 1_000)
         } else {
             return true
         }
