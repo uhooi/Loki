@@ -189,18 +189,6 @@ extension SakatsuInputViewModel {
         true // TODO: Disable future dates
     }
     
-    private func validate(temperatureTitle: String) -> Bool {
-        true
-    }
-    
-    private func validate(temperature: Decimal?) -> Bool {
-        if let temperature {
-            return (0 <= temperature && temperature < 1_000)
-        } else {
-            return true
-        }
-    }
-    
     private func validate(foreword: String?) -> Bool {
         true
     }
@@ -243,5 +231,17 @@ extension SakatsuInputViewModel {
     
     private func validate(afterword: String?) -> Bool {
         true
+    }
+    
+    private func validate(temperatureTitle: String) -> Bool {
+        true
+    }
+    
+    private func validate(temperature: Decimal?) -> Bool {
+        if let temperature {
+            return (0 <= temperature && temperature < 1_000)
+        } else {
+            return true
+        }
     }
 }

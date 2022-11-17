@@ -19,10 +19,6 @@ struct SakatsuInputScreen: View {
                 viewModel.onFacilityNameChange(facilityName: facilityName)
             }, onVisitingDateChange: { visitingDate in
                 viewModel.onVisitingDateChange(visitingDate: visitingDate)
-            }, onTemperatureTitleChange: { temperatureIndex, temperatureTitle in
-                viewModel.onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle)
-            }, onTemperatureChange: { temperatureIndex, temperature in
-                viewModel.onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature)
             }, onForewordChange: { foreword in
                 viewModel.onForewordChange(foreword: foreword)
             }, onSaunaTitleChange: { saunaSetIndex, saunaTitle in
@@ -41,6 +37,10 @@ struct SakatsuInputScreen: View {
                 viewModel.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex)
             }, onAfterwordChange: { afterword in
                 viewModel.onAfterwordChange(afterword: afterword)
+            }, onTemperatureTitleChange: { temperatureIndex, temperatureTitle in
+                viewModel.onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle)
+            }, onTemperatureChange: { temperatureIndex, temperature in
+                viewModel.onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature)
             }
         )
         .navigationTitle("サ活登録")
@@ -99,8 +99,6 @@ private struct SakatsuInputView: View {
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
-    let onTemperatureTitleChange: (Int, String) -> Void
-    let onTemperatureChange: (Int, Decimal?) -> Void
     let onForewordChange: ((String?) -> Void)
     let onSaunaTitleChange: ((Int, String) -> Void)
     let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
@@ -110,6 +108,8 @@ private struct SakatsuInputView: View {
     let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
     let onRemoveSaunaSetButtonClick: ((Int) -> Void)
     let onAfterwordChange: ((String?) -> Void)
+    let onTemperatureTitleChange: (Int, String) -> Void
+    let onTemperatureChange: (Int, Decimal?) -> Void
     
     var body: some View {
         Form {
@@ -257,8 +257,6 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onAddNewSaunaSetButtonClick: {},
             onFacilityNameChange: { _ in },
             onVisitingDateChange: { _ in },
-            onTemperatureTitleChange: { _, _ in },
-            onTemperatureChange: { _, _ in },
             onForewordChange: { _ in },
             onSaunaTitleChange: { _, _ in },
             onSaunaTimeChange: { _, _ in },
@@ -267,7 +265,9 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onRelaxationTitleChange: { _, _ in },
             onRelaxationTimeChange: { _, _ in },
             onRemoveSaunaSetButtonClick: { _ in },
-            onAfterwordChange: { _ in }
+            onAfterwordChange: { _ in },
+            onTemperatureTitleChange: { _, _ in },
+            onTemperatureChange: { _, _ in }
         )
     }
 }
