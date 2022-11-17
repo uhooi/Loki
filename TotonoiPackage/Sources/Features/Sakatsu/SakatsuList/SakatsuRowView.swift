@@ -25,7 +25,7 @@ struct SakatsuRowView: View {
                 }
             }
             afterwordText
-            if !sakatsu.saunaTemperatures.isEmpty {
+            if !sakatsu.saunaTemperatures.isEmpty && sakatsu.saunaTemperatures.allSatisfy({ $0.temperature != nil }) {
                 temperaturesView
             }
         }
