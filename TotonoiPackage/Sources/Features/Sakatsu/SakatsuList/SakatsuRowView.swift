@@ -104,11 +104,13 @@ struct SakatsuRowView: View {
     private func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             Text(saunaSetItem.emoji)
+                .font(.body)
             if let time = saunaSetItem.time {
                 Text("\(time.formatted())")
                     .font(.system(.title2, design: .rounded))
                 Text(saunaSetItem.unit)
                     .font(.caption)
+                    .foregroundColor(.secondary)
             }
         }
     }
