@@ -130,6 +130,7 @@ struct SakatsuRowView: View {
                             .font(.footnote)
                         Text(temperature.formatted())
                             .font(.system(.footnote, design: .rounded))
+                            .textSelection(.enabled)
                         Text("℃")
                             .font(.caption2)
                             .foregroundColor(.secondary)
