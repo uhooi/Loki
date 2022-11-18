@@ -42,22 +42,13 @@ struct SakatsuInputScreen: View {
             }
         )
         .navigationTitle("サ活登録")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("保存") {
-                    viewModel.onSaveButtonClick()
-                    onSakatsuSave()
-                }
-                .disabled(viewModel.uiState.sakatsu.facilityName.isEmpty)
-            }
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                }
-            }
-        }
+        .sakatsuInputScreenToolbar(
+            saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
+            onSaveButtonClick: {
+                viewModel.onSaveButtonClick()
+                onSakatsuSave()
+            }, onCloseButtonClick: { dismiss() }
+        )
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
             onDismiss: { viewModel.onErrorAlertDismiss() }
@@ -70,6 +61,30 @@ struct SakatsuInputScreen: View {
     ) {
         self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(sakatsu: sakatsu ?? .init()))
         self.onSakatsuSave = onSakatsuSave
+    }
+}
+
+private extension View {
+    func sakatsuInputScreenToolbar(
+        saveButtonDisabled: Bool,
+        onSaveButtonClick: @escaping () -> Void,
+        onCloseButtonClick: @escaping () -> Void
+    ) -> some View {
+        toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("保存") {
+                    onSaveButtonClick()
+                }
+                .disabled(saveButtonDisabled)
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    onCloseButtonClick()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
+        }
     }
 }
 
