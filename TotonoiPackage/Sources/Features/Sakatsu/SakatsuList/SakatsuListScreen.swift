@@ -56,17 +56,10 @@ public struct SakatsuListScreen: View {
                         UIPasteboard.general.string = sakatsuText
                     }
             }
-            .alert(
-                isPresented: .init(get: {
-                    viewModel.uiState.sakatsuListError != nil
-                }, set: { _ in
-                    viewModel.onErrorAlertDismiss()
-                }),
-                error: viewModel.uiState.sakatsuListError
-            ) { _ in
-            } message: { sakatsuListError in
-                Text((sakatsuListError.failureReason ?? "") + (sakatsuListError.recoverySuggestion ?? ""))
-            }
+            .errorAlert(
+                error: viewModel.uiState.sakatsuListError,
+                onDismiss: { viewModel.onErrorAlertDismiss() }
+            )
         }
     }
     
