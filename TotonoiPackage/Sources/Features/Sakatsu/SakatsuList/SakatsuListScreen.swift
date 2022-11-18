@@ -41,37 +41,42 @@ public struct SakatsuListScreen: View {
                     )
                 }
             }
-            .alert(
-                "コピー",
-                isPresented: .init(get: {
-                    viewModel.uiState.sakatsuText != nil
-                }, set: { _ in
-                    viewModel.onCopyingSakatsuTextAlertDismiss()
-                }),
-                presenting: viewModel.uiState.sakatsuText
-            ) { _ in
-            } message: { sakatsuText in
-                Text("サ活のテキストをコピーしました。")
-                    .onAppear {
-                        UIPasteboard.general.string = sakatsuText
-                    }
-            }
-            .alert(
-                isPresented: .init(get: {
-                    viewModel.uiState.sakatsuListError != nil
-                }, set: { _ in
-                    viewModel.onErrorAlertDismiss()
-                }),
-                error: viewModel.uiState.sakatsuListError
-            ) { _ in
-            } message: { sakatsuListError in
-                Text((sakatsuListError.failureReason ?? "") + (sakatsuListError.recoverySuggestion ?? ""))
-            }
+            .copyingSakatsuTextAlert(
+                sakatsuText: viewModel.uiState.sakatsuText,
+                onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
+            )
+            .errorAlert(
+                error: viewModel.uiState.sakatsuListError,
+                onDismiss: { viewModel.onErrorAlertDismiss() }
+            )
         }
     }
     
     public init() {
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
+    }
+}
+
+private extension View {
+    func copyingSakatsuTextAlert(
+        sakatsuText: String?,
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        alert(
+            "コピー",
+            isPresented: .init(get: {
+                sakatsuText != nil
+            }, set: { _ in
+                onDismiss()
+            }),
+            presenting: sakatsuText
+        ) { _ in
+        } message: { sakatsuText in
+            Text("サ活のテキストをコピーしました。")
+                .onAppear {
+                    UIPasteboard.general.string = sakatsuText
+                }
+        }
     }
 }
 
