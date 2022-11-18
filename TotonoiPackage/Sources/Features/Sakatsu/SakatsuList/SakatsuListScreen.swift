@@ -17,16 +17,9 @@ public struct SakatsuListScreen: View {
                 }
             )
             .navigationTitle("サ活一覧")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    EditButton()
-                    Button {
-                        viewModel.onAddButtonClick()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
+            .sakatsuListScreenToolbar(
+                onAddButtonClick: { viewModel.onAddButtonClick() }
+            )
             .sheet(isPresented: .init(get: {
                 viewModel.uiState.shouldShowInputSheet
             }, set: { _ in
@@ -58,6 +51,21 @@ public struct SakatsuListScreen: View {
 }
 
 private extension View {
+    func sakatsuListScreenToolbar(
+        onAddButtonClick: @escaping () -> Void
+    ) -> some View {
+        toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                EditButton()
+                Button {
+                    onAddButtonClick()
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+    }
+    
     func copyingSakatsuTextAlert(
         sakatsuText: String?,
         onDismiss: @escaping () -> Void
