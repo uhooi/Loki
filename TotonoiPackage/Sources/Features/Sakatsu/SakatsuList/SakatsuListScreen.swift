@@ -17,30 +17,15 @@ public struct SakatsuListScreen: View {
                 }
             )
             .navigationTitle("サ活一覧")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    EditButton()
-                    Button {
-                        viewModel.onAddButtonClick()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
-            .sheet(isPresented: .init(get: {
-                viewModel.uiState.shouldShowInputSheet
-            }, set: { _ in
-                viewModel.onInputSheetDismiss()
-            })) {
-                NavigationView {
-                    SakatsuInputScreen(
-                        sakatsu: viewModel.uiState.selectedSakatsu,
-                        onSakatsuSave: {
-                            viewModel.onSakatsuSave()
-                        }
-                    )
-                }
-            }
+            .sakatsuListScreenToolbar(
+                onAddButtonClick: { viewModel.onAddButtonClick() }
+            )
+            .sakatsuInputSheet(
+                shouldShowSheet: viewModel.uiState.shouldShowInputSheet,
+                selectedSakatsu: viewModel.uiState.selectedSakatsu,
+                onDismiss: { viewModel.onInputSheetDismiss() },
+                onSakatsuSave: { viewModel.onSakatsuSave() }
+            )
             .copyingSakatsuTextAlert(
                 sakatsuText: viewModel.uiState.sakatsuText,
                 onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
@@ -58,6 +43,41 @@ public struct SakatsuListScreen: View {
 }
 
 private extension View {
+    func sakatsuListScreenToolbar(
+        onAddButtonClick: @escaping () -> Void
+    ) -> some View {
+        toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                EditButton()
+                Button {
+                    onAddButtonClick()
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+    }
+    
+    func sakatsuInputSheet(
+        shouldShowSheet: Bool,
+        selectedSakatsu: Sakatsu?,
+        onDismiss: @escaping () -> Void,
+        onSakatsuSave: @escaping () -> Void
+    ) -> some View {
+        sheet(isPresented: .init(get: {
+            shouldShowSheet
+        }, set: { _ in
+            onDismiss()
+        })) {
+            NavigationView {
+                SakatsuInputScreen(
+                    sakatsu: selectedSakatsu,
+                    onSakatsuSave: onSakatsuSave
+                )
+            }
+        }
+    }
+    
     func copyingSakatsuTextAlert(
         sakatsuText: String?,
         onDismiss: @escaping () -> Void
