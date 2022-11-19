@@ -1,13 +1,21 @@
 # Loki
 
 [![Release](https://img.shields.io/github/v/release/uhooi/Loki)](https://github.com/uhooi/Loki/releases/latest)
+[![Twitter](https://img.shields.io/twitter/follow/the_uhooi?style=social)](https://twitter.com/the_uhooi)
 
 Loki（ロキ）は、サ活の記録に特化したアプリです。
 
+<a href="https://apps.apple.com/jp/app/ロキ/id6444580805?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1668816000&h=208fad97f748bc6c581dd384ccf2b393" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+
 ## 目次
 
+- [スクリーンショット](#スクリーンショット)
 - [開発](#開発)
 - [貢献](#貢献)
+
+## スクリーンショット
+
+TBD
 
 ## 開発
 
