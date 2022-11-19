@@ -1,6 +1,7 @@
 # Loki
 
 [![Release](https://img.shields.io/github/v/release/uhooi/Loki)](https://github.com/uhooi/Loki/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-iOS-lightgrey)](https://github.com/uhooi/Loki)
 [![Twitter](https://img.shields.io/twitter/follow/the_uhooi?style=social)](https://twitter.com/the_uhooi)
 
 Loki（ロキ）は、サ活の記録に特化したアプリです。
@@ -15,7 +16,21 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ## スクリーンショット
 
-TBD
+<details><summary>スクリーンショット</summary>
+
+### ライト
+
+|サ活一覧|サ活登録|
+|:--:|:--:|
+|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Light/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Light/SakatsuInput_Japanese.png" width="207">|
+
+### ダーク
+
+|サ活一覧|サ活登録|
+|:--:|:--:|
+|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Dark/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Dark/SakatsuInput_Japanese.png" width="207">|
+
+</details>
 
 ## 開発
 
