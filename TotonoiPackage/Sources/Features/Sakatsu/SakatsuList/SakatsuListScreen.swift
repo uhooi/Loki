@@ -47,13 +47,15 @@ private extension View {
         onAddButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                EditButton()
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     onAddButtonClick()
                 } label: {
                     Image(systemName: "plus")
                 }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
             }
         }
     }
