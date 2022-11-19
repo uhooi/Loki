@@ -42,6 +42,7 @@ struct SakatsuInputScreen: View {
             }
         )
         .navigationTitle("サ活登録")
+        .navigationBarTitleDisplayMode(.inline)
         .sakatsuInputScreenToolbar(
             saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
             onSaveButtonClick: {
