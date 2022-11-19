@@ -102,8 +102,10 @@ private extension View {
     }
 }
 
+#if DEBUG
 struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuListScreen()
     }
 }
+#endif

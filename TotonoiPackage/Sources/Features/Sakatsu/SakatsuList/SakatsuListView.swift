@@ -27,6 +27,7 @@ struct SakatsuListView: View {
     }
 }
 
+#if DEBUG
 struct SakatsuListView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuListView(
@@ -37,3 +38,4 @@ struct SakatsuListView_Previews: PreviewProvider {
         )
     }
 }
+#endif
