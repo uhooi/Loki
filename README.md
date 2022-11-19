@@ -2,7 +2,7 @@
 
 [![Release](https://img.shields.io/github/v/release/uhooi/Totonoi-iOS)](https://github.com/uhooi/Totonoi-iOS/releases/latest)
 
-Totonoi（整い）は、サ活の記録に特化したアプリです。
+Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ## 目次
 
