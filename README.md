@@ -1,6 +1,6 @@
-# Totonoi-iOS
+# Loki
 
-[![Release](https://img.shields.io/github/v/release/uhooi/Totonoi-iOS)](https://github.com/uhooi/Totonoi-iOS/releases/latest)
+[![Release](https://img.shields.io/github/v/release/uhooi/Loki)](https://github.com/uhooi/Loki/releases/latest)
 
 Loki（ロキ）は、サ活の記録に特化したアプリです。
 
@@ -29,8 +29,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 1. このプロジェクトをクローンします。  
     ```shell
-    $ git clone https://github.com/uhooi/Totonoi-iOS.git
-    $ cd Totonoi-iOS
+    $ git clone https://github.com/uhooi/Loki.git
+    $ cd Loki
     ```
 
 2. Swiftプロジェクトの高速ビルドを有効にします。（任意）  
@@ -45,5 +45,5 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 貢献をお待ちしています :relaxed:
 
-- [新しいイシュー](https://github.com/uhooi/Totonoi-iOS/issues/new)
-- [新しいプルリクエスト](https://github.com/uhooi/Totonoi-iOS/compare)
+- [新しいイシュー](https://github.com/uhooi/Loki/issues/new)
+- [新しいプルリクエスト](https://github.com/uhooi/Loki/compare)
