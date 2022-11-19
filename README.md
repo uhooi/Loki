@@ -1,13 +1,36 @@
-# Totonoi-iOS
+# Loki
 
-[![Release](https://img.shields.io/github/v/release/uhooi/Totonoi-iOS)](https://github.com/uhooi/Totonoi-iOS/releases/latest)
+[![Release](https://img.shields.io/github/v/release/uhooi/Loki)](https://github.com/uhooi/Loki/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-iOS-lightgrey)](https://github.com/uhooi/Loki)
+[![Twitter](https://img.shields.io/twitter/follow/the_uhooi?style=social)](https://twitter.com/the_uhooi)
 
-Totonoi（整い）は、サ活の記録に特化したアプリです。
+Loki（ロキ）は、サ活の記録に特化したアプリです。
+
+<a href="https://apps.apple.com/jp/app/ロキ/id6444580805?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1668816000&h=208fad97f748bc6c581dd384ccf2b393" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
 ## 目次
 
+- [スクリーンショット](#スクリーンショット)
 - [開発](#開発)
 - [貢献](#貢献)
+
+## スクリーンショット
+
+<details><summary>スクリーンショット</summary>
+
+### ライト
+
+|サ活一覧|サ活登録|
+|:--:|:--:|
+|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Light/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Light/SakatsuInput_Japanese.png" width="207">|
+
+### ダーク
+
+|サ活一覧|サ活登録|
+|:--:|:--:|
+|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Dark/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Dark/SakatsuInput_Japanese.png" width="207">|
+
+</details>
 
 ## 開発
 
@@ -29,8 +52,8 @@ Totonoi（整い）は、サ活の記録に特化したアプリです。
 
 1. このプロジェクトをクローンします。  
     ```shell
-    $ git clone https://github.com/uhooi/Totonoi-iOS.git
-    $ cd Totonoi-iOS
+    $ git clone https://github.com/uhooi/Loki.git
+    $ cd Loki
     ```
 
 2. Swiftプロジェクトの高速ビルドを有効にします。（任意）  
@@ -45,5 +68,5 @@ Totonoi（整い）は、サ活の記録に特化したアプリです。
 
 貢献をお待ちしています :relaxed:
 
-- [新しいイシュー](https://github.com/uhooi/Totonoi-iOS/issues/new)
-- [新しいプルリクエスト](https://github.com/uhooi/Totonoi-iOS/compare)
+- [新しいイシュー](https://github.com/uhooi/Loki/issues/new)
+- [新しいプルリクエスト](https://github.com/uhooi/Loki/compare)

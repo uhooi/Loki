@@ -183,6 +183,7 @@ struct SakatsuInputView: View {
     }
 }
 
+#if DEBUG
 struct SakatsuInputView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuInputView(
@@ -204,3 +205,4 @@ struct SakatsuInputView_Previews: PreviewProvider {
         )
     }
 }
+#endif

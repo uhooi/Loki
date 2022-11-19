@@ -89,6 +89,7 @@ private extension View {
     }
 }
 
+#if DEBUG
 struct SakatsuInputScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -99,3 +100,4 @@ struct SakatsuInputScreen_Previews: PreviewProvider {
         }
     }
 }
+#endif

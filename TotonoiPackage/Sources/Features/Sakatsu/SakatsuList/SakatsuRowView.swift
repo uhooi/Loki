@@ -145,6 +145,7 @@ struct SakatsuRowView: View {
     }
 }
 
+#if DEBUG
 struct SakatsuRowView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuRowView(
@@ -154,3 +155,4 @@ struct SakatsuRowView_Previews: PreviewProvider {
         )
     }
 }
+#endif
