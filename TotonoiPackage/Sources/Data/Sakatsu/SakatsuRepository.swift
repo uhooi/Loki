@@ -16,7 +16,13 @@ public struct SakatsuUserDefaultsClient {
 
 extension SakatsuUserDefaultsClient: SakatsuRepository {
     public func sakatsus() throws -> [Sakatsu] {
-        try userDefaultsClient.object(forKey: Self.sakatsusKey)
+        do {
+            return try userDefaultsClient.object(forKey: Self.sakatsusKey)
+        } catch UserDefaultsError.missingValue {
+            return []
+        } catch {
+            throw error
+        }
     }
     
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {

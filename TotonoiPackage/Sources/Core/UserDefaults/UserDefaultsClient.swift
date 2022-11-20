@@ -4,13 +4,13 @@ public typealias UserDefaultsGettable = Decodable
 public typealias UserDefaultsSettable = Encodable
 public typealias UserDefaultsPersistable = UserDefaultsGettable & UserDefaultsSettable
 
-private enum UserDefaultsError: LocalizedError {
-    case gettingFailed(key: String)
+public enum UserDefaultsError: LocalizedError {
+    case missingValue(key: String)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
-        case .gettingFailed:
-            return "オブジェクトの取得に失敗しました。"
+        case .missingValue:
+            return "対象のキーに値が存在しません。"
         }
     }
 }
@@ -26,7 +26,7 @@ public struct UserDefaultsClient {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let data = userDefaults.data(forKey: defaultName) else {
-            throw UserDefaultsError.gettingFailed(key: defaultName)
+            throw UserDefaultsError.missingValue(key: defaultName)
         }
         return try jsonDecoder.decode(V.self, from: data)
     }
