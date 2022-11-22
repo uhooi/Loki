@@ -136,7 +136,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ##### 子ビュー
 
-TBD
+- ビューモデルを直接参照せず、状態ホイスティングを適用する
+  - 参考: https://developer.android.com/jetpack/compose/state#state-hoisting
 
 #### ビューモデル
 
