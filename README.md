@@ -95,6 +95,15 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - 複数のターゲットが共通で使う処理を格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#common-modules
 
+#### ライブラリ管理
+
+- SwiftPMのみで管理する
+  - 例: https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage/Package.swift#L19-L21
+
+#### CLIツール管理
+
+- SwiftPMのみで管理する
+
 </details>
 
 ### コーディングルール
