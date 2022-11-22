@@ -116,6 +116,9 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
   - UIは手動でテストすることが多く、費用対効果に合わないため
 - できる限り分岐（ `if` ・ `switch` ）を入れない
   - 単体テストを書かないため
+- できる限り `Task { ... }` をビューに書く
+  - ビューモデルの単体テストが書きづらくなるため
+    - 参考: https://speakerdeck.com/koher/swift-concurrencyshi-dai-noiosapurinozuo-rifang?slide=106
 
 ##### 親ビュー
 
@@ -146,6 +149,7 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - `@MainActor` を付けた `final class` とし、 `ObservableObject` に準拠する
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L33-L34
 - ビューのイベントをハンドリングする
+  - 基本的にはメソッド名をそのまま採用する
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L54-L139
 
 </details>
