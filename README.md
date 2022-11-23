@@ -77,17 +77,17 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - `Features` ・ `Data` ・ `Core` の3層に分ける
   - 参考: https://developer.android.com/topic/modularization
 
-##### Features
+#### Features
 
 - 各機能のビューとビューモデルを格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#feature-modules
 
-##### Data
+#### Data
 
 - リポジトリやモデルを格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#data-modules
 
-##### Core
+#### Core
 
 - 複数のターゲットが共通で使う処理を格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#common-modules
