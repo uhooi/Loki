@@ -176,6 +176,14 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
     }
+    
+    func onTemperatureDelete(at offsets: IndexSet) {
+        uiState.sakatsu.saunaTemperatures.remove(atOffsets: offsets)
+    }
+    
+    func onAddNewTemperatureButtonClick() {
+        uiState.sakatsu.saunaTemperatures.insert(.sauna, at: max(uiState.sakatsu.saunaTemperatures.count, 1) - 1)
+    }
 }
 
 // MARK: - Validate
