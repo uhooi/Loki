@@ -39,6 +39,8 @@ struct SakatsuInputScreen: View {
                 viewModel.onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle)
             }, onTemperatureChange: { temperatureIndex, temperature in
                 viewModel.onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature)
+            }, onAddNewTemperatureButtonClick: {
+                viewModel.onAddNewTemperatureButtonClick()
             }
         )
         .navigationTitle("サ活登録")

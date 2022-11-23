@@ -19,6 +19,7 @@ struct SakatsuInputView: View {
     let onAfterwordChange: ((String?) -> Void)
     let onTemperatureTitleChange: (Int, String) -> Void
     let onTemperatureChange: (Int, Decimal?) -> Void
+    let onAddNewTemperatureButtonClick: (() -> Void)
     
     var body: some View {
         Form {
@@ -125,6 +126,8 @@ struct SakatsuInputView: View {
                     onTemperatureChange: onTemperatureChange
                 )
             }
+            Button("新しいサウナの温度を追加", action: onAddNewTemperatureButtonClick)
+                .font(.footnote)
         } header: {
             Text("温度")
         }
@@ -201,7 +204,8 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onRemoveSaunaSetButtonClick: { _ in },
             onAfterwordChange: { _ in },
             onTemperatureTitleChange: { _, _ in },
-            onTemperatureChange: { _, _ in }
+            onTemperatureChange: { _, _ in },
+            onAddNewTemperatureButtonClick: {}
         )
     }
 }

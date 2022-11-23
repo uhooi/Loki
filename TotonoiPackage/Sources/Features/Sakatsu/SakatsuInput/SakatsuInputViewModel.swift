@@ -176,6 +176,10 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
     }
+    
+    func onAddNewTemperatureButtonClick() {
+        uiState.sakatsu.saunaTemperatures.insert(.sauna, at: uiState.sakatsu.saunaTemperatures.count - 1)
+    }
 }
 
 // MARK: - Validate
