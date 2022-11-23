@@ -79,7 +79,7 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 #### Features
 
-- 各機能のビューとビューモデルを格納する
+- 各機能のビューやビューモデルを格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#feature-modules
 
 #### Data
