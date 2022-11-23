@@ -125,19 +125,23 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - できる限り `Task { ... }` をビューに書く
   - ビューモデルの単体テストが書きづらくなるため
     - 参考: https://speakerdeck.com/koher/swift-concurrencyshi-dai-noiosapurinozuo-rifang?slide=106
+- 状態はビューモデルの `uiState` に集約し、ビューでは保持しない
+  - つまり `@State` を使わず、 `@StateObject` はビューモデルのみに付ける
+  - `@Published` もビューモデルの `uiState` のみに付ける
 
 ##### 親ビュー
 
-- 画面全体のビューを `〜Screen` と命名する
+- 画面全体のビューを `{画面名}Screen` と命名する
   - 例: [SakatsuListScreen](https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift)
 - 以下の処理を親ビューに書く
   - ビューモデルの保持
     - `@StateObject private var` で保持する
     - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L5
   - ナビゲーションロジック
-    - `NavigationView { ... }` や `.navigationTitle()` など
+    - `NavigationView { ... }` や `.navigationTitle()` 、 `.navigationBarTitleDisplayMode()` など
     - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L8  
-    https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L19
+    https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L19  
+   https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuInput/SakatsuInputScreen.swift#L45
   - ツールバー、シートやアラートなど、画面全体に関わる表示
     - `.toolbar { ... }` 、 `.sheet()` や `.alert()` など
     - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L20-L36  
@@ -152,10 +156,22 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 #### ビューモデル
 
+- 1画面1ビューモデルとする
+- `{画面名}ViewModel` と命名する
 - `UIKit` や `SwiftUI` などのUIフレームワークをインポートしない
   - ビューモデルにUIを持ち込みたくないため
 - `@MainActor` を付けた `final class` とし、 `ObservableObject` に準拠する
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L33-L34
+- 状態を `uiState` で一元管理し、 `private(set)` にしてビューから状態を変更させない
+  - 構造体名は `{画面名}UiState` とする
+  - ただ双方向バインディングできなくなるため、このルールは撤廃する予定
+  - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L7-L13  
+     https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L35
+- エラーは画面ごとに1つの列挙型にまとめ、 `uiState` で1つのみ保持する
+  - エラーはアラートで表示することが多く、1つの型になっていると複数表示されないことが保証されるため
+  - エラー名は `{画面名}Error` とする
+  - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L17-L29  
+  https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L12
 - ビューのイベントをハンドリングする
   - 基本的にはメソッド名をそのまま採用する
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L54-L139
