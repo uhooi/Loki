@@ -150,7 +150,7 @@ struct SakatsuInputView: View {
             }, set: { newValue in
                 onTimeChange(saunaSetIndex, newValue)
             }), format: .number)
-            .keyboardType(.numberPad)
+            .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
             Text(saunaSetItem.unit)
         }
