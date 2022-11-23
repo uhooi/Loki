@@ -71,9 +71,9 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 #### 全体
 
 - できる限りSwiftパッケージにソースコードを寄せる
-  - https://github.com/uhooi/Loki/tree/main/TotonoiPackage
+  - https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage
 - プロジェクトには最低限のファイルのみ含める
-  - https://github.com/uhooi/Loki/tree/main/App/Totonoi
+  - https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/App/Totonoi
 - `Features` ・ `Data` ・ `Core` の3層に分ける
   - 参考: https://developer.android.com/topic/modularization
 
