@@ -147,6 +147,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 - ビューモデルを直接参照せず、状態ホイスティングを適用する
   - 参考: https://developer.android.com/jetpack/compose/state#state-hoisting
+  - つまり表示する現在の値と、値を変更するイベントのハンドラを親ビューから渡す
+    - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListView.swift#L4-L9
 
 #### ビューモデル
 
