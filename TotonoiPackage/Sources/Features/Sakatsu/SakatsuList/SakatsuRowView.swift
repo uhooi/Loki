@@ -123,6 +123,8 @@ struct SakatsuRowView: View {
                     .foregroundColor(.secondary)
             }
         }
+        .lineLimit(1)
+        .minimumScaleFactor(0.5)
     }
     
     private var temperaturesView: some View {
