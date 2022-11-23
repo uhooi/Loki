@@ -131,7 +131,7 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ##### 親ビュー
 
-- 画面全体のビューを `{画面名}Screen` と命名する
+- 画面全体のビュー（ここでは「親ビュー」と呼ぶ）を `{画面名}Screen` と命名する
   - 例: [SakatsuListScreen](https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift)
 - 以下の処理を親ビューに書く
   - ビューモデルの保持
