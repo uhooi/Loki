@@ -147,6 +147,9 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
     - `.toolbar { ... }` 、 `.sheet()` や `.alert()` など
     - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L20-L36  
     https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L45-L103
+- 親ビューは最低限の処理のみ書き、ほかは直下の子ビューに書く
+  - `{画面名}View` と命名する
+  - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L9-L18
 
 ##### 子ビュー
 
