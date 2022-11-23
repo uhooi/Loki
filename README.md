@@ -172,7 +172,7 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
   - ただ双方向バインディングできなくなるため、このルールは撤廃する予定
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L5-L13  
      https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L35
-- エラーは画面ごとに1つの列挙型へまとめ、 `LocalizedError` に準拠し、 `uiState` で1つのみ保持する
+- エラーは画面ごとに1つの列挙型へまとめ、 `uiState` で1つのみ保持する
   - エラーはアラートで表示することが多く、1つの型になっていると複数同時に表示されないことが保証されるため
   - エラー名は `{画面名}Error` とする
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L15-L29  
