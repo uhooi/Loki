@@ -93,6 +93,8 @@ struct SakatsuRowView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .lineLimit(1)
+        .minimumScaleFactor(0.5)
     }
     
     private var arrowImage: some View {
@@ -123,8 +125,6 @@ struct SakatsuRowView: View {
                     .foregroundColor(.secondary)
             }
         }
-        .lineLimit(1)
-        .minimumScaleFactor(0.5)
     }
     
     private var temperaturesView: some View {
@@ -144,6 +144,7 @@ struct SakatsuRowView: View {
                 }
             }
         }
+        .lineLimit(1)
     }
 }
 
