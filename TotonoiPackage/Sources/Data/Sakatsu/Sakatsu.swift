@@ -19,7 +19,7 @@ extension Sakatsu: Equatable {
     }
 }
 
-extension Sakatsu: UserDefaultsPersistable {}
+extension Sakatsu: Codable {}
 
 #if DEBUG
 extension Sakatsu {
