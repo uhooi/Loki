@@ -1,9 +1,5 @@
 import Foundation
 
-public typealias UserDefaultsGettable = Decodable
-public typealias UserDefaultsSettable = Encodable
-public typealias UserDefaultsPersistable = UserDefaultsGettable & UserDefaultsSettable
-
 public enum UserDefaultsError: LocalizedError {
     case missingValue(key: String)
     
@@ -22,7 +18,7 @@ public struct UserDefaultsClient {
     
     private init() {}
     
-    public func object<V: UserDefaultsGettable>(forKey defaultName: String) throws -> V {
+    public func object<V: Decodable>(forKey defaultName: String) throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let data = userDefaults.data(forKey: defaultName) else {
@@ -31,7 +27,7 @@ public struct UserDefaultsClient {
         return try jsonDecoder.decode(V.self, from: data)
     }
     
-    public func set<V: UserDefaultsSettable>(_ value: V, forKey defaultName: String) throws {
+    public func set<V: Encodable>(_ value: V, forKey defaultName: String) throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         let data = try jsonEncoder.encode(value)

@@ -13,4 +13,4 @@ extension SaunaTemperature {
     public static var coolBath: Self { .init(emoji: "💧", title: "水風呂") }
 }
 
-extension SaunaTemperature: UserDefaultsPersistable {}
+extension SaunaTemperature: Codable {}

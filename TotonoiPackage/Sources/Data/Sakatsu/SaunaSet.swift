@@ -57,10 +57,10 @@ public struct SaunaSet: Identifiable {
     }
 }
 
-extension SaunaSet: UserDefaultsPersistable {}
-extension SaunaSet.Sauna: UserDefaultsPersistable {}
-extension SaunaSet.CoolBath: UserDefaultsPersistable {}
-extension SaunaSet.Relaxation: UserDefaultsPersistable {}
+extension SaunaSet: Codable {}
+extension SaunaSet.Sauna: Codable {}
+extension SaunaSet.CoolBath: Codable {}
+extension SaunaSet.Relaxation: Codable {}
 
 #if DEBUG
 extension SaunaSet {
