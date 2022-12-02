@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11F8683B290F868900043F68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11F86836290F868800043F68 /* Assets.xcassets */; };
-		11F8683C290F868900043F68 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11F86839290F868800043F68 /* Preview Assets.xcassets */; };
-		11F8683D290F868900043F68 /* FullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F8683A290F868800043F68 /* FullApp.swift */; };
-		11F86840290F86E700043F68 /* FullApp in Frameworks */ = {isa = PBXBuildFile; productRef = 11F8683F290F86E700043F68 /* FullApp */; };
+		4B6B2ACB293A3F8B008E5764 /* FullApp in Frameworks */ = {isa = PBXBuildFile; productRef = 4B6B2ACA293A3F8B008E5764 /* FullApp */; };
+		4B7BA6E7293A42A1003EDF97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7BA6E2293A42A1003EDF97 /* Assets.xcassets */; };
+		4B7BA6E8293A42A1003EDF97 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7BA6E5293A42A1003EDF97 /* Preview Assets.xcassets */; };
+		4B7BA6E9293A42A1003EDF97 /* FullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BA6E6293A42A1003EDF97 /* FullApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1181AC6E290F845800F9C89A /* Full.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Full.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		11F86836290F868800043F68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		11F86837290F868800043F68 /* Full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Full.entitlements; sourceTree = "<group>"; };
-		11F86839290F868800043F68 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		11F8683A290F868800043F68 /* FullApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullApp.swift; sourceTree = "<group>"; };
+		4B7BA6E2293A42A1003EDF97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4B7BA6E3293A42A1003EDF97 /* Full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Full.entitlements; sourceTree = "<group>"; };
+		4B7BA6E5293A42A1003EDF97 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4B7BA6E6293A42A1003EDF97 /* FullApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11F86840290F86E700043F68 /* FullApp in Frameworks */,
+				4B6B2ACB293A3F8B008E5764 /* FullApp in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,7 +36,7 @@
 		1181AC65290F845800F9C89A = {
 			isa = PBXGroup;
 			children = (
-				11F86834290F868800043F68 /* Full */,
+				4B7BA6E0293A42A1003EDF97 /* Full */,
 				1181AC6F290F845800F9C89A /* Products */,
 				11F8683E290F86E700043F68 /* Frameworks */,
 			);
@@ -50,39 +50,39 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		11F86834290F868800043F68 /* Full */ = {
-			isa = PBXGroup;
-			children = (
-				11F86835290F868800043F68 /* Resources */,
-				11F8683A290F868800043F68 /* FullApp.swift */,
-			);
-			name = Full;
-			path = Totonoi/Full;
-			sourceTree = "<group>";
-		};
-		11F86835290F868800043F68 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				11F86836290F868800043F68 /* Assets.xcassets */,
-				11F86837290F868800043F68 /* Full.entitlements */,
-				11F86838290F868800043F68 /* Preview Content */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		11F86838290F868800043F68 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				11F86839290F868800043F68 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		11F8683E290F86E700043F68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4B7BA6E0293A42A1003EDF97 /* Full */ = {
+			isa = PBXGroup;
+			children = (
+				4B7BA6E1293A42A1003EDF97 /* Resources */,
+				4B7BA6E6293A42A1003EDF97 /* FullApp.swift */,
+			);
+			name = Full;
+			path = Loki/Full;
+			sourceTree = "<group>";
+		};
+		4B7BA6E1293A42A1003EDF97 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B7BA6E2293A42A1003EDF97 /* Assets.xcassets */,
+				4B7BA6E3293A42A1003EDF97 /* Full.entitlements */,
+				4B7BA6E4293A42A1003EDF97 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B7BA6E4293A42A1003EDF97 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4B7BA6E5293A42A1003EDF97 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,7 +102,7 @@
 			);
 			name = Full;
 			packageProductDependencies = (
-				11F8683F290F86E700043F68 /* FullApp */,
+				4B6B2ACA293A3F8B008E5764 /* FullApp */,
 			);
 			productName = Full;
 			productReference = 1181AC6E290F845800F9C89A /* Full.app */;
@@ -147,8 +147,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11F8683C290F868900043F68 /* Preview Assets.xcassets in Resources */,
-				11F8683B290F868900043F68 /* Assets.xcassets in Resources */,
+				4B7BA6E8293A42A1003EDF97 /* Preview Assets.xcassets in Resources */,
+				4B7BA6E7293A42A1003EDF97 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11F8683D290F868900043F68 /* FullApp.swift in Sources */,
+				4B7BA6E9293A42A1003EDF97 /* FullApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,13 +284,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Totonoi/Full/Resources/Full.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Loki/Full/Resources/Full.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Totonoi/Full/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Loki/Full/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 47E56DYP3N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -328,13 +328,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Totonoi/Full/Resources/Full.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Loki/Full/Resources/Full.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Totonoi/Full/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Loki/Full/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 47E56DYP3N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -391,7 +391,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		11F8683F290F86E700043F68 /* FullApp */ = {
+		4B6B2ACA293A3F8B008E5764 /* FullApp */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FullApp;
 		};
