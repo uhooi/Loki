@@ -1,6 +1,6 @@
 # Variables
 
-PRODUCT_NAME := Totonoi
+PRODUCT_NAME := Loki
 WORKSPACE_NAME := ${PRODUCT_NAME}.xcworkspace
 
 # Targets

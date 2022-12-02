@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "TotonoiPackage",
+    name: "LokiPackage",
     defaultLocalization: "ja",
     platforms: [
         .iOS(.v15),

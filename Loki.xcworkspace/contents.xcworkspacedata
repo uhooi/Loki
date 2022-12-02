@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:TotonoiPackage">
+      location = "group:LokiPackage">
    </FileRef>
    <FileRef
       location = "group:App/Full.xcodeproj">
