@@ -24,6 +24,7 @@ let package = Package(
         .target(
             name: "SakatsuFeature",
             dependencies: [
+                "UICore",
                 "SakatsuData",
                 .product(name: "Algorithms", package: "swift-algorithms")
             ],
@@ -54,5 +55,9 @@ let package = Package(
             name: "UserDefaultsCoreTests",
             dependencies: ["UserDefaultsCore"],
             path: "./Tests/Core/UserDefaultsTests"),
+        .target(
+            name: "UICore",
+            dependencies: [],
+            path: "./Sources/Core/UI"),
     ]
 )
