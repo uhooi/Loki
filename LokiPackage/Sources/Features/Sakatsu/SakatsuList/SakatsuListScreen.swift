@@ -17,7 +17,7 @@ public struct SakatsuListScreen: View {
                     viewModel.onDelete(at: offsets)
                 }
             )
-            .navigationTitle(NSLocalizedString("Sakatsu list", bundle: .module, comment: ""))
+            .navigationTitle(String(localized: "Sakatsu list", bundle: .module, comment: ""))
             .sakatsuListScreenToolbar(
                 onAddButtonClick: { viewModel.onAddButtonClick() }
             )
@@ -86,7 +86,7 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         alert(
-            NSLocalizedString("Copy", bundle: .module, comment: ""),
+            String(localized: "Copy", bundle: .module, comment: ""),
             isPresented: .init(get: {
                 sakatsuText != nil
             }, set: { _ in
