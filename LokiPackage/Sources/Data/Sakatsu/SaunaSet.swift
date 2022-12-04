@@ -18,8 +18,8 @@ public struct SaunaSet: Identifiable {
     
     public struct Sauna: SaunaSetItemProtocol {
         public var emoji: String { "🔥" }
-        public var title: String = .init(localized: "Sauna", bundle: .module, comment: "")
-        public var unit: String { .init(localized: "m", bundle: .module, comment: "") }
+        public var title: String = .init(localized: "Sauna", bundle: .module)
+        public var unit: String { .init(localized: "m", bundle: .module) }
         
         private var _time: TimeInterval? = nil
         public var time: TimeInterval? {
@@ -34,16 +34,16 @@ public struct SaunaSet: Identifiable {
     
     public struct CoolBath: SaunaSetItemProtocol {
         public var emoji: String { "💧" }
-        public var title: String = .init(localized: "Cool bath", bundle: .module, comment: "")
-        public var unit: String { .init(localized: "s", bundle: .module, comment: "") }
+        public var title: String = .init(localized: "Cool bath", bundle: .module)
+        public var unit: String { .init(localized: "s", bundle: .module) }
         
         public var time: TimeInterval? = nil
     }
     
     public struct Relaxation: SaunaSetItemProtocol {
         public var emoji: String { "🍃" }
-        public var title: String = .init(localized: "Relaxation", bundle: .module, comment: "")
-        public var unit: String { .init(localized: "m", bundle: .module, comment: "") }
+        public var title: String = .init(localized: "Relaxation", bundle: .module)
+        public var unit: String { .init(localized: "m", bundle: .module) }
         
         private var _time: TimeInterval? = nil
         public var time: TimeInterval? {

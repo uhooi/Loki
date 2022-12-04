@@ -9,8 +9,8 @@ public struct SaunaTemperature: Identifiable {
 }
 
 extension SaunaTemperature {
-    public static var sauna: Self { .init(emoji: "🔥", title: String(localized: "Sauna", bundle: .module, comment: "")) }
-    public static var coolBath: Self { .init(emoji: "💧", title: String(localized: "Cool bath", bundle: .module, comment: "")) }
+    public static var sauna: Self { .init(emoji: "🔥", title: String(localized: "Sauna", bundle: .module)) }
+    public static var coolBath: Self { .init(emoji: "💧", title: String(localized: "Cool bath", bundle: .module)) }
 }
 
 extension SaunaTemperature: Codable {}

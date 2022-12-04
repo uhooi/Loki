@@ -6,7 +6,7 @@ public enum UserDefaultsError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .missingValue:
-            return String(localized: "Value does not exist for the key.", bundle: .module, comment: "")
+            return String(localized: "Value does not exist for the key.", bundle: .module)
         }
     }
 }
