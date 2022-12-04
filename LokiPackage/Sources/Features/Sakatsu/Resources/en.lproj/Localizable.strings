@@ -1,0 +1,37 @@
+// SakatsuListScreen
+"Sakatsu list" = "Sakatsu list";
+"Copy" = "Copy";
+"Sakatsu text copied." = "Sakatsu text copied.";
+
+// SakatsuListView
+// None
+
+// SakatsuRowView
+"Copy Sakatsu text" = "Copy Sakatsu text";
+"Edit" = "Edit";
+
+// SakatsuListViewModel
+"I did %d set(s)." = "I did %d set(s).";
+
+// SakatsuInputScreen
+"Register Sakatsu" = "Register Sakatsu";
+"Save" = "Save";
+
+// SakatsuInputView
+"Required" = "Required";
+"Optional" = "Optional";
+"Facility name" = "Facility name";
+"Visiting date" = "Visiting date";
+"Foreword" = "Foreword";
+"Set %d" = "Set %d";
+"Delete set" = "Delete set";
+"Add new set" = "Add new set";
+"Afterword" = "Afterword";
+"Add new sauna temperatures" = "Add new sauna temperatures";
+"Temperatures" = "Temperatures";
+
+// SakatsuInputViewModel
+"Failed to delete set." = "Failed to delete set.";
+"Failed to save Sakatsu." = "Failed to save Sakatsu.";
+"Detailed cause unknown." = "Detailed cause unknown.";
+"Please try again after some time." = "Please try again after some time.";
