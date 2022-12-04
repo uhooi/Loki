@@ -11,7 +11,7 @@
 "Edit" = "編集";
 
 // SakatsuListViewModel
-"I did %d set(s)." = "%dセット行いました。";
+"I did %ld set(s)." = "%ldセット行いました。";
 
 // SakatsuInputScreen
 "Register Sakatsu" = "サ活登録";
@@ -23,7 +23,7 @@
 "Facility name" = "施設名";
 "Visiting date" = "訪問日";
 "Foreword" = "まえがき";
-"Set %d" = "%dセット目";
+"Set %ld" = "%ldセット目";
 "Delete set" = "セットを削除";
 "Add new set" = "新しいセットを追加";
 "Afterword" = "あとがき";

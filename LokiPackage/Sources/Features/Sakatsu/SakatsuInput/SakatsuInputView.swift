@@ -89,7 +89,7 @@ struct SakatsuInputView: View {
                     onTimeChange: onRelaxationTimeChange
                 )
             } header: {
-                Text(String(format: String(localized: "Set %d", bundle: .module), saunaSetIndex + 1))
+                Text(String(format: String(localized: "Set %ld", bundle: .module), saunaSetIndex + 1))
             } footer: {
                 Button(String(localized: "Delete set", bundle: .module), role: .destructive) {
                     onRemoveSaunaSetButtonClick(saunaSetIndex)
