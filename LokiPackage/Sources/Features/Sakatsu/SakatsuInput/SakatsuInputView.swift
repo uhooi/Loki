@@ -36,15 +36,15 @@ struct SakatsuInputView: View {
     private var generalSection: some View {
         Section {
             HStack {
-                Text("施設名")
-                TextField("必須", text: .init(get: {
+                Text("Facility name", bundle: .module)
+                TextField(NSLocalizedString("Required", bundle: .module, comment: ""), text: .init(get: {
                     sakatsu.facilityName
                 }, set: { newValue in
                     onFacilityNameChange(newValue)
                 }))
             }
             DatePicker(
-                "訪問日",
+                NSLocalizedString("Visiting date", bundle: .module, comment: ""),
                 selection: .init(get: {
                     sakatsu.visitingDate
                 }, set: { newValue in
@@ -57,13 +57,13 @@ struct SakatsuInputView: View {
     
     private var forewordSection: some View {
         Section {
-            TextField("オプション", text: .init(get: {
+            TextField(NSLocalizedString("Optional", bundle: .module, comment: ""), text: .init(get: {
                 sakatsu.foreword ?? ""
             }, set: { newValue in
                 onForewordChange(newValue)
             }))
         } header: {
-            Text("まえがき")
+            Text("Foreword", bundle: .module)
         }
     }
     
@@ -89,9 +89,9 @@ struct SakatsuInputView: View {
                     onTimeChange: onRelaxationTimeChange
                 )
             } header: {
-                Text("\(saunaSetIndex + 1)セット目")
+                Text(String(format: NSLocalizedString("Set %d", bundle: .module, comment: ""), saunaSetIndex + 1))
             } footer: {
-                Button("セットを削除", role: .destructive) {
+                Button(NSLocalizedString("Delete set", bundle: .module, comment: ""), role: .destructive) {
                     onRemoveSaunaSetButtonClick(saunaSetIndex)
                 }
                 .font(.footnote)
@@ -101,19 +101,19 @@ struct SakatsuInputView: View {
     
     private var newSaunaSetSection: some View {
         Section {
-            Button("新しいセットを追加", action: onAddNewSaunaSetButtonClick)
+            Button(NSLocalizedString("Add new set", bundle: .module, comment: ""), action: onAddNewSaunaSetButtonClick)
         }
     }
     
     private var afterwordSection: some View {
         Section {
-            TextField("オプション", text: .init(get: {
+            TextField(NSLocalizedString("Optional", bundle: .module, comment: ""), text: .init(get: {
                 sakatsu.afterword ?? ""
             }, set: { newValue in
                 onAfterwordChange(newValue)
             }))
         } header: {
-            Text("あとがき")
+            Text("Afterword", bundle: .module)
         }
     }
     
@@ -130,10 +130,10 @@ struct SakatsuInputView: View {
             .onDelete { offsets in
                 onTemperatureDelete(offsets)
             }
-            Button("新しいサウナの温度を追加", action: onAddNewTemperatureButtonClick)
+            Button(NSLocalizedString("Add new sauna temperatures", bundle: .module, comment: ""), action: onAddNewTemperatureButtonClick)
                 .font(.footnote)
         } header: {
-            Text("温度")
+            Text("Temperatures", bundle: .module)
         }
     }
     
@@ -146,13 +146,13 @@ struct SakatsuInputView: View {
         HStack {
             HStack(spacing: 0) {
                 Text("\(saunaSetItem.emoji)")
-                TextField("オプション", text: .init(get: {
+                TextField(NSLocalizedString("Optional", bundle: .module, comment: ""), text: .init(get: {
                     saunaSetItem.title
                 }, set: { newValue in
                     onTitleChange(saunaSetIndex, newValue)
                 }))
             }
-            TextField("オプション", value: .init(get: {
+            TextField(NSLocalizedString("Optional", bundle: .module, comment: ""), value: .init(get: {
                 saunaSetItem.time
             }, set: { newValue in
                 onTimeChange(saunaSetIndex, newValue)
@@ -172,13 +172,13 @@ struct SakatsuInputView: View {
         HStack {
             HStack(spacing: 0) {
                 Text("\(saunaTemperature.emoji)")
-                TextField("オプション", text: .init(get: {
+                TextField(NSLocalizedString("Optional", bundle: .module, comment: ""), text: .init(get: {
                     saunaTemperature.title
                 }, set: { newValue in
                     onTitleChange(saunaTemperatureIndex, newValue)
                 }))
             }
-            TextField("オプション", value: .init(get: {
+            TextField(NSLocalizedString("Optional", bundle: .module, comment: ""), value: .init(get: {
                 saunaTemperature.temperature
             }, set: { newValue in
                 onTemperatureChange(saunaTemperatureIndex, newValue)

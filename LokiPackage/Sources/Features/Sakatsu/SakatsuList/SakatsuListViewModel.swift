@@ -104,7 +104,7 @@ extension SakatsuListViewModel {
             text += "\(foreword)\n\n"
         }
         
-        text += "\(sakatsu.saunaSets.count)セット行いました。"
+        text += String(format: NSLocalizedString("I did %d set(s).", bundle: .module, comment: ""), sakatsu.saunaSets.count)
         for saunaSet in sakatsu.saunaSets {
             var saunaSetItemTexts: [String] = []
             saunaSetItemText(saunaSetItem: saunaSet.sauna).map { saunaSetItemTexts.append($0) }

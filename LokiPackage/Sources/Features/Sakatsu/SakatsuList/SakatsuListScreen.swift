@@ -17,7 +17,7 @@ public struct SakatsuListScreen: View {
                     viewModel.onDelete(at: offsets)
                 }
             )
-            .navigationTitle("サ活一覧")
+            .navigationTitle(NSLocalizedString("Sakatsu list", bundle: .module, comment: ""))
             .sakatsuListScreenToolbar(
                 onAddButtonClick: { viewModel.onAddButtonClick() }
             )
@@ -86,7 +86,7 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         alert(
-            "コピー",
+            NSLocalizedString("Copy", bundle: .module, comment: ""),
             isPresented: .init(get: {
                 sakatsuText != nil
             }, set: { _ in
@@ -95,7 +95,7 @@ private extension View {
             presenting: sakatsuText
         ) { _ in
         } message: { sakatsuText in
-            Text("サ活のテキストをコピーしました。")
+            Text("Sakatsu text copied.", bundle: .module)
                 .onAppear {
                     UIPasteboard.general.string = sakatsuText
                 }
