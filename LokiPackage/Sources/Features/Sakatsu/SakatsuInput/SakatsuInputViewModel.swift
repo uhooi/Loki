@@ -18,23 +18,23 @@ enum SakatsuInputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .saunaSetRemoveFailed:
-            return "セットの削除に失敗しました。"
+            return String(localized: "Failed to delete set.", bundle: .module)
         case .sakatsuSaveFailed:
-            return "サ活の保存に失敗しました。"
+            return String(localized: "Failed to save Sakatsu.", bundle: .module)
         }
     }
     
     var failureReason: String? {
         switch self {
         case .saunaSetRemoveFailed, .sakatsuSaveFailed:
-            return "詳しい原因はわかりません。"
+            return String(localized: "Detailed cause unknown.", bundle: .module)
         }
     }
     
     var recoverySuggestion: String? {
         switch self {
         case .saunaSetRemoveFailed, .sakatsuSaveFailed:
-            return "時間をおいて再度お試しください。"
+            return String(localized: "Please try again after some time.", bundle: .module)
         }
     }
 }

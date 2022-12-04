@@ -46,7 +46,7 @@ struct SakatsuInputScreen: View {
                 viewModel.onAddNewTemperatureButtonClick()
             }
         )
-        .navigationTitle("サ活登録")
+        .navigationTitle(String(localized: "Register Sakatsu", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboardInteractivelyIfAvailable()
         .sakatsuInputScreenToolbar(
@@ -88,7 +88,7 @@ private extension View {
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("保存") {
+                Button(String(localized: "Save", bundle: .module)) {
                     onSaveButtonClick()
                 }
                 .disabled(saveButtonDisabled)
