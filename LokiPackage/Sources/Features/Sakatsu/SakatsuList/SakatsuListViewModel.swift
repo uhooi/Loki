@@ -104,7 +104,7 @@ extension SakatsuListViewModel {
             text += "\(foreword)\n\n"
         }
         
-        text += String(format: String(localized: "I did %ld set(s).", bundle: .module), sakatsu.saunaSets.count)
+        text += String(localized: "I did \(sakatsu.saunaSets.count) set(s).", bundle: .module)
         for saunaSet in sakatsu.saunaSets {
             var saunaSetItemTexts: [String] = []
             saunaSetItemText(saunaSetItem: saunaSet.sauna).map { saunaSetItemTexts.append($0) }

@@ -11,7 +11,7 @@
 "Edit" = "Edit";
 
 // SakatsuListViewModel
-"I did %ld set(s)." = "I did %ld set(s).";
+"I did %lld set(s)." = "I did %lld set(s).";
 
 // SakatsuInputScreen
 "Register Sakatsu" = "Register Sakatsu";
@@ -23,7 +23,7 @@
 "Facility name" = "Facility name";
 "Visiting date" = "Visiting date";
 "Foreword" = "Foreword";
-"Set %ld" = "Set %ld";
+"Set %lld" = "Set %lld";
 "Delete set" = "Delete set";
 "Add new set" = "Add new set";
 "Afterword" = "Afterword";
