@@ -6,7 +6,7 @@ public struct SakatsuListScreen: View {
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
     
     public var body: some View {
-        NavigationView {
+        NavigationStack {
             SakatsuListView(
                 sakatsus: viewModel.uiState.sakatsus,
                 onCopySakatsuTextButtonClick: { sakatsuIndex in
@@ -72,12 +72,10 @@ private extension View {
         }, set: { _ in
             onDismiss()
         })) {
-            NavigationView {
-                SakatsuInputScreen(
-                    sakatsu: selectedSakatsu,
-                    onSakatsuSave: onSakatsuSave
-                )
-            }
+            SakatsuInputScreen(
+                sakatsu: selectedSakatsu,
+                onSakatsuSave: onSakatsuSave
+            )
         }
     }
     
