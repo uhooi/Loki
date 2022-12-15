@@ -48,7 +48,7 @@ struct SakatsuInputScreen: View {
         )
         .navigationTitle(String(localized: "Register Sakatsu", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
-        .scrollDismissesKeyboardInteractivelyIfAvailable()
+        .scrollDismissesKeyboard(.interactively)
         .sakatsuInputScreenToolbar(
             saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
             onSaveButtonClick: {
@@ -72,15 +72,6 @@ struct SakatsuInputScreen: View {
 }
 
 private extension View {
-    @ViewBuilder
-    func scrollDismissesKeyboardInteractivelyIfAvailable() -> some View {
-        if #available(iOS 16.0, *) {
-            scrollDismissesKeyboard(.interactively)
-        } else {
-            self
-        }
-    }
-    
     func sakatsuInputScreenToolbar(
         saveButtonDisabled: Bool,
         onSaveButtonClick: @escaping () -> Void,
