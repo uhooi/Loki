@@ -57,11 +57,17 @@ struct SakatsuInputView: View {
     
     private var forewordSection: some View {
         Section {
-            TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
-                sakatsu.foreword ?? ""
-            }, set: { newValue in
-                onForewordChange(newValue)
-            }))
+            TextField(
+                String(localized: "Optional", bundle: .module),
+                text: .init(
+                    get: {
+                        sakatsu.foreword ?? ""
+                    }, set: { newValue in
+                        onForewordChange(newValue)
+                    }
+                ),
+                axis: .vertical
+            )
         } header: {
             Text("Foreword", bundle: .module)
         }
@@ -107,11 +113,17 @@ struct SakatsuInputView: View {
     
     private var afterwordSection: some View {
         Section {
-            TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
-                sakatsu.afterword ?? ""
-            }, set: { newValue in
-                onAfterwordChange(newValue)
-            }))
+            TextField(
+                String(localized: "Optional", bundle: .module),
+                text: .init(
+                    get: {
+                        sakatsu.afterword ?? ""
+                    }, set: { newValue in
+                        onAfterwordChange(newValue)
+                    }
+                ),
+                axis: .vertical
+            )
         } header: {
             Text("Afterword", bundle: .module)
         }

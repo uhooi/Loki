@@ -6,7 +6,7 @@ let package = Package(
     name: "LokiPackage",
     defaultLocalization: "ja",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v16),
         .macOS(.v12),
     ],
     products: [
