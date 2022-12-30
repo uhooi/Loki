@@ -69,6 +69,10 @@ extension SakatsuListViewModel {
         uiState.shouldShowInputSheet = true
     }
     
+    func onSettingsButtonClick() {
+        // TODO: Show Settings screen
+    }
+    
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
     }

@@ -18,8 +18,16 @@ public struct SakatsuListScreen: View {
                 }
             )
             .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
+            .overlay(alignment: .bottomTrailing) {
+                ActionButton(
+                    systemName: "plus",
+                    backgroundColor: .blue,
+                    action: { viewModel.onAddButtonClick() }
+                )
+                .padding(16)
+            }
             .sakatsuListScreenToolbar(
-                onAddButtonClick: { viewModel.onAddButtonClick() }
+                onSettingsButtonClick: { viewModel.onSettingsButtonClick() }
             )
             .sakatsuInputSheet(
                 shouldShowSheet: viewModel.uiState.shouldShowInputSheet,
@@ -45,18 +53,19 @@ public struct SakatsuListScreen: View {
 
 private extension View {
     func sakatsuListScreenToolbar(
-        onAddButtonClick: @escaping () -> Void
+        onSettingsButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    onAddButtonClick()
-                } label: {
-                    Image(systemName: "plus")
-                }
+                EditButton()
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
+                Button {
+                    onSettingsButtonClick()
+                } label: {
+                    Image(systemName: "gearshape")
+                }
+
             }
         }
     }
