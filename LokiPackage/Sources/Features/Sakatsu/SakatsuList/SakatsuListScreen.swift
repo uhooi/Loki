@@ -34,8 +34,8 @@ public struct SakatsuListScreen: View {
                 onDismiss: { viewModel.onInputSheetDismiss() },
                 onSakatsuSave: { viewModel.onSakatsuSave() }
             )
-            .sakatsuSettingsFullScreenCover(
-                shouldShowFullScreenCover: viewModel.uiState.shouldShowSettingsScreen,
+            .sakatsuSettingsSheet(
+                shouldShowSheet: viewModel.uiState.shouldShowSettingsScreen,
                 onDismiss: { viewModel.onSettingsScreenDismiss() }
             )
             .copyingSakatsuTextAlert(
@@ -90,13 +90,13 @@ private extension View {
         }
     }
     
-    func sakatsuSettingsFullScreenCover(
-        shouldShowFullScreenCover: Bool,
+    func sakatsuSettingsSheet(
+        shouldShowSheet: Bool,
         onDismiss: @escaping () -> Void
     ) -> some View {
-        fullScreenCover(
+        sheet(
             isPresented: .init(get: {
-                shouldShowFullScreenCover
+                shouldShowSheet
             }, set: { _ in
                 onDismiss()
             }), content: {
