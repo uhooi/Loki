@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "licenselist",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cybozu/LicenseList.git",
+      "state" : {
+        "revision" : "98ed6ad04e0038acb710863d54d66147f2409ec3",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "swift-algorithms",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-algorithms.git",

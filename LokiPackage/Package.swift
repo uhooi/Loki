@@ -18,6 +18,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/cybozu/LicenseList.git", from: "0.2.0"),
     ],
     targets: [
         // Feature layer
@@ -26,9 +27,13 @@ let package = Package(
             dependencies: [
                 "UICore",
                 "SakatsuData",
-                .product(name: "Algorithms", package: "swift-algorithms")
+                .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "LicenseList", package: "LicenseList"),
             ],
-            path: "./Sources/Features/Sakatsu"),
+            path: "./Sources/Features/Sakatsu",
+            plugins: [
+                .plugin(name: "PrepareLicenseList", package: "LicenseList")
+            ]),
         .testTarget(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
