@@ -1,5 +1,7 @@
 import SwiftUI
 
+public typealias FAB = FloatingActionButton
+
 public struct FloatingActionButton: View {
     private let systemName: String
     private let backgroundColor: Color

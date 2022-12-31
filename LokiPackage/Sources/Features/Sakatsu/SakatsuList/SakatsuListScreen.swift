@@ -19,7 +19,7 @@ public struct SakatsuListScreen: View {
             )
             .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
             .overlay(alignment: .bottomTrailing) {
-                FloatingActionButton(
+                FAB(
                     systemName: "plus",
                     action: { viewModel.onAddButtonClick() }
                 )
