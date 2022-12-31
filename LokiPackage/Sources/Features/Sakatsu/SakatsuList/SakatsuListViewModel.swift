@@ -8,7 +8,8 @@ struct SakatsuListUiState {
     var sakatsus: [Sakatsu] = []
     var selectedSakatsu: Sakatsu? = nil
     var sakatsuText: String? = nil
-    var shouldShowInputSheet: Bool = false
+    var shouldShowInputScreen: Bool = false
+    var shouldShowSettingsScreen: Bool = false
     var sakatsuListError: SakatsuListError? = nil
 }
 
@@ -55,26 +56,34 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
 
 extension SakatsuListViewModel {
     func onSakatsuSave() {
-        uiState.shouldShowInputSheet = false
+        uiState.shouldShowInputScreen = false
         refreshSakatsus()
     }
     
     func onAddButtonClick() {
         uiState.selectedSakatsu = nil
-        uiState.shouldShowInputSheet = true
+        uiState.shouldShowInputScreen = true
     }
     
     func onEditButtonClick(sakatsuIndex: Int) {
         uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
-        uiState.shouldShowInputSheet = true
+        uiState.shouldShowInputScreen = true
+    }
+    
+    func onSettingsButtonClick() {
+        uiState.shouldShowSettingsScreen = true
+    }
+    
+    func onSettingsScreenDismiss() {
+        uiState.shouldShowSettingsScreen = false
     }
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
     }
     
-    func onInputSheetDismiss() {
-        uiState.shouldShowInputSheet = false
+    func onInputScreenDismiss() {
+        uiState.shouldShowInputScreen = false
         uiState.selectedSakatsu = nil
     }
     

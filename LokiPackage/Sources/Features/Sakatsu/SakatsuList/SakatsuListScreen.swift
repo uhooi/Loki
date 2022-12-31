@@ -18,14 +18,25 @@ public struct SakatsuListScreen: View {
                 }
             )
             .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
+            .overlay(alignment: .bottomTrailing) {
+                FAB(
+                    systemName: "plus",
+                    action: { viewModel.onAddButtonClick() }
+                )
+                .padding(16)
+            }
             .sakatsuListScreenToolbar(
-                onAddButtonClick: { viewModel.onAddButtonClick() }
+                onSettingsButtonClick: { viewModel.onSettingsButtonClick() }
             )
             .sakatsuInputSheet(
-                shouldShowSheet: viewModel.uiState.shouldShowInputSheet,
+                shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
                 selectedSakatsu: viewModel.uiState.selectedSakatsu,
-                onDismiss: { viewModel.onInputSheetDismiss() },
+                onDismiss: { viewModel.onInputScreenDismiss() },
                 onSakatsuSave: { viewModel.onSakatsuSave() }
+            )
+            .sakatsuSettingsSheet(
+                shouldShowSheet: viewModel.uiState.shouldShowSettingsScreen,
+                onDismiss: { viewModel.onSettingsScreenDismiss() }
             )
             .copyingSakatsuTextAlert(
                 sakatsuText: viewModel.uiState.sakatsuText,
@@ -45,18 +56,18 @@ public struct SakatsuListScreen: View {
 
 private extension View {
     func sakatsuListScreenToolbar(
-        onAddButtonClick: @escaping () -> Void
+        onSettingsButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    onAddButtonClick()
-                } label: {
-                    Image(systemName: "plus")
-                }
+                EditButton()
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
+                Button {
+                    onSettingsButtonClick()
+                } label: {
+                    Image(systemName: "gearshape")
+                }
             }
         }
     }
@@ -67,15 +78,32 @@ private extension View {
         onDismiss: @escaping () -> Void,
         onSakatsuSave: @escaping () -> Void
     ) -> some View {
-        sheet(isPresented: .init(get: {
-            shouldShowSheet
-        }, set: { _ in
-            onDismiss()
-        })) {
+        sheet(
+            isPresented: .init(get: {
+                shouldShowSheet
+            }, set: { _ in
+                onDismiss()
+            })
+        ) {
             SakatsuInputScreen(
                 sakatsu: selectedSakatsu,
                 onSakatsuSave: onSakatsuSave
             )
+        }
+    }
+    
+    func sakatsuSettingsSheet(
+        shouldShowSheet: Bool,
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        sheet(
+            isPresented: .init(get: {
+                shouldShowSheet
+            }, set: { _ in
+                onDismiss()
+            })
+        ) {
+            SakatsuSettingsScreen()
         }
     }
     
