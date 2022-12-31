@@ -23,7 +23,7 @@ public struct ActionButton: View {
     
     public init(
         systemName: String,
-        backgroundColor: Color,
+        backgroundColor: Color = .accentColor,
         foregroundColor: Color = .white,
         action: @escaping () -> Void
     ) {
@@ -39,8 +39,7 @@ struct ActionButton_Previews: PreviewProvider {
     static var previews: some View {
         ActionButton(
             systemName: "plus",
-            backgroundColor: .blue,
-            action: { print("Foo") }
+            action: {}
         )
     }
 }

@@ -21,7 +21,6 @@ public struct SakatsuListScreen: View {
             .overlay(alignment: .bottomTrailing) {
                 ActionButton(
                     systemName: "plus",
-                    backgroundColor: .blue,
                     action: { viewModel.onAddButtonClick() }
                 )
                 .padding(16)
