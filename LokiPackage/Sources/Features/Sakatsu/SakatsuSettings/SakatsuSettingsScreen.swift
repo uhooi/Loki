@@ -11,8 +11,10 @@ struct SakatsuSettingsScreen: View {
                     HStack {
                         Text("Version", bundle: .module)
                         Spacer()
-                        Text("1.0.0") // FIXME: 
+                        Text("\(Bundle.main.version) (\(Bundle.main.build))")
                     }
+                } footer: {
+                    Text("© 2023 THE Uhooi")
                 }
             }
             .navigationTitle(String(localized: "Settings", bundle: .module))
