@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct ActionButton: View {
+public struct FloatingActionButton: View {
     private let systemName: String
     private let backgroundColor: Color
     private let foregroundColor: Color
@@ -15,7 +15,7 @@ public struct ActionButton: View {
                     .frame(width: 24, height: 24)
             }
         )
-        .buttonStyle(.action(
+        .buttonStyle(.floatingAction(
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor
         ))
@@ -35,9 +35,9 @@ public struct ActionButton: View {
 }
 
 #if DEBUG
-struct ActionButton_Previews: PreviewProvider {
+struct FloatingActionButton_Previews: PreviewProvider {
     static var previews: some View {
-        ActionButton(
+        FloatingActionButton(
             systemName: "plus",
             action: {}
         )
@@ -45,11 +45,11 @@ struct ActionButton_Previews: PreviewProvider {
 }
 #endif
 
-private extension ButtonStyle where Self == ActionButtonStyle {
-    static func action(
+private extension ButtonStyle where Self == FloatingActionButtonStyle {
+    static func floatingAction(
         backgroundColor: Color,
         foregroundColor: Color
-    ) -> ActionButtonStyle {
+    ) -> FloatingActionButtonStyle {
         .init(
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor
@@ -57,7 +57,7 @@ private extension ButtonStyle where Self == ActionButtonStyle {
     }
 }
 
-private struct ActionButtonStyle: ButtonStyle {
+private struct FloatingActionButtonStyle: ButtonStyle {
     let backgroundColor: Color
     let foregroundColor: Color
     
