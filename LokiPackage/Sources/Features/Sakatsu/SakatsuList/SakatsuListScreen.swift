@@ -29,9 +29,9 @@ public struct SakatsuListScreen: View {
                 onSettingsButtonClick: { viewModel.onSettingsButtonClick() }
             )
             .sakatsuInputSheet(
-                shouldShowSheet: viewModel.uiState.shouldShowInputSheet,
+                shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
                 selectedSakatsu: viewModel.uiState.selectedSakatsu,
-                onDismiss: { viewModel.onInputSheetDismiss() },
+                onDismiss: { viewModel.onInputScreenDismiss() },
                 onSakatsuSave: { viewModel.onSakatsuSave() }
             )
             .sakatsuSettingsSheet(
