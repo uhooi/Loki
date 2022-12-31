@@ -35,3 +35,7 @@
 "Failed to save Sakatsu." = "Failed to save Sakatsu.";
 "Detailed cause unknown." = "Detailed cause unknown.";
 "Please try again after some time." = "Please try again after some time.";
+
+// SakatsuSettingsScreen
+"Settings" = "Settings";
+"Version" = "Version";

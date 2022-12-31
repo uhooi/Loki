@@ -35,3 +35,7 @@
 "Failed to save Sakatsu." = "サ活の保存に失敗しました。";
 "Detailed cause unknown." = "詳しい原因はわかりません。";
 "Please try again after some time." = "時間をおいて再度お試しください。";
+
+// SakatsuSettingsScreen
+"Settings" = "設定";
+"Version" = "バージョン";

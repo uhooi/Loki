@@ -6,16 +6,25 @@ struct SakatsuSettingsScreen: View {
     
     var body: some View {
         NavigationStack {
-            Text("Foo")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                        }
+            Form {
+                Section {
+                    HStack {
+                        Text("Version", bundle: .module)
+                        Spacer()
+                        Text("1.0.0") // FIXME: 
                     }
                 }
+            }
+            .navigationTitle(String(localized: "Settings", bundle: .module))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
         }
     }
 }
