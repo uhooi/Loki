@@ -20,8 +20,10 @@ struct SakatsuSettingsView: View {
     }
 }
 
+#if DEBUG
 struct SakatsuSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuSettingsView()
     }
 }
+#endif
