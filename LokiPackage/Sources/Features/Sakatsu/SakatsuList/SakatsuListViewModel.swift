@@ -9,6 +9,7 @@ struct SakatsuListUiState {
     var selectedSakatsu: Sakatsu? = nil
     var sakatsuText: String? = nil
     var shouldShowInputSheet: Bool = false
+    var shouldShowSettingsScreen: Bool = false
     var sakatsuListError: SakatsuListError? = nil
 }
 
@@ -70,7 +71,11 @@ extension SakatsuListViewModel {
     }
     
     func onSettingsButtonClick() {
-        // TODO: Show Settings screen
+        uiState.shouldShowSettingsScreen = true
+    }
+    
+    func onSettingsScreenDismiss() {
+        uiState.shouldShowSettingsScreen = false
     }
     
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {

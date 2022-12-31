@@ -34,6 +34,10 @@ public struct SakatsuListScreen: View {
                 onDismiss: { viewModel.onInputSheetDismiss() },
                 onSakatsuSave: { viewModel.onSakatsuSave() }
             )
+            .sakatsuSettingsFullScreenCover(
+                shouldShowFullScreenCover: viewModel.uiState.shouldShowSettingsScreen,
+                onDismiss: { viewModel.onSettingsScreenDismiss() }
+            )
             .copyingSakatsuTextAlert(
                 sakatsuText: viewModel.uiState.sakatsuText,
                 onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
@@ -64,7 +68,6 @@ private extension View {
                 } label: {
                     Image(systemName: "gearshape")
                 }
-
             }
         }
     }
@@ -85,6 +88,21 @@ private extension View {
                 onSakatsuSave: onSakatsuSave
             )
         }
+    }
+    
+    func sakatsuSettingsFullScreenCover(
+        shouldShowFullScreenCover: Bool,
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        fullScreenCover(
+            isPresented: .init(get: {
+                shouldShowFullScreenCover
+            }, set: { _ in
+                onDismiss()
+            }), content: {
+                SakatsuSettingsScreen()
+            }
+        )
     }
     
     func copyingSakatsuTextAlert(
