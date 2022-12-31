@@ -78,11 +78,13 @@ private extension View {
         onDismiss: @escaping () -> Void,
         onSakatsuSave: @escaping () -> Void
     ) -> some View {
-        sheet(isPresented: .init(get: {
-            shouldShowSheet
-        }, set: { _ in
-            onDismiss()
-        })) {
+        sheet(
+            isPresented: .init(get: {
+                shouldShowSheet
+            }, set: { _ in
+                onDismiss()
+            })
+        ) {
             SakatsuInputScreen(
                 sakatsu: selectedSakatsu,
                 onSakatsuSave: onSakatsuSave
@@ -99,10 +101,10 @@ private extension View {
                 shouldShowSheet
             }, set: { _ in
                 onDismiss()
-            }), content: {
-                SakatsuSettingsScreen()
-            }
-        )
+            })
+        ) {
+            SakatsuSettingsScreen()
+        }
     }
     
     func copyingSakatsuTextAlert(
