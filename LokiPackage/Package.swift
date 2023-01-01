@@ -18,6 +18,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"),
     ],
     targets: [
         // Feature layer
@@ -28,7 +29,10 @@ let package = Package(
                 "SakatsuData",
                 .product(name: "Algorithms", package: "swift-algorithms")
             ],
-            path: "./Sources/Features/Sakatsu"),
+            path: "./Sources/Features/Sakatsu",
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint"),
+            ]),
         .testTarget(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
@@ -40,7 +44,10 @@ let package = Package(
             dependencies: [
                 "UserDefaultsCore",
             ],
-            path: "./Sources/Data/Sakatsu"),
+            path: "./Sources/Data/Sakatsu",
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint"),
+            ]),
         .testTarget(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
@@ -50,7 +57,10 @@ let package = Package(
         .target(
             name: "UserDefaultsCore",
             dependencies: [],
-            path: "./Sources/Core/UserDefaults"),
+            path: "./Sources/Core/UserDefaults",
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint"),
+            ]),
         .testTarget(
             name: "UserDefaultsCoreTests",
             dependencies: ["UserDefaultsCore"],
@@ -58,6 +68,9 @@ let package = Package(
         .target(
             name: "UICore",
             dependencies: [],
-            path: "./Sources/Core/UI"),
+            path: "./Sources/Core/UI",
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint"),
+            ]),
     ]
 )
