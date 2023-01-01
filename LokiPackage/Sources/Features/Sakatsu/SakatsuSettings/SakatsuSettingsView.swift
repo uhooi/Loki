@@ -3,7 +3,17 @@ import SwiftUI
 struct SakatsuSettingsView: View {
     var body: some View {
         Form {
+            licenseSection
             versionSection
+        }
+    }
+    
+    private var licenseSection: some View {
+        Section {
+            NavigationLink(
+                "Licenses",
+                destination: LicensesScreen()
+            )
         }
     }
     
