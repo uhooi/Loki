@@ -66,8 +66,8 @@ final class SakatsuInputViewModel<
     ) {
         switch editMode {
         case .new:
-            let defaultSaunaSet: SaunaSet? = try? defaultSaunaSetRepository.defaultSaunaSet()
-            self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet ?? .init()]))
+            let defaultSaunaSet = (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
+            self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet]))
         case let .edit(sakatsu: sakatsu):
             self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
         }
