@@ -3,7 +3,7 @@ import UICore
 import SakatsuData
 
 struct SakatsuInputScreen: View {
-    @StateObject private var viewModel: SakatsuInputViewModel<SakatsuUserDefaultsClient, SakatsuValidator>
+    @StateObject private var viewModel: SakatsuInputViewModel<DefaultSaunaSetUserDefaultsClient, SakatsuUserDefaultsClient, SakatsuValidator>
     
     private let onSakatsuSave: () -> Void
     
@@ -65,10 +65,10 @@ struct SakatsuInputScreen: View {
     }
     
     init(
-        sakatsu: Sakatsu?,
+        editMode: EditMode,
         onSakatsuSave: @escaping () -> Void
     ) {
-        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(sakatsu: sakatsu ?? .init()))
+        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(editMode: editMode))
         self.onSakatsuSave = onSakatsuSave
     }
 }
@@ -101,7 +101,7 @@ private extension View {
 struct SakatsuInputScreen_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuInputScreen(
-            sakatsu: .preview,
+            editMode: .edit(sakatsu: .preview),
             onSakatsuSave: {}
         )
     }

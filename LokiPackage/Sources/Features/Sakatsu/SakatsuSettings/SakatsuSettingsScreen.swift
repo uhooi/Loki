@@ -1,14 +1,35 @@
 import SwiftUI
+import UICore
+import SakatsuData
 
 struct SakatsuSettingsScreen: View {
+    @StateObject private var viewModel: SakatsuSettingsViewModel<DefaultSaunaSetUserDefaultsClient, SakatsuValidator>
+    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
-            SakatsuSettingsView()
-                .navigationTitle(String(localized: "Settings", bundle: .module))
-                .sakatsuSettingsScreenToolbar(onCloseButtonClick: { dismiss() })
+            SakatsuSettingsView(
+                defaultSaunaSet: viewModel.uiState.defaultSaunaSet,
+                onDefaultSaunaTimeChange: { defaultSaunaTime in
+                    viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
+                }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in
+                    viewModel.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime)
+                }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
+                    viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
+                }
+            )
+            .navigationTitle(String(localized: "Settings", bundle: .module))
+            .sakatsuSettingsScreenToolbar(onCloseButtonClick: { dismiss() })
+            .errorAlert(
+                error: viewModel.uiState.sakatsuSettingsError,
+                onDismiss: { viewModel.onErrorAlertDismiss() }
+            )
         }
+    }
+    
+    init() {
+        self._viewModel = StateObject(wrappedValue: SakatsuSettingsViewModel())
     }
 }
 

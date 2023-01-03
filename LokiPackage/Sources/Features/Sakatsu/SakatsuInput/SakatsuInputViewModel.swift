@@ -9,6 +9,11 @@ struct SakatsuInputUiState {
     var sakatsuInputError: SakatsuInputError? = nil
 }
 
+enum EditMode {
+    case new
+    case edit(sakatsu: Sakatsu)
+}
+
 // MARK: - Error
 
 enum SakatsuInputError: LocalizedError {
@@ -43,22 +48,36 @@ enum SakatsuInputError: LocalizedError {
 
 @MainActor
 final class SakatsuInputViewModel<
-    Repository: SakatsuRepository,
+    SettingsRepository: DefaultSaunaSetRepository,
+    DataRepository: SakatsuRepository,
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
     
-    private let repository: Repository
+    private let defaultSaunaSetRepository: SettingsRepository
+    private let sakatsuRepository: DataRepository
     private let validator: Validator
     
     init(
-        sakatsu: Sakatsu,
-        repository: Repository = SakatsuUserDefaultsClient.shared,
+        editMode: EditMode,
+        defaultSaunaSetRepository: SettingsRepository = DefaultSaunaSetUserDefaultsClient.shared,
+        sakatsuRepository: DataRepository = SakatsuUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
     ) {
-        self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
-        self.repository = repository
+        switch editMode {
+        case .new:
+            let defaultSaunaSet = (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
+            self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet]))
+        case let .edit(sakatsu: sakatsu):
+            self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
+        }
+        self.defaultSaunaSetRepository = defaultSaunaSetRepository
+        self.sakatsuRepository = sakatsuRepository
         self.validator = validator
+    }
+    
+    private func defaultSaunaSet() -> SaunaSet {
+        (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
     }
 }
 
@@ -67,13 +86,13 @@ final class SakatsuInputViewModel<
 extension SakatsuInputViewModel {
     func onSaveButtonClick() {
         do {
-            var sakatsus = (try? repository.sakatsus()) ?? []
+            var sakatsus = (try? sakatsuRepository.sakatsus()) ?? []
             if let index = sakatsus.firstIndex(of: uiState.sakatsu) {
                 sakatsus[index] = uiState.sakatsu
             } else {
                 sakatsus.append(uiState.sakatsu)
             }
-            try repository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
+            try sakatsuRepository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
         } catch {
             uiState.sakatsuInputError = .sakatsuSaveFailed
         }
@@ -84,7 +103,7 @@ extension SakatsuInputViewModel {
     }
     
     func onAddNewSaunaSetButtonClick() {
-        uiState.sakatsu.saunaSets.append(.init())
+        uiState.sakatsu.saunaSets.append(defaultSaunaSet())
     }
     
     func onFacilityNameChange(facilityName: String) {
