@@ -42,14 +42,23 @@ enum SakatsuInputError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class SakatsuInputViewModel<Repository: SakatsuRepository>: ObservableObject {
+final class SakatsuInputViewModel<
+    Repository: SakatsuRepository,
+    Validator: SakatsuValidatorProtocol
+>: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
     
     private let repository: Repository
+    private let validator: Validator
     
-    init(sakatsu: Sakatsu, repository: Repository = SakatsuUserDefaultsClient.shared) {
+    init(
+        sakatsu: Sakatsu,
+        repository: Repository = SakatsuUserDefaultsClient.shared,
+        validator: Validator = SakatsuValidator()
+    ) {
         self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
         self.repository = repository
+        self.validator = validator
     }
 }
 
@@ -79,28 +88,28 @@ extension SakatsuInputViewModel {
     }
     
     func onFacilityNameChange(facilityName: String) {
-        guard validate(facilityName: facilityName) else {
+        guard validator.validate(facilityName: facilityName) else {
             return
         }
         uiState.sakatsu.facilityName = facilityName
     }
     
     func onVisitingDateChange(visitingDate: Date) {
-        guard validate(visitingDate: visitingDate) else {
+        guard validator.validate(visitingDate: visitingDate) else {
             return
         }
         uiState.sakatsu.visitingDate = visitingDate
     }
     
     func onForewordChange(foreword: String?) {
-        guard validate(foreword: foreword) else {
+        guard validator.validate(foreword: foreword) else {
             return
         }
         uiState.sakatsu.foreword = foreword
     }
     
     func onSaunaTitleChange(saunaSetIndex: Int, saunaTitle: String) {
-        guard validate(saunaTitle: saunaTitle) else {
+        guard validator.validate(saunaTitle: saunaTitle) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.title = saunaTitle
@@ -108,7 +117,7 @@ extension SakatsuInputViewModel {
     
     func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
-              validate(saunaTime: saunaTime) else {
+              validator.validate(saunaTime: saunaTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
@@ -116,7 +125,7 @@ extension SakatsuInputViewModel {
     
     func onCoolBathTitleChange(saunaSetIndex: Int, coolBathTitle: String) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
-              validate(coolBathTitle: coolBathTitle) else {
+              validator.validate(coolBathTitle: coolBathTitle) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.title = coolBathTitle
@@ -124,7 +133,7 @@ extension SakatsuInputViewModel {
     
     func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
-              validate(coolBathTime: coolBathTime) else {
+              validator.validate(coolBathTime: coolBathTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
@@ -132,7 +141,7 @@ extension SakatsuInputViewModel {
     
     func onRelaxationTitleChange(saunaSetIndex: Int, relaxationTitle: String) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
-              validate(relaxationTitle: relaxationTitle) else {
+              validator.validate(relaxationTitle: relaxationTitle) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.title = relaxationTitle
@@ -140,7 +149,7 @@ extension SakatsuInputViewModel {
     
     func onRelaxationTimeChange(saunaSetIndex: Int, relaxationTime: TimeInterval?) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
-              validate(relaxationTime: relaxationTime) else {
+              validator.validate(relaxationTime: relaxationTime) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
@@ -155,7 +164,7 @@ extension SakatsuInputViewModel {
     }
     
     func onAfterwordChange(afterword: String?) {
-        guard validate(afterword: afterword) else {
+        guard validator.validate(afterword: afterword) else {
             return
         }
         uiState.sakatsu.afterword = afterword
@@ -163,7 +172,7 @@ extension SakatsuInputViewModel {
     
     func onTemperatureTitleChange(temperatureIndex: Int, temperatureTitle: String) {
         guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
-              validate(temperatureTitle: temperatureTitle) else {
+              validator.validate(temperatureTitle: temperatureTitle) else {
             return
         }
         uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
@@ -171,7 +180,7 @@ extension SakatsuInputViewModel {
     
     func onTemperatureChange(temperatureIndex: Int, temperature: Decimal?) {
         guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
-              validate(temperature: temperature) else {
+              validator.validate(temperature: temperature) else {
             return
         }
         uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
@@ -183,73 +192,5 @@ extension SakatsuInputViewModel {
     
     func onAddNewTemperatureButtonClick() {
         uiState.sakatsu.saunaTemperatures.insert(.sauna, at: max(uiState.sakatsu.saunaTemperatures.count, 1) - 1)
-    }
-}
-
-// MARK: - Validate
-
-extension SakatsuInputViewModel {
-    private func validate(facilityName: String) -> Bool {
-        !facilityName.isEmpty
-    }
-    
-    private func validate(visitingDate: Date) -> Bool {
-        true // TODO: Disable future dates
-    }
-    
-    private func validate(foreword: String?) -> Bool {
-        true
-    }
-    
-    private func validate(saunaTitle: String) -> Bool {
-        true
-    }
-    
-    private func validate(saunaTime: TimeInterval?) -> Bool {
-        if let saunaTime {
-            return (0 <= saunaTime && saunaTime < 1_000)
-        } else {
-            return true
-        }
-    }
-    
-    private func validate(coolBathTitle: String) -> Bool {
-        true
-    }
-    
-    private func validate(coolBathTime: TimeInterval?) -> Bool {
-        if let coolBathTime {
-            return (0 <= coolBathTime && coolBathTime < 1_000)
-        } else {
-            return true
-        }
-    }
-    
-    private func validate(relaxationTitle: String) -> Bool {
-        true
-    }
-    
-    private func validate(relaxationTime: TimeInterval?) -> Bool {
-        if let relaxationTime {
-            return (0 <= relaxationTime && relaxationTime < 1_000)
-        } else {
-            return true
-        }
-    }
-    
-    private func validate(afterword: String?) -> Bool {
-        true
-    }
-    
-    private func validate(temperatureTitle: String) -> Bool {
-        true
-    }
-    
-    private func validate(temperature: Decimal?) -> Bool {
-        if let temperature {
-            return (0 <= temperature && temperature < 1_000)
-        } else {
-            return true
-        }
     }
 }

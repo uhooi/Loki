@@ -3,7 +3,7 @@ import UICore
 import SakatsuData
 
 struct SakatsuInputScreen: View {
-    @StateObject private var viewModel: SakatsuInputViewModel<SakatsuUserDefaultsClient>
+    @StateObject private var viewModel: SakatsuInputViewModel<SakatsuUserDefaultsClient, SakatsuValidator>
     
     private let onSakatsuSave: () -> Void
     
