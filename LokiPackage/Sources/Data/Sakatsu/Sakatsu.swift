@@ -11,6 +11,10 @@ public struct Sakatsu: Identifiable {
     public var afterword: String? = nil
     
     public init() {}
+    
+    public init(saunaSets: [SaunaSet]) {
+        self.saunaSets = saunaSets
+    }
 }
 
 extension Sakatsu: Equatable {

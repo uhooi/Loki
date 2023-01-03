@@ -9,6 +9,11 @@ struct SakatsuInputUiState {
     var sakatsuInputError: SakatsuInputError? = nil
 }
 
+enum EditMode {
+    case new
+    case edit(sakatsu: Sakatsu)
+}
+
 // MARK: - Error
 
 enum SakatsuInputError: LocalizedError {
@@ -54,23 +59,25 @@ final class SakatsuInputViewModel<
     private let validator: Validator
     
     init(
-        sakatsu: Sakatsu,
+        editMode: EditMode,
         defaultSaunaSetRepository: DRepository = DefaultSaunaSetUserDefaultsClient.shared,
         sakatsuRepository: SRepository = SakatsuUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
     ) {
-        self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
+        switch editMode {
+        case .new:
+            let defaultSaunaSet: SaunaSet? = try? defaultSaunaSetRepository.defaultSaunaSet()
+            self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet ?? .init()]))
+        case let .edit(sakatsu: sakatsu):
+            self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
+        }
         self.defaultSaunaSetRepository = defaultSaunaSetRepository
         self.sakatsuRepository = sakatsuRepository
         self.validator = validator
     }
     
     private func defaultSaunaSet() -> SaunaSet {
-        do {
-            return try defaultSaunaSetRepository.defaultSaunaSet()
-        } catch {
-            return .init()
-        }
+        (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
     }
 }
 
