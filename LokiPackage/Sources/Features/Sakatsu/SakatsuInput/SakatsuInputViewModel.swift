@@ -48,20 +48,20 @@ enum SakatsuInputError: LocalizedError {
 
 @MainActor
 final class SakatsuInputViewModel<
-    DRepository: DefaultSaunaSetRepository,
-    SRepository: SakatsuRepository,
+    SettingsRepository: DefaultSaunaSetRepository,
+    DataRepository: SakatsuRepository,
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
     
-    private let defaultSaunaSetRepository: DRepository
-    private let sakatsuRepository: SRepository
+    private let defaultSaunaSetRepository: SettingsRepository
+    private let sakatsuRepository: DataRepository
     private let validator: Validator
     
     init(
         editMode: EditMode,
-        defaultSaunaSetRepository: DRepository = DefaultSaunaSetUserDefaultsClient.shared,
-        sakatsuRepository: SRepository = SakatsuUserDefaultsClient.shared,
+        defaultSaunaSetRepository: SettingsRepository = DefaultSaunaSetUserDefaultsClient.shared,
+        sakatsuRepository: DataRepository = SakatsuUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
     ) {
         switch editMode {
