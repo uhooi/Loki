@@ -10,12 +10,12 @@ struct SakatsuSettingsView: View {
     
     var body: some View {
         Form {
-            defaultTimesSection
+            defaultSaunaSetsSection
             versionSection
         }
     }
     
-    private var defaultTimesSection: some View {
+    private var defaultSaunaSetsSection: some View {
         Section {
             saunaSetItemTimeInputView(
                 saunaSetItem: defaultSaunaSet.sauna,
