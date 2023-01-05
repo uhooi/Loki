@@ -20,15 +20,15 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ### ライト
 
-|サ活一覧|サ活登録|
-|:--:|:--:|
-|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Light/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Light/SakatsuInput_Japanese.png" width="207">|
+|サ活一覧|サ活登録|設定|
+|:--:|:--:|:--:|
+|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_2/Light/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_2/Light/SakatsuInput_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_2/Light/SakatsuSettings_Japanese.png" width="207">|
 
 ### ダーク
 
-|サ活一覧|サ活登録|
-|:--:|:--:|
-|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Dark/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_1/Dark/SakatsuInput_Japanese.png" width="207">|
+|サ活一覧|サ活登録|設定|
+|:--:|:--:|:--:|
+|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_2/Dark/SakatsuList_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_2/Dark/SakatsuInput_Japanese.png" width="207">|<img src="./Docs/Screenshots/iPhone11ProMax/iOS16_2/Dark/SakatsuSettings_Japanese.png" width="207">|
 
 </details>
 

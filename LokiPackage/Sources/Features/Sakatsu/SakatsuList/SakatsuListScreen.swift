@@ -86,7 +86,7 @@ private extension View {
             })
         ) {
             SakatsuInputScreen(
-                sakatsu: selectedSakatsu,
+                editMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
                 onSakatsuSave: onSakatsuSave
             )
         }
