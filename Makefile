@@ -10,6 +10,8 @@ TEST_DEVICE ?= iPhone 14 Pro Max
 TEST_OS ?= 16.2
 TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}'
 
+XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
+
 FULL_PROJECT_NAME := Full
 
 # Targets
@@ -36,4 +38,6 @@ build-debug:
 -scheme '${PROJECT_NAME}' \
 -destination ${TEST_DESTINATION} \
 -skipPackagePluginValidation \
-clean build
+clean build \
+| tee ./${XCODEBUILD_BUILD_LOG_NAME}
+

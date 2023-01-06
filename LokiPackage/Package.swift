@@ -19,7 +19,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
 //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"),
-        .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"),
+        .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
     ],
     targets: [
         // Feature layer
