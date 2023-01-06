@@ -4,11 +4,11 @@ import SakatsuData
 
 struct SakatsuInputScreen: View {
     @StateObject private var viewModel: SakatsuInputViewModel<DefaultSaunaSetUserDefaultsClient, SakatsuUserDefaultsClient, SakatsuValidator>
-    
+
     private let onSakatsuSave: () -> Void
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             SakatsuInputView(
@@ -63,7 +63,7 @@ struct SakatsuInputScreen: View {
             )
         }
     }
-    
+
     init(
         editMode: EditMode,
         onSakatsuSave: @escaping () -> Void

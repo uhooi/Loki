@@ -3,18 +3,18 @@ import SakatsuData
 
 struct SakatsuSettingsView: View {
     let defaultSaunaSet: SaunaSet
-    
+
     let onDefaultSaunaTimeChange: ((TimeInterval?) -> Void)
     let onDefaultCoolBathTimeChange: ((TimeInterval?) -> Void)
     let onDefaultRelaxationTimeChange: ((TimeInterval?) -> Void)
-    
+
     var body: some View {
         Form {
             defaultSaunaSetsSection
             versionSection
         }
     }
-    
+
     private var defaultSaunaSetsSection: some View {
         Section {
             saunaSetItemTimeInputView(
@@ -33,7 +33,7 @@ struct SakatsuSettingsView: View {
             Text("Default times", bundle: .module)
         }
     }
-    
+
     private var versionSection: some View {
         Section {
             HStack {
@@ -45,7 +45,7 @@ struct SakatsuSettingsView: View {
             Text("© 2023 THE Uhooi")
         }
     }
-    
+
     private func saunaSetItemTimeInputView(
         saunaSetItem: any SaunaSetItemProtocol,
         onTimeChange: @escaping (TimeInterval?) -> Void

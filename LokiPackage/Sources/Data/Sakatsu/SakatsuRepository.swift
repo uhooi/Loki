@@ -8,9 +8,9 @@ public protocol SakatsuRepository {
 public struct SakatsuUserDefaultsClient {
     public static let shared: Self = .init()
     private static let sakatsusKey = "sakatsus"
-    
+
     private let userDefaultsClient = UserDefaultsClient.shared
-    
+
     private init() {}
 }
 
@@ -24,7 +24,7 @@ extension SakatsuUserDefaultsClient: SakatsuRepository {
             throw error
         }
     }
-    
+
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
         try userDefaultsClient.set(sakatsus, forKey: Self.sakatsusKey)
     }

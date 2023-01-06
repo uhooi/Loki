@@ -4,7 +4,7 @@ import SakatsuData
 
 public struct SakatsuListScreen: View {
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
-    
+
     public var body: some View {
         NavigationStack {
             SakatsuListView(
@@ -48,7 +48,7 @@ public struct SakatsuListScreen: View {
             )
         }
     }
-    
+
     public init() {
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
     }
@@ -71,7 +71,7 @@ private extension View {
             }
         }
     }
-    
+
     func sakatsuInputSheet(
         shouldShowSheet: Bool,
         selectedSakatsu: Sakatsu?,
@@ -91,7 +91,7 @@ private extension View {
             )
         }
     }
-    
+
     func sakatsuSettingsSheet(
         shouldShowSheet: Bool,
         onDismiss: @escaping () -> Void
@@ -106,7 +106,7 @@ private extension View {
             SakatsuSettingsScreen()
         }
     }
-    
+
     func copyingSakatsuTextAlert(
         sakatsuText: String?,
         onDismiss: @escaping () -> Void

@@ -1,16 +1,15 @@
 import Foundation
-import Combine
 import SakatsuData
 
 // MARK: UI state
 
 struct SakatsuListUiState {
     var sakatsus: [Sakatsu] = []
-    var selectedSakatsu: Sakatsu? = nil
-    var sakatsuText: String? = nil
-    var shouldShowInputScreen: Bool = false
-    var shouldShowSettingsScreen: Bool = false
-    var sakatsuListError: SakatsuListError? = nil
+    var selectedSakatsu: Sakatsu?
+    var sakatsuText: String?
+    var shouldShowInputScreen = false
+    var shouldShowSettingsScreen = false
+    var sakatsuListError: SakatsuListError?
 }
 
 // MARK: - Error
@@ -18,7 +17,7 @@ struct SakatsuListUiState {
 enum SakatsuListError: LocalizedError {
     case sakatsuFetchFailed(localizedDescription: String)
     case sakatsuDeleteFailed(localizedDescription: String)
-    
+
     var errorDescription: String? {
         switch self {
         case let .sakatsuFetchFailed(localizedDescription):
@@ -34,15 +33,15 @@ enum SakatsuListError: LocalizedError {
 @MainActor
 final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
-    
+
     private let repository: Repository
-    
+
     init(repository: Repository = SakatsuUserDefaultsClient.shared) {
         self.uiState = SakatsuListUiState()
         self.repository = repository
         refreshSakatsus()
     }
-    
+
     private func refreshSakatsus() {
         do {
             uiState.sakatsus = try repository.sakatsus()
@@ -59,38 +58,38 @@ extension SakatsuListViewModel {
         uiState.shouldShowInputScreen = false
         refreshSakatsus()
     }
-    
+
     func onAddButtonClick() {
         uiState.selectedSakatsu = nil
         uiState.shouldShowInputScreen = true
     }
-    
+
     func onEditButtonClick(sakatsuIndex: Int) {
         uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
         uiState.shouldShowInputScreen = true
     }
-    
+
     func onSettingsButtonClick() {
         uiState.shouldShowSettingsScreen = true
     }
-    
+
     func onSettingsScreenDismiss() {
         uiState.shouldShowSettingsScreen = false
     }
-    
+
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
         uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
     }
-    
+
     func onInputScreenDismiss() {
         uiState.shouldShowInputScreen = false
         uiState.selectedSakatsu = nil
     }
-    
+
     func onCopyingSakatsuTextAlertDismiss() {
         uiState.sakatsuText = nil
     }
-    
+
     func onDelete(at offsets: IndexSet) {
         let oldValue = uiState.sakatsus
         uiState.sakatsus.remove(atOffsets: offsets)
@@ -101,48 +100,48 @@ extension SakatsuListViewModel {
             uiState.sakatsus = oldValue
         }
     }
-    
+
     func onErrorAlertDismiss() {
         uiState.sakatsuListError = nil
     }
-    
+
     private func sakatsuText(sakatsu: Sakatsu) -> String {
         var text = ""
-        
+
         if let foreword = sakatsu.foreword {
             text += "\(foreword)\n\n"
         }
-        
+
         text += String(localized: "I did \(sakatsu.saunaSets.count) set(s).", bundle: .module)
         for saunaSet in sakatsu.saunaSets {
             var saunaSetItemTexts: [String] = []
             saunaSetItemText(saunaSetItem: saunaSet.sauna).map { saunaSetItemTexts.append($0) }
             saunaSetItemText(saunaSetItem: saunaSet.coolBath).map { saunaSetItemTexts.append($0) }
             saunaSetItemText(saunaSetItem: saunaSet.relaxation).map { saunaSetItemTexts.append($0) }
-            
+
             if !saunaSetItemTexts.isEmpty {
                 text += "\n"
                 text += saunaSetItemTexts.joined(separator: "→")
             }
         }
-        
+
         if let afterword = sakatsu.afterword {
             text += "\n\n\(afterword)"
         }
-        
+
         return text
     }
-    
+
     private func saunaSetItemText(saunaSetItem: any SaunaSetItemProtocol) -> String? {
         guard !(saunaSetItem.title.isEmpty && saunaSetItem.time == nil) else {
             return nil
         }
-        
+
         var text = "\(saunaSetItem.emoji)\(saunaSetItem.title)"
         if let time = saunaSetItem.time {
             text += "（\(time.formatted())\(saunaSetItem.unit)）"
         }
-        
+
         return text
     }
 }

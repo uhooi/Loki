@@ -3,10 +3,10 @@ import SakatsuData
 
 struct SakatsuRowView: View {
     let sakatsu: Sakatsu
-    
+
     let onCopySakatsuTextButtonClick: () -> Void
     let onEditButtonClick: () -> Void
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -34,19 +34,19 @@ struct SakatsuRowView: View {
             }
         }
     }
-    
+
     private var visitingDateText: some View {
         Text(sakatsu.visitingDate.formatted(date: .numeric, time: .omitted))
             .font(.caption)
             .foregroundColor(.secondary)
     }
-    
+
     private var facilityNameText: some View {
         Text(sakatsu.facilityName)
             .font(.title)
             .textSelection(.enabled)
     }
-    
+
     private var menu: some View {
         Menu {
             Button(action: onCopySakatsuTextButtonClick) {
@@ -60,7 +60,7 @@ struct SakatsuRowView: View {
                 .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
         }
     }
-    
+
     @ViewBuilder
     private var forewordText: some View {
         if let foreword = sakatsu.foreword {
@@ -69,7 +69,7 @@ struct SakatsuRowView: View {
                 .textSelection(.enabled)
         }
     }
-    
+
     private var saunaSetsView: some View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
@@ -96,13 +96,13 @@ struct SakatsuRowView: View {
         .lineLimit(1)
         .minimumScaleFactor(0.5)
     }
-    
+
     private var arrowImage: some View {
         Image(systemName: "arrow.right")
             .font(.caption)
             .foregroundColor(.secondary)
     }
-    
+
     @ViewBuilder
     private var afterwordText: some View {
         if let afterword = sakatsu.afterword {
@@ -111,7 +111,7 @@ struct SakatsuRowView: View {
                 .textSelection(.enabled)
         }
     }
-    
+
     @ViewBuilder
     private func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
@@ -126,7 +126,7 @@ struct SakatsuRowView: View {
             }
         }
     }
-    
+
     private var temperaturesView: some View {
         HStack {
             ForEach(sakatsu.saunaTemperatures) { saunaTemperature in
