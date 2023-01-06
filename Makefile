@@ -37,7 +37,6 @@ build-debug:
 -workspace ${WORKSPACE_NAME} \
 -scheme '${PROJECT_NAME}' \
 -destination ${TEST_DESTINATION} \
--skipPackagePluginValidation \
 clean build \
 | tee ./${XCODEBUILD_BUILD_LOG_NAME}
 
