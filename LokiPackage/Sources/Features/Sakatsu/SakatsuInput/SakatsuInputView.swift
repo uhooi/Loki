@@ -4,7 +4,7 @@ import SakatsuData
 
 struct SakatsuInputView: View {
     let sakatsu: Sakatsu
-    
+
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
@@ -21,7 +21,7 @@ struct SakatsuInputView: View {
     let onTemperatureChange: (Int, Decimal?) -> Void
     let onTemperatureDelete: (IndexSet) -> Void
     let onAddNewTemperatureButtonClick: (() -> Void)
-    
+
     var body: some View {
         Form {
             generalSection
@@ -32,7 +32,7 @@ struct SakatsuInputView: View {
             temperaturesSection
         }
     }
-    
+
     private var generalSection: some View {
         Section {
             HStack {
@@ -54,7 +54,7 @@ struct SakatsuInputView: View {
             )
         }
     }
-    
+
     private var forewordSection: some View {
         Section {
             TextField(
@@ -72,7 +72,7 @@ struct SakatsuInputView: View {
             Text("Foreword", bundle: .module)
         }
     }
-    
+
     private var saunaSetSections: some View {
         ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
             Section {
@@ -104,13 +104,13 @@ struct SakatsuInputView: View {
             }
         }
     }
-    
+
     private var newSaunaSetSection: some View {
         Section {
             Button(String(localized: "Add new set", bundle: .module), action: onAddNewSaunaSetButtonClick)
         }
     }
-    
+
     private var afterwordSection: some View {
         Section {
             TextField(
@@ -128,7 +128,7 @@ struct SakatsuInputView: View {
             Text("Afterword", bundle: .module)
         }
     }
-    
+
     private var temperaturesSection: some View {
         Section {
             ForEach(sakatsu.saunaTemperatures.indexed(), id: \.index) { saunaTemperatureIndex, saunaTemperature in
@@ -148,7 +148,7 @@ struct SakatsuInputView: View {
             Text("Temperatures", bundle: .module)
         }
     }
-    
+
     private func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
@@ -174,7 +174,7 @@ struct SakatsuInputView: View {
             Text(saunaSetItem.unit)
         }
     }
-    
+
     private func saunaTemperatureInputView(
         saunaTemperatureIndex: Int,
         saunaTemperature: SaunaTemperature,
@@ -214,7 +214,7 @@ struct SakatsuInputView_Previews: PreviewProvider {
             onSaunaTitleChange: { _, _ in },
             onSaunaTimeChange: { _, _ in },
             onCoolBathTitleChange: { _, _ in },
-            onCoolBathTimeChange: {_, _ in },
+            onCoolBathTimeChange: { _, _ in },
             onRelaxationTitleChange: { _, _ in },
             onRelaxationTimeChange: { _, _ in },
             onRemoveSaunaSetButtonClick: { _ in },

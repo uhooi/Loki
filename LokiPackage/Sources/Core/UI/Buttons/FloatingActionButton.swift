@@ -7,7 +7,7 @@ public struct FloatingActionButton: View {
     private let backgroundColor: Color
     private let foregroundColor: Color
     private let action: () -> Void
-    
+
     public var body: some View {
         Button(
             action: action,
@@ -22,7 +22,7 @@ public struct FloatingActionButton: View {
             foregroundColor: foregroundColor
         ))
     }
-    
+
     public init(
         systemName: String,
         backgroundColor: Color = .accentColor,
@@ -62,7 +62,7 @@ private extension ButtonStyle where Self == FloatingActionButtonStyle {
 private struct FloatingActionButtonStyle: ButtonStyle {
     let backgroundColor: Color
     let foregroundColor: Color
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(width: 56, height: 56)

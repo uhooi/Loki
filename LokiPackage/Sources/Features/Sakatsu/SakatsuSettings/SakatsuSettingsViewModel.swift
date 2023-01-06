@@ -6,7 +6,7 @@ import SakatsuData
 
 struct SakatsuSettingsUiState {
     var defaultSaunaSet: SaunaSet = .init()
-    var sakatsuSettingsError: SakatsuSettingsError? = nil
+    var sakatsuSettingsError: SakatsuSettingsError?
 }
 
 // MARK: - Error
@@ -14,7 +14,7 @@ struct SakatsuSettingsUiState {
 enum SakatsuSettingsError: LocalizedError {
     case defaultSaunaSetFetchFailed(localizedDescription: String)
     case defaultSaunaSetSaveFailed(localizedDescription: String)
-    
+
     var errorDescription: String? {
         switch self {
         case let .defaultSaunaSetFetchFailed(localizedDescription):
@@ -33,10 +33,10 @@ final class SakatsuSettingsViewModel<
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SakatsuSettingsUiState
-    
+
     private let repository: Repository
     private let validator: Validator
-    
+
     init(
         repository: Repository = DefaultSaunaSetUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
@@ -46,7 +46,7 @@ final class SakatsuSettingsViewModel<
         self.validator = validator
         refreshDefaultSaunaSet()
     }
-    
+
     private func refreshDefaultSaunaSet() {
         do {
             uiState.defaultSaunaSet = try repository.defaultSaunaSet()
@@ -54,7 +54,7 @@ final class SakatsuSettingsViewModel<
             uiState.sakatsuSettingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
         }
     }
-    
+
     private func saveDefaultSaunaSet() {
         do {
             try repository.saveDefaultSaunaSet(uiState.defaultSaunaSet)
@@ -74,7 +74,7 @@ extension SakatsuSettingsViewModel {
         uiState.defaultSaunaSet.sauna.time = defaultSaunaTime
         saveDefaultSaunaSet()
     }
-    
+
     func onDefaultCoolBathTimeChange(defaultCoolBathTime: TimeInterval?) {
         guard validator.validate(coolBathTime: defaultCoolBathTime) else {
             return
@@ -82,7 +82,7 @@ extension SakatsuSettingsViewModel {
         uiState.defaultSaunaSet.coolBath.time = defaultCoolBathTime
         saveDefaultSaunaSet()
     }
-    
+
     func onDefaultRelaxationTimeChange(defaultRelaxationTime: TimeInterval?) {
         guard validator.validate(relaxationTime: defaultRelaxationTime) else {
             return
@@ -90,7 +90,7 @@ extension SakatsuSettingsViewModel {
         uiState.defaultSaunaSet.relaxation.time = defaultRelaxationTime
         saveDefaultSaunaSet()
     }
-    
+
     func onErrorAlertDismiss() {
         uiState.sakatsuSettingsError = nil
     }

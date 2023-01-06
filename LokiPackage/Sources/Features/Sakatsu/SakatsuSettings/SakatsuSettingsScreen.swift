@@ -4,9 +4,9 @@ import SakatsuData
 
 struct SakatsuSettingsScreen: View {
     @StateObject private var viewModel: SakatsuSettingsViewModel<DefaultSaunaSetUserDefaultsClient, SakatsuValidator>
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             SakatsuSettingsView(
@@ -27,7 +27,7 @@ struct SakatsuSettingsScreen: View {
             )
         }
     }
-    
+
     init() {
         self._viewModel = StateObject(wrappedValue: SakatsuSettingsViewModel())
     }

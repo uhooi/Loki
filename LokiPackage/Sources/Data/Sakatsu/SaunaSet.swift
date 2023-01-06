@@ -13,15 +13,15 @@ public struct SaunaSet: Identifiable {
     public var sauna: Sauna = .init()
     public var coolBath: CoolBath = .init()
     public var relaxation: Relaxation = .init()
-    
+
     public init() {}
-    
+
     public struct Sauna: SaunaSetItemProtocol {
         public var emoji: String { "🔥" }
         public var title: String = .init(localized: "Sauna", bundle: .module)
         public var unit: String { .init(localized: "m", bundle: .module) }
-        
-        private var _time: TimeInterval? = nil
+
+        private var _time: TimeInterval?
         public var time: TimeInterval? {
             get {
                 _time.map { $0 / 60 }
@@ -31,21 +31,21 @@ public struct SaunaSet: Identifiable {
             }
         }
     }
-    
+
     public struct CoolBath: SaunaSetItemProtocol {
         public var emoji: String { "💧" }
         public var title: String = .init(localized: "Cool bath", bundle: .module)
         public var unit: String { .init(localized: "s", bundle: .module) }
-        
-        public var time: TimeInterval? = nil
+
+        public var time: TimeInterval?
     }
-    
+
     public struct Relaxation: SaunaSetItemProtocol {
         public var emoji: String { "🍃" }
         public var title: String = .init(localized: "Relaxation", bundle: .module)
         public var unit: String { .init(localized: "m", bundle: .module) }
-        
-        private var _time: TimeInterval? = nil
+
+        private var _time: TimeInterval?
         public var time: TimeInterval? {
             get {
                 _time.map { $0 / 60 }

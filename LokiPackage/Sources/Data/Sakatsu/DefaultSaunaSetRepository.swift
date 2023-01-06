@@ -8,9 +8,9 @@ public protocol DefaultSaunaSetRepository {
 public struct DefaultSaunaSetUserDefaultsClient {
     public static let shared: Self = .init()
     private static let defaultSaunaSetKey = "defaultSaunaSet"
-    
+
     private let userDefaultsClient = UserDefaultsClient.shared
-    
+
     private init() {}
 }
 
@@ -24,7 +24,7 @@ extension DefaultSaunaSetUserDefaultsClient: DefaultSaunaSetRepository {
             throw error
         }
     }
-    
+
     public func saveDefaultSaunaSet(_ defaultSaunaSet: SaunaSet) throws {
         try userDefaultsClient.set(defaultSaunaSet, forKey: Self.defaultSaunaSetKey)
     }

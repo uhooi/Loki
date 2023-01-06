@@ -6,7 +6,7 @@ import SakatsuData
 
 struct SakatsuInputUiState {
     var sakatsu: Sakatsu
-    var sakatsuInputError: SakatsuInputError? = nil
+    var sakatsuInputError: SakatsuInputError?
 }
 
 enum EditMode {
@@ -19,7 +19,7 @@ enum EditMode {
 enum SakatsuInputError: LocalizedError {
     case saunaSetRemoveFailed
     case sakatsuSaveFailed
-    
+
     var errorDescription: String? {
         switch self {
         case .saunaSetRemoveFailed:
@@ -28,14 +28,14 @@ enum SakatsuInputError: LocalizedError {
             return String(localized: "Failed to save Sakatsu.", bundle: .module)
         }
     }
-    
+
     var failureReason: String? {
         switch self {
         case .saunaSetRemoveFailed, .sakatsuSaveFailed:
             return String(localized: "Detailed cause unknown.", bundle: .module)
         }
     }
-    
+
     var recoverySuggestion: String? {
         switch self {
         case .saunaSetRemoveFailed, .sakatsuSaveFailed:
@@ -53,11 +53,11 @@ final class SakatsuInputViewModel<
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
-    
+
     private let defaultSaunaSetRepository: SettingsRepository
     private let sakatsuRepository: DataRepository
     private let validator: Validator
-    
+
     init(
         editMode: EditMode,
         defaultSaunaSetRepository: SettingsRepository = DefaultSaunaSetUserDefaultsClient.shared,
@@ -75,7 +75,7 @@ final class SakatsuInputViewModel<
         self.sakatsuRepository = sakatsuRepository
         self.validator = validator
     }
-    
+
     private func defaultSaunaSet() -> SaunaSet {
         (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
     }
@@ -97,43 +97,43 @@ extension SakatsuInputViewModel {
             uiState.sakatsuInputError = .sakatsuSaveFailed
         }
     }
-    
+
     func onErrorAlertDismiss() {
         uiState.sakatsuInputError = nil
     }
-    
+
     func onAddNewSaunaSetButtonClick() {
         uiState.sakatsu.saunaSets.append(defaultSaunaSet())
     }
-    
+
     func onFacilityNameChange(facilityName: String) {
         guard validator.validate(facilityName: facilityName) else {
             return
         }
         uiState.sakatsu.facilityName = facilityName
     }
-    
+
     func onVisitingDateChange(visitingDate: Date) {
         guard validator.validate(visitingDate: visitingDate) else {
             return
         }
         uiState.sakatsu.visitingDate = visitingDate
     }
-    
+
     func onForewordChange(foreword: String?) {
         guard validator.validate(foreword: foreword) else {
             return
         }
         uiState.sakatsu.foreword = foreword
     }
-    
+
     func onSaunaTitleChange(saunaSetIndex: Int, saunaTitle: String) {
         guard validator.validate(saunaTitle: saunaTitle) else {
             return
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.title = saunaTitle
     }
-    
+
     func onSaunaTimeChange(saunaSetIndex: Int, saunaTime: TimeInterval?) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
               validator.validate(saunaTime: saunaTime) else {
@@ -141,7 +141,7 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
     }
-    
+
     func onCoolBathTitleChange(saunaSetIndex: Int, coolBathTitle: String) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
               validator.validate(coolBathTitle: coolBathTitle) else {
@@ -149,7 +149,7 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.title = coolBathTitle
     }
-    
+
     func onCoolBathTimeChange(saunaSetIndex: Int, coolBathTime: TimeInterval?) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
               validator.validate(coolBathTime: coolBathTime) else {
@@ -157,7 +157,7 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
     }
-    
+
     func onRelaxationTitleChange(saunaSetIndex: Int, relaxationTitle: String) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
               validator.validate(relaxationTitle: relaxationTitle) else {
@@ -165,7 +165,7 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.title = relaxationTitle
     }
-    
+
     func onRelaxationTimeChange(saunaSetIndex: Int, relaxationTime: TimeInterval?) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
               validator.validate(relaxationTime: relaxationTime) else {
@@ -173,7 +173,7 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
     }
-    
+
     func onRemoveSaunaSetButtonClick(saunaSetIndex: Int) {
         guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex) else {
             uiState.sakatsuInputError = .saunaSetRemoveFailed
@@ -181,14 +181,14 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaSets.remove(at: saunaSetIndex)
     }
-    
+
     func onAfterwordChange(afterword: String?) {
         guard validator.validate(afterword: afterword) else {
             return
         }
         uiState.sakatsu.afterword = afterword
     }
-    
+
     func onTemperatureTitleChange(temperatureIndex: Int, temperatureTitle: String) {
         guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
               validator.validate(temperatureTitle: temperatureTitle) else {
@@ -196,7 +196,7 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
     }
-    
+
     func onTemperatureChange(temperatureIndex: Int, temperature: Decimal?) {
         guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
               validator.validate(temperature: temperature) else {
@@ -204,11 +204,11 @@ extension SakatsuInputViewModel {
         }
         uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
     }
-    
+
     func onTemperatureDelete(at offsets: IndexSet) {
         uiState.sakatsu.saunaTemperatures.remove(atOffsets: offsets)
     }
-    
+
     func onAddNewTemperatureButtonClick() {
         uiState.sakatsu.saunaTemperatures.insert(.sauna, at: max(uiState.sakatsu.saunaTemperatures.count, 1) - 1)
     }
