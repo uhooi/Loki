@@ -1,5 +1,4 @@
 import Foundation
-import UserDefaultsCore
 
 public struct Sakatsu: Identifiable {
     public var id = UUID()

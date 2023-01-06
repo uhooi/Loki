@@ -1,5 +1,4 @@
 import Foundation
-import UserDefaultsCore
 
 public protocol SaunaSetItemProtocol {
     var emoji: String { get }
