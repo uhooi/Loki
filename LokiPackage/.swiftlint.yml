@@ -222,6 +222,9 @@ analyzer_rules:
   - unused_declaration
   - unused_import
 
+included:
+  - Sources
+
 line_length:
   warning: 300
   error: 500
