@@ -1,4 +1,3 @@
-import Foundation
 import UserDefaultsCore
 
 public protocol DefaultSaunaTimeRepository {
