@@ -64,9 +64,9 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 3. `make setup` を実行します。  
 セットアップが完了すると、自動的にXcodeでワークスペースが開きます。
 
-### アーキテクチャ
+### モジュール分割
 
-<details><summary>アーキテクチャ</summary>
+<details><summary>モジュール分割</summary>
 
 #### 全体
 
