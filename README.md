@@ -119,6 +119,10 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - 状態はビューモデルの `uiState` に集約し、ビューでは保持しない
   - つまり `@State` を使わず、 `@StateObject` はビューモデルのみに付ける
   - `@Published` もビューモデルの `uiState` のみに付ける
+- できる限り `@AppStorage` を使わず、UserDefaultsへは `Data` 層でアクセスする
+  - ビュー層のプロパティを永続化したい場合のみ使う
+  - `View` 以外では使わない
+  - 参考: https://twitter.com/noppefoxwolf/status/1612800897654075392
 
 ##### 親ビュー
 
