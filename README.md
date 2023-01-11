@@ -92,16 +92,6 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - 複数のターゲットが共通で使う処理を格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#common-modules
 
-#### ライブラリ管理
-
-- SwiftPMのみで管理する
-  - 例: https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage/Package.swift#L19-L21
-
-#### CLIツール管理
-
-- SwiftPMのみで管理する
-  - まだ1つも使っていない
-
 </details>
 
 ### コーディングルール
@@ -181,6 +171,35 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - ビューのイベントをハンドリングする
   - 基本的にはメソッド名をそのまま採用する
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L54-L139
+
+</details>
+
+### パッケージ管理
+
+<details><summary>パッケージ管理</summary>
+
+#### ライブラリ
+
+- SwiftPMのみで管理する
+  - 例: https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage/Package.swift#L19-L21
+
+#### CLIツール
+
+##### Swift製
+
+- Build Tool PluginまたはCommand Pluginで管理する
+  - 対応していない場合は自作してOSSにPRを作成する
+  - マージされない場合は本リポジトリ、またはプラグイン用のリポジトリを作成してコミットする
+
+##### Ruby製
+
+- できる限り使わない
+- どうしても使う場合、Bundlerで管理する
+
+##### その他
+
+- できる限り使わない
+- どうしても使う場合、適切に管理する
 
 </details>
 
