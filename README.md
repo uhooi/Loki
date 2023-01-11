@@ -64,9 +64,9 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 3. `make setup` を実行します。  
 セットアップが完了すると、自動的にXcodeでワークスペースが開きます。
 
-### アーキテクチャ
+### モジュール分割
 
-<details><summary>アーキテクチャ</summary>
+<details><summary>モジュール分割</summary>
 
 #### 全体
 
@@ -91,16 +91,6 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 - 複数のターゲットが共通で使う処理を格納する
   - 参考: https://developer.android.com/topic/modularization/patterns#common-modules
-
-#### ライブラリ管理
-
-- SwiftPMのみで管理する
-  - 例: https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage/Package.swift#L19-L21
-
-#### CLIツール管理
-
-- SwiftPMのみで管理する
-  - まだ1つも使っていない
 
 </details>
 
@@ -129,6 +119,10 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - 状態はビューモデルの `uiState` に集約し、ビューでは保持しない
   - つまり `@State` を使わず、 `@StateObject` はビューモデルのみに付ける
   - `@Published` もビューモデルの `uiState` のみに付ける
+- できる限り `@AppStorage` を使わず、UserDefaultsへは `Data` 層でアクセスする
+  - ビュー層のプロパティを永続化したい場合のみ使う
+  - `View` 以外では使わない
+  - 参考: https://twitter.com/noppefoxwolf/status/1612800897654075392
 
 ##### 親ビュー
 
@@ -170,7 +164,6 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L33-L34
 - 状態を `uiState` で一元管理し、 `private(set)` にしてビューから状態を変更させない
   - 構造体名は `{画面名}UiState` とする
-  - ただ双方向バインディングできなくなるため、このルールは撤廃する予定
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L5-L13  
      https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L35
 - エラーは画面ごとに1つの列挙型へまとめ、 `uiState` で1つのみ保持する
@@ -181,6 +174,43 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 - ビューのイベントをハンドリングする
   - 基本的にはメソッド名をそのまま採用する
   - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListViewModel.swift#L54-L139
+
+</details>
+
+### パッケージ管理
+
+<details><summary>パッケージ管理</summary>
+
+#### ライブラリ
+
+##### Swift製
+
+- SwiftPMのみで管理する
+  - 例: https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage/Package.swift#L19-L21
+
+##### その他
+
+- できる限り使わない
+- どうしても使う場合、適切に管理する
+
+#### CLIツール
+
+##### Swift製
+
+- Build Tool PluginまたはCommand Pluginで管理する
+  - 用意されていない場合は自作してOSSにPRを送る
+  - マージされない場合、本リポジトリまたはプラグイン用のリポジトリを作成してコミットする
+- どうしてもPluginを用意できない場合、Mintで管理する
+
+##### Ruby製
+
+- できる限り使わない
+- どうしても使う場合、Bundlerで管理する
+
+##### その他
+
+- できる限り使わない
+- どうしても使う場合、適切に管理する
 
 </details>
 
