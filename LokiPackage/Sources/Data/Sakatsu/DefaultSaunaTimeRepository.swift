@@ -1,11 +1,11 @@
 import UserDefaultsCore
 
-public protocol DefaultSaunaSetRepository {
+public protocol DefaultSaunaTimeRepository {
     func defaultSaunaSet() throws -> SaunaSet
     func saveDefaultSaunaSet(_ defaultSaunaSet: SaunaSet) throws
 }
 
-public struct DefaultSaunaSetUserDefaultsClient {
+public struct DefaultSaunaTimeUserDefaultsClient {
     public static let shared: Self = .init()
     private static let defaultSaunaSetKey = "defaultSaunaSet"
 
@@ -14,7 +14,7 @@ public struct DefaultSaunaSetUserDefaultsClient {
     private init() {}
 }
 
-extension DefaultSaunaSetUserDefaultsClient: DefaultSaunaSetRepository {
+extension DefaultSaunaTimeUserDefaultsClient: DefaultSaunaTimeRepository {
     public func defaultSaunaSet() throws -> SaunaSet {
         do {
             return try userDefaultsClient.object(forKey: Self.defaultSaunaSetKey)

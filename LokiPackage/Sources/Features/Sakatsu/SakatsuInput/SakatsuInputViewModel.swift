@@ -47,36 +47,36 @@ enum SakatsuInputError: LocalizedError {
 
 @MainActor
 final class SakatsuInputViewModel<
-    SettingsRepository: DefaultSaunaSetRepository,
+    SettingsRepository: DefaultSaunaTimeRepository,
     DataRepository: SakatsuRepository,
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
 
-    private let defaultSaunaSetRepository: SettingsRepository
+    private let defaultSaunaTimeRepository: SettingsRepository
     private let sakatsuRepository: DataRepository
     private let validator: Validator
 
     init(
         editMode: EditMode,
-        defaultSaunaSetRepository: SettingsRepository = DefaultSaunaSetUserDefaultsClient.shared,
+        defaultSaunaTimeRepository: SettingsRepository = DefaultSaunaTimeUserDefaultsClient.shared,
         sakatsuRepository: DataRepository = SakatsuUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
     ) {
         switch editMode {
         case .new:
-            let defaultSaunaSet = (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
+            let defaultSaunaSet = (try? defaultSaunaTimeRepository.defaultSaunaSet()) ?? .init()
             self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet]))
         case let .edit(sakatsu: sakatsu):
             self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
         }
-        self.defaultSaunaSetRepository = defaultSaunaSetRepository
+        self.defaultSaunaTimeRepository = defaultSaunaTimeRepository
         self.sakatsuRepository = sakatsuRepository
         self.validator = validator
     }
 
     private func defaultSaunaSet() -> SaunaSet {
-        (try? defaultSaunaSetRepository.defaultSaunaSet()) ?? .init()
+        (try? defaultSaunaTimeRepository.defaultSaunaSet()) ?? .init()
     }
 }
 

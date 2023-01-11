@@ -3,7 +3,7 @@ import UICore
 import SakatsuData
 
 struct SakatsuSettingsScreen: View {
-    @StateObject private var viewModel: SakatsuSettingsViewModel<DefaultSaunaSetUserDefaultsClient, SakatsuValidator>
+    @StateObject private var viewModel: SakatsuSettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
 
     @Environment(\.dismiss) private var dismiss
 
