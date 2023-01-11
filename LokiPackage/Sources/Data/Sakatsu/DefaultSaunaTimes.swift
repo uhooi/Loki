@@ -4,7 +4,7 @@ public struct DefaultSaunaTimes {
     public var saunaTime: TimeInterval?
     public var coolBathTime: TimeInterval?
     public var relaxationTime: TimeInterval?
-    
+
     public init() {
         self.saunaTime = nil
         self.coolBathTime = nil

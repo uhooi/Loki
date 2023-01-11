@@ -11,7 +11,7 @@ public struct SakatsuUserDefaultsClient {
     private static let sakatsusKey = "sakatsus"
 
     private let userDefaultsClient = UserDefaultsClient.shared
-    
+
     private let settingsRepository: any DefaultSaunaTimeRepository
 
     private init(settingsRepository: some DefaultSaunaTimeRepository = DefaultSaunaTimeUserDefaultsClient.shared) {
@@ -33,7 +33,7 @@ extension SakatsuUserDefaultsClient: SakatsuRepository {
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
         try userDefaultsClient.set(sakatsus, forKey: Self.sakatsusKey)
     }
-    
+
     public func makeDefaultSaunaSet() -> SaunaSet {
         do {
             let defaultSaunaTimes = try settingsRepository.defaultSaunaTimes()
