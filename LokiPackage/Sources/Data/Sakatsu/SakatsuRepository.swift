@@ -12,10 +12,10 @@ public struct SakatsuUserDefaultsClient {
 
     private let userDefaultsClient = UserDefaultsClient.shared
 
-    private let settingsRepository: any DefaultSaunaTimeRepository
+    private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
 
-    private init(settingsRepository: some DefaultSaunaTimeRepository = DefaultSaunaTimeUserDefaultsClient.shared) {
-        self.settingsRepository = settingsRepository
+    private init(defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultSaunaTimeUserDefaultsClient.shared) {
+        self.defaultSaunaTimeRepository = defaultSaunaTimeRepository
     }
 }
 
@@ -36,7 +36,7 @@ extension SakatsuUserDefaultsClient: SakatsuRepository {
 
     public func makeDefaultSaunaSet() -> SaunaSet {
         do {
-            let defaultSaunaTimes = try settingsRepository.defaultSaunaTimes()
+            let defaultSaunaTimes = try defaultSaunaTimeRepository.defaultSaunaTimes()
             var defaultSaunaSet = SaunaSet()
             defaultSaunaSet.sauna.time = defaultSaunaTimes.saunaTime
             defaultSaunaSet.coolBath.time = defaultSaunaTimes.coolBathTime
