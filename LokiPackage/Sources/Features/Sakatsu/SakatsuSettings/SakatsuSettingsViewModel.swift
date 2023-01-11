@@ -4,7 +4,7 @@ import SakatsuData
 // MARK: UI state
 
 struct SakatsuSettingsUiState {
-    var defaultSaunaSet: SaunaSet = .init()
+    var defaultSaunaTimes: DefaultSaunaTimes = .init()
     var sakatsuSettingsError: SakatsuSettingsError?
 }
 
@@ -28,7 +28,7 @@ enum SakatsuSettingsError: LocalizedError {
 
 @MainActor
 final class SakatsuSettingsViewModel<
-    Repository: DefaultSaunaSetRepository,
+    Repository: DefaultSaunaTimeRepository,
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SakatsuSettingsUiState
@@ -37,18 +37,18 @@ final class SakatsuSettingsViewModel<
     private let validator: Validator
 
     init(
-        repository: Repository = DefaultSaunaSetUserDefaultsClient.shared,
+        repository: Repository = DefaultSaunaTimeUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
     ) {
         self.uiState = SakatsuSettingsUiState()
         self.repository = repository
         self.validator = validator
-        refreshDefaultSaunaSet()
+        refreshDefaultSaunaTimes()
     }
 
-    private func refreshDefaultSaunaSet() {
+    private func refreshDefaultSaunaTimes() {
         do {
-            uiState.defaultSaunaSet = try repository.defaultSaunaSet()
+            uiState.defaultSaunaTimes = try repository.defaultSaunaTimes()
         } catch {
             uiState.sakatsuSettingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
         }
@@ -56,7 +56,7 @@ final class SakatsuSettingsViewModel<
 
     private func saveDefaultSaunaSet() {
         do {
-            try repository.saveDefaultSaunaSet(uiState.defaultSaunaSet)
+            try repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
         } catch {
             uiState.sakatsuSettingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
         }
@@ -70,7 +70,7 @@ extension SakatsuSettingsViewModel {
         guard validator.validate(saunaTime: defaultSaunaTime) else {
             return
         }
-        uiState.defaultSaunaSet.sauna.time = defaultSaunaTime
+        uiState.defaultSaunaTimes.saunaTime = defaultSaunaTime
         saveDefaultSaunaSet()
     }
 
@@ -78,7 +78,7 @@ extension SakatsuSettingsViewModel {
         guard validator.validate(coolBathTime: defaultCoolBathTime) else {
             return
         }
-        uiState.defaultSaunaSet.coolBath.time = defaultCoolBathTime
+        uiState.defaultSaunaTimes.coolBathTime = defaultCoolBathTime
         saveDefaultSaunaSet()
     }
 
@@ -86,7 +86,7 @@ extension SakatsuSettingsViewModel {
         guard validator.validate(relaxationTime: defaultRelaxationTime) else {
             return
         }
-        uiState.defaultSaunaSet.relaxation.time = defaultRelaxationTime
+        uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
         saveDefaultSaunaSet()
     }
 
