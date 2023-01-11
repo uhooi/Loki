@@ -10,7 +10,7 @@ struct SakatsuSettingsScreen: View {
     var body: some View {
         NavigationStack {
             SakatsuSettingsView(
-                defaultSaunaSet: viewModel.uiState.defaultSaunaSet,
+                defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
                 onDefaultSaunaTimeChange: { defaultSaunaTime in
                     viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
                 }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in

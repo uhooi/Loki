@@ -2,7 +2,7 @@ import SwiftUI
 import SakatsuData
 
 struct SakatsuSettingsView: View {
-    let defaultSaunaSet: SaunaSet
+    let defaultSaunaTimes: DefaultSaunaTimes
 
     let onDefaultSaunaTimeChange: ((TimeInterval?) -> Void)
     let onDefaultCoolBathTimeChange: ((TimeInterval?) -> Void)
@@ -17,16 +17,25 @@ struct SakatsuSettingsView: View {
 
     private var defaultSaunaSetsSection: some View {
         Section {
-            saunaSetItemTimeInputView(
-                saunaSetItem: defaultSaunaSet.sauna,
+            defaultTimeInputView(
+                emoji: "🔥",
+                title: String(localized: "Sauna", bundle: .module),
+                defaultTime: defaultSaunaTimes.saunaTime,
+                unit: String(localized: "m", bundle: .module),
                 onTimeChange: onDefaultSaunaTimeChange
             )
-            saunaSetItemTimeInputView(
-                saunaSetItem: defaultSaunaSet.coolBath,
+            defaultTimeInputView(
+                emoji: "💧",
+                title: String(localized: "Cool bath", bundle: .module),
+                defaultTime: defaultSaunaTimes.coolBathTime,
+                unit: String(localized: "s", bundle: .module),
                 onTimeChange: onDefaultCoolBathTimeChange
             )
-            saunaSetItemTimeInputView(
-                saunaSetItem: defaultSaunaSet.relaxation,
+            defaultTimeInputView(
+                emoji: "🍃",
+                title: String(localized: "Relaxation", bundle: .module),
+                defaultTime: defaultSaunaTimes.relaxationTime,
+                unit: String(localized: "m", bundle: .module),
                 onTimeChange: onDefaultRelaxationTimeChange
             )
         } header: {
@@ -46,20 +55,23 @@ struct SakatsuSettingsView: View {
         }
     }
 
-    private func saunaSetItemTimeInputView(
-        saunaSetItem: any SaunaSetItemProtocol,
+    private func defaultTimeInputView(
+        emoji: String,
+        title: String,
+        defaultTime: TimeInterval?,
+        unit: String,
         onTimeChange: @escaping (TimeInterval?) -> Void
     ) -> some View {
         HStack {
-            Text(saunaSetItem.emoji + saunaSetItem.title)
+            Text(emoji + title)
             TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
-                saunaSetItem.time
+                defaultTime
             }, set: { newValue in
                 onTimeChange(newValue)
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
-            Text(saunaSetItem.unit)
+            Text(unit)
         }
     }
 }
@@ -68,7 +80,7 @@ struct SakatsuSettingsView: View {
 struct SakatsuSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SakatsuSettingsView(
-            defaultSaunaSet: .preview,
+            defaultSaunaTimes: .preview,
             onDefaultSaunaTimeChange: { _ in },
             onDefaultCoolBathTimeChange: { _ in },
             onDefaultRelaxationTimeChange: { _ in }

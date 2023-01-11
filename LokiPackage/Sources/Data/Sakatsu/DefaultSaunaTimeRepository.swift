@@ -1,13 +1,14 @@
+import Foundation
 import UserDefaultsCore
 
 public protocol DefaultSaunaTimeRepository {
-    func defaultSaunaSet() throws -> SaunaSet
-    func saveDefaultSaunaSet(_ defaultSaunaSet: SaunaSet) throws
+    func defaultSaunaTimes() throws -> DefaultSaunaTimes
+    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
 }
 
 public struct DefaultSaunaTimeUserDefaultsClient {
     public static let shared: Self = .init()
-    private static let defaultSaunaSetKey = "defaultSaunaSet"
+    private static let defaultSaunaTimesKey = "defaultSaunaTimes"
 
     private let userDefaultsClient = UserDefaultsClient.shared
 
@@ -15,9 +16,9 @@ public struct DefaultSaunaTimeUserDefaultsClient {
 }
 
 extension DefaultSaunaTimeUserDefaultsClient: DefaultSaunaTimeRepository {
-    public func defaultSaunaSet() throws -> SaunaSet {
+    public func defaultSaunaTimes() throws -> DefaultSaunaTimes {
         do {
-            return try userDefaultsClient.object(forKey: Self.defaultSaunaSetKey)
+            return try userDefaultsClient.object(forKey: Self.defaultSaunaTimesKey)
         } catch UserDefaultsError.missingValue {
             return .init()
         } catch {
@@ -25,7 +26,7 @@ extension DefaultSaunaTimeUserDefaultsClient: DefaultSaunaTimeRepository {
         }
     }
 
-    public func saveDefaultSaunaSet(_ defaultSaunaSet: SaunaSet) throws {
-        try userDefaultsClient.set(defaultSaunaSet, forKey: Self.defaultSaunaSetKey)
+    public func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws {
+        try userDefaultsClient.set(defaultSaunaTimes, forKey: Self.defaultSaunaTimesKey)
     }
 }
