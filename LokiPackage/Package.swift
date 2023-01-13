@@ -2,6 +2,13 @@
 
 import PackageDescription
 
+let debugOtherSwiftFlags = [
+    "-Xfrontend", "-warn-long-expression-type-checking=500",
+    "-Xfrontend", "-warn-long-function-bodies=500",
+    "-Xfrontend", "-strict-concurrency=complete",
+    "-Xfrontend", "-enable-actor-data-race-checks",
+]
+
 let package = Package(
     name: "LokiPackage",
     defaultLocalization: "ja",
@@ -30,7 +37,8 @@ let package = Package(
                 "SakatsuData",
                 .product(name: "Algorithms", package: "swift-algorithms")
             ],
-            path: "./Sources/Features/Sakatsu"),
+            path: "./Sources/Features/Sakatsu",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .testTarget(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
@@ -42,7 +50,8 @@ let package = Package(
             dependencies: [
                 "UserDefaultsCore",
             ],
-            path: "./Sources/Data/Sakatsu"),
+            path: "./Sources/Data/Sakatsu",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .testTarget(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
@@ -52,7 +61,8 @@ let package = Package(
         .target(
             name: "UserDefaultsCore",
             dependencies: [],
-            path: "./Sources/Core/UserDefaults"),
+            path: "./Sources/Core/UserDefaults",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .testTarget(
             name: "UserDefaultsCoreTests",
             dependencies: ["UserDefaultsCore"],
@@ -60,6 +70,7 @@ let package = Package(
         .target(
             name: "UICore",
             dependencies: [],
-            path: "./Sources/Core/UI"),
+            path: "./Sources/Core/UI",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
     ]
 )
