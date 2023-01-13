@@ -99,7 +99,7 @@ opt_in_rules:
   - array_init
   - attributes
   - balanced_xctest_lifecycle
-  - closure_body_length
+  #- closure_body_length # SwiftUIのViewで長くなることがあるため
   - closure_end_indentation
   - closure_spacing
   - collection_alignment
@@ -132,10 +132,10 @@ opt_in_rules:
   #- file_header # このルールの意味を理解していないため
   - file_name
   - file_name_no_space
-  - file_types_order
+  #- file_types_order # 好きな順番に並べたいため
   - first_where
   - flatmap_over_map_reduce
-  - force_unwrapping
+  #- force_unwrapping # 強制アンラップしたいことがあるため
   - function_default_parameter_at_end
   - ibinspectable_in_extension
   - identical_operands
@@ -202,13 +202,13 @@ opt_in_rules:
   - switch_case_on_newline
   - test_case_accessibility
   - toggle_bool
-  - trailing_closure
-  - type_contents_order
+  #- trailing_closure # SwiftUIのViewでラベルを省略したくないことがあるため
+  #- type_contents_order # 好きな順番に並べたいため
   - unavailable_function
   - unneeded_parentheses_in_closure_argument
   - unowned_variable_capture
   - untyped_error_in_catch
-  - vertical_parameter_alignment_on_call
+  # - vertical_parameter_alignment_on_call # なぜか指摘されることがあるため
   #- vertical_whitespace_between_cases # Switch文のケース間に空白行を設けたくないため
   #- vertical_whitespace_closing_braces # 中括弧を閉じる前に空白行を設けたいことがあるため
   #- vertical_whitespace_opening_braces # 中括弧を開く前に空白行を設けたいことがあるため
