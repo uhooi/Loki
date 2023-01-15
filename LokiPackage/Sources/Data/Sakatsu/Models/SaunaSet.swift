@@ -33,7 +33,7 @@ public struct SaunaSet: Identifiable {
 
     public struct CoolBath: SaunaSetItemProtocol {
         public var emoji: String { "💧" }
-        public var title: String = L10n.coolBath
+        public var title = L10n.coolBath
         public var unit: String { L10n.s }
 
         public var time: TimeInterval?
@@ -41,7 +41,7 @@ public struct SaunaSet: Identifiable {
 
     public struct Relaxation: SaunaSetItemProtocol {
         public var emoji: String { "🍃" }
-        public var title: String = L10n.relaxation
+        public var title = L10n.relaxation
         public var unit: String { L10n.m }
 
         private var _time: TimeInterval?
