@@ -50,10 +50,10 @@ struct SakatsuRowView: View {
     private var menu: some View {
         Menu {
             Button(action: onCopySakatsuTextButtonClick) {
-                Label(String(localized: "Copy Sakatsu text", bundle: .module), systemImage: "doc.on.doc")
+                Label(L10n.copySakatsuText, systemImage: "doc.on.doc")
             }
             Button(action: onEditButtonClick) {
-                Label(String(localized: "Edit", bundle: .module), systemImage: "square.and.pencil")
+                Label(L10n.edit, systemImage: "square.and.pencil")
             }
         } label: {
             Image(systemName: "ellipsis")

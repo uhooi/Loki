@@ -20,6 +20,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
 //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
+        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
     ],
     targets: [
         // Feature layer
@@ -28,9 +29,12 @@ let package = Package(
             dependencies: [
                 "UICore",
                 "SakatsuData",
-                .product(name: "Algorithms", package: "swift-algorithms")
+                .product(name: "Algorithms", package: "swift-algorithms"),
             ],
-            path: "./Sources/Features/Sakatsu"),
+            path: "./Sources/Features/Sakatsu",
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]),
         .testTarget(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
@@ -42,7 +46,10 @@ let package = Package(
             dependencies: [
                 "UserDefaultsCore",
             ],
-            path: "./Sources/Data/Sakatsu"),
+            path: "./Sources/Data/Sakatsu",
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]),
         .testTarget(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
@@ -52,7 +59,10 @@ let package = Package(
         .target(
             name: "UserDefaultsCore",
             dependencies: [],
-            path: "./Sources/Core/UserDefaults"),
+            path: "./Sources/Core/UserDefaults",
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]),
         .testTarget(
             name: "UserDefaultsCoreTests",
             dependencies: ["UserDefaultsCore"],

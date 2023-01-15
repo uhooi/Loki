@@ -17,8 +17,8 @@ public struct SaunaSet: Identifiable {
 
     public struct Sauna: SaunaSetItemProtocol {
         public var emoji: String { "🔥" }
-        public var title: String = .init(localized: "Sauna", bundle: .module)
-        public var unit: String { .init(localized: "m", bundle: .module) }
+        public var title = L10n.sauna
+        public var unit: String { L10n.m }
 
         private var _time: TimeInterval?
         public var time: TimeInterval? {
@@ -33,16 +33,16 @@ public struct SaunaSet: Identifiable {
 
     public struct CoolBath: SaunaSetItemProtocol {
         public var emoji: String { "💧" }
-        public var title: String = .init(localized: "Cool bath", bundle: .module)
-        public var unit: String { .init(localized: "s", bundle: .module) }
+        public var title: String = L10n.coolBath
+        public var unit: String { L10n.s }
 
         public var time: TimeInterval?
     }
 
     public struct Relaxation: SaunaSetItemProtocol {
         public var emoji: String { "🍃" }
-        public var title: String = .init(localized: "Relaxation", bundle: .module)
-        public var unit: String { .init(localized: "m", bundle: .module) }
+        public var title: String = L10n.relaxation
+        public var unit: String { L10n.m }
 
         private var _time: TimeInterval?
         public var time: TimeInterval? {

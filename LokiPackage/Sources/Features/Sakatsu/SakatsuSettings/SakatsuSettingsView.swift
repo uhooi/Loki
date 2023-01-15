@@ -19,34 +19,34 @@ struct SakatsuSettingsView: View {
         Section {
             defaultTimeInputView(
                 emoji: "🔥",
-                title: String(localized: "Sauna", bundle: .module),
+                title: L10n.sauna,
                 defaultTime: defaultSaunaTimes.saunaTime,
-                unit: String(localized: "m", bundle: .module),
+                unit: L10n.m,
                 onTimeChange: onDefaultSaunaTimeChange
             )
             defaultTimeInputView(
                 emoji: "💧",
-                title: String(localized: "Cool bath", bundle: .module),
+                title: L10n.coolBath,
                 defaultTime: defaultSaunaTimes.coolBathTime,
-                unit: String(localized: "s", bundle: .module),
+                unit: L10n.s,
                 onTimeChange: onDefaultCoolBathTimeChange
             )
             defaultTimeInputView(
                 emoji: "🍃",
-                title: String(localized: "Relaxation", bundle: .module),
+                title: L10n.relaxation,
                 defaultTime: defaultSaunaTimes.relaxationTime,
-                unit: String(localized: "m", bundle: .module),
+                unit: L10n.m,
                 onTimeChange: onDefaultRelaxationTimeChange
             )
         } header: {
-            Text("Default times", bundle: .module)
+            Text(L10n.defaultTimes)
         }
     }
 
     private var versionSection: some View {
         Section {
             HStack {
-                Text("Version", bundle: .module)
+                Text(L10n.version)
                 Spacer()
                 Text("\(Bundle.main.version) (\(Bundle.main.build))")
             }
@@ -64,7 +64,7 @@ struct SakatsuSettingsView: View {
     ) -> some View {
         HStack {
             Text(emoji + title)
-            TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
+            TextField(L10n.optional, value: .init(get: {
                 defaultTime
             }, set: { newValue in
                 onTimeChange(newValue)
