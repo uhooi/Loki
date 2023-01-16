@@ -19,7 +19,7 @@ struct SakatsuSettingsScreen: View {
                     viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
                 }
             )
-            .navigationTitle(String(localized: "Settings", bundle: .module))
+            .navigationTitle(L10n.settings)
             .sakatsuSettingsScreenToolbar(onCloseButtonClick: { dismiss() })
             .errorAlert(
                 error: viewModel.uiState.sakatsuSettingsError,
