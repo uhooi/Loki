@@ -72,6 +72,7 @@ private extension View {
         }
     }
 
+    @MainActor
     func sakatsuInputSheet(
         shouldShowSheet: Bool,
         selectedSakatsu: Sakatsu?,
@@ -92,6 +93,7 @@ private extension View {
         }
     }
 
+    @MainActor
     func sakatsuSettingsSheet(
         shouldShowSheet: Bool,
         onDismiss: @escaping () -> Void
