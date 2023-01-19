@@ -2,6 +2,13 @@
 
 import PackageDescription
 
+let debugOtherSwiftFlags = [
+    "-Xfrontend", "-warn-long-expression-type-checking=500",
+    "-Xfrontend", "-warn-long-function-bodies=500",
+    "-Xfrontend", "-strict-concurrency=complete",
+    "-Xfrontend", "-enable-actor-data-race-checks",
+]
+
 let package = Package(
     name: "LokiPackage",
     defaultLocalization: "ja",
@@ -18,7 +25,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
-//        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
+        //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
     ],
@@ -32,6 +39,7 @@ let package = Package(
                 .product(name: "Algorithms", package: "swift-algorithms"),
             ],
             path: "./Sources/Features/Sakatsu",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]),
@@ -39,7 +47,7 @@ let package = Package(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
             path: "./Tests/Features/SakatsuTests"),
-
+        
         // Data layer
         .target(
             name: "SakatsuData",
@@ -47,6 +55,7 @@ let package = Package(
                 "UserDefaultsCore",
             ],
             path: "./Sources/Data/Sakatsu",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]),
@@ -54,12 +63,13 @@ let package = Package(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
             path: "./Tests/Data/SakatsuTests"),
-
+        
         // Core layer
         .target(
             name: "UserDefaultsCore",
             dependencies: [],
             path: "./Sources/Core/UserDefaults",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]),
@@ -70,6 +80,7 @@ let package = Package(
         .target(
             name: "UICore",
             dependencies: [],
-            path: "./Sources/Core/UI"),
+            path: "./Sources/Core/UI",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
     ]
 )
