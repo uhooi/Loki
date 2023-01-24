@@ -14,6 +14,8 @@ XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
 
 FULL_PROJECT_NAME := Full
 
+PACKAGE_PATH := ./${PRODUCT_NAME}Package
+
 # Targets
 
 .PHONY: setup
@@ -41,3 +43,14 @@ build-debug:
 clean build \
 | tee ./${XCODEBUILD_BUILD_LOG_NAME}
 
+.PHONY: lint
+lint:
+	swift package --package-path ${PACKAGE_PATH} plugin lint-source-code
+
+.PHONY: format
+format:
+	swift package --package-path ${PACKAGE_PATH} plugin --allow-writing-to-package-directory format-source-code
+
+.PHONY: analyze
+analyze:
+	swift package --package-path ${PACKAGE_PATH} plugin --allow-writing-to-package-directory analyze-source-code --fix --compiler-log-path ./${XCODEBUILD_BUILD_LOG_NAME}
