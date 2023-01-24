@@ -5,8 +5,8 @@ import PackageDescription
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
     "-Xfrontend", "-warn-long-function-bodies=500",
-    "-Xfrontend", "-strict-concurrency=complete",
-    "-Xfrontend", "-enable-actor-data-race-checks",
+    "-strict-concurrency=complete",
+    "-enable-actor-data-race-checks",
 ]
 
 let package = Package(
