@@ -80,17 +80,27 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 #### Features
 
 - 各機能のビューやビューモデルを格納する
-  - 参考: https://developer.android.com/topic/modularization/patterns#feature-modules
+- できる限りほかのFeatureモジュールに依存しない
+- DataやCoreモジュールに依存していい
+
+参考: https://developer.android.com/topic/modularization/patterns#feature-modules
 
 #### Data
 
 - リポジトリやモデルを格納する
-  - 参考: https://developer.android.com/topic/modularization/patterns#data-modules
+- Featureモジュールに依存してはいけない
+- できる限りほかのDataモジュールに依存しない
+- Coreモジュールに依存していい
+
+参考: https://developer.android.com/topic/modularization/patterns#data-modules
 
 #### Core
 
-- 複数のターゲットが共通で使う処理を格納する
-  - 参考: https://developer.android.com/topic/modularization/patterns#common-modules
+- 複数のモジュールが共通で使う処理を格納する
+- FeatureやDataモジュールに依存してはいけない
+- ほかのCoreモジュールに依存していい
+
+参考: https://developer.android.com/topic/modularization/patterns#common-modules
 
 </details>
 
@@ -133,7 +143,7 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
     - `@StateObject private var` で保持する
     - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L5
   - ナビゲーションロジック
-    - `NavigationView { ... }` や `.navigationTitle()` 、 `.navigationBarTitleDisplayMode()` など
+    - `NavigationStack { ... }` や `NavigationSplitView { ... }` 、 `.navigationTitle()` 、 `.navigationBarTitleDisplayMode()` など
     - 例: https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L8  
     https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuList/SakatsuListScreen.swift#L19  
    https://github.com/uhooi/Loki/blob/8d22650afeb777bd15e858bfad2b6ece06dcb152/TotonoiPackage/Sources/Features/Sakatsu/SakatsuInput/SakatsuInputScreen.swift#L45
@@ -185,7 +195,7 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ##### Swift製
 
-- SwiftPMのみで管理する
+- `Package.swift` のみで管理する
   - 例: https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage/Package.swift#L19-L21
 
 ##### その他
