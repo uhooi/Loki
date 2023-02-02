@@ -70,6 +70,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 #### 全体
 
+![Module diagram](./Docs/module_diagram.png)
+
 - できる限りSwiftパッケージにソースコードを寄せる
   - https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage
 - プロジェクトには最低限のファイルのみ含める
