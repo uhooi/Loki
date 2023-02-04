@@ -12,7 +12,7 @@ TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}
 
 XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
 
-FULL_PROJECT_NAME := Full
+PRODUCTION_PROJECT_NAME := Production
 
 PACKAGE_PATH := ./${PRODUCT_NAME}Package
 
@@ -26,9 +26,9 @@ setup:
 open:
 	open ./${WORKSPACE_NAME}
 
-.PHONY: build-debug-full
-build-debug-full:
-	$(MAKE) build-debug PROJECT_NAME=${FULL_PROJECT_NAME}
+.PHONY: build-debug-production
+build-debug-production:
+	$(MAKE) build-debug PROJECT_NAME=${PRODUCTION_PROJECT_NAME}
 
 .PHONY: build-debug
 build-debug:

@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B6B2ACB293A3F8B008E5764 /* FullApp in Frameworks */ = {isa = PBXBuildFile; productRef = 4B6B2ACA293A3F8B008E5764 /* FullApp */; };
-		4B7BA6E7293A42A1003EDF97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7BA6E2293A42A1003EDF97 /* Assets.xcassets */; };
-		4B7BA6E8293A42A1003EDF97 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7BA6E5293A42A1003EDF97 /* Preview Assets.xcassets */; };
-		4B7BA6E9293A42A1003EDF97 /* FullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BA6E6293A42A1003EDF97 /* FullApp.swift */; };
+		4B66C3B0298EB22F007E7159 /* ProductionApp in Frameworks */ = {isa = PBXBuildFile; productRef = 4B66C3AF298EB22F007E7159 /* ProductionApp */; };
+		4BD67C21298EA70400440ADA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD67C1C298EA70400440ADA /* Assets.xcassets */; };
+		4BD67C22298EA70400440ADA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD67C1E298EA70400440ADA /* Preview Assets.xcassets */; };
+		4BD67C23298EA70400440ADA /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD67C20298EA70400440ADA /* Production.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1181AC6E290F845800F9C89A /* Full.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Full.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B7BA6E2293A42A1003EDF97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4B7BA6E3293A42A1003EDF97 /* Full.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Full.entitlements; sourceTree = "<group>"; };
-		4B7BA6E5293A42A1003EDF97 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4B7BA6E6293A42A1003EDF97 /* FullApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullApp.swift; sourceTree = "<group>"; };
+		1181AC6E290F845800F9C89A /* Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Production.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BD67C1C298EA70400440ADA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4BD67C1E298EA70400440ADA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4BD67C1F298EA70400440ADA /* Production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Production.entitlements; sourceTree = "<group>"; };
+		4BD67C20298EA70400440ADA /* Production.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6B2ACB293A3F8B008E5764 /* FullApp in Frameworks */,
+				4B66C3B0298EB22F007E7159 /* ProductionApp in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,7 +36,7 @@
 		1181AC65290F845800F9C89A = {
 			isa = PBXGroup;
 			children = (
-				4B7BA6E0293A42A1003EDF97 /* Full */,
+				4BD67C1A298EA70400440ADA /* Production */,
 				1181AC6F290F845800F9C89A /* Products */,
 				11F8683E290F86E700043F68 /* Frameworks */,
 			);
@@ -45,7 +45,7 @@
 		1181AC6F290F845800F9C89A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1181AC6E290F845800F9C89A /* Full.app */,
+				1181AC6E290F845800F9C89A /* Production.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,30 +57,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4B7BA6E0293A42A1003EDF97 /* Full */ = {
+		4BD67C1A298EA70400440ADA /* Production */ = {
 			isa = PBXGroup;
 			children = (
-				4B7BA6E1293A42A1003EDF97 /* Resources */,
-				4B7BA6E6293A42A1003EDF97 /* FullApp.swift */,
+				4BD67C1B298EA70400440ADA /* Resources */,
+				4BD67C20298EA70400440ADA /* Production.swift */,
 			);
-			name = Full;
-			path = Loki/Full;
+			name = Production;
+			path = Loki/Production;
 			sourceTree = "<group>";
 		};
-		4B7BA6E1293A42A1003EDF97 /* Resources */ = {
+		4BD67C1B298EA70400440ADA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4B7BA6E2293A42A1003EDF97 /* Assets.xcassets */,
-				4B7BA6E3293A42A1003EDF97 /* Full.entitlements */,
-				4B7BA6E4293A42A1003EDF97 /* Preview Content */,
+				4BD67C1C298EA70400440ADA /* Assets.xcassets */,
+				4BD67C1D298EA70400440ADA /* Preview Content */,
+				4BD67C1F298EA70400440ADA /* Production.entitlements */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		4B7BA6E4293A42A1003EDF97 /* Preview Content */ = {
+		4BD67C1D298EA70400440ADA /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				4B7BA6E5293A42A1003EDF97 /* Preview Assets.xcassets */,
+				4BD67C1E298EA70400440ADA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -88,9 +88,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1181AC6D290F845800F9C89A /* Full */ = {
+		1181AC6D290F845800F9C89A /* Production */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1181AC7D290F845900F9C89A /* Build configuration list for PBXNativeTarget "Full" */;
+			buildConfigurationList = 1181AC7D290F845900F9C89A /* Build configuration list for PBXNativeTarget "Production" */;
 			buildPhases = (
 				1181AC6A290F845800F9C89A /* Sources */,
 				1181AC6B290F845800F9C89A /* Frameworks */,
@@ -100,12 +100,12 @@
 			);
 			dependencies = (
 			);
-			name = Full;
+			name = Production;
 			packageProductDependencies = (
-				4B6B2ACA293A3F8B008E5764 /* FullApp */,
+				4B66C3AF298EB22F007E7159 /* ProductionApp */,
 			);
 			productName = Full;
-			productReference = 1181AC6E290F845800F9C89A /* Full.app */;
+			productReference = 1181AC6E290F845800F9C89A /* Production.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -123,7 +123,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1181AC69290F845800F9C89A /* Build configuration list for PBXProject "Full" */;
+			buildConfigurationList = 1181AC69290F845800F9C89A /* Build configuration list for PBXProject "Production" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = ja;
 			hasScannedForEncodings = 0;
@@ -137,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1181AC6D290F845800F9C89A /* Full */,
+				1181AC6D290F845800F9C89A /* Production */,
 			);
 		};
 /* End PBXProject section */
@@ -147,8 +147,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B7BA6E8293A42A1003EDF97 /* Preview Assets.xcassets in Resources */,
-				4B7BA6E7293A42A1003EDF97 /* Assets.xcassets in Resources */,
+				4BD67C22298EA70400440ADA /* Preview Assets.xcassets in Resources */,
+				4BD67C21298EA70400440ADA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B7BA6E9293A42A1003EDF97 /* FullApp.swift in Sources */,
+				4BD67C23298EA70400440ADA /* Production.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,13 +284,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Loki/Full/Resources/Full.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Loki/Production/Resources/Production.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Loki/Full/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Loki/Production/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 47E56DYP3N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -328,13 +328,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Loki/Full/Resources/Full.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Loki/Production/Resources/Production.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Loki/Full/Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Loki/Production/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 47E56DYP3N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -370,7 +370,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1181AC69290F845800F9C89A /* Build configuration list for PBXProject "Full" */ = {
+		1181AC69290F845800F9C89A /* Build configuration list for PBXProject "Production" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1181AC7B290F845900F9C89A /* Debug */,
@@ -379,7 +379,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1181AC7D290F845900F9C89A /* Build configuration list for PBXNativeTarget "Full" */ = {
+		1181AC7D290F845900F9C89A /* Build configuration list for PBXNativeTarget "Production" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1181AC7E290F845900F9C89A /* Debug */,
@@ -391,9 +391,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4B6B2ACA293A3F8B008E5764 /* FullApp */ = {
+		4B66C3AF298EB22F007E7159 /* ProductionApp */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = FullApp;
+			productName = ProductionApp;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

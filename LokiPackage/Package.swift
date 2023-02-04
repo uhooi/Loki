@@ -18,7 +18,7 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "FullApp",
+            name: "ProductionApp",
             targets: [
                 "SakatsuFeature",
             ]),
