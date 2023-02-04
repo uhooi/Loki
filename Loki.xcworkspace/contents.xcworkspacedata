@@ -5,6 +5,6 @@
       location = "group:LokiPackage">
    </FileRef>
    <FileRef
-      location = "group:App/Full.xcodeproj">
+      location = "group:LokiPackage/../App/Production.xcodeproj">
    </FileRef>
 </Workspace>
