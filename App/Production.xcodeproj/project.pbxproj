@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B6B2ACB293A3F8B008E5764 /* FullApp in Frameworks */ = {isa = PBXBuildFile; productRef = 4B6B2ACA293A3F8B008E5764 /* FullApp */; };
+		4B66C3B0298EB22F007E7159 /* ProductionApp in Frameworks */ = {isa = PBXBuildFile; productRef = 4B66C3AF298EB22F007E7159 /* ProductionApp */; };
 		4BD67C21298EA70400440ADA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD67C1C298EA70400440ADA /* Assets.xcassets */; };
 		4BD67C22298EA70400440ADA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD67C1E298EA70400440ADA /* Preview Assets.xcassets */; };
 		4BD67C23298EA70400440ADA /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD67C20298EA70400440ADA /* Production.swift */; };
@@ -26,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B6B2ACB293A3F8B008E5764 /* FullApp in Frameworks */,
+				4B66C3B0298EB22F007E7159 /* ProductionApp in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +102,7 @@
 			);
 			name = Production;
 			packageProductDependencies = (
-				4B6B2ACA293A3F8B008E5764 /* FullApp */,
+				4B66C3AF298EB22F007E7159 /* ProductionApp */,
 			);
 			productName = Full;
 			productReference = 1181AC6E290F845800F9C89A /* Production.app */;
@@ -391,9 +391,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4B6B2ACA293A3F8B008E5764 /* FullApp */ = {
+		4B66C3AF298EB22F007E7159 /* ProductionApp */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = FullApp;
+			productName = ProductionApp;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
