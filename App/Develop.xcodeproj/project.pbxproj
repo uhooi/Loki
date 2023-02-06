@@ -125,11 +125,12 @@
 			};
 			buildConfigurationList = 4B70E96D29912DEA00D55B7B /* Build configuration list for PBXProject "Develop" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
+				ja,
+                Base,
+                en,
 			);
 			mainGroup = 4B70E96929912DEA00D55B7B;
 			productRefGroup = 4B70E97329912DEA00D55B7B /* Products */;
@@ -291,7 +292,7 @@
 				DEVELOPMENT_TEAM = 47E56DYP3N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Loki;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dev-Loki";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -307,7 +308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.theuhooi.Loki-Develop";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -328,7 +329,7 @@
 				DEVELOPMENT_TEAM = 47E56DYP3N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Loki;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dev-Loki";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,7 +345,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.theuhooi.Loki-Develop";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
