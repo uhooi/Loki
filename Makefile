@@ -13,6 +13,7 @@ TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}
 XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
 
 PRODUCTION_PROJECT_NAME := Production
+DEVELOP_PROJECT_NAME := Develop
 
 PACKAGE_PATH := ./${PRODUCT_NAME}Package
 
@@ -29,6 +30,10 @@ open:
 .PHONY: build-debug-production
 build-debug-production:
 	$(MAKE) build-debug PROJECT_NAME=${PRODUCTION_PROJECT_NAME}
+
+.PHONY: build-debug-develop
+build-debug-develop:
+	$(MAKE) build-debug PROJECT_NAME=${DEVELOP_PROJECT_NAME}
 
 .PHONY: build-debug
 build-debug:

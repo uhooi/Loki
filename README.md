@@ -72,6 +72,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ![Module diagram](./Docs/module_diagram.png)
 
+https://www.figma.com/file/T6xPOXP9b1nzRey05q7ZL9/Loki_module_diagram?node-id=0%3A1&t=ucgi2aKXvCYXOjRD-1
+
 - できる限りSwiftパッケージにソースコードを寄せる
   - https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage
 - プロジェクトには最低限のファイルのみ含める

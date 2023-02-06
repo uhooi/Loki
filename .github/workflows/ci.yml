@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["production"]
+        project: ["production", "develop"]
 
     steps:
       - name: Checkout
