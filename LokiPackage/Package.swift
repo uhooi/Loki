@@ -22,6 +22,11 @@ let package = Package(
             targets: [
                 "SakatsuFeature",
             ]),
+        .library(
+            name: "DevelopApp",
+            targets: [
+                "SakatsuFeature",
+            ]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
