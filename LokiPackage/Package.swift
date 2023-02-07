@@ -39,6 +39,7 @@ let package = Package(
         .target(
             name: "SakatsuFeature",
             dependencies: [
+                "SettingsFeature",
                 "UICore",
                 "SakatsuData",
                 .product(name: "Algorithms", package: "swift-algorithms"),
@@ -52,6 +53,17 @@ let package = Package(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
             path: "./Tests/Features/SakatsuTests"),
+        .target(
+            name: "SettingsFeature",
+            dependencies: [
+                "UICore",
+                "SakatsuData",
+            ],
+            path: "./Sources/Features/Settings",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]),
         
         // Data layer
         .target(

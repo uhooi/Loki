@@ -1,7 +1,7 @@
 import SwiftUI
 import SakatsuData
 
-struct SakatsuSettingsView: View {
+struct SettingsView: View {
     let defaultSaunaTimes: DefaultSaunaTimes
 
     let onDefaultSaunaTimeChange: ((TimeInterval?) -> Void)
@@ -77,9 +77,9 @@ struct SakatsuSettingsView: View {
 }
 
 #if DEBUG
-struct SakatsuSettingsView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SakatsuSettingsView(
+        SettingsView(
             defaultSaunaTimes: .preview,
             onDefaultSaunaTimeChange: { _ in },
             onDefaultCoolBathTimeChange: { _ in },
