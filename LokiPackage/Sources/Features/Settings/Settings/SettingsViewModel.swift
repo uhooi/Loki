@@ -3,14 +3,14 @@ import SakatsuData
 
 // MARK: UI state
 
-struct SakatsuSettingsUiState {
+struct SettingsUiState {
     var defaultSaunaTimes: DefaultSaunaTimes = .init()
-    var sakatsuSettingsError: SakatsuSettingsError?
+    var settingsError: SettingsError?
 }
 
 // MARK: - Error
 
-enum SakatsuSettingsError: LocalizedError {
+enum SettingsError: LocalizedError {
     case defaultSaunaSetFetchFailed(localizedDescription: String)
     case defaultSaunaSetSaveFailed(localizedDescription: String)
 
@@ -27,11 +27,11 @@ enum SakatsuSettingsError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class SakatsuSettingsViewModel<
+final class SettingsViewModel<
     Repository: DefaultSaunaTimeRepository,
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
-    @Published private(set) var uiState: SakatsuSettingsUiState
+    @Published private(set) var uiState: SettingsUiState
 
     private let repository: Repository
     private let validator: Validator
@@ -40,7 +40,7 @@ final class SakatsuSettingsViewModel<
         repository: Repository = DefaultSaunaTimeUserDefaultsClient.shared,
         validator: Validator = SakatsuValidator()
     ) {
-        self.uiState = SakatsuSettingsUiState()
+        self.uiState = SettingsUiState()
         self.repository = repository
         self.validator = validator
         refreshDefaultSaunaTimes()
@@ -50,7 +50,7 @@ final class SakatsuSettingsViewModel<
         do {
             uiState.defaultSaunaTimes = try repository.defaultSaunaTimes()
         } catch {
-            uiState.sakatsuSettingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
+            uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
         }
     }
 
@@ -58,14 +58,14 @@ final class SakatsuSettingsViewModel<
         do {
             try repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
         } catch {
-            uiState.sakatsuSettingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
+            uiState.settingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
         }
     }
 }
 
 // MARK: - Event handler
 
-extension SakatsuSettingsViewModel {
+extension SettingsViewModel {
     func onDefaultSaunaTimeChange(defaultSaunaTime: TimeInterval?) {
         guard validator.validate(saunaTime: defaultSaunaTime) else {
             return
@@ -91,6 +91,6 @@ extension SakatsuSettingsViewModel {
     }
 
     func onErrorAlertDismiss() {
-        uiState.sakatsuSettingsError = nil
+        uiState.settingsError = nil
     }
 }

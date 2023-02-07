@@ -35,13 +35,3 @@
 "Failed to save Sakatsu." = "Failed to save Sakatsu.";
 "Detailed cause unknown." = "Detailed cause unknown.";
 "Please try again after some time." = "Please try again after some time.";
-
-// SakatsuSettingsScreen
-"Default times" = "Default times";
-"Sauna" = "Sauna";
-"Cool bath" = "Cool bath";
-"Relaxation" = "Relaxation";
-"m" = "m";
-"s" = "s";
-"Settings" = "Settings";
-"Version" = "Version";

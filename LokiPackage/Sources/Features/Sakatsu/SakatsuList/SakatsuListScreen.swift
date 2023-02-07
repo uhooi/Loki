@@ -1,6 +1,7 @@
 import SwiftUI
-import UICore
+import SettingsFeature
 import SakatsuData
+import UICore
 
 public struct SakatsuListScreen: View {
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
@@ -105,7 +106,7 @@ private extension View {
                 onDismiss()
             })
         ) {
-            SakatsuSettingsScreen()
+            SettingsScreen()
         }
     }
 

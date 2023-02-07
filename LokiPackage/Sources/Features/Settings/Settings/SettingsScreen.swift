@@ -2,14 +2,14 @@ import SwiftUI
 import UICore
 import SakatsuData
 
-struct SakatsuSettingsScreen: View {
-    @StateObject private var viewModel: SakatsuSettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
+public struct SettingsScreen: View {
+    @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
 
     @Environment(\.dismiss) private var dismiss
 
-    var body: some View {
+    public var body: some View {
         NavigationStack {
-            SakatsuSettingsView(
+            SettingsView(
                 defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
                 onDefaultSaunaTimeChange: { defaultSaunaTime in
                     viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
@@ -20,21 +20,21 @@ struct SakatsuSettingsScreen: View {
                 }
             )
             .navigationTitle(L10n.settings)
-            .sakatsuSettingsScreenToolbar(onCloseButtonClick: { dismiss() })
+            .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
             .errorAlert(
-                error: viewModel.uiState.sakatsuSettingsError,
+                error: viewModel.uiState.settingsError,
                 onDismiss: { viewModel.onErrorAlertDismiss() }
             )
         }
     }
 
-    init() {
-        self._viewModel = StateObject(wrappedValue: SakatsuSettingsViewModel())
+    public init() {
+        self._viewModel = StateObject(wrappedValue: SettingsViewModel())
     }
 }
 
 private extension View {
-    func sakatsuSettingsScreenToolbar(
+    func settingsScreenToolbar(
         onCloseButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
@@ -50,9 +50,9 @@ private extension View {
 }
 
 #if DEBUG
-struct SakatsuSettingsScreen_Previews: PreviewProvider {
+struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SakatsuSettingsScreen()
+        SettingsScreen()
     }
 }
 #endif
