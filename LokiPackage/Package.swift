@@ -18,10 +18,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "ProductionApp",
-            targets: [
-                "SakatsuFeature",
-            ]),
+            name: "Production",
+            targets: ["ProductionApp"]),
         .library(
             name: "Develop",
             targets: ["DevelopApp"]),
@@ -34,6 +32,14 @@ let package = Package(
     ],
     targets: [
         // App layer
+        .target(
+            name: "ProductionApp",
+            dependencies: [
+                "SakatsuFeature",
+                "SettingsFeature",
+            ],
+            path: "./Sources/Apps/Production",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
             name: "DevelopApp",
             dependencies: [
