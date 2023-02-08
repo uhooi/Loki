@@ -88,10 +88,12 @@ private extension View {
                 onDismiss()
             })
         ) {
-            SakatsuInputScreen(
-                editMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
-                onSakatsuSave: onSakatsuSave
-            )
+            NavigationStack {
+                SakatsuInputScreen(
+                    editMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
+                    onSakatsuSave: onSakatsuSave
+                )
+            }
         }
     }
 
@@ -137,7 +139,9 @@ private extension View {
 #if DEBUG
 struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SakatsuListScreen(settingsScreen: EmptyView())
+        NavigationStack {
+            SakatsuListScreen(settingsScreen: EmptyView())
+        }
     }
 }
 #endif

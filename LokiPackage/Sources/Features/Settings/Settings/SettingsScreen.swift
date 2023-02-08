@@ -50,7 +50,9 @@ private extension View {
 #if DEBUG
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen()
+        NavigationStack {
+            SettingsScreen()
+        }
     }
 }
 #endif
