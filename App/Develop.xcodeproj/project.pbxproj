@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1185D03D2993E93A0021EFDE /* Develop in Frameworks */ = {isa = PBXBuildFile; productRef = 1185D03C2993E93A0021EFDE /* Develop */; };
 		4B70E98A29912ECC00D55B7B /* DevelopApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70E98429912ECC00D55B7B /* DevelopApp.swift */; };
 		4B70E98B29912ECC00D55B7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B70E98729912ECC00D55B7B /* Assets.xcassets */; };
 		4B70E98C29912ECC00D55B7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B70E98929912ECC00D55B7B /* Preview Assets.xcassets */; };
-		4B70E98F29912F6300D55B7B /* DevelopApp in Frameworks */ = {isa = PBXBuildFile; productRef = 4B70E98E29912F6300D55B7B /* DevelopApp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B70E98F29912F6300D55B7B /* DevelopApp in Frameworks */,
+				1185D03D2993E93A0021EFDE /* Develop in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +102,7 @@
 			);
 			name = Develop;
 			packageProductDependencies = (
-				4B70E98E29912F6300D55B7B /* DevelopApp */,
+				1185D03C2993E93A0021EFDE /* Develop */,
 			);
 			productName = Develop;
 			productReference = 4B70E97229912DEA00D55B7B /* Develop.app */;
@@ -129,8 +129,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ja,
-                Base,
-                en,
+				Base,
+				en,
 			);
 			mainGroup = 4B70E96929912DEA00D55B7B;
 			productRefGroup = 4B70E97329912DEA00D55B7B /* Products */;
@@ -378,9 +378,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4B70E98E29912F6300D55B7B /* DevelopApp */ = {
+		1185D03C2993E93A0021EFDE /* Develop */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DevelopApp;
+			productName = Develop;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

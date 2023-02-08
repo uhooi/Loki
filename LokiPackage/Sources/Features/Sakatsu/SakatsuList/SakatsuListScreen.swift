@@ -1,56 +1,57 @@
 import SwiftUI
-import SettingsFeature
 import SakatsuData
 import UICore
 
-public struct SakatsuListScreen: View {
+public struct SakatsuListScreen<SettingsScreen: View>: View {
+    private let settingsScreen: SettingsScreen
+    
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
 
     public var body: some View {
-        NavigationStack {
-            SakatsuListView(
-                sakatsus: viewModel.uiState.sakatsus,
-                onCopySakatsuTextButtonClick: { sakatsuIndex in
-                    viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
-                }, onEditButtonClick: { sakatsuIndex in
-                    viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
-                }, onDelete: { offsets in
-                    viewModel.onDelete(at: offsets)
-                }
-            )
-            .navigationTitle(L10n.sakatsuList)
-            .overlay(alignment: .bottomTrailing) {
-                FAB(
-                    systemName: "plus",
-                    action: { viewModel.onAddButtonClick() }
-                )
-                .padding(16)
+        SakatsuListView(
+            sakatsus: viewModel.uiState.sakatsus,
+            onCopySakatsuTextButtonClick: { sakatsuIndex in
+                viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
+            }, onEditButtonClick: { sakatsuIndex in
+                viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
+            }, onDelete: { offsets in
+                viewModel.onDelete(at: offsets)
             }
-            .sakatsuListScreenToolbar(
-                onSettingsButtonClick: { viewModel.onSettingsButtonClick() }
+        )
+        .navigationTitle(L10n.sakatsuList)
+        .overlay(alignment: .bottomTrailing) {
+            FAB(
+                systemName: "plus",
+                action: { viewModel.onAddButtonClick() }
             )
-            .sakatsuInputSheet(
-                shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
-                selectedSakatsu: viewModel.uiState.selectedSakatsu,
-                onDismiss: { viewModel.onInputScreenDismiss() },
-                onSakatsuSave: { viewModel.onSakatsuSave() }
-            )
-            .sakatsuSettingsSheet(
-                shouldShowSheet: viewModel.uiState.shouldShowSettingsScreen,
-                onDismiss: { viewModel.onSettingsScreenDismiss() }
-            )
-            .copyingSakatsuTextAlert(
-                sakatsuText: viewModel.uiState.sakatsuText,
-                onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
-            )
-            .errorAlert(
-                error: viewModel.uiState.sakatsuListError,
-                onDismiss: { viewModel.onErrorAlertDismiss() }
-            )
+            .padding(16)
         }
+        .sakatsuListScreenToolbar(
+            onSettingsButtonClick: { viewModel.onSettingsButtonClick() }
+        )
+        .sakatsuInputSheet(
+            shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
+            selectedSakatsu: viewModel.uiState.selectedSakatsu,
+            onDismiss: { viewModel.onInputScreenDismiss() },
+            onSakatsuSave: { viewModel.onSakatsuSave() }
+        )
+        .sakatsuSettingsSheet(
+            shouldShowSheet: viewModel.uiState.shouldShowSettingsScreen,
+            settingsScreen: settingsScreen,
+            onDismiss: { viewModel.onSettingsScreenDismiss() }
+        )
+        .copyingSakatsuTextAlert(
+            sakatsuText: viewModel.uiState.sakatsuText,
+            onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
+        )
+        .errorAlert(
+            error: viewModel.uiState.sakatsuListError,
+            onDismiss: { viewModel.onErrorAlertDismiss() }
+        )
     }
 
-    public init() {
+    public init(settingsScreen: SettingsScreen) {
+        self.settingsScreen = settingsScreen
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
     }
 }
@@ -97,6 +98,7 @@ private extension View {
     @MainActor
     func sakatsuSettingsSheet(
         shouldShowSheet: Bool,
+        settingsScreen: some View,
         onDismiss: @escaping () -> Void
     ) -> some View {
         sheet(
@@ -106,7 +108,7 @@ private extension View {
                 onDismiss()
             })
         ) {
-            SettingsScreen()
+            settingsScreen
         }
     }
 
@@ -135,7 +137,7 @@ private extension View {
 #if DEBUG
 struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SakatsuListScreen()
+        SakatsuListScreen(settingsScreen: EmptyView())
     }
 }
 #endif
