@@ -1,6 +1,7 @@
 import SwiftUI
 import SakatsuFeature
 import SettingsFeature
+import UICore
 
 @MainActor
 public final class DevelopRouter {
@@ -9,18 +10,28 @@ public final class DevelopRouter {
     private init() {}
     
     public func firstScreen() -> some View {
-        sakatsuListScreen()
-    }
-    
-    private func sakatsuListScreen() -> some View {
         NavigationStack {
-            SakatsuListScreen(settingsScreen: settingsScreen())
+            makeSakatsuListScreen()
         }
     }
-    
-    private func settingsScreen() -> some View {
+}
+
+extension DevelopRouter: SakatsuRouterProtocol {
+    public func settingsScreen() -> some View {
         NavigationStack {
-            SettingsScreen()
+            makeSettingsScreen()
         }
+    }
+}
+
+// MARK: - Screen factory
+
+private extension DevelopRouter {
+    func makeSakatsuListScreen() -> some View {
+        SakatsuListScreen(router: Self.shared)
+    }
+    
+    func makeSettingsScreen() -> some View {
+        SettingsScreen()
     }
 }

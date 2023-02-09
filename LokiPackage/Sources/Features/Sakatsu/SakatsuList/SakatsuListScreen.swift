@@ -2,8 +2,8 @@ import SwiftUI
 import SakatsuData
 import UICore
 
-public struct SakatsuListScreen<SettingsScreen: View>: View {
-    private let settingsScreen: SettingsScreen
+public struct SakatsuListScreen<Router: SakatsuRouterProtocol>: View {
+    private let router: Router
     
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
 
@@ -37,7 +37,7 @@ public struct SakatsuListScreen<SettingsScreen: View>: View {
         )
         .sakatsuSettingsSheet(
             shouldShowSheet: viewModel.uiState.shouldShowSettingsScreen,
-            settingsScreen: settingsScreen,
+            settingsScreen: router.settingsScreen(),
             onDismiss: { viewModel.onSettingsScreenDismiss() }
         )
         .copyingSakatsuTextAlert(
@@ -50,8 +50,8 @@ public struct SakatsuListScreen<SettingsScreen: View>: View {
         )
     }
 
-    public init(settingsScreen: SettingsScreen) {
-        self.settingsScreen = settingsScreen
+    public init(router: Router) {
+        self.router = router
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
     }
 }
@@ -97,7 +97,6 @@ private extension View {
         }
     }
 
-    @MainActor
     func sakatsuSettingsSheet(
         shouldShowSheet: Bool,
         settingsScreen: some View,
@@ -140,7 +139,7 @@ private extension View {
 struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SakatsuListScreen(settingsScreen: EmptyView())
+            SakatsuListScreen(router: SakatsuRouterMock.shared)
         }
     }
 }
