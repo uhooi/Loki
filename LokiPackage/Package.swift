@@ -37,6 +37,7 @@ let package = Package(
             dependencies: [
                 "SakatsuFeature",
                 "SettingsFeature",
+                "UICore",
             ],
             path: "./Sources/Apps/Production",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
@@ -45,6 +46,7 @@ let package = Package(
             dependencies: [
                 "SakatsuFeature",
                 "SettingsFeature",
+                "UICore",
             ],
             path: "./Sources/Apps/Develop",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
