@@ -18,15 +18,11 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "ProductionApp",
-            targets: [
-                "SakatsuFeature",
-            ]),
+            name: "Production",
+            targets: ["ProductionApp"]),
         .library(
-            name: "DevelopApp",
-            targets: [
-                "SakatsuFeature",
-            ]),
+            name: "Develop",
+            targets: ["DevelopApp"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
@@ -35,11 +31,30 @@ let package = Package(
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
     ],
     targets: [
+        // App layer
+        .target(
+            name: "ProductionApp",
+            dependencies: [
+                "SakatsuFeature",
+                "SettingsFeature",
+                "UICore",
+            ],
+            path: "./Sources/Apps/Production",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+        .target(
+            name: "DevelopApp",
+            dependencies: [
+                "SakatsuFeature",
+                "SettingsFeature",
+                "UICore",
+            ],
+            path: "./Sources/Apps/Develop",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+        
         // Feature layer
         .target(
             name: "SakatsuFeature",
             dependencies: [
-                "SettingsFeature",
                 "UICore",
                 "SakatsuData",
                 .product(name: "Algorithms", package: "swift-algorithms"),

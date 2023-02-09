@@ -78,13 +78,23 @@ https://www.figma.com/file/T6xPOXP9b1nzRey05q7ZL9/Loki_module_diagram?node-id=0%
   - https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/TotonoiPackage
 - プロジェクトには最低限のファイルのみ含める
   - https://github.com/uhooi/Loki/blob/6159958e6df6f5645c8593e0d7772bd8e3d00cb7/App/Totonoi
-- `Features` ・ `Data` ・ `Core` の3層に分ける
+- `Apps` ・ `Features` ・ `Data` ・ `Core` の4層に分ける
   - 参考: https://developer.android.com/topic/modularization
+
+#### Apps
+
+- アプリのエントリポイントで、ルートナビゲーションロジックを格納する
+- 基本的にすべてのFeatureモジュールに依存する
+- Dataモジュールに依存してはいけない
+- Coreモジュールに依存していい
+
+参考: https://developer.android.com/topic/modularization/patterns#app-modules
 
 #### Features
 
 - 各機能のビューやビューモデルを格納する
-- できる限りほかのFeatureモジュールに依存しない
+- Appモジュールに依存してはいけない
+- ほかのFeatureモジュールに依存してはいけない
 - DataやCoreモジュールに依存していい
 
 参考: https://developer.android.com/topic/modularization/patterns#feature-modules
@@ -92,7 +102,7 @@ https://www.figma.com/file/T6xPOXP9b1nzRey05q7ZL9/Loki_module_diagram?node-id=0%
 #### Data
 
 - リポジトリやモデルを格納する
-- Featureモジュールに依存してはいけない
+- AppやFeatureモジュールに依存してはいけない
 - できる限りほかのDataモジュールに依存しない
 - Coreモジュールに依存していい
 
@@ -101,7 +111,7 @@ https://www.figma.com/file/T6xPOXP9b1nzRey05q7ZL9/Loki_module_diagram?node-id=0%
 #### Core
 
 - 複数のモジュールが共通で使う処理を格納する
-- FeatureやDataモジュールに依存してはいけない
+- AppやFeature、Dataモジュールに依存してはいけない
 - ほかのCoreモジュールに依存していい
 
 参考: https://developer.android.com/topic/modularization/patterns#common-modules

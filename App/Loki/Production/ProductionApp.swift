@@ -1,11 +1,11 @@
 import SwiftUI
-import SakatsuFeature
+import ProductionApp
 
 @main
 struct ProductionApp: App {
     var body: some Scene {
         WindowGroup {
-            SakatsuListScreen()
+            ProductionRouter.shared.firstScreen()
         }
     }
 }

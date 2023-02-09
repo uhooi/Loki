@@ -8,24 +8,22 @@ public struct SettingsScreen: View {
     @Environment(\.dismiss) private var dismiss
 
     public var body: some View {
-        NavigationStack {
-            SettingsView(
-                defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
-                onDefaultSaunaTimeChange: { defaultSaunaTime in
-                    viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
-                }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in
-                    viewModel.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime)
-                }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
-                    viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
-                }
-            )
-            .navigationTitle(L10n.settings)
-            .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
-            .errorAlert(
-                error: viewModel.uiState.settingsError,
-                onDismiss: { viewModel.onErrorAlertDismiss() }
-            )
-        }
+        SettingsView(
+            defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
+            onDefaultSaunaTimeChange: { defaultSaunaTime in
+                viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
+            }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in
+                viewModel.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime)
+            }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
+                viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
+            }
+        )
+        .navigationTitle(L10n.settings)
+        .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
+        .errorAlert(
+            error: viewModel.uiState.settingsError,
+            onDismiss: { viewModel.onErrorAlertDismiss() }
+        )
     }
 
     public init() {
@@ -52,7 +50,9 @@ private extension View {
 #if DEBUG
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen()
+        NavigationStack {
+            SettingsScreen()
+        }
     }
 }
 #endif

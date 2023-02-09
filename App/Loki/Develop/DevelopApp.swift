@@ -1,11 +1,11 @@
 import SwiftUI
-import SakatsuFeature
+import DevelopApp
 
 @main
 struct DevelopApp: App {
     var body: some Scene {
         WindowGroup {
-            SakatsuListScreen()
+            DevelopRouter.shared.firstScreen()
         }
     }
 }
