@@ -2,8 +2,8 @@ import SwiftUI
 
 @MainActor
 public protocol SakatsuRouterProtocol {
-    associatedtype Screen : View
-    func settingsScreen() -> Self.Screen
+    associatedtype SettingsScreenType : View
+    func settingsScreen() -> Self.SettingsScreenType
 }
 
 #if DEBUG
@@ -14,8 +14,6 @@ public final class SakatsuRouterMock {
 }
     
 extension SakatsuRouterMock: SakatsuRouterProtocol {
-    public func settingsScreen() -> some View {
-        EmptyView()
-    }
+    public func settingsScreen() -> some View { EmptyView() }
 }
 #endif

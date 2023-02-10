@@ -55,8 +55,8 @@ let package = Package(
         .target(
             name: "SakatsuFeature",
             dependencies: [
-                "UICore",
                 "SakatsuData",
+                "UICore",
                 .product(name: "Algorithms", package: "swift-algorithms"),
             ],
             path: "./Sources/Features/Sakatsu",
@@ -71,8 +71,8 @@ let package = Package(
         .target(
             name: "SettingsFeature",
             dependencies: [
-                "UICore",
                 "SakatsuData",
+                "UICore",
             ],
             path: "./Sources/Features/Settings",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
