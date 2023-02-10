@@ -1,6 +1,6 @@
 import SwiftUI
-import UICore
 import SakatsuData
+import UICore
 
 public struct SettingsScreen: View {
     @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
