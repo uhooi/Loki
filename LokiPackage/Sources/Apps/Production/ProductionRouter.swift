@@ -6,9 +6,9 @@ import UICore
 @MainActor
 public final class ProductionRouter {
     public static let shared = ProductionRouter()
-    
+
     private init() {}
-    
+
     public func firstScreen() -> some View {
         NavigationStack {
             makeSakatsuListScreen()
@@ -30,7 +30,7 @@ private extension ProductionRouter {
     func makeSakatsuListScreen() -> some View {
         SakatsuListScreen(router: Self.shared)
     }
-    
+
     func makeSettingsScreen() -> some View {
         SettingsScreen()
     }
