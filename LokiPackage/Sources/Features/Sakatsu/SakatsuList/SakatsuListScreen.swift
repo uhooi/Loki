@@ -4,7 +4,6 @@ import UICore
 
 public struct SakatsuListScreen<Router: SakatsuRouterProtocol>: View {
     private let router: Router
-    
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
 
     public var body: some View {

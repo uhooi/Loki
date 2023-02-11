@@ -1,6 +1,6 @@
 import SwiftUI
-import UICore
 import SakatsuData
+import UICore
 
 struct SakatsuInputScreen: View {
     @StateObject private var viewModel: SakatsuInputViewModel<SakatsuUserDefaultsClient, SakatsuValidator>
