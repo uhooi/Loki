@@ -51,7 +51,7 @@ private extension ButtonStyle where Self == FloatingActionButtonStyle {
     static func floatingAction(
         backgroundColor: Color,
         foregroundColor: Color
-    ) -> FloatingActionButtonStyle {
+    ) -> Self {
         .init(
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor
