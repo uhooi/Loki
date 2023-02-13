@@ -23,12 +23,16 @@ let package = Package(
         .library(
             name: "Develop",
             targets: ["DevelopApp"]),
+        .library(
+            name: "Catalog",
+            targets: ["CatalogApp"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
         //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
-        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
+        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"),
+        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
     ],
     targets: [
         // App layer
@@ -49,6 +53,17 @@ let package = Package(
                 "UICore",
             ],
             path: "./Sources/Apps/Develop",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+        .target(
+            name: "CatalogApp",
+            dependencies: [
+                "SakatsuFeature",
+                "SettingsFeature",
+                "UICore",
+                .product(name: "Playbook", package: "playbook-ios"),
+                .product(name: "PlaybookUI", package: "playbook-ios"),
+            ],
+            path: "./Sources/Apps/Catalog",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         
         // Feature layer

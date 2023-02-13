@@ -10,4 +10,7 @@
    <FileRef
       location = "group:App/Develop.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:LokiPackage/Sources/Apps/Develop/../../../../App/Catalog.xcodeproj">
+   </FileRef>
 </Workspace>

@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "playbook-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/playbook-ui/playbook-ios.git",
+      "state" : {
+        "revision" : "b2f25b15e82bc9aca59d60e79695f0c338e0e2e9",
+        "version" : "0.3.2"
+      }
+    },
+    {
       "identity" : "sourcekitten",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jpsim/SourceKitten.git",
