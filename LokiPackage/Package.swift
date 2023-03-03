@@ -8,6 +8,10 @@ private extension PackageDescription.Target.Dependency {
     static let playbookUI: Self = .product(name: "PlaybookUI", package: "playbook-ios")
 }
 
+private extension PackageDescription.Target.PluginUsage {
+    static let swiftgen: Self = .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
+}
+
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
     "-Xfrontend", "-warn-long-function-bodies=500",
@@ -83,7 +87,7 @@ let package = Package(
             path: "./Sources/Features/Sakatsu",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         .testTarget(
             name: "SakatsuFeatureTests",
@@ -98,7 +102,7 @@ let package = Package(
             path: "./Sources/Features/Settings",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         
         // Data layer
@@ -110,7 +114,7 @@ let package = Package(
             path: "./Sources/Data/Sakatsu",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         .testTarget(
             name: "SakatsuDataTests",
@@ -124,7 +128,7 @@ let package = Package(
             path: "./Sources/Core/UserDefaults",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         .testTarget(
             name: "UserDefaultsCoreTests",
