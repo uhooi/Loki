@@ -2,6 +2,12 @@
 
 import PackageDescription
 
+private extension PackageDescription.Target.Dependency {
+    static let algorithms: Self = .product(name: "Algorithms", package: "swift-algorithms")
+    static let playbook: Self = .product(name: "Playbook", package: "playbook-ios")
+    static let playbookUI: Self = .product(name: "PlaybookUI", package: "playbook-ios")
+}
+
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
     "-Xfrontend", "-warn-long-function-bodies=500",
@@ -60,8 +66,8 @@ let package = Package(
                 "SakatsuFeature",
                 "SettingsFeature",
                 "UICore",
-                .product(name: "Playbook", package: "playbook-ios"),
-                .product(name: "PlaybookUI", package: "playbook-ios"),
+                .playbook,
+                .playbookUI,
             ],
             path: "./Sources/Apps/Catalog",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
@@ -72,7 +78,7 @@ let package = Package(
             dependencies: [
                 "SakatsuData",
                 "UICore",
-                .product(name: "Algorithms", package: "swift-algorithms"),
+                .algorithms,
             ],
             path: "./Sources/Features/Sakatsu",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
