@@ -27,15 +27,9 @@ let package = Package(
         .macOS(.v12),
     ],
     products: [
-        .library(
-            name: "Production",
-            targets: ["ProductionApp"]),
-        .library(
-            name: "Develop",
-            targets: ["DevelopApp"]),
-        .library(
-            name: "Catalog",
-            targets: ["CatalogApp"]),
+        .library(name: "Production", targets: ["ProductionApp"]),
+        .library(name: "Develop", targets: ["DevelopApp"]),
+        .library(name: "Catalog", targets: ["CatalogApp"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
