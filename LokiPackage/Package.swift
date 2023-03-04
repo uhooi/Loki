@@ -19,6 +19,11 @@ let debugOtherSwiftFlags = [
     "-enable-actor-data-race-checks",
 ]
 
+let productionFeatures: [PackageDescription.Target.Dependency] = [
+    "SakatsuFeature",
+    "SettingsFeature",
+]
+
 // MARK: Package
 
 let package = Package(
@@ -44,27 +49,21 @@ let package = Package(
         // App layer
         .target(
             name: "ProductionApp",
-            dependencies: [
-                "SakatsuFeature",
-                "SettingsFeature",
+            dependencies: productionFeatures + [
                 "UICore",
             ],
             path: "./Sources/Apps/Production",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
             name: "DevelopApp",
-            dependencies: [
-                "SakatsuFeature",
-                "SettingsFeature",
+            dependencies: productionFeatures + [
                 "UICore",
             ],
             path: "./Sources/Apps/Develop",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
             name: "CatalogApp",
-            dependencies: [
-                "SakatsuFeature",
-                "SettingsFeature",
+            dependencies: productionFeatures + [
                 "UICore",
                 .playbook,
                 .playbookUI,
