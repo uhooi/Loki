@@ -2,12 +2,29 @@
 
 import PackageDescription
 
+private extension PackageDescription.Target.Dependency {
+    static let algorithms: Self = .product(name: "Algorithms", package: "swift-algorithms")
+    static let playbook: Self = .product(name: "Playbook", package: "playbook-ios")
+    static let playbookUI: Self = .product(name: "PlaybookUI", package: "playbook-ios")
+}
+
+private extension PackageDescription.Target.PluginUsage {
+    static let swiftgen: Self = .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
+}
+
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
     "-Xfrontend", "-warn-long-function-bodies=500",
     "-strict-concurrency=complete",
     "-enable-actor-data-race-checks",
 ]
+
+let productionFeatures: [PackageDescription.Target.Dependency] = [
+    "SakatsuFeature",
+    "SettingsFeature",
+]
+
+// MARK: Package
 
 let package = Package(
     name: "LokiPackage",
@@ -17,15 +34,9 @@ let package = Package(
         .macOS(.v12),
     ],
     products: [
-        .library(
-            name: "Production",
-            targets: ["ProductionApp"]),
-        .library(
-            name: "Develop",
-            targets: ["DevelopApp"]),
-        .library(
-            name: "Catalog",
-            targets: ["CatalogApp"]),
+        .library(name: "Production", targets: ["ProductionApp"]),
+        .library(name: "Develop", targets: ["DevelopApp"]),
+        .library(name: "Catalog", targets: ["CatalogApp"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
@@ -38,30 +49,24 @@ let package = Package(
         // App layer
         .target(
             name: "ProductionApp",
-            dependencies: [
-                "SakatsuFeature",
-                "SettingsFeature",
+            dependencies: productionFeatures + [
                 "UICore",
             ],
             path: "./Sources/Apps/Production",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
             name: "DevelopApp",
-            dependencies: [
-                "SakatsuFeature",
-                "SettingsFeature",
+            dependencies: productionFeatures + [
                 "UICore",
             ],
             path: "./Sources/Apps/Develop",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
             name: "CatalogApp",
-            dependencies: [
-                "SakatsuFeature",
-                "SettingsFeature",
+            dependencies: productionFeatures + [
                 "UICore",
-                .product(name: "Playbook", package: "playbook-ios"),
-                .product(name: "PlaybookUI", package: "playbook-ios"),
+                .playbook,
+                .playbookUI,
             ],
             path: "./Sources/Apps/Catalog",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
@@ -72,12 +77,12 @@ let package = Package(
             dependencies: [
                 "SakatsuData",
                 "UICore",
-                .product(name: "Algorithms", package: "swift-algorithms"),
+                .algorithms,
             ],
             path: "./Sources/Features/Sakatsu",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         .testTarget(
             name: "SakatsuFeatureTests",
@@ -92,7 +97,7 @@ let package = Package(
             path: "./Sources/Features/Settings",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         
         // Data layer
@@ -104,7 +109,7 @@ let package = Package(
             path: "./Sources/Data/Sakatsu",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         .testTarget(
             name: "SakatsuDataTests",
@@ -118,7 +123,7 @@ let package = Package(
             path: "./Sources/Core/UserDefaults",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
-                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+                .swiftgen,
             ]),
         .testTarget(
             name: "UserDefaultsCoreTests",
