@@ -19,6 +19,8 @@ let debugOtherSwiftFlags = [
     "-enable-actor-data-race-checks",
 ]
 
+// MARK: Package
+
 let package = Package(
     name: "LokiPackage",
     defaultLocalization: "ja",
