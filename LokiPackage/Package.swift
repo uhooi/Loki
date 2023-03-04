@@ -12,6 +12,10 @@ private extension PackageDescription.Target.PluginUsage {
     static let swiftgen: Self = .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
 }
 
+let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
+    .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
+]
+
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
     "-Xfrontend", "-warn-long-function-bodies=500",
@@ -53,14 +57,14 @@ let package = Package(
                 "UICore",
             ],
             path: "./Sources/Apps/Production",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
         .target(
             name: "DevelopApp",
             dependencies: productionFeatures + [
                 "UICore",
             ],
             path: "./Sources/Apps/Develop",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
         .target(
             name: "CatalogApp",
             dependencies: productionFeatures + [
@@ -69,7 +73,7 @@ let package = Package(
                 .playbookUI,
             ],
             path: "./Sources/Apps/Catalog",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
         
         // Feature layer
         .target(
@@ -80,7 +84,7 @@ let package = Package(
                 .algorithms,
             ],
             path: "./Sources/Features/Sakatsu",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -95,7 +99,7 @@ let package = Package(
                 "UICore",
             ],
             path: "./Sources/Features/Settings",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -107,7 +111,7 @@ let package = Package(
                 "UserDefaultsCore",
             ],
             path: "./Sources/Data/Sakatsu",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -121,7 +125,7 @@ let package = Package(
             name: "UserDefaultsCore",
             dependencies: [],
             path: "./Sources/Core/UserDefaults",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -133,6 +137,6 @@ let package = Package(
             name: "UICore",
             dependencies: [],
             path: "./Sources/Core/UI",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
     ]
 )
