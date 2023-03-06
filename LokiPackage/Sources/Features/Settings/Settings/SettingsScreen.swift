@@ -2,7 +2,8 @@ import SwiftUI
 import SakatsuData
 import UICore
 
-public struct SettingsScreen: View {
+public struct SettingsScreen<Router: SettingsRouterProtocol>: View {
+    private let router: Router
     @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
 
     @Environment(\.dismiss) private var dismiss
@@ -10,6 +11,7 @@ public struct SettingsScreen: View {
     public var body: some View {
         SettingsView(
             defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
+            licensesScreen: router.licensesScreen(),
             onDefaultSaunaTimeChange: { defaultSaunaTime in
                 viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
             }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in
@@ -26,7 +28,8 @@ public struct SettingsScreen: View {
         )
     }
 
-    public init() {
+    public init(router: Router) {
+        self.router = router
         self._viewModel = StateObject(wrappedValue: SettingsViewModel())
     }
 }
@@ -51,7 +54,7 @@ private extension View {
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SettingsScreen()
+            SettingsScreen(router: SettingsRouterMock.shared)
         }
     }
 }

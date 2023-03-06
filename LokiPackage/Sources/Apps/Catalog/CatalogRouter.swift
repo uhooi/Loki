@@ -2,6 +2,7 @@ import SwiftUI
 import PlaybookUI
 import SakatsuFeature
 import SettingsFeature
+import LicensesFeature
 import UICore
 
 @MainActor
@@ -34,6 +35,13 @@ extension CatalogRouter: SakatsuRouterProtocol {
     }
 }
 
+extension CatalogRouter: SettingsRouterProtocol {
+    public func licensesScreen() -> some View {
+        makeLicensesScreen()
+    }
+}
+
+
 // MARK: - Screen factory
 
 private extension CatalogRouter {
@@ -46,6 +54,10 @@ private extension CatalogRouter {
     }
 
     func makeSettingsScreen() -> some View {
-        SettingsScreen()
+        SettingsScreen(router: Self.shared)
+    }
+    
+    func makeLicensesScreen() -> some View {
+        LicensesScreen()
     }
 }

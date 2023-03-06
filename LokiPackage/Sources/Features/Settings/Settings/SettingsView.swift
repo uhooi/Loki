@@ -1,8 +1,9 @@
 import SwiftUI
 import SakatsuData
 
-struct SettingsView: View {
+struct SettingsView<LicensesScreen: View>: View {
     let defaultSaunaTimes: DefaultSaunaTimes
+    let licensesScreen: LicensesScreen
 
     let onDefaultSaunaTimeChange: ((TimeInterval?) -> Void)
     let onDefaultCoolBathTimeChange: ((TimeInterval?) -> Void)
@@ -11,6 +12,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             defaultSaunaSetsSection
+            licensesSection
             versionSection
         }
     }
@@ -40,6 +42,15 @@ struct SettingsView: View {
             )
         } header: {
             Text(L10n.defaultTimes)
+        }
+    }
+    
+    private var licensesSection: some View {
+        Section {
+            NavigationLink(
+                L10n.licenses,
+                destination: licensesScreen
+            )
         }
     }
 
@@ -81,6 +92,7 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(
             defaultSaunaTimes: .preview,
+            licensesScreen: EmptyView(),
             onDefaultSaunaTimeChange: { _ in },
             onDefaultCoolBathTimeChange: { _ in },
             onDefaultRelaxationTimeChange: { _ in }
