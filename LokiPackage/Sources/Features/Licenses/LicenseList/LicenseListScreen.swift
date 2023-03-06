@@ -14,17 +14,7 @@ public struct LicenseListScreen: View {
         .navigationTitle(L10n.licenses)
         .sheet(item: $selectedLicense) { license in
             NavigationStack {
-                Group {
-                    if let licenseText = license.licenseText {
-                        ScrollView {
-                            Text(licenseText)
-                                .padding()
-                        }
-                    } else {
-                        Text(L10n.noLicenseFound)
-                    }
-                }
-                .navigationTitle(license.name)
+                LicenseDetailScreen(license: license)
             }
         }
     }
