@@ -1,22 +1,14 @@
 import SwiftUI
 
 public struct LicenseListScreen: View {
-    @State private var selectedLicense: LicensesPlugin.License?
-    
     public var body: some View {
-        List {
-            ForEach(LicensesPlugin.licenses) { license in
-                Button(license.name) {
-                    selectedLicense = license
-                }
-            }
+        List(LicensesPlugin.licenses) { license in
+            NavigationLink(
+                license.name,
+                destination: LicenseDetailScreen(license: license)
+            )
         }
         .navigationTitle(L10n.licenses)
-        .sheet(item: $selectedLicense) { license in
-            NavigationStack {
-                LicenseDetailScreen(license: license)
-            }
-        }
     }
     
     public init() {}
