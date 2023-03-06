@@ -41,7 +41,6 @@ extension CatalogRouter: SettingsRouterProtocol {
     }
 }
 
-
 // MARK: - Screen factory
 
 private extension CatalogRouter {
