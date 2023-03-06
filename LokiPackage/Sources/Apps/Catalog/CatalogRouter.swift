@@ -57,6 +57,6 @@ private extension CatalogRouter {
     }
     
     func makeLicensesScreen() -> some View {
-        LicensesScreen()
+        LicenseListScreen()
     }
 }

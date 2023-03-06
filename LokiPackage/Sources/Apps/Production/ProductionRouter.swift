@@ -43,6 +43,6 @@ private extension ProductionRouter {
     }
     
     func makeLicensesScreen() -> some View {
-        LicensesScreen()
+        LicenseListScreen()
     }
 }

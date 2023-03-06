@@ -43,6 +43,6 @@ private extension DevelopRouter {
     }
     
     func makeLicensesScreen() -> some View {
-        LicensesScreen()
+        LicenseListScreen()
     }
 }

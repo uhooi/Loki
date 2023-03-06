@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct LicensesScreen: View {
+public struct LicenseListScreen: View {
     @State private var selectedLicense: LicensesPlugin.License?
     
     public var body: some View {
@@ -33,9 +33,9 @@ public struct LicensesScreen: View {
 }
 
 #if DEBUG
-struct LicensesScreen_Previews: PreviewProvider {
+struct LicenseListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LicensesScreen()
+        LicenseListScreen()
     }
 }
 #endif
