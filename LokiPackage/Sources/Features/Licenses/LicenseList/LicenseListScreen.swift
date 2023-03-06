@@ -11,6 +11,7 @@ public struct LicenseListScreen: View {
                 }
             }
         }
+        .navigationTitle(L10n.licenses)
         .sheet(item: $selectedLicense) { license in
             NavigationStack {
                 Group {
@@ -26,7 +27,6 @@ public struct LicenseListScreen: View {
                 .navigationTitle(license.name)
             }
         }
-        .navigationTitle(L10n.licenses)
     }
     
     public init() {}
