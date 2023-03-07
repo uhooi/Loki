@@ -7,10 +7,12 @@ struct SettingsView: View {
     let onDefaultSaunaTimeChange: ((TimeInterval?) -> Void)
     let onDefaultCoolBathTimeChange: ((TimeInterval?) -> Void)
     let onDefaultRelaxationTimeChange: ((TimeInterval?) -> Void)
+    let onLicensesButtonClick: () -> Void
 
     var body: some View {
         Form {
             defaultSaunaSetsSection
+            licensesSection
             versionSection
         }
     }
@@ -40,6 +42,12 @@ struct SettingsView: View {
             )
         } header: {
             Text(L10n.defaultTimes)
+        }
+    }
+    
+    private var licensesSection: some View {
+        Section {
+            Button(L10n.licenses, action: onLicensesButtonClick)
         }
     }
 
@@ -83,7 +91,8 @@ struct SettingsView_Previews: PreviewProvider {
             defaultSaunaTimes: .preview,
             onDefaultSaunaTimeChange: { _ in },
             onDefaultCoolBathTimeChange: { _ in },
-            onDefaultRelaxationTimeChange: { _ in }
+            onDefaultRelaxationTimeChange: { _ in },
+            onLicensesButtonClick: {}
         )
     }
 }

@@ -2,7 +2,8 @@ import SwiftUI
 import SakatsuData
 import UICore
 
-public struct SettingsScreen: View {
+public struct SettingsScreen<Router: SettingsRouterProtocol>: View {
+    private let router: Router
     @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
 
     @Environment(\.dismiss) private var dismiss
@@ -16,17 +17,25 @@ public struct SettingsScreen: View {
                 viewModel.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime)
             }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
                 viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
+            }, onLicensesButtonClick: {
+                viewModel.onLicensesButtonClick()
             }
         )
         .navigationTitle(L10n.settings)
         .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
+        .licenseListSheet(
+            shouldShowSheet: viewModel.uiState.shouldShowLicenseListScreen,
+            licenseListScreen: router.licenseListScreen(),
+            onDismiss: { viewModel.onLicenseListScreenDismiss() }
+        )
         .errorAlert(
             error: viewModel.uiState.settingsError,
             onDismiss: { viewModel.onErrorAlertDismiss() }
         )
     }
 
-    public init() {
+    public init(router: Router) {
+        self.router = router
         self._viewModel = StateObject(wrappedValue: SettingsViewModel())
     }
 }
@@ -45,13 +54,29 @@ private extension View {
             }
         }
     }
+    
+    func licenseListSheet(
+        shouldShowSheet: Bool,
+        licenseListScreen: some View,
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        sheet(
+            isPresented: .init(get: {
+                shouldShowSheet
+            }, set: { _ in
+                onDismiss()
+            })
+        ) {
+            licenseListScreen
+        }
+    }
 }
 
 #if DEBUG
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SettingsScreen()
+            SettingsScreen(router: SettingsRouterMock.shared)
         }
     }
 }

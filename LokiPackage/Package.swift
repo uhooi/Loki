@@ -10,6 +10,7 @@ private extension PackageDescription.Target.Dependency {
 
 private extension PackageDescription.Target.PluginUsage {
     static let swiftgen: Self = .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
+    static let licenses: Self = .plugin(name: "LicensesPlugin", package: "LicensesPlugin")
 }
 
 let debugOtherSwiftFlags = [
@@ -22,6 +23,7 @@ let debugOtherSwiftFlags = [
 let productionFeatures: [PackageDescription.Target.Dependency] = [
     "SakatsuFeature",
     "SettingsFeature",
+    "LicensesFeature",
 ]
 
 // MARK: Package
@@ -40,10 +42,11 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
         //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"),
-        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
+        .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.0"),
     ],
     targets: [
         // App layer
@@ -98,6 +101,17 @@ let package = Package(
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
             plugins: [
                 .swiftgen,
+            ]),
+        .target(
+            name: "LicensesFeature",
+            dependencies: [
+                "UICore",
+            ],
+            path: "./Sources/Features/Licenses",
+            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            plugins: [
+                .swiftgen,
+                .licenses,
             ]),
         
         // Data layer

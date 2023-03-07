@@ -1,0 +1,6 @@
+// LicenseListScreen
+"Licenses" = "ライセンス";
+"Select a license" = "ライセンスを選択してください";
+
+// LicenseDetailScreen
+"No license found" = "ライセンスが見つかりません";

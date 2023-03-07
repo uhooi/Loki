@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "licensesplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/maiyama18/LicensesPlugin",
+      "state" : {
+        "revision" : "c44414ad9c49f7d38309522ba8b23f63865f56b7",
+        "version" : "0.1.0"
+      }
+    },
+    {
       "identity" : "playbook-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/playbook-ui/playbook-ios.git",
