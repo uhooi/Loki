@@ -17,25 +17,14 @@ public final class DevelopRouter {
     }
 }
 
-extension DevelopRouter: SakatsuRouterProtocol {
-    public func settingsScreen() -> some View {
-        NavigationStack {
-            makeSettingsScreen()
-        }
-    }
-}
-
-extension DevelopRouter: SettingsRouterProtocol {
-    public func licenseListScreen() -> some View {
-        makeLicenseListScreen()
-    }
-}
-
 // MARK: - Screen factory
 
 private extension DevelopRouter {
     func makeSakatsuListScreen() -> some View {
-        SakatsuListScreen(router: Self.shared)
+        SakatsuListScreen(onSettingsButtonClick: { sakatsuListScreen in
+            sakatsuListScreen
+                .settingsSheet(settingsScreen: NavigationStack { self.makeSettingsScreen() })
+        })
     }
 
     func makeSettingsScreen() -> some View {
@@ -44,5 +33,13 @@ private extension DevelopRouter {
     
     func makeLicenseListScreen() -> some View {
         LicenseListScreen()
+    }
+}
+
+private extension View {
+    func settingsSheet(settingsScreen: some View) -> some View {
+        sheet(isPresented: .constant(true)) {
+            settingsScreen
+        }
     }
 }
