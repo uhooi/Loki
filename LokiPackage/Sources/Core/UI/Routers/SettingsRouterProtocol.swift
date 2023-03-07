@@ -2,8 +2,8 @@ import SwiftUI
 
 @MainActor
 public protocol SettingsRouterProtocol {
-    associatedtype LicensesScreenType: View
-    func licensesScreen() -> Self.LicensesScreenType
+    associatedtype LicenseListScreenType: View
+    func licenseListScreen() -> Self.LicenseListScreenType
 }
 
 #if DEBUG
@@ -14,6 +14,6 @@ public final class SettingsRouterMock {
 }
 
 extension SettingsRouterMock: SettingsRouterProtocol {
-    public func licensesScreen() -> some View { EmptyView() }
+    public func licenseListScreen() -> some View { EmptyView() }
 }
 #endif

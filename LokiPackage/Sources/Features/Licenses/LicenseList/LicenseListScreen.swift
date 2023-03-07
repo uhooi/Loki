@@ -1,17 +1,43 @@
 import SwiftUI
 
 public struct LicenseListScreen: View {
+    @State private var selectedLicense: LicensesPlugin.License?
+    
+    @Environment(\.dismiss) private var dismiss
+    
     public var body: some View {
-        List(LicensesPlugin.licenses) { license in
-            NavigationLink(
-                license.name,
-                destination: LicenseDetailScreen(license: license)
-            )
+        NavigationSplitView {
+            List(LicensesPlugin.licenses, selection: $selectedLicense) { license in
+                NavigationLink(license.name, value: license)
+            }
+            .navigationTitle(L10n.licenses)
+            .licenseListScreenToolbar(onCloseButtonClick: { dismiss() })
+        } detail: {
+            if let selectedLicense {
+                LicenseDetailScreen(license: selectedLicense)
+            } else {
+                Text(L10n.selectALicense)
+            }
         }
-        .navigationTitle(L10n.licenses)
     }
     
     public init() {}
+}
+
+private extension View {
+    func licenseListScreenToolbar(
+        onCloseButtonClick: @escaping () -> Void
+    ) -> some View {
+        toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    onCloseButtonClick()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
+        }
+    }
 }
 
 #if DEBUG

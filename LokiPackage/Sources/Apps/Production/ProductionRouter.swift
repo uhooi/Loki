@@ -26,8 +26,8 @@ extension ProductionRouter: SakatsuRouterProtocol {
 }
 
 extension ProductionRouter: SettingsRouterProtocol {
-    public func licensesScreen() -> some View {
-        makeLicensesScreen()
+    public func licenseListScreen() -> some View {
+        makeLicenseListScreen()
     }
 }
 
@@ -42,7 +42,7 @@ private extension ProductionRouter {
         SettingsScreen(router: Self.shared)
     }
     
-    func makeLicensesScreen() -> some View {
+    func makeLicenseListScreen() -> some View {
         LicenseListScreen()
     }
 }

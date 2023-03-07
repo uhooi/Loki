@@ -36,8 +36,8 @@ extension CatalogRouter: SakatsuRouterProtocol {
 }
 
 extension CatalogRouter: SettingsRouterProtocol {
-    public func licensesScreen() -> some View {
-        makeLicensesScreen()
+    public func licenseListScreen() -> some View {
+        makeLicenseListScreen()
     }
 }
 
@@ -56,7 +56,7 @@ private extension CatalogRouter {
         SettingsScreen(router: Self.shared)
     }
     
-    func makeLicensesScreen() -> some View {
+    func makeLicenseListScreen() -> some View {
         LicenseListScreen()
     }
 }

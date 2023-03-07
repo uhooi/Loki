@@ -11,17 +11,23 @@ public struct SettingsScreen<Router: SettingsRouterProtocol>: View {
     public var body: some View {
         SettingsView(
             defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
-            licensesScreen: router.licensesScreen(),
             onDefaultSaunaTimeChange: { defaultSaunaTime in
                 viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
             }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in
                 viewModel.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime)
             }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
                 viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
+            }, onLicensesButtonClick: {
+                viewModel.onLicensesButtonClick()
             }
         )
         .navigationTitle(L10n.settings)
         .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
+        .licenseListSheet(
+            shouldShowSheet: viewModel.uiState.shouldShowLicenseListScreen,
+            licenseListScreen: router.licenseListScreen(),
+            onDismiss: { viewModel.onLicenseListScreenDismiss() }
+        )
         .errorAlert(
             error: viewModel.uiState.settingsError,
             onDismiss: { viewModel.onErrorAlertDismiss() }
@@ -46,6 +52,22 @@ private extension View {
                     Image(systemName: "xmark")
                 }
             }
+        }
+    }
+    
+    func licenseListSheet(
+        shouldShowSheet: Bool,
+        licenseListScreen: some View,
+        onDismiss: @escaping () -> Void
+    ) -> some View {
+        sheet(
+            isPresented: .init(get: {
+                shouldShowSheet
+            }, set: { _ in
+                onDismiss()
+            })
+        ) {
+            licenseListScreen
         }
     }
 }

@@ -1,3 +1,6 @@
-// LicensesScreen
+// LicenseListScreen
 "Licenses" = "Licenses";
+"Select a license" = "Select a license";
+
+// LicenseDetailScreen
 "No license found" = "No license found";
