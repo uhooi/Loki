@@ -8,7 +8,6 @@ struct SakatsuListUiState {
     var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
     var shouldShowInputScreen = false
-    var shouldShowSettingsScreen = false
     var sakatsuListError: SakatsuListError?
 }
 
@@ -67,14 +66,6 @@ extension SakatsuListViewModel {
     func onEditButtonClick(sakatsuIndex: Int) {
         uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
         uiState.shouldShowInputScreen = true
-    }
-
-    func onSettingsButtonClick() {
-        uiState.shouldShowSettingsScreen = true
-    }
-
-    func onSettingsScreenDismiss() {
-        uiState.shouldShowSettingsScreen = false
     }
 
     func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {

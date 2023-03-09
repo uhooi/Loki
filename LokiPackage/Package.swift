@@ -52,16 +52,12 @@ let package = Package(
         // App layer
         .target(
             name: "ProductionApp",
-            dependencies: productionFeatures + [
-                "UICore",
-            ],
+            dependencies: productionFeatures,
             path: "./Sources/Apps/Production",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
             name: "DevelopApp",
-            dependencies: productionFeatures + [
-                "UICore",
-            ],
+            dependencies: productionFeatures,
             path: "./Sources/Apps/Develop",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
         .target(
@@ -105,7 +101,6 @@ let package = Package(
         .target(
             name: "LicensesFeature",
             dependencies: [
-                "UICore",
             ],
             path: "./Sources/Features/Licenses",
             swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],

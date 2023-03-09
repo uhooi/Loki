@@ -2,8 +2,8 @@ import SwiftUI
 import SakatsuData
 import UICore
 
-public struct SettingsScreen<Router: SettingsRouterProtocol>: View {
-    private let router: Router
+public struct SettingsScreen: View {
+    private let onLicensesButtonClick: () -> Void
     @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
 
     @Environment(\.dismiss) private var dismiss
@@ -18,24 +18,19 @@ public struct SettingsScreen<Router: SettingsRouterProtocol>: View {
             }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
                 viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
             }, onLicensesButtonClick: {
-                viewModel.onLicensesButtonClick()
+                onLicensesButtonClick()
             }
         )
         .navigationTitle(L10n.settings)
         .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
-        .licenseListSheet(
-            shouldShowSheet: viewModel.uiState.shouldShowLicenseListScreen,
-            licenseListScreen: router.licenseListScreen(),
-            onDismiss: { viewModel.onLicenseListScreenDismiss() }
-        )
         .errorAlert(
             error: viewModel.uiState.settingsError,
             onDismiss: { viewModel.onErrorAlertDismiss() }
         )
     }
 
-    public init(router: Router) {
-        self.router = router
+    public init(onLicensesButtonClick: @escaping () -> Void) {
+        self.onLicensesButtonClick = onLicensesButtonClick
         self._viewModel = StateObject(wrappedValue: SettingsViewModel())
     }
 }
@@ -54,29 +49,13 @@ private extension View {
             }
         }
     }
-    
-    func licenseListSheet(
-        shouldShowSheet: Bool,
-        licenseListScreen: some View,
-        onDismiss: @escaping () -> Void
-    ) -> some View {
-        sheet(
-            isPresented: .init(get: {
-                shouldShowSheet
-            }, set: { _ in
-                onDismiss()
-            })
-        ) {
-            licenseListScreen
-        }
-    }
 }
 
 #if DEBUG
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SettingsScreen(router: SettingsRouterMock.shared)
+            SettingsScreen(onLicensesButtonClick: {})
         }
     }
 }

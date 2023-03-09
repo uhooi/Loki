@@ -2,8 +2,8 @@ import SwiftUI
 import SakatsuData
 import UICore
 
-public struct SakatsuListScreen<Router: SakatsuRouterProtocol>: View {
-    private let router: Router
+public struct SakatsuListScreen: View {
+    private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
 
     public var body: some View {
@@ -26,18 +26,13 @@ public struct SakatsuListScreen<Router: SakatsuRouterProtocol>: View {
             .padding(16)
         }
         .sakatsuListScreenToolbar(
-            onSettingsButtonClick: { viewModel.onSettingsButtonClick() }
+            onSettingsButtonClick: { onSettingsButtonClick() }
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
             onDismiss: { viewModel.onInputScreenDismiss() },
             onSakatsuSave: { viewModel.onSakatsuSave() }
-        )
-        .sakatsuSettingsSheet(
-            shouldShowSheet: viewModel.uiState.shouldShowSettingsScreen,
-            settingsScreen: router.settingsScreen(),
-            onDismiss: { viewModel.onSettingsScreenDismiss() }
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
@@ -49,8 +44,8 @@ public struct SakatsuListScreen<Router: SakatsuRouterProtocol>: View {
         )
     }
 
-    public init(router: Router) {
-        self.router = router
+    public init(onSettingsButtonClick: @escaping () -> Void) {
+        self.onSettingsButtonClick = onSettingsButtonClick
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
     }
 }
@@ -96,22 +91,6 @@ private extension View {
         }
     }
 
-    func sakatsuSettingsSheet(
-        shouldShowSheet: Bool,
-        settingsScreen: some View,
-        onDismiss: @escaping () -> Void
-    ) -> some View {
-        sheet(
-            isPresented: .init(get: {
-                shouldShowSheet
-            }, set: { _ in
-                onDismiss()
-            })
-        ) {
-            settingsScreen
-        }
-    }
-
     func copyingSakatsuTextAlert(
         sakatsuText: String?,
         onDismiss: @escaping () -> Void
@@ -138,7 +117,7 @@ private extension View {
 struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SakatsuListScreen(router: SakatsuRouterMock.shared)
+            SakatsuListScreen(onSettingsButtonClick: {})
         }
     }
 }
