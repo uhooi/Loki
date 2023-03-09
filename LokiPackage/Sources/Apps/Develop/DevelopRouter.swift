@@ -27,55 +27,33 @@ private extension DevelopRouter {
         SakatsuListScreen(onSettingsButtonClick: { [weak self] in
             self?.shouldShowSettingsScreen = true
         })
-        .settingsSheet(
-            shouldShowSheet: shouldShowSettingsScreen,
-            settingsScreen: NavigationStack { makeSettingsScreen() },
+        .sheet(
+            isPresented: .constant(shouldShowSettingsScreen),
             onDismiss: { [weak self] in
                 self?.shouldShowSettingsScreen = false
             }
-        )
+        ) { [weak self] in
+            NavigationStack {
+                self?.makeSettingsScreen()
+            }
+        }
     }
 
     func makeSettingsScreen() -> some View {
         SettingsScreen(onLicensesButtonClick: { [weak self] in
             self?.shouldShowLicenseListScreen = true
         })
-        .licenseListSheet(
-            shouldShowSheet: shouldShowLicenseListScreen,
-            licenseListScreen: makeLicenseListScreen(),
+        .sheet(
+            isPresented: .constant(shouldShowLicenseListScreen),
             onDismiss: { [weak self] in
                 self?.shouldShowLicenseListScreen = false
             }
-        )
+        ) { [weak self] in
+            self?.makeLicenseListScreen()
+        }
     }
-    
+
     func makeLicenseListScreen() -> some View {
         LicenseListScreen()
-    }
-}
-
-private extension View {
-    func settingsSheet(
-        shouldShowSheet: Bool,
-        settingsScreen: some View,
-        onDismiss: @escaping () -> Void
-    ) -> some View {
-        sheet(
-            isPresented: .constant(shouldShowSheet),
-            onDismiss: { onDismiss() },
-            content: { settingsScreen }
-        )
-    }
-
-    func licenseListSheet(
-        shouldShowSheet: Bool,
-        licenseListScreen: some View,
-        onDismiss: @escaping () -> Void
-    ) -> some View {
-        sheet(
-            isPresented: .constant(shouldShowSheet),
-            onDismiss: { onDismiss() },
-            content: { licenseListScreen }
-        )
     }
 }
