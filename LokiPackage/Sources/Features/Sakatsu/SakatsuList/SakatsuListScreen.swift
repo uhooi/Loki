@@ -3,7 +3,7 @@ import SakatsuData
 import UICore
 
 public struct SakatsuListScreen: View {
-    private let onSettingsButtonClick: (any View) -> Void
+    private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
 
     public var body: some View {
@@ -26,7 +26,7 @@ public struct SakatsuListScreen: View {
             .padding(16)
         }
         .sakatsuListScreenToolbar(
-            onSettingsButtonClick: { onSettingsButtonClick(self) }
+            onSettingsButtonClick: { onSettingsButtonClick() }
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
@@ -44,7 +44,7 @@ public struct SakatsuListScreen: View {
         )
     }
 
-    public init(onSettingsButtonClick: @escaping (any View) -> Void) {
+    public init(onSettingsButtonClick: @escaping () -> Void) {
         self.onSettingsButtonClick = onSettingsButtonClick
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
     }
@@ -90,8 +90,7 @@ private extension View {
             }
         }
     }
-}
-    
+
     func copyingSakatsuTextAlert(
         sakatsuText: String?,
         onDismiss: @escaping () -> Void
@@ -118,7 +117,7 @@ private extension View {
 struct SakatsuListScreen_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SakatsuListScreen(router: SakatsuRouterMock.shared)
+            SakatsuListScreen(onSettingsButtonClick: {})
         }
     }
 }

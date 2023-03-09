@@ -5,7 +5,6 @@ import SakatsuData
 
 struct SettingsUiState {
     var defaultSaunaTimes: DefaultSaunaTimes = .init()
-    var shouldShowLicenseListScreen = false
     var settingsError: SettingsError?
 }
 
@@ -89,14 +88,6 @@ extension SettingsViewModel {
         }
         uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
         saveDefaultSaunaSet()
-    }
-    
-    func onLicensesButtonClick() {
-        uiState.shouldShowLicenseListScreen = true
-    }
-    
-    func onLicenseListScreenDismiss() {
-        uiState.shouldShowLicenseListScreen = false
     }
 
     func onErrorAlertDismiss() {
