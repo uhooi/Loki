@@ -8,8 +8,8 @@ import UICore
 public final class DevelopRouter {
     public static let shared = DevelopRouter()
     
-    private var shouldShowSettingsScreen = false
-    private var shouldShowLicenseListScreen = false
+    @State private var shouldShowSettingsScreen = false
+    @State private var shouldShowLicenseListScreen = false
 
     private init() {}
 
@@ -27,12 +27,7 @@ private extension DevelopRouter {
         SakatsuListScreen(onSettingsButtonClick: { [weak self] in
             self?.shouldShowSettingsScreen = true
         })
-        .sheet(
-            isPresented: .constant(shouldShowSettingsScreen),
-            onDismiss: { [weak self] in
-                self?.shouldShowSettingsScreen = false
-            }
-        ) { [weak self] in
+        .sheet(isPresented: $shouldShowSettingsScreen) { [weak self] in
             NavigationStack {
                 self?.makeSettingsScreen()
             }
@@ -43,12 +38,7 @@ private extension DevelopRouter {
         SettingsScreen(onLicensesButtonClick: { [weak self] in
             self?.shouldShowLicenseListScreen = true
         })
-        .sheet(
-            isPresented: .constant(shouldShowLicenseListScreen),
-            onDismiss: { [weak self] in
-                self?.shouldShowLicenseListScreen = false
-            }
-        ) { [weak self] in
+        .sheet(isPresented: $shouldShowLicenseListScreen) { [weak self] in
             self?.makeLicenseListScreen()
         }
     }
