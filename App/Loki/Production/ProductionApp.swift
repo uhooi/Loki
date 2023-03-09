@@ -5,7 +5,7 @@ import ProductionApp
 struct ProductionApp: App {
     var body: some Scene {
         WindowGroup {
-            ProductionRouter.shared.firstScreen()
+            ProductionRootScreen()
         }
     }
 }
