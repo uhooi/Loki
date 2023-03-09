@@ -5,7 +5,7 @@ import CatalogApp
 struct CatalogApp: App {
     var body: some Scene {
         WindowGroup {
-            CatalogRouter.shared.firstScreen()
+            CatalogRootScreen()
         }
     }
 }
