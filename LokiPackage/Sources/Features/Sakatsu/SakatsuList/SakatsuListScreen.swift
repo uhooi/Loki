@@ -67,7 +67,7 @@ private extension View {
             }
         }
     }
-    
+
     @MainActor
     func sakatsuInputSheet(
         shouldShowSheet: Bool,

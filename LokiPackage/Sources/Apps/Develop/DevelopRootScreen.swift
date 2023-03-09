@@ -4,8 +4,8 @@ import SettingsFeature
 import LicensesFeature
 
 public struct DevelopRootScreen: View {
-    @State private var shouldShowSettingsScreen = false
-    @State private var shouldShowLicenseListScreen = false
+    @State private var isSettingsScreenPresented = false
+    @State private var isLicenseListScreenPresented = false
 
     public var body: some View {
         NavigationStack {
@@ -22,9 +22,9 @@ private extension DevelopRootScreen {
     @MainActor
     func makeSakatsuListScreen() -> some View {
         SakatsuListScreen(onSettingsButtonClick: {
-            shouldShowSettingsScreen = true
+            isSettingsScreenPresented = true
         })
-        .sheet(isPresented: $shouldShowSettingsScreen) {
+        .sheet(isPresented: $isSettingsScreenPresented) {
             NavigationStack {
                 makeSettingsScreen()
             }
@@ -34,9 +34,9 @@ private extension DevelopRootScreen {
     @MainActor
     func makeSettingsScreen() -> some View {
         SettingsScreen(onLicensesButtonClick: {
-            shouldShowLicenseListScreen = true
+            isLicenseListScreenPresented = true
         })
-        .sheet(isPresented: $shouldShowLicenseListScreen) {
+        .sheet(isPresented: $isLicenseListScreenPresented) {
             makeLicenseListScreen()
         }
     }
