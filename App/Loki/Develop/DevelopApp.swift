@@ -5,7 +5,7 @@ import DevelopApp
 struct DevelopApp: App {
     var body: some Scene {
         WindowGroup {
-            DevelopRouter.shared.firstScreen()
+            DevelopRootScreen()
         }
     }
 }
