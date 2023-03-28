@@ -5,8 +5,8 @@ public protocol DefaultSaunaTimeRepository {
     func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
 }
 
-public struct DefaultSaunaTimeUserDefaultsClient {
-    public static let shared: Self = .init()
+public final class DefaultSaunaTimeUserDefaultsClient {
+    public static let shared = DefaultSaunaTimeUserDefaultsClient()
 
     private let userDefaultsClient = UserDefaultsClient.shared
 

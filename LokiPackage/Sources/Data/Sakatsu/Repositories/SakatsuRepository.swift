@@ -6,8 +6,8 @@ public protocol SakatsuRepository {
     func makeDefaultSaunaSet() -> SaunaSet
 }
 
-public struct SakatsuUserDefaultsClient {
-    public static let shared: Self = .init()
+public final class SakatsuUserDefaultsClient {
+    public static let shared = SakatsuUserDefaultsClient()
 
     private let userDefaultsClient = UserDefaultsClient.shared
 
