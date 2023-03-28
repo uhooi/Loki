@@ -7,7 +7,6 @@ public protocol DefaultSaunaTimeRepository {
 
 public struct DefaultSaunaTimeUserDefaultsClient {
     public static let shared: Self = .init()
-    private static let defaultSaunaTimesKey = "defaultSaunaTimes"
 
     private let userDefaultsClient = UserDefaultsClient.shared
 
@@ -17,7 +16,7 @@ public struct DefaultSaunaTimeUserDefaultsClient {
 extension DefaultSaunaTimeUserDefaultsClient: DefaultSaunaTimeRepository {
     public func defaultSaunaTimes() throws -> DefaultSaunaTimes {
         do {
-            return try userDefaultsClient.object(forKey: Self.defaultSaunaTimesKey)
+            return try userDefaultsClient.object(forKey: .defaultSaunaTimes)
         } catch UserDefaultsError.missingValue {
             return .init()
         } catch {
@@ -26,6 +25,6 @@ extension DefaultSaunaTimeUserDefaultsClient: DefaultSaunaTimeRepository {
     }
 
     public func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws {
-        try userDefaultsClient.set(defaultSaunaTimes, forKey: Self.defaultSaunaTimesKey)
+        try userDefaultsClient.set(defaultSaunaTimes, forKey: .defaultSaunaTimes)
     }
 }

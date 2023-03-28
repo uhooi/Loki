@@ -8,7 +8,6 @@ public protocol SakatsuRepository {
 
 public struct SakatsuUserDefaultsClient {
     public static let shared: Self = .init()
-    private static let sakatsusKey = "sakatsus"
 
     private let userDefaultsClient = UserDefaultsClient.shared
 
@@ -22,7 +21,7 @@ public struct SakatsuUserDefaultsClient {
 extension SakatsuUserDefaultsClient: SakatsuRepository {
     public func sakatsus() throws -> [Sakatsu] {
         do {
-            return try userDefaultsClient.object(forKey: Self.sakatsusKey)
+            return try userDefaultsClient.object(forKey: .sakatsus)
         } catch UserDefaultsError.missingValue {
             return []
         } catch {
@@ -31,7 +30,7 @@ extension SakatsuUserDefaultsClient: SakatsuRepository {
     }
 
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try userDefaultsClient.set(sakatsus, forKey: Self.sakatsusKey)
+        try userDefaultsClient.set(sakatsus, forKey: .sakatsus)
     }
 
     public func makeDefaultSaunaSet() -> SaunaSet {

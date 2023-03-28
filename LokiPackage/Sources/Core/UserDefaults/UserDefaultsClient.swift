@@ -1,7 +1,7 @@
 import Foundation
 
 public enum UserDefaultsError: LocalizedError {
-    case missingValue(key: String)
+    case missingValue(key: UserDefaultsKey)
 
     public var errorDescription: String? {
         switch self {
@@ -20,19 +20,19 @@ public final class UserDefaultsClient {
 }
 
 extension UserDefaultsClient {
-    public func object<V: Decodable>(forKey defaultName: String) throws -> V {
+    public func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let data = userDefaults.data(forKey: defaultName) else {
-            throw UserDefaultsError.missingValue(key: defaultName)
+        guard let data = userDefaults.data(forKey: key.rawValue) else {
+            throw UserDefaultsError.missingValue(key: key)
         }
         return try jsonDecoder.decode(V.self, from: data)
     }
 
-    public func set<V: Encodable>(_ value: V, forKey defaultName: String) throws {
+    public func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         let data = try jsonEncoder.encode(value)
-        userDefaults.set(data, forKey: defaultName)
+        userDefaults.set(data, forKey: key.rawValue)
     }
 }
