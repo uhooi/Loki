@@ -11,13 +11,15 @@ public enum UserDefaultsError: LocalizedError {
     }
 }
 
-public struct UserDefaultsClient {
-    public static let shared: Self = .init()
-
+public final class UserDefaultsClient {
+    public static let shared = UserDefaultsClient()
+    
     private let userDefaults = UserDefaults.standard
-
+    
     private init() {}
+}
 
+extension UserDefaultsClient {
     public func object<V: Decodable>(forKey defaultName: String) throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
