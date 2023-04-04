@@ -82,6 +82,7 @@ private extension View {
                 onDismiss()
             })
         ) {
+        } content: {
             NavigationStack {
                 SakatsuInputScreen(
                     editMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
