@@ -24,6 +24,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
     .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
     .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
+    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
