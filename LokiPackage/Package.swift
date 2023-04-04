@@ -25,6 +25,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
     .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
     .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
+    .enableUpcomingFeature("BaseSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
