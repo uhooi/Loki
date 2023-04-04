@@ -127,7 +127,6 @@ https://www.figma.com/file/T6xPOXP9b1nzRey05q7ZL9/Loki_module_diagram?node-id=0%
 - できる限りAPI Design Guidelinesに従う
   - https://www.swift.org/documentation/api-design-guidelines/
 - できる限り `any` より `some` を使う
-- 存在型には必ず `any` を付ける
 
 #### ビュー
 
