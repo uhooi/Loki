@@ -22,6 +22,7 @@ let debugOtherSwiftFlags = [
 
 let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
+    .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
