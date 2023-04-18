@@ -38,12 +38,14 @@ struct SakatsuRowView: View {
     private var visitingDateText: some View {
         Text(sakatsu.visitingDate.formatted(date: .numeric, time: .omitted))
             .font(.caption)
+            .lineLimit(1)
             .foregroundColor(.secondary)
     }
 
     private var facilityNameText: some View {
         Text(sakatsu.facilityName)
             .font(.title)
+            .lineLimit(1)
             .textSelection(.enabled)
     }
 
@@ -66,6 +68,7 @@ struct SakatsuRowView: View {
         if let foreword = sakatsu.foreword {
             Text(foreword)
                 .font(.body)
+                .lineLimit(3)
                 .textSelection(.enabled)
         }
     }
@@ -108,6 +111,7 @@ struct SakatsuRowView: View {
         if let afterword = sakatsu.afterword {
             Text(afterword)
                 .font(.body)
+                .lineLimit(3)
                 .textSelection(.enabled)
         }
     }
