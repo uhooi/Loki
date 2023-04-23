@@ -111,7 +111,7 @@ struct SakatsuRowView: View {
         if let afterword = sakatsu.afterword {
             Text(afterword)
                 .font(.body)
-                .lineLimit(3)
+                .lineLimit(1)
                 .textSelection(.enabled)
         }
     }
