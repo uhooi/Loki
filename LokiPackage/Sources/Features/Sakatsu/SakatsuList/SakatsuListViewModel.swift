@@ -95,8 +95,12 @@ extension SakatsuListViewModel {
     func onErrorAlertDismiss() {
         uiState.sakatsuListError = nil
     }
+}
 
-    private func sakatsuText(sakatsu: Sakatsu) -> String {
+// MARK: - Privates
+
+private extension SakatsuListViewModel {
+    func sakatsuText(sakatsu: Sakatsu) -> String {
         var text = ""
 
         if let foreword = sakatsu.foreword {
@@ -123,7 +127,7 @@ extension SakatsuListViewModel {
         return text
     }
 
-    private func saunaSetItemText(saunaSetItem: any SaunaSetItemProtocol) -> String? {
+    func saunaSetItemText(saunaSetItem: any SaunaSetItemProtocol) -> String? {
         guard !(saunaSetItem.title.isEmpty && saunaSetItem.time == nil) else {
             return nil
         }

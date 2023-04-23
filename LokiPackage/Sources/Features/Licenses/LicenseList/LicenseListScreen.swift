@@ -25,6 +25,8 @@ public struct LicenseListScreen: View {
     public init() {}
 }
 
+// MARK: - Privates
+
 private extension View {
     func licenseListScreenToolbar(
         onCloseButtonClick: @escaping () -> Void
@@ -40,6 +42,8 @@ private extension View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct LicenseListScreen_Previews: PreviewProvider {

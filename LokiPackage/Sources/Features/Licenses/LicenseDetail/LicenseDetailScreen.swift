@@ -18,6 +18,8 @@ struct LicenseDetailScreen: View {
     }
 }
 
+// MARK: - Previews
+
 #if DEBUG
 struct LicenseDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
