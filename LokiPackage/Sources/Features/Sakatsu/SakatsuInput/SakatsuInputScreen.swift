@@ -71,6 +71,8 @@ struct SakatsuInputScreen: View {
     }
 }
 
+// MARK: - Privates
+
 private extension View {
     func sakatsuInputScreenToolbar(
         saveButtonDisabled: Bool,
@@ -94,6 +96,8 @@ private extension View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SakatsuInputScreen_Previews: PreviewProvider {

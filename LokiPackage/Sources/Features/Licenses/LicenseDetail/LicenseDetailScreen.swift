@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LicenseDetailScreen: View {
     let license: LicensesPlugin.License
-    
+
     var body: some View {
         Group {
             if let licenseText = license.licenseText {
@@ -17,6 +17,8 @@ struct LicenseDetailScreen: View {
         .navigationTitle(license.name)
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct LicenseDetailScreen_Previews: PreviewProvider {

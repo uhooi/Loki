@@ -45,22 +45,6 @@ final class SettingsViewModel<
         self.validator = validator
         refreshDefaultSaunaTimes()
     }
-
-    private func refreshDefaultSaunaTimes() {
-        do {
-            uiState.defaultSaunaTimes = try repository.defaultSaunaTimes()
-        } catch {
-            uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
-        }
-    }
-
-    private func saveDefaultSaunaSet() {
-        do {
-            try repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
-        } catch {
-            uiState.settingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
-        }
-    }
 }
 
 // MARK: - Event handler
@@ -92,5 +76,25 @@ extension SettingsViewModel {
 
     func onErrorAlertDismiss() {
         uiState.settingsError = nil
+    }
+}
+
+// MARK: - Privates
+
+private extension SettingsViewModel {
+    func refreshDefaultSaunaTimes() {
+        do {
+            uiState.defaultSaunaTimes = try repository.defaultSaunaTimes()
+        } catch {
+            uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
+        }
+    }
+
+    func saveDefaultSaunaSet() {
+        do {
+            try repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
+        } catch {
+            uiState.settingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
+        }
     }
 }

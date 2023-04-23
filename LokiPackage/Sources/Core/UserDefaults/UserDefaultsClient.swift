@@ -13,9 +13,9 @@ public enum UserDefaultsError: LocalizedError {
 
 public final class UserDefaultsClient {
     public static let shared = UserDefaultsClient()
-    
+
     private let userDefaults = UserDefaults.standard
-    
+
     private init() {}
 }
 

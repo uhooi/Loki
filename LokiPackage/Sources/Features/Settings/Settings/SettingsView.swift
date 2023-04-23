@@ -16,8 +16,12 @@ struct SettingsView: View {
             versionSection
         }
     }
+}
 
-    private var defaultSaunaSetsSection: some View {
+// MARK: - Privates
+
+private extension SettingsView {
+    var defaultSaunaSetsSection: some View {
         Section {
             defaultTimeInputView(
                 emoji: "🔥",
@@ -44,14 +48,14 @@ struct SettingsView: View {
             Text(L10n.defaultTimes)
         }
     }
-    
-    private var licensesSection: some View {
+
+    var licensesSection: some View {
         Section {
             Button(L10n.licenses, action: onLicensesButtonClick)
         }
     }
 
-    private var versionSection: some View {
+    var versionSection: some View {
         Section {
             LabeledContent(
                 L10n.version,
@@ -62,7 +66,7 @@ struct SettingsView: View {
         }
     }
 
-    private func defaultTimeInputView(
+    func defaultTimeInputView(
         emoji: String,
         title: String,
         defaultTime: TimeInterval?,
@@ -82,6 +86,8 @@ struct SettingsView: View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SettingsView_Previews: PreviewProvider {
