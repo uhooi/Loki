@@ -53,11 +53,10 @@ struct SettingsView: View {
 
     private var versionSection: some View {
         Section {
-            HStack {
-                Text(L10n.version)
-                Spacer()
-                Text("\(Bundle.main.version) (\(Bundle.main.build))")
-            }
+            LabeledContent(
+                L10n.version,
+                value: "\(Bundle.main.version) (\(Bundle.main.build))"
+            )
         } footer: {
             Text("© 2023 THE Uhooi")
         }
