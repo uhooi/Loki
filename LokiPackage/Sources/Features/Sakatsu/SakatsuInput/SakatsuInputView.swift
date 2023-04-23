@@ -4,7 +4,7 @@ import SakatsuData
 
 struct SakatsuInputView: View {
     let sakatsu: Sakatsu
-    
+
     let onAddNewSaunaSetButtonClick: (() -> Void)
     let onFacilityNameChange: ((String) -> Void)
     let onVisitingDateChange: ((Date) -> Void)
@@ -21,7 +21,7 @@ struct SakatsuInputView: View {
     let onTemperatureChange: (Int, Decimal?) -> Void
     let onTemperatureDelete: (IndexSet) -> Void
     let onAddNewTemperatureButtonClick: (() -> Void)
-    
+
     var body: some View {
         Form {
             generalSection

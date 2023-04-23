@@ -48,7 +48,7 @@ private extension SettingsView {
             Text(L10n.defaultTimes)
         }
     }
-    
+
     var licensesSection: some View {
         Section {
             Button(L10n.licenses, action: onLicensesButtonClick)

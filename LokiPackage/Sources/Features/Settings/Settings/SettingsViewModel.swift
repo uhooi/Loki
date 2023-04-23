@@ -98,4 +98,3 @@ private extension SettingsViewModel {
         }
     }
 }
-

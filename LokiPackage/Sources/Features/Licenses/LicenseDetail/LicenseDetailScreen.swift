@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LicenseDetailScreen: View {
     let license: LicensesPlugin.License
-    
+
     var body: some View {
         Group {
             if let licenseText = license.licenseText {

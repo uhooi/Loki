@@ -3,10 +3,10 @@ import SakatsuData
 
 struct SakatsuRowView: View {
     let sakatsu: Sakatsu
-    
+
     let onCopySakatsuTextButtonClick: () -> Void
     let onEditButtonClick: () -> Void
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {

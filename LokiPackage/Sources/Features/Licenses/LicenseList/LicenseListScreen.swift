@@ -2,9 +2,9 @@ import SwiftUI
 
 public struct LicenseListScreen: View {
     @State private var selectedLicense: LicensesPlugin.License?
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     public var body: some View {
         NavigationSplitView {
             List(LicensesPlugin.licenses, selection: $selectedLicense) { license in
@@ -21,7 +21,7 @@ public struct LicenseListScreen: View {
             }
         }
     }
-    
+
     public init() {}
 }
 
