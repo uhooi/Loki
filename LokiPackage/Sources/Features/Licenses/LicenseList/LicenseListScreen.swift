@@ -17,6 +17,7 @@ public struct LicenseListScreen: View {
                 LicenseDetailScreen(license: selectedLicense)
             } else {
                 Text(L10n.selectALicense)
+                    .foregroundColor(.secondary)
             }
         }
     }
