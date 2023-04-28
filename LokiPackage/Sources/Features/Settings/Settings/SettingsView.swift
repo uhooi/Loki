@@ -16,8 +16,12 @@ struct SettingsView: View {
             versionSection
         }
     }
+}
 
-    private var defaultSaunaSetsSection: some View {
+// MARK: - Privates
+
+private extension SettingsView {
+    var defaultSaunaSetsSection: some View {
         Section {
             defaultTimeInputView(
                 emoji: "🔥",
@@ -44,26 +48,25 @@ struct SettingsView: View {
             Text(L10n.defaultTimes)
         }
     }
-    
-    private var licensesSection: some View {
+
+    var licensesSection: some View {
         Section {
             Button(L10n.licenses, action: onLicensesButtonClick)
         }
     }
 
-    private var versionSection: some View {
+    var versionSection: some View {
         Section {
-            HStack {
-                Text(L10n.version)
-                Spacer()
-                Text("\(Bundle.main.version) (\(Bundle.main.build))")
-            }
+            LabeledContent(
+                L10n.version,
+                value: "\(Bundle.main.version) (\(Bundle.main.build))"
+            )
         } footer: {
             Text("© 2023 THE Uhooi")
         }
     }
 
-    private func defaultTimeInputView(
+    func defaultTimeInputView(
         emoji: String,
         title: String,
         defaultTime: TimeInterval?,
@@ -83,6 +86,8 @@ struct SettingsView: View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SettingsView_Previews: PreviewProvider {

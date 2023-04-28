@@ -27,6 +27,8 @@ struct SakatsuListView: View {
     }
 }
 
+// MARK: - Previews
+
 #if DEBUG
 struct SakatsuListView_Previews: PreviewProvider {
     static var previews: some View {

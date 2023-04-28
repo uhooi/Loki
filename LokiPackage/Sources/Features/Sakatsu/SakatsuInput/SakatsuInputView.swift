@@ -32,8 +32,12 @@ struct SakatsuInputView: View {
             temperaturesSection
         }
     }
+}
 
-    private var generalSection: some View {
+// MARK: - Privates
+
+private extension SakatsuInputView {
+    var generalSection: some View {
         Section {
             HStack {
                 Text(L10n.facilityName)
@@ -55,7 +59,7 @@ struct SakatsuInputView: View {
         }
     }
 
-    private var forewordSection: some View {
+    var forewordSection: some View {
         Section {
             TextField(
                 L10n.optional,
@@ -73,7 +77,7 @@ struct SakatsuInputView: View {
         }
     }
 
-    private var saunaSetSections: some View {
+    var saunaSetSections: some View {
         ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
             Section {
                 saunaSetItemTimeInputView(
@@ -105,13 +109,13 @@ struct SakatsuInputView: View {
         }
     }
 
-    private var newSaunaSetSection: some View {
+    var newSaunaSetSection: some View {
         Section {
             Button(L10n.addNewSet, action: onAddNewSaunaSetButtonClick)
         }
     }
 
-    private var afterwordSection: some View {
+    var afterwordSection: some View {
         Section {
             TextField(
                 L10n.optional,
@@ -129,7 +133,7 @@ struct SakatsuInputView: View {
         }
     }
 
-    private var temperaturesSection: some View {
+    var temperaturesSection: some View {
         Section {
             ForEach(sakatsu.saunaTemperatures.indexed(), id: \.index) { saunaTemperatureIndex, saunaTemperature in
                 saunaTemperatureInputView(
@@ -149,7 +153,7 @@ struct SakatsuInputView: View {
         }
     }
 
-    private func saunaSetItemTimeInputView(
+    func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
         onTitleChange: @escaping (Int, String) -> Void,
@@ -175,7 +179,7 @@ struct SakatsuInputView: View {
         }
     }
 
-    private func saunaTemperatureInputView(
+    func saunaTemperatureInputView(
         saunaTemperatureIndex: Int,
         saunaTemperature: SaunaTemperature,
         onTitleChange: @escaping (Int, String) -> Void,
@@ -201,6 +205,8 @@ struct SakatsuInputView: View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SakatsuInputView_Previews: PreviewProvider {

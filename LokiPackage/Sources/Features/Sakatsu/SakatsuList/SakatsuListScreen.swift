@@ -50,6 +50,8 @@ public struct SakatsuListScreen: View {
     }
 }
 
+// MARK: - Privates
+
 private extension View {
     func sakatsuListScreenToolbar(
         onSettingsButtonClick: @escaping () -> Void
@@ -113,6 +115,8 @@ private extension View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SakatsuListScreen_Previews: PreviewProvider {

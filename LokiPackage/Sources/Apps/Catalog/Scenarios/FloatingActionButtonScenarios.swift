@@ -14,7 +14,7 @@ struct FloatingActionButtonScenarios: ScenarioProvider {
                     FAB(systemName: "plus", backgroundColor: .green, foregroundColor: .black) {}
                 }
             }
-                    
+
             Scenario("Disabled", layout: .compressed) {
                 VStack {
                     FAB(systemName: "plus") {}

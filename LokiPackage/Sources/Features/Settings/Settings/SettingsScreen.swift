@@ -35,6 +35,8 @@ public struct SettingsScreen: View {
     }
 }
 
+// MARK: - Privates
+
 private extension View {
     func settingsScreenToolbar(
         onCloseButtonClick: @escaping () -> Void
@@ -50,6 +52,8 @@ private extension View {
         }
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SettingsScreen_Previews: PreviewProvider {

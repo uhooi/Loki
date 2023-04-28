@@ -34,20 +34,26 @@ struct SakatsuRowView: View {
             }
         }
     }
+}
 
-    private var visitingDateText: some View {
+// MARK: - Privates
+
+private extension SakatsuRowView {
+    var visitingDateText: some View {
         Text(sakatsu.visitingDate.formatted(date: .numeric, time: .omitted))
             .font(.caption)
+            .lineLimit(1)
             .foregroundColor(.secondary)
     }
 
-    private var facilityNameText: some View {
+    var facilityNameText: some View {
         Text(sakatsu.facilityName)
             .font(.title)
+            .lineLimit(1)
             .textSelection(.enabled)
     }
 
-    private var menu: some View {
+    var menu: some View {
         Menu {
             Button(action: onCopySakatsuTextButtonClick) {
                 Label(L10n.copySakatsuText, systemImage: "doc.on.doc")
@@ -62,15 +68,16 @@ struct SakatsuRowView: View {
     }
 
     @ViewBuilder
-    private var forewordText: some View {
+    var forewordText: some View {
         if let foreword = sakatsu.foreword {
             Text(foreword)
                 .font(.body)
+                .lineLimit(3)
                 .textSelection(.enabled)
         }
     }
 
-    private var saunaSetsView: some View {
+    var saunaSetsView: some View {
         ForEach(sakatsu.saunaSets) { saunaSet in
             HStack {
                 // TODO: Refactor logic
@@ -97,23 +104,24 @@ struct SakatsuRowView: View {
         .minimumScaleFactor(0.5)
     }
 
-    private var arrowImage: some View {
+    var arrowImage: some View {
         Image(systemName: "arrow.right")
             .font(.caption)
             .foregroundColor(.secondary)
     }
 
     @ViewBuilder
-    private var afterwordText: some View {
+    var afterwordText: some View {
         if let afterword = sakatsu.afterword {
             Text(afterword)
                 .font(.body)
+                .lineLimit(1)
                 .textSelection(.enabled)
         }
     }
 
     @ViewBuilder
-    private func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
+    func saunaSetItemView(saunaSetItem: any SaunaSetItemProtocol) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             Text(saunaSetItem.emoji)
                 .font(.body)
@@ -127,7 +135,7 @@ struct SakatsuRowView: View {
         }
     }
 
-    private var temperaturesView: some View {
+    var temperaturesView: some View {
         HStack {
             ForEach(sakatsu.saunaTemperatures) { saunaTemperature in
                 if let temperature = saunaTemperature.temperature {
@@ -147,6 +155,8 @@ struct SakatsuRowView: View {
         .lineLimit(1)
     }
 }
+
+// MARK: - Previews
 
 #if DEBUG
 struct SakatsuRowView_Previews: PreviewProvider {
