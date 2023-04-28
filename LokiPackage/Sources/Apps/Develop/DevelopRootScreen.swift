@@ -25,6 +25,7 @@ private extension DevelopRootScreen {
             isSettingsScreenPresented = true
         })
         .sheet(isPresented: $isSettingsScreenPresented) {
+        } content: {
             NavigationStack {
                 makeSettingsScreen()
             }
@@ -37,6 +38,7 @@ private extension DevelopRootScreen {
             isLicenseListScreenPresented = true
         })
         .sheet(isPresented: $isLicenseListScreenPresented) {
+        } content: {
             makeLicenseListScreen()
         }
     }

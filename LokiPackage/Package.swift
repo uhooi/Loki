@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.8
 
 import PackageDescription
 
@@ -18,6 +18,14 @@ let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-function-bodies=500",
     "-strict-concurrency=complete",
     "-enable-actor-data-race-checks",
+]
+
+let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
+    .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
+    .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
+    .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
+    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
+    .enableUpcomingFeature("BaseSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
@@ -57,12 +65,12 @@ let package = Package(
             name: "ProductionApp",
             dependencies: productionFeatures,
             path: "./Sources/Apps/Production",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
         .target(
             name: "DevelopApp",
             dependencies: productionFeatures,
             path: "./Sources/Apps/Develop",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
         .target(
             name: "CatalogApp",
             dependencies: productionFeatures + [
@@ -71,7 +79,7 @@ let package = Package(
                 .playbookUI,
             ],
             path: "./Sources/Apps/Catalog",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
         
         // Feature layer
         .target(
@@ -82,7 +90,7 @@ let package = Package(
                 .algorithms,
             ],
             path: "./Sources/Features/Sakatsu",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -97,7 +105,7 @@ let package = Package(
                 "UICore",
             ],
             path: "./Sources/Features/Settings",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -106,7 +114,7 @@ let package = Package(
             dependencies: [
             ],
             path: "./Sources/Features/Licenses",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
                 .licenses,
@@ -119,7 +127,7 @@ let package = Package(
                 "UserDefaultsCore",
             ],
             path: "./Sources/Data/Sakatsu",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -133,7 +141,7 @@ let package = Package(
             name: "UserDefaultsCore",
             dependencies: [],
             path: "./Sources/Core/UserDefaults",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))],
+            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -145,6 +153,6 @@ let package = Package(
             name: "UICore",
             dependencies: [],
             path: "./Sources/Core/UI",
-            swiftSettings: [.unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug))]),
+            swiftSettings: debugSwiftSettings),
     ]
 )

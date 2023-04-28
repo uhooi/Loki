@@ -40,8 +40,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ### 必要条件
 
-- macOS 12.5+
-- Xcode 14.2 (Swift 5.7.2)
+- macOS 13.0+
+- Xcode 14.3 (Swift 5.8)
 - Make
 
 ### 構成
@@ -129,7 +129,6 @@ https://www.figma.com/file/T6xPOXP9b1nzRey05q7ZL9/Loki_module_diagram?node-id=0%
 - できる限りAPI Design Guidelinesに従う
   - https://www.swift.org/documentation/api-design-guidelines/
 - できる限り `any` より `some` を使う
-- 存在型には必ず `any` を付ける
 
 #### ビュー
 
