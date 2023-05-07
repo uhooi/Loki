@@ -57,7 +57,7 @@ let package = Package(
         //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"),
-        .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.0"),
+        .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
     ],
     targets: [
         // App layer
