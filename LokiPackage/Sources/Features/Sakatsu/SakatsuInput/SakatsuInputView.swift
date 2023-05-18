@@ -5,22 +5,22 @@ import SakatsuData
 struct SakatsuInputView: View {
     let sakatsu: Sakatsu
 
-    let onAddNewSaunaSetButtonClick: (() -> Void)
-    let onFacilityNameChange: ((String) -> Void)
-    let onVisitingDateChange: ((Date) -> Void)
-    let onForewordChange: ((String?) -> Void)
-    let onSaunaTitleChange: ((Int, String) -> Void)
-    let onSaunaTimeChange: ((Int, TimeInterval?) -> Void)
-    let onCoolBathTitleChange: ((Int, String) -> Void)
-    let onCoolBathTimeChange: ((Int, TimeInterval?) -> Void)
-    let onRelaxationTitleChange: ((Int, String) -> Void)
-    let onRelaxationTimeChange: ((Int, TimeInterval?) -> Void)
-    let onRemoveSaunaSetButtonClick: ((Int) -> Void)
-    let onAfterwordChange: ((String?) -> Void)
+    let onAddNewSaunaSetButtonClick: () -> Void
+    let onFacilityNameChange: (String) -> Void
+    let onVisitingDateChange: (Date) -> Void
+    let onForewordChange: (String?) -> Void
+    let onSaunaTitleChange: (Int, String) -> Void
+    let onSaunaTimeChange: (Int, TimeInterval?) -> Void
+    let onCoolBathTitleChange: (Int, String) -> Void
+    let onCoolBathTimeChange: (Int, TimeInterval?) -> Void
+    let onRelaxationTitleChange: (Int, String) -> Void
+    let onRelaxationTimeChange: (Int, TimeInterval?) -> Void
+    let onRemoveSaunaSetButtonClick: (Int) -> Void
+    let onAfterwordChange: (String?) -> Void
     let onTemperatureTitleChange: (Int, String) -> Void
     let onTemperatureChange: (Int, Decimal?) -> Void
     let onTemperatureDelete: (IndexSet) -> Void
-    let onAddNewTemperatureButtonClick: (() -> Void)
+    let onAddNewTemperatureButtonClick: () -> Void
 
     var body: some View {
         Form {
