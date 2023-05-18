@@ -4,9 +4,9 @@ import SakatsuData
 struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
 
-    let onCopySakatsuTextButtonClick: (Int) -> Void
-    let onEditButtonClick: (Int) -> Void
-    let onDelete: (IndexSet) -> Void
+    let onCopySakatsuTextButtonClick: (_ sakatsuIndex: Int) -> Void
+    let onEditButtonClick: (_ sakatsuIndex: Int) -> Void
+    let onDelete: (_ offsets: IndexSet) -> Void
 
     var body: some View {
         List {
