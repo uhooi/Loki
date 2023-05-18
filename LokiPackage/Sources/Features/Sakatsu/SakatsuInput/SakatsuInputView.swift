@@ -6,20 +6,20 @@ struct SakatsuInputView: View {
     let sakatsu: Sakatsu
 
     let onAddNewSaunaSetButtonClick: () -> Void
-    let onFacilityNameChange: (String) -> Void
-    let onVisitingDateChange: (Date) -> Void
-    let onForewordChange: (String?) -> Void
-    let onSaunaTitleChange: (Int, String) -> Void
-    let onSaunaTimeChange: (Int, TimeInterval?) -> Void
-    let onCoolBathTitleChange: (Int, String) -> Void
-    let onCoolBathTimeChange: (Int, TimeInterval?) -> Void
-    let onRelaxationTitleChange: (Int, String) -> Void
-    let onRelaxationTimeChange: (Int, TimeInterval?) -> Void
-    let onRemoveSaunaSetButtonClick: (Int) -> Void
-    let onAfterwordChange: (String?) -> Void
-    let onTemperatureTitleChange: (Int, String) -> Void
-    let onTemperatureChange: (Int, Decimal?) -> Void
-    let onTemperatureDelete: (IndexSet) -> Void
+    let onFacilityNameChange: (_ facilityName: String) -> Void
+    let onVisitingDateChange: (_ visitingDate: Date) -> Void
+    let onForewordChange: (_ foreword: String?) -> Void
+    let onSaunaTitleChange: (_ saunaSetIndex: Int, _ saunaTitle: String) -> Void
+    let onSaunaTimeChange: (_ saunaSetIndex: Int, _ saunaTime: TimeInterval?) -> Void
+    let onCoolBathTitleChange: (_ saunaSetIndex: Int, _ coolBathTitle: String) -> Void
+    let onCoolBathTimeChange: (_ saunaSetIndex: Int, _ coolBathTime: TimeInterval?) -> Void
+    let onRelaxationTitleChange: (_ saunaSetIndex: Int, _ relaxationTitle: String) -> Void
+    let onRelaxationTimeChange: (_ saunaSetIndex: Int, _ relaxationTime: TimeInterval?) -> Void
+    let onRemoveSaunaSetButtonClick: (_ saunaSetIndex: Int) -> Void
+    let onAfterwordChange: (_ afterword: String?) -> Void
+    let onTemperatureTitleChange: (_ temperatureIndex: Int, _ temperatureTitle: String) -> Void
+    let onTemperatureChange: (_ temperatureIndex: Int, _ temperature: Decimal?) -> Void
+    let onTemperatureDelete: (_ offsets: IndexSet) -> Void
     let onAddNewTemperatureButtonClick: () -> Void
 
     var body: some View {
@@ -156,8 +156,8 @@ private extension SakatsuInputView {
     func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
-        onTitleChange: @escaping (Int, String) -> Void,
-        onTimeChange: @escaping (Int, TimeInterval?) -> Void
+        onTitleChange: @escaping (_ saunaSetIndex: Int, _ title: String) -> Void,
+        onTimeChange: @escaping (_ saunaSetIndex: Int, _ time: TimeInterval?) -> Void
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
@@ -182,8 +182,8 @@ private extension SakatsuInputView {
     func saunaTemperatureInputView(
         saunaTemperatureIndex: Int,
         saunaTemperature: SaunaTemperature,
-        onTitleChange: @escaping (Int, String) -> Void,
-        onTemperatureChange: @escaping (Int, Decimal?) -> Void
+        onTitleChange: @escaping (_ temperatureIndex: Int, _ temperatureTitle: String) -> Void,
+        onTemperatureChange: @escaping (_ temperatureIndex: Int, _ temperature: Decimal?) -> Void
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
