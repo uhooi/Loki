@@ -4,9 +4,9 @@ import SakatsuData
 struct SettingsView: View {
     let defaultSaunaTimes: DefaultSaunaTimes
 
-    let onDefaultSaunaTimeChange: ((TimeInterval?) -> Void)
-    let onDefaultCoolBathTimeChange: ((TimeInterval?) -> Void)
-    let onDefaultRelaxationTimeChange: ((TimeInterval?) -> Void)
+    let onDefaultSaunaTimeChange: (_ defaultSaunaTime: TimeInterval?) -> Void
+    let onDefaultCoolBathTimeChange: (_ defaultCoolBathTime: TimeInterval?) -> Void
+    let onDefaultRelaxationTimeChange: (_ defaultRelaxationTime: TimeInterval?) -> Void
     let onLicensesButtonClick: () -> Void
 
     var body: some View {
@@ -71,7 +71,7 @@ private extension SettingsView {
         title: String,
         defaultTime: TimeInterval?,
         unit: String,
-        onTimeChange: @escaping (TimeInterval?) -> Void
+        onTimeChange: @escaping (_ time: TimeInterval?) -> Void
     ) -> some View {
         HStack {
             Text(emoji + title)
