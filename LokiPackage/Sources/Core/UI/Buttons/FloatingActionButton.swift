@@ -36,6 +36,8 @@ public struct FloatingActionButton: View {
     }
 }
 
+// MARK: - Previews
+
 #if DEBUG
 struct FloatingActionButton_Previews: PreviewProvider {
     static var previews: some View {
@@ -46,6 +48,8 @@ struct FloatingActionButton_Previews: PreviewProvider {
     }
 }
 #endif
+
+// MARK: - Privates
 
 private extension ButtonStyle where Self == FloatingActionButtonStyle {
     static func floatingAction(
