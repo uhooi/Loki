@@ -19,10 +19,8 @@ enum SakatsuListError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case let .sakatsuFetchFailed(localizedDescription):
-            return localizedDescription
-        case let .sakatsuDeleteFailed(localizedDescription):
-            return localizedDescription
+        case let .sakatsuFetchFailed(localizedDescription): localizedDescription
+        case let .sakatsuDeleteFailed(localizedDescription): localizedDescription
         }
     }
 }

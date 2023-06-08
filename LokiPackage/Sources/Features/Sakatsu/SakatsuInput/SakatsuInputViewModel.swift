@@ -21,24 +21,22 @@ enum SakatsuInputError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .saunaSetRemoveFailed:
-            return L10n.failedToDeleteSet
-        case .sakatsuSaveFailed:
-            return L10n.failedToSaveSakatsu
+        case .saunaSetRemoveFailed: L10n.failedToDeleteSet
+        case .sakatsuSaveFailed: L10n.failedToSaveSakatsu
         }
     }
 
     var failureReason: String? {
         switch self {
         case .saunaSetRemoveFailed, .sakatsuSaveFailed:
-            return L10n.detailedCauseUnknown
+            L10n.detailedCauseUnknown
         }
     }
 
     var recoverySuggestion: String? {
         switch self {
         case .saunaSetRemoveFailed, .sakatsuSaveFailed:
-            return L10n.pleaseTryAgainAfterSomeTime
+            L10n.pleaseTryAgainAfterSomeTime
         }
     }
 }
