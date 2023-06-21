@@ -64,13 +64,11 @@ let package = Package(
         .target(
             name: "ProductionApp",
             dependencies: productionFeatures,
-            path: "./Sources/Apps/Production",
-            swiftSettings: debugSwiftSettings),
+            path: "./Sources/Apps/Production"),
         .target(
             name: "DevelopApp",
             dependencies: productionFeatures,
-            path: "./Sources/Apps/Develop",
-            swiftSettings: debugSwiftSettings),
+            path: "./Sources/Apps/Develop"),
         .target(
             name: "CatalogApp",
             dependencies: productionFeatures + [
@@ -78,8 +76,7 @@ let package = Package(
                 .playbook,
                 .playbookUI,
             ],
-            path: "./Sources/Apps/Catalog",
-            swiftSettings: debugSwiftSettings),
+            path: "./Sources/Apps/Catalog"),
         
         // Feature layer
         .target(
@@ -90,7 +87,6 @@ let package = Package(
                 .algorithms,
             ],
             path: "./Sources/Features/Sakatsu",
-            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -105,7 +101,6 @@ let package = Package(
                 "UICore",
             ],
             path: "./Sources/Features/Settings",
-            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -114,7 +109,6 @@ let package = Package(
             dependencies: [
             ],
             path: "./Sources/Features/Licenses",
-            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
                 .licenses,
@@ -127,7 +121,6 @@ let package = Package(
                 "UserDefaultsCore",
             ],
             path: "./Sources/Data/Sakatsu",
-            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -141,7 +134,6 @@ let package = Package(
             name: "UserDefaultsCore",
             dependencies: [],
             path: "./Sources/Core/UserDefaults",
-            swiftSettings: debugSwiftSettings,
             plugins: [
                 .swiftgen,
             ]),
@@ -152,7 +144,10 @@ let package = Package(
         .target(
             name: "UICore",
             dependencies: [],
-            path: "./Sources/Core/UI",
-            swiftSettings: debugSwiftSettings),
+            path: "./Sources/Core/UI"),
     ]
 )
+
+for target in package.targets {
+    target.swiftSettings = debugSwiftSettings
+}
