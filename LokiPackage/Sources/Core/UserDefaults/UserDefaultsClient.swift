@@ -2,7 +2,7 @@ import Foundation
 
 public enum UserDefaultsError: LocalizedError {
     case missingValue(key: UserDefaultsKey)
-    
+
     public var errorDescription: String? {
         switch self {
         case .missingValue: L10n.valueDoesNotExistForTheKey
