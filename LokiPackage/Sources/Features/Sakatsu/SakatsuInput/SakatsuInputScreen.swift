@@ -13,37 +13,37 @@ struct SakatsuInputScreen: View {
         SakatsuInputView(
             sakatsu: viewModel.uiState.sakatsu,
             onAddNewSaunaSetButtonClick: {
-                viewModel.onAddNewSaunaSetButtonClick()
+                viewModel.send(.onAddNewSaunaSetButtonClick)
             }, onFacilityNameChange: { facilityName in
-                viewModel.onFacilityNameChange(facilityName: facilityName)
+                viewModel.send(.onFacilityNameChange(facilityName: facilityName))
             }, onVisitingDateChange: { visitingDate in
-                viewModel.onVisitingDateChange(visitingDate: visitingDate)
+                viewModel.send(.onVisitingDateChange(visitingDate: visitingDate))
             }, onForewordChange: { foreword in
-                viewModel.onForewordChange(foreword: foreword)
+                viewModel.send(.onForewordChange(foreword: foreword))
             }, onSaunaTitleChange: { saunaSetIndex, saunaTitle in
-                viewModel.onSaunaTitleChange(saunaSetIndex: saunaSetIndex, saunaTitle: saunaTitle)
+                viewModel.send(.onSaunaTitleChange(saunaSetIndex: saunaSetIndex, saunaTitle: saunaTitle))
             }, onSaunaTimeChange: { saunaSetIndex, saunaTime in
-                viewModel.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime)
+                viewModel.send(.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime))
             }, onCoolBathTitleChange: { saunaSetIndex, coolBathTitle in
-                viewModel.onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, coolBathTitle: coolBathTitle)
+                viewModel.send(.onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, coolBathTitle: coolBathTitle))
             }, onCoolBathTimeChange: { saunaSetIndex, coolBathTime in
-                viewModel.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime)
+                viewModel.send(.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime))
             }, onRelaxationTitleChange: { saunaSetIndex, relaxationTitle in
-                viewModel.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, relaxationTitle: relaxationTitle)
+                viewModel.send(.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, relaxationTitle: relaxationTitle))
             }, onRelaxationTimeChange: { saunaSetIndex, relaxationTime in
-                viewModel.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime)
+                viewModel.send(.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime))
             }, onRemoveSaunaSetButtonClick: { saunaSetIndex in
-                viewModel.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex)
+                viewModel.send(.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex))
             }, onAfterwordChange: { afterword in
-                viewModel.onAfterwordChange(afterword: afterword)
+                viewModel.send(.onAfterwordChange(afterword: afterword))
             }, onTemperatureTitleChange: { temperatureIndex, temperatureTitle in
-                viewModel.onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle)
+                viewModel.send(.onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle))
             }, onTemperatureChange: { temperatureIndex, temperature in
-                viewModel.onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature)
+                viewModel.send(.onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature))
             }, onTemperatureDelete: { offsets in
-                viewModel.onTemperatureDelete(at: offsets)
+                viewModel.send(.onTemperatureDelete(offsets: offsets))
             }, onAddNewTemperatureButtonClick: {
-                viewModel.onAddNewTemperatureButtonClick()
+                viewModel.send(.onAddNewTemperatureButtonClick)
             }
         )
         .navigationTitle(L10n.registerSakatsu)
@@ -52,13 +52,13 @@ struct SakatsuInputScreen: View {
         .sakatsuInputScreenToolbar(
             saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
             onSaveButtonClick: {
-                viewModel.onSaveButtonClick()
+                viewModel.send(.onSaveButtonClick)
                 onSakatsuSave()
             }, onCloseButtonClick: { dismiss() }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
-            onDismiss: { viewModel.onErrorAlertDismiss() }
+            onDismiss: { viewModel.send(.onErrorAlertDismiss) }
         )
     }
 
