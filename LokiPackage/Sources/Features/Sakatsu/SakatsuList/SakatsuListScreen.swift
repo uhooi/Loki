@@ -10,18 +10,18 @@ public struct SakatsuListScreen: View {
         SakatsuListView(
             sakatsus: viewModel.uiState.sakatsus,
             onCopySakatsuTextButtonClick: { sakatsuIndex in
-                viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
+                viewModel.send(.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex))
             }, onEditButtonClick: { sakatsuIndex in
-                viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
+                viewModel.send(.onEditButtonClick(sakatsuIndex: sakatsuIndex))
             }, onDelete: { offsets in
-                viewModel.onDelete(at: offsets)
+                viewModel.send(.onDelete(offsets: offsets))
             }
         )
         .navigationTitle(L10n.sakatsuList)
         .overlay(alignment: .bottomTrailing) {
             FAB(
                 systemName: "plus",
-                action: { viewModel.onAddButtonClick() }
+                action: { viewModel.send(.onAddButtonClick) }
             )
             .padding(16)
         }
@@ -31,16 +31,16 @@ public struct SakatsuListScreen: View {
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
-            onDismiss: { viewModel.onInputScreenDismiss() },
-            onSakatsuSave: { viewModel.onSakatsuSave() }
+            onDismiss: { viewModel.send(.onInputScreenDismiss) },
+            onSakatsuSave: { viewModel.send(.onSakatsuSave) }
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
-            onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
+            onDismiss: { viewModel.send(.onCopyingSakatsuTextAlertDismiss) }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuListError,
-            onDismiss: { viewModel.onErrorAlertDismiss() }
+            onDismiss: { viewModel.send(.onErrorAlertDismiss) }
         )
     }
 
