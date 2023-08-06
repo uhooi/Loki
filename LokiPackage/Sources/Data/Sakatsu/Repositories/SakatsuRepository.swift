@@ -6,22 +6,25 @@ public protocol SakatsuRepository {
     func makeDefaultSaunaSet() -> SaunaSet
 }
 
-public final class SakatsuUserDefaultsClient {
-    public static let shared = SakatsuUserDefaultsClient()
+public final class DefaultSakatsuRepository {
+    public static let shared = DefaultSakatsuRepository()
 
-    private let userDefaultsClient = UserDefaultsClient.shared
-
+    private let localDataSource: any LocalDataSource
     private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
 
-    private init(defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultSaunaTimeUserDefaultsClient.shared) {
+    private init(
+        localDataSource: some LocalDataSource = UserDefaultsDataSource.shared,
+        defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultDefaultSaunaTimeRepository.shared
+    ) {
+        self.localDataSource = localDataSource
         self.defaultSaunaTimeRepository = defaultSaunaTimeRepository
     }
 }
 
-extension SakatsuUserDefaultsClient: SakatsuRepository {
+extension DefaultSakatsuRepository: SakatsuRepository {
     public func sakatsus() throws -> [Sakatsu] {
         do {
-            return try userDefaultsClient.object(forKey: .sakatsus)
+            return try localDataSource.object(forKey: .sakatsus)
         } catch UserDefaultsError.missingValue {
             return []
         } catch {
@@ -30,7 +33,7 @@ extension SakatsuUserDefaultsClient: SakatsuRepository {
     }
 
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try userDefaultsClient.set(sakatsus, forKey: .sakatsus)
+        try localDataSource.set(sakatsus, forKey: .sakatsus)
     }
 
     public func makeDefaultSaunaSet() -> SaunaSet {
