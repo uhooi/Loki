@@ -80,7 +80,7 @@ final class SakatsuInputViewModel<
 
     init(
         editMode: EditMode,
-        sakatsuRepository: Repository = SakatsuUserDefaultsClient.shared,
+        sakatsuRepository: Repository = DefaultSakatsuRepository.shared,
         validator: Validator = SakatsuValidator()
     ) {
         switch editMode {

@@ -48,7 +48,7 @@ final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObjec
 
     private let repository: Repository
 
-    init(repository: Repository = SakatsuUserDefaultsClient.shared) {
+    init(repository: Repository = DefaultSakatsuRepository.shared) {
         self.uiState = SakatsuListUiState()
         self.repository = repository
         refreshSakatsus()
