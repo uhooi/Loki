@@ -8,7 +8,7 @@ public final class UserDefaultsDataSource {
     private init() {}
 }
 
-extension UserDefaultsDataSource {
+extension UserDefaultsDataSource: LocalDataSource {
     public func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
