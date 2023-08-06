@@ -14,7 +14,7 @@ public final class DefaultSakatsuRepository {
 
     private init(
         localDataSource: some LocalDataSource = UserDefaultsDataSource.shared,
-        defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultSaunaTimeUserDefaultsClient.shared
+        defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultDefaultSaunaTimeRepository.shared
     ) {
         self.localDataSource = localDataSource
         self.defaultSaunaTimeRepository = defaultSaunaTimeRepository

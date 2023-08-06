@@ -46,7 +46,7 @@ final class SettingsViewModel<
     private let validator: Validator
     
     init(
-        repository: Repository = DefaultSaunaTimeUserDefaultsClient.shared,
+        repository: Repository = DefaultDefaultSaunaTimeRepository.shared,
         validator: Validator = SakatsuValidator()
     ) {
         self.uiState = SettingsUiState()
