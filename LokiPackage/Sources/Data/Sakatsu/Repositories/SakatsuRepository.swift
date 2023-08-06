@@ -9,7 +9,7 @@ public protocol SakatsuRepository {
 public final class SakatsuUserDefaultsClient {
     public static let shared = SakatsuUserDefaultsClient()
 
-    private let userDefaultsClient = UserDefaultsClient.shared
+    private let userDefaultsClient = UserDefaultsDataSource.shared
 
     private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
 

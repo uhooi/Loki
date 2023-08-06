@@ -8,7 +8,7 @@ public protocol DefaultSaunaTimeRepository {
 public final class DefaultSaunaTimeUserDefaultsClient {
     public static let shared = DefaultSaunaTimeUserDefaultsClient()
 
-    private let userDefaultsClient = UserDefaultsClient.shared
+    private let userDefaultsClient = UserDefaultsDataSource.shared
 
     private init() {}
 }
