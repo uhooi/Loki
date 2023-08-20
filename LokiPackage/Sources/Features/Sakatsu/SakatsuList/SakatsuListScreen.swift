@@ -5,6 +5,8 @@ import UICore
 public struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel
+    
+    @Environment(\.colorScheme) private var colorScheme
 
     public var body: some View {
         SakatsuListView(
@@ -26,6 +28,7 @@ public struct SakatsuListScreen: View {
             .padding(16)
         }
         .sakatsuListScreenToolbar(
+            colorScheme: colorScheme,
             onSettingsButtonClick: { onSettingsButtonClick() }
         )
         .sakatsuInputSheet(
@@ -54,6 +57,7 @@ public struct SakatsuListScreen: View {
 
 private extension View {
     func sakatsuListScreenToolbar(
+        colorScheme: ColorScheme,
         onSettingsButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
@@ -64,7 +68,7 @@ private extension View {
                 Button {
                     onSettingsButtonClick()
                 } label: {
-                    Image(systemName: "gearshape")
+                    Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }
             }
         }
