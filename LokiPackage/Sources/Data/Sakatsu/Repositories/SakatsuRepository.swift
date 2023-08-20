@@ -9,11 +9,11 @@ public protocol SakatsuRepository {
 public final class DefaultSakatsuRepository {
     public static let shared = DefaultSakatsuRepository()
 
-    private let localDataSource: any LocalDataSource
+    private let localDataSource: any UserDefaultsClient
     private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
 
     private init(
-        localDataSource: some LocalDataSource = UserDefaultsDataSource.shared,
+        localDataSource: some UserDefaultsClient = DefaultUserDefaultsClient.shared,
         defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultDefaultSaunaTimeRepository.shared
     ) {
         self.localDataSource = localDataSource

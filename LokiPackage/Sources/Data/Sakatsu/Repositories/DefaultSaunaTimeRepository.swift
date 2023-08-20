@@ -8,9 +8,9 @@ public protocol DefaultSaunaTimeRepository {
 public final class DefaultDefaultSaunaTimeRepository {
     public static let shared = DefaultDefaultSaunaTimeRepository()
 
-    private let localDataSource: any LocalDataSource
+    private let localDataSource: any UserDefaultsClient
 
-    private init(localDataSource: some LocalDataSource = UserDefaultsDataSource.shared) {
+    private init(localDataSource: some UserDefaultsClient = DefaultUserDefaultsClient.shared) {
         self.localDataSource = localDataSource
     }
 }
