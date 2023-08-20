@@ -4,7 +4,7 @@ import UICore
 
 public struct SettingsScreen: View {
     private let onLicensesButtonClick: () -> Void
-    @StateObject private var viewModel: SettingsViewModel<DefaultDefaultSaunaTimeRepository, SakatsuValidator>
+    @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeSettingsRepository, SakatsuValidator>
 
     @Environment(\.dismiss) private var dismiss
 

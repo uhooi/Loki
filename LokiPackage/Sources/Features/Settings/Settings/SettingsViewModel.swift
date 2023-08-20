@@ -37,7 +37,7 @@ enum SettingsError: LocalizedError {
 
 @MainActor
 final class SettingsViewModel<
-    Repository: DefaultSaunaTimeRepository,
+    Repository: SaunaTimeSettingsRepository,
     Validator: SakatsuValidatorProtocol
 >: ObservableObject {
     @Published private(set) var uiState: SettingsUiState
@@ -46,7 +46,7 @@ final class SettingsViewModel<
     private let validator: Validator
     
     init(
-        repository: Repository = DefaultDefaultSaunaTimeRepository.shared,
+        repository: Repository = DefaultSaunaTimeSettingsRepository.shared,
         validator: Validator = SakatsuValidator()
     ) {
         self.uiState = SettingsUiState()

@@ -9,36 +9,30 @@ public protocol SakatsuRepository {
 public final class DefaultSakatsuRepository {
     public static let shared = DefaultSakatsuRepository()
 
-    private let localDataSource: any LocalDataSource
-    private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
+    private let sakatsuDataSource: any SakatsuDataSource
+    private let saunaTimeSettingsRepository: any SaunaTimeSettingsRepository
 
     private init(
-        localDataSource: some LocalDataSource = UserDefaultsDataSource.shared,
-        defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultDefaultSaunaTimeRepository.shared
+        sakatsuDataSource: some SakatsuDataSource = SakatsuUserDefaultsDataSource.shared,
+        defaultSaunaTimeRepository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared
     ) {
-        self.localDataSource = localDataSource
-        self.defaultSaunaTimeRepository = defaultSaunaTimeRepository
+        self.sakatsuDataSource = sakatsuDataSource
+        self.saunaTimeSettingsRepository = defaultSaunaTimeRepository
     }
 }
 
 extension DefaultSakatsuRepository: SakatsuRepository {
     public func sakatsus() throws -> [Sakatsu] {
-        do {
-            return try localDataSource.object(forKey: .sakatsus)
-        } catch UserDefaultsError.missingValue {
-            return []
-        } catch {
-            throw error
-        }
+        try sakatsuDataSource.sakatsus()
     }
 
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try localDataSource.set(sakatsus, forKey: .sakatsus)
+        try sakatsuDataSource.saveSakatsus(sakatsus)
     }
 
     public func makeDefaultSaunaSet() -> SaunaSet {
         do {
-            let defaultSaunaTimes = try defaultSaunaTimeRepository.defaultSaunaTimes()
+            let defaultSaunaTimes = try saunaTimeSettingsRepository.defaultSaunaTimes()
             var defaultSaunaSet = SaunaSet()
             defaultSaunaSet.sauna.time = defaultSaunaTimes.saunaTime
             defaultSaunaSet.coolBath.time = defaultSaunaTimes.coolBathTime

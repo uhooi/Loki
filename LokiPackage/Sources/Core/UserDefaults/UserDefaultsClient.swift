@@ -1,14 +1,19 @@
 import Foundation
 
-public final class UserDefaultsDataSource {
-    public static let shared = UserDefaultsDataSource()
+public protocol UserDefaultsClient {
+    func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V
+    func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws
+}
+
+public final class DefaultUserDefaultsClient {
+    public static let shared = DefaultUserDefaultsClient()
 
     private let userDefaults = UserDefaults.standard
 
     private init() {}
 }
 
-extension UserDefaultsDataSource: LocalDataSource {
+extension DefaultUserDefaultsClient: UserDefaultsClient {
     public func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
