@@ -40,11 +40,11 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var uiState: SettingsUiState
     
     private let repository: any SaunaTimeSettingsRepository
-    private let validator: any SakatsuValidatorProtocol
+    private let validator: any SakatsuValidator
     
     init(
         repository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
-        validator: some SakatsuValidatorProtocol = SakatsuValidator()
+        validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
         self.uiState = SettingsUiState()
         self.repository = repository

@@ -73,12 +73,12 @@ final class SakatsuInputViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
 
     private let sakatsuRepository: any SakatsuRepository
-    private let validator: any SakatsuValidatorProtocol
+    private let validator: any SakatsuValidator
 
     init(
         editMode: EditMode,
         sakatsuRepository: some SakatsuRepository = DefaultSakatsuRepository.shared,
-        validator: some SakatsuValidatorProtocol = SakatsuValidator()
+        validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
         switch editMode {
         case .new:
