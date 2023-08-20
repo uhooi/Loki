@@ -54,14 +54,6 @@ final class SakatsuListViewModel: ObservableObject {
         refreshSakatsus()
     }
 
-    private func refreshSakatsus() {
-        do {
-            uiState.sakatsus = try repository.sakatsus()
-        } catch {
-            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
-        }
-    }
-
     func send(_ action: SakatsuListAction) {
         switch action {
         case .onSakatsuSave:
@@ -105,6 +97,14 @@ final class SakatsuListViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension SakatsuListViewModel {
+    func refreshSakatsus() {
+        do {
+            uiState.sakatsus = try repository.sakatsus()
+        } catch {
+            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
+        }
+    }
+
     func sakatsuText(sakatsu: Sakatsu) -> String {
         var text = ""
 
