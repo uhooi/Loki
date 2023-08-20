@@ -1,9 +1,8 @@
 import SwiftUI
-import SakatsuData
 import UICore
 
 struct SakatsuInputScreen: View {
-    @StateObject private var viewModel: SakatsuInputViewModel<DefaultSakatsuRepository, SakatsuValidator>
+    @StateObject private var viewModel: SakatsuInputViewModel
 
     private let onSakatsuSave: () -> Void
 

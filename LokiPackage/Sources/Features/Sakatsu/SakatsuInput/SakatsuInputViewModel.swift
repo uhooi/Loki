@@ -69,19 +69,16 @@ enum SakatsuInputError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class SakatsuInputViewModel<
-    Repository: SakatsuRepository,
-    Validator: SakatsuValidatorProtocol
->: ObservableObject {
+final class SakatsuInputViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
 
-    private let sakatsuRepository: Repository
-    private let validator: Validator
+    private let sakatsuRepository: any SakatsuRepository
+    private let validator: any SakatsuValidatorProtocol
 
     init(
         editMode: EditMode,
-        sakatsuRepository: Repository = DefaultSakatsuRepository.shared,
-        validator: Validator = SakatsuValidator()
+        sakatsuRepository: some SakatsuRepository = DefaultSakatsuRepository.shared,
+        validator: some SakatsuValidatorProtocol = SakatsuValidator()
     ) {
         switch editMode {
         case .new:
