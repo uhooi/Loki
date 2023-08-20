@@ -12,6 +12,7 @@ struct LicenseDetailScreen: View {
                 }
             } else {
                 Text(L10n.noLicenseFound)
+                    .foregroundColor(.secondary)
             }
         }
         .navigationTitle(license.name)
