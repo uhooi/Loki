@@ -10,14 +10,14 @@ public final class DefaultSakatsuRepository {
     public static let shared = DefaultSakatsuRepository()
 
     private let localDataSource: any UserDefaultsClient
-    private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
+    private let saunaTimeSettingsRepository: any SaunaTimeSettingsRepository
 
     private init(
         localDataSource: some UserDefaultsClient = DefaultUserDefaultsClient.shared,
-        defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultDefaultSaunaTimeRepository.shared
+        defaultSaunaTimeRepository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared
     ) {
         self.localDataSource = localDataSource
-        self.defaultSaunaTimeRepository = defaultSaunaTimeRepository
+        self.saunaTimeSettingsRepository = defaultSaunaTimeRepository
     }
 }
 
@@ -38,7 +38,7 @@ extension DefaultSakatsuRepository: SakatsuRepository {
 
     public func makeDefaultSaunaSet() -> SaunaSet {
         do {
-            let defaultSaunaTimes = try defaultSaunaTimeRepository.defaultSaunaTimes()
+            let defaultSaunaTimes = try saunaTimeSettingsRepository.defaultSaunaTimes()
             var defaultSaunaSet = SaunaSet()
             defaultSaunaSet.sauna.time = defaultSaunaTimes.saunaTime
             defaultSaunaSet.coolBath.time = defaultSaunaTimes.coolBathTime

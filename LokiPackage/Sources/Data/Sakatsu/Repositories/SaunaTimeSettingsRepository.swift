@@ -1,10 +1,10 @@
-public protocol DefaultSaunaTimeRepository {
+public protocol SaunaTimeSettingsRepository {
     func defaultSaunaTimes() throws -> DefaultSaunaTimes
     func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
 }
 
-public final class DefaultDefaultSaunaTimeRepository {
-    public static let shared = DefaultDefaultSaunaTimeRepository()
+public final class DefaultSaunaTimeSettingsRepository {
+    public static let shared = DefaultSaunaTimeSettingsRepository()
 
     private let localDataSource: any SaunaTimeSettingsLocalDataSource
 
@@ -15,7 +15,7 @@ public final class DefaultDefaultSaunaTimeRepository {
     }
 }
 
-extension DefaultDefaultSaunaTimeRepository: DefaultSaunaTimeRepository {
+extension DefaultSaunaTimeSettingsRepository: SaunaTimeSettingsRepository {
     public func defaultSaunaTimes() throws -> DefaultSaunaTimes {
         try localDataSource.defaultSaunaTimes()
     }
