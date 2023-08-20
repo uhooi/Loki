@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol SakatsuValidatorProtocol {
+public protocol SakatsuValidator {
     func validate(facilityName: String) -> Bool
     func validate(visitingDate: Date) -> Bool
     func validate(foreword: String?) -> Bool
@@ -15,11 +15,11 @@ public protocol SakatsuValidatorProtocol {
     func validate(temperature: Decimal?) -> Bool
 }
 
-public struct SakatsuValidator {
+public struct DefaultSakatsuValidator {
     public init() {}
 }
 
-extension SakatsuValidator: SakatsuValidatorProtocol {
+extension DefaultSakatsuValidator: SakatsuValidator {
     public func validate(facilityName: String) -> Bool {
         !facilityName.isEmpty
     }
