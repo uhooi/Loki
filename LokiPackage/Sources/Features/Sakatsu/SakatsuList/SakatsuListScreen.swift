@@ -4,7 +4,7 @@ import UICore
 
 public struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
-    @StateObject private var viewModel: SakatsuListViewModel<DefaultSakatsuRepository>
+    @StateObject private var viewModel: SakatsuListViewModel
 
     public var body: some View {
         SakatsuListView(

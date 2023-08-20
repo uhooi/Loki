@@ -43,12 +43,12 @@ enum SakatsuListError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
+final class SakatsuListViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
 
-    private let repository: Repository
+    private let repository: any SakatsuRepository
 
-    init(repository: Repository = DefaultSakatsuRepository.shared) {
+    init(repository: some SakatsuRepository = DefaultSakatsuRepository.shared) {
         self.uiState = SakatsuListUiState()
         self.repository = repository
         refreshSakatsus()

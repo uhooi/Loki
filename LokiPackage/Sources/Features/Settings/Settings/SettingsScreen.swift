@@ -1,10 +1,9 @@
 import SwiftUI
-import SakatsuData
 import UICore
 
 public struct SettingsScreen: View {
     private let onLicensesButtonClick: () -> Void
-    @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeSettingsRepository, SakatsuValidator>
+    @StateObject private var viewModel: SettingsViewModel
 
     @Environment(\.dismiss) private var dismiss
 
