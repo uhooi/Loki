@@ -15,11 +15,12 @@ public final class DefaultUserDefaultsClient {
 
 extension DefaultUserDefaultsClient: UserDefaultsClient {
     public func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let data = userDefaults.data(forKey: key.rawValue) else {
             throw UserDefaultsError.missingValue(key: key)
         }
+
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         return try jsonDecoder.decode(V.self, from: data)
     }
 
