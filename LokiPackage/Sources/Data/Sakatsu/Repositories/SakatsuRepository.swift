@@ -1,5 +1,3 @@
-import UserDefaultsCore
-
 public protocol SakatsuRepository {
     func sakatsus() throws -> [Sakatsu]
     func saveSakatsus(_ sakatsus: [Sakatsu]) throws
