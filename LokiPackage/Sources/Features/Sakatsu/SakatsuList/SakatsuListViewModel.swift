@@ -11,6 +11,19 @@ struct SakatsuListUiState {
     var sakatsuListError: SakatsuListError?
 }
 
+// MARK: - Action
+
+enum SakatsuListAction {
+    case onSakatsuSave
+    case onAddButtonClick
+    case onEditButtonClick(sakatsuIndex: Int)
+    case onCopySakatsuTextButtonClick(sakatsuIndex: Int)
+    case onInputScreenDismiss
+    case onCopyingSakatsuTextAlertDismiss
+    case onDelete(offsets: IndexSet)
+    case onErrorAlertDismiss
+}
+
 // MARK: - Error
 
 enum SakatsuListError: LocalizedError {
@@ -28,76 +41,68 @@ enum SakatsuListError: LocalizedError {
 // MARK: - View model
 
 @MainActor
-final class SakatsuListViewModel<Repository: SakatsuRepository>: ObservableObject {
+final class SakatsuListViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
 
-    private let repository: Repository
+    private let repository: any SakatsuRepository
 
-    init(repository: Repository = SakatsuUserDefaultsClient.shared) {
+    init(repository: some SakatsuRepository = DefaultSakatsuRepository.shared) {
         self.uiState = SakatsuListUiState()
         self.repository = repository
         refreshSakatsus()
     }
 
-    private func refreshSakatsus() {
-        do {
-            uiState.sakatsus = try repository.sakatsus()
-        } catch {
-            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
+    func send(_ action: SakatsuListAction) {
+        switch action {
+        case .onSakatsuSave:
+            uiState.shouldShowInputScreen = false
+            refreshSakatsus()
+            
+        case .onAddButtonClick:
+            uiState.selectedSakatsu = nil
+            uiState.shouldShowInputScreen = true
+            
+        case let .onEditButtonClick(sakatsuIndex: sakatsuIndex):
+            uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
+            uiState.shouldShowInputScreen = true
+            
+        case let .onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex):
+            uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
+            
+        case .onInputScreenDismiss:
+            uiState.shouldShowInputScreen = false
+            uiState.selectedSakatsu = nil
+            
+        case .onCopyingSakatsuTextAlertDismiss:
+            uiState.sakatsuText = nil
+            
+        case let .onDelete(offsets: offsets):
+            let oldValue = uiState.sakatsus
+            uiState.sakatsus.remove(atOffsets: offsets)
+            do {
+                try repository.saveSakatsus(uiState.sakatsus)
+            } catch {
+                uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
+                uiState.sakatsus = oldValue
+            }
+            
+        case .onErrorAlertDismiss:
+            uiState.sakatsuListError = nil
         }
-    }
-}
-
-// MARK: - Event handler
-
-extension SakatsuListViewModel {
-    func onSakatsuSave() {
-        uiState.shouldShowInputScreen = false
-        refreshSakatsus()
-    }
-
-    func onAddButtonClick() {
-        uiState.selectedSakatsu = nil
-        uiState.shouldShowInputScreen = true
-    }
-
-    func onEditButtonClick(sakatsuIndex: Int) {
-        uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
-        uiState.shouldShowInputScreen = true
-    }
-
-    func onCopySakatsuTextButtonClick(sakatsuIndex: Int) {
-        uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
-    }
-
-    func onInputScreenDismiss() {
-        uiState.shouldShowInputScreen = false
-        uiState.selectedSakatsu = nil
-    }
-
-    func onCopyingSakatsuTextAlertDismiss() {
-        uiState.sakatsuText = nil
-    }
-
-    func onDelete(at offsets: IndexSet) {
-        let oldValue = uiState.sakatsus
-        uiState.sakatsus.remove(atOffsets: offsets)
-        do {
-            try repository.saveSakatsus(uiState.sakatsus)
-        } catch {
-            uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
-            uiState.sakatsus = oldValue
-        }
-    }
-
-    func onErrorAlertDismiss() {
-        uiState.sakatsuListError = nil
     }
 }
 
 // MARK: - Privates
 
 private extension SakatsuListViewModel {
+    func refreshSakatsus() {
+        do {
+            uiState.sakatsus = try repository.sakatsus()
+        } catch {
+            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
+        }
+    }
+
     func sakatsuText(sakatsu: Sakatsu) -> String {
         var text = ""
 

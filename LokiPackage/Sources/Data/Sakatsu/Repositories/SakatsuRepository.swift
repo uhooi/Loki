@@ -1,41 +1,36 @@
-import UserDefaultsCore
-
 public protocol SakatsuRepository {
     func sakatsus() throws -> [Sakatsu]
     func saveSakatsus(_ sakatsus: [Sakatsu]) throws
     func makeDefaultSaunaSet() -> SaunaSet
 }
 
-public final class SakatsuUserDefaultsClient {
-    public static let shared = SakatsuUserDefaultsClient()
+public final class DefaultSakatsuRepository {
+    public static let shared = DefaultSakatsuRepository()
 
-    private let userDefaultsClient = UserDefaultsClient.shared
+    private let sakatsuDataSource: any SakatsuDataSource
+    private let saunaTimeSettingsRepository: any SaunaTimeSettingsRepository
 
-    private let defaultSaunaTimeRepository: any DefaultSaunaTimeRepository
-
-    private init(defaultSaunaTimeRepository: some DefaultSaunaTimeRepository = DefaultSaunaTimeUserDefaultsClient.shared) {
-        self.defaultSaunaTimeRepository = defaultSaunaTimeRepository
+    private init(
+        sakatsuDataSource: some SakatsuDataSource = SakatsuUserDefaultsDataSource.shared,
+        defaultSaunaTimeRepository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared
+    ) {
+        self.sakatsuDataSource = sakatsuDataSource
+        self.saunaTimeSettingsRepository = defaultSaunaTimeRepository
     }
 }
 
-extension SakatsuUserDefaultsClient: SakatsuRepository {
+extension DefaultSakatsuRepository: SakatsuRepository {
     public func sakatsus() throws -> [Sakatsu] {
-        do {
-            return try userDefaultsClient.object(forKey: .sakatsus)
-        } catch UserDefaultsError.missingValue {
-            return []
-        } catch {
-            throw error
-        }
+        try sakatsuDataSource.sakatsus()
     }
 
     public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try userDefaultsClient.set(sakatsus, forKey: .sakatsus)
+        try sakatsuDataSource.saveSakatsus(sakatsus)
     }
 
     public func makeDefaultSaunaSet() -> SaunaSet {
         do {
-            let defaultSaunaTimes = try defaultSaunaTimeRepository.defaultSaunaTimes()
+            let defaultSaunaTimes = try saunaTimeSettingsRepository.defaultSaunaTimes()
             var defaultSaunaSet = SaunaSet()
             defaultSaunaSet.sauna.time = defaultSaunaTimes.saunaTime
             defaultSaunaSet.coolBath.time = defaultSaunaTimes.coolBathTime

@@ -1,30 +1,26 @@
 import Foundation
 
-public enum UserDefaultsError: LocalizedError {
-    case missingValue(key: UserDefaultsKey)
-    
-    public var errorDescription: String? {
-        switch self {
-        case .missingValue: L10n.valueDoesNotExistForTheKey
-        }
-    }
+public protocol UserDefaultsClient {
+    func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V
+    func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws
 }
 
-public final class UserDefaultsClient {
-    public static let shared = UserDefaultsClient()
+public final class DefaultUserDefaultsClient {
+    public static let shared = DefaultUserDefaultsClient()
 
     private let userDefaults = UserDefaults.standard
 
     private init() {}
 }
 
-extension UserDefaultsClient {
+extension DefaultUserDefaultsClient: UserDefaultsClient {
     public func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let data = userDefaults.data(forKey: key.rawValue) else {
             throw UserDefaultsError.missingValue(key: key)
         }
+
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         return try jsonDecoder.decode(V.self, from: data)
     }
 

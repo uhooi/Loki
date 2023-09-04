@@ -4,43 +4,46 @@ import UICore
 
 public struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
-    @StateObject private var viewModel: SakatsuListViewModel<SakatsuUserDefaultsClient>
+    @StateObject private var viewModel: SakatsuListViewModel
+    
+    @Environment(\.colorScheme) private var colorScheme
 
     public var body: some View {
         SakatsuListView(
             sakatsus: viewModel.uiState.sakatsus,
             onCopySakatsuTextButtonClick: { sakatsuIndex in
-                viewModel.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex)
+                viewModel.send(.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex))
             }, onEditButtonClick: { sakatsuIndex in
-                viewModel.onEditButtonClick(sakatsuIndex: sakatsuIndex)
+                viewModel.send(.onEditButtonClick(sakatsuIndex: sakatsuIndex))
             }, onDelete: { offsets in
-                viewModel.onDelete(at: offsets)
+                viewModel.send(.onDelete(offsets: offsets))
             }
         )
         .navigationTitle(L10n.sakatsuList)
         .overlay(alignment: .bottomTrailing) {
             FAB(
                 systemName: "plus",
-                action: { viewModel.onAddButtonClick() }
+                action: { viewModel.send(.onAddButtonClick) }
             )
             .padding(16)
         }
         .sakatsuListScreenToolbar(
+            colorScheme: colorScheme,
             onSettingsButtonClick: { onSettingsButtonClick() }
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
-            onDismiss: { viewModel.onInputScreenDismiss() },
-            onSakatsuSave: { viewModel.onSakatsuSave() }
+            onDismiss: { viewModel.send(.onInputScreenDismiss) },
+            onSakatsuSave: { viewModel.send(.onSakatsuSave) }
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
-            onDismiss: { viewModel.onCopyingSakatsuTextAlertDismiss() }
+            onDismiss: { viewModel.send(.onCopyingSakatsuTextAlertDismiss) }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuListError,
-            onDismiss: { viewModel.onErrorAlertDismiss() }
+            onDismiss: { viewModel.send(.onErrorAlertDismiss) }
         )
     }
 
@@ -54,6 +57,7 @@ public struct SakatsuListScreen: View {
 
 private extension View {
     func sakatsuListScreenToolbar(
+        colorScheme: ColorScheme,
         onSettingsButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
@@ -64,7 +68,7 @@ private extension View {
                 Button {
                     onSettingsButtonClick()
                 } label: {
-                    Image(systemName: "gearshape")
+                    Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }
             }
         }

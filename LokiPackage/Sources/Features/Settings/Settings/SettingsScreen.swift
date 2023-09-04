@@ -1,10 +1,9 @@
 import SwiftUI
-import SakatsuData
 import UICore
 
 public struct SettingsScreen: View {
     private let onLicensesButtonClick: () -> Void
-    @StateObject private var viewModel: SettingsViewModel<DefaultSaunaTimeUserDefaultsClient, SakatsuValidator>
+    @StateObject private var viewModel: SettingsViewModel
 
     @Environment(\.dismiss) private var dismiss
 
@@ -12,11 +11,11 @@ public struct SettingsScreen: View {
         SettingsView(
             defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
             onDefaultSaunaTimeChange: { defaultSaunaTime in
-                viewModel.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime)
+                viewModel.send(.onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime))
             }, onDefaultCoolBathTimeChange: { defaultCoolBathTime in
-                viewModel.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime)
+                viewModel.send(.onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime))
             }, onDefaultRelaxationTimeChange: { defaultRelaxationTime in
-                viewModel.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime)
+                viewModel.send(.onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime))
             }, onLicensesButtonClick: {
                 onLicensesButtonClick()
             }
@@ -25,7 +24,7 @@ public struct SettingsScreen: View {
         .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
         .errorAlert(
             error: viewModel.uiState.settingsError,
-            onDismiss: { viewModel.onErrorAlertDismiss() }
+            onDismiss: { viewModel.send(.onErrorAlertDismiss) }
         )
     }
 
