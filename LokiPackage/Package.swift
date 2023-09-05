@@ -40,8 +40,8 @@ let package = Package(
     name: "LokiPackage",
     defaultLocalization: "ja",
     platforms: [
-        .iOS(.v17),
-        .macOS(.v14),
+        .iOS(.v16),
+        .macOS(.v13),
     ],
     products: [
         .library(name: "Production", targets: ["ProductionApp"]),
