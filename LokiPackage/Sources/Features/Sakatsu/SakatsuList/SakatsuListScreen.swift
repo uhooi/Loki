@@ -47,6 +47,7 @@ public struct SakatsuListScreen: View {
         )
     }
 
+    @MainActor
     public init(onSettingsButtonClick: @escaping () -> Void) {
         self.onSettingsButtonClick = onSettingsButtonClick
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())

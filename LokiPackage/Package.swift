@@ -28,6 +28,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("BaseSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
     .enableUpcomingFeature("OptInReflection", .when(configuration: .debug)), // SE-0379
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
+    .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [

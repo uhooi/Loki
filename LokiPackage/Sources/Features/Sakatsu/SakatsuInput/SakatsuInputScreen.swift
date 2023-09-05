@@ -61,6 +61,7 @@ struct SakatsuInputScreen: View {
         )
     }
 
+    @MainActor
     init(
         editMode: EditMode,
         onSakatsuSave: @escaping () -> Void

@@ -28,6 +28,7 @@ public struct SettingsScreen: View {
         )
     }
 
+    @MainActor
     public init(onLicensesButtonClick: @escaping () -> Void) {
         self.onLicensesButtonClick = onLicensesButtonClick
         self._viewModel = StateObject(wrappedValue: SettingsViewModel())
