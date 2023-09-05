@@ -25,7 +25,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
     .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
 //    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335 // TODO: SwiftGen causes build errors.
-    .enableUpcomingFeature("BaseSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
+    .enableUpcomingFeature("BareSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
     .enableUpcomingFeature("OptInReflection", .when(configuration: .debug)), // SE-0379
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
     .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
