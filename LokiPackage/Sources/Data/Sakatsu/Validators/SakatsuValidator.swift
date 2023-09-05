@@ -38,9 +38,9 @@ extension DefaultSakatsuValidator: SakatsuValidator {
 
     public func validate(saunaTime: TimeInterval?) -> Bool {
         if let saunaTime {
-            return (0 <= saunaTime && saunaTime < 1_000)
+            (0 <= saunaTime && saunaTime < 1_000)
         } else {
-            return true
+            true
         }
     }
 
@@ -50,9 +50,9 @@ extension DefaultSakatsuValidator: SakatsuValidator {
 
     public func validate(coolBathTime: TimeInterval?) -> Bool {
         if let coolBathTime {
-            return (0 <= coolBathTime && coolBathTime < 1_000)
+            (0 <= coolBathTime && coolBathTime < 1_000)
         } else {
-            return true
+            true
         }
     }
 
@@ -62,9 +62,9 @@ extension DefaultSakatsuValidator: SakatsuValidator {
 
     public func validate(relaxationTime: TimeInterval?) -> Bool {
         if let relaxationTime {
-            return (0 <= relaxationTime && relaxationTime < 1_000)
+            (0 <= relaxationTime && relaxationTime < 1_000)
         } else {
-            return true
+            true
         }
     }
 
@@ -78,9 +78,9 @@ extension DefaultSakatsuValidator: SakatsuValidator {
 
     public func validate(temperature: Decimal?) -> Bool {
         if let temperature {
-            return (0 <= temperature && temperature < 1_000)
+            (0 <= temperature && temperature < 1_000)
         } else {
-            return true
+            true
         }
     }
 }
