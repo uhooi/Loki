@@ -29,6 +29,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("OptInReflection", .when(configuration: .debug)), // SE-0379
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
     .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
+    .enableUpcomingFeature("NestedProtocols", .when(configuration: .debug)), // SE-0404
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
