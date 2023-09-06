@@ -208,28 +208,24 @@ private extension SakatsuInputView {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuInputView_Previews: PreviewProvider {
-    static var previews: some View {
-        SakatsuInputView(
-            sakatsu: .preview,
-            onAddNewSaunaSetButtonClick: {},
-            onFacilityNameChange: { _ in },
-            onVisitingDateChange: { _ in },
-            onForewordChange: { _ in },
-            onSaunaTitleChange: { _, _ in },
-            onSaunaTimeChange: { _, _ in },
-            onCoolBathTitleChange: { _, _ in },
-            onCoolBathTimeChange: { _, _ in },
-            onRelaxationTitleChange: { _, _ in },
-            onRelaxationTimeChange: { _, _ in },
-            onRemoveSaunaSetButtonClick: { _ in },
-            onAfterwordChange: { _ in },
-            onTemperatureTitleChange: { _, _ in },
-            onTemperatureChange: { _, _ in },
-            onTemperatureDelete: { _ in },
-            onAddNewTemperatureButtonClick: {}
-        )
-    }
+#Preview {
+    SakatsuInputView(
+        sakatsu: .preview,
+        onAddNewSaunaSetButtonClick: {},
+        onFacilityNameChange: { _ in },
+        onVisitingDateChange: { _ in },
+        onForewordChange: { _ in },
+        onSaunaTitleChange: { _, _ in },
+        onSaunaTimeChange: { _, _ in },
+        onCoolBathTitleChange: { _, _ in },
+        onCoolBathTimeChange: { _, _ in },
+        onRelaxationTitleChange: { _, _ in },
+        onRelaxationTimeChange: { _, _ in },
+        onRemoveSaunaSetButtonClick: { _ in },
+        onAfterwordChange: { _ in },
+        onTemperatureTitleChange: { _, _ in },
+        onTemperatureChange: { _, _ in },
+        onTemperatureDelete: { _ in },
+        onAddNewTemperatureButtonClick: {}
+    )
 }
-#endif

@@ -45,10 +45,6 @@ private extension View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct LicenseListScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LicenseListScreen()
-    }
+#Preview {
+    LicenseListScreen()
 }
-#endif

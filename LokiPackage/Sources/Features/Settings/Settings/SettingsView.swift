@@ -89,16 +89,12 @@ private extension SettingsView {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(
-            defaultSaunaTimes: .preview,
-            onDefaultSaunaTimeChange: { _ in },
-            onDefaultCoolBathTimeChange: { _ in },
-            onDefaultRelaxationTimeChange: { _ in },
-            onLicensesButtonClick: {}
-        )
-    }
+#Preview {
+    SettingsView(
+        defaultSaunaTimes: .preview,
+        onDefaultSaunaTimeChange: { _ in },
+        onDefaultCoolBathTimeChange: { _ in },
+        onDefaultRelaxationTimeChange: { _ in },
+        onLicensesButtonClick: {}
+    )
 }
-#endif

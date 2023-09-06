@@ -38,16 +38,12 @@ public struct FloatingActionButton: View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct FloatingActionButton_Previews: PreviewProvider {
-    static var previews: some View {
-        FloatingActionButton(
-            systemName: "plus",
-            action: {}
-        )
-    }
+#Preview {
+    FloatingActionButton(
+        systemName: "plus",
+        action: {}
+    )
 }
-#endif
 
 // MARK: - Privates
 

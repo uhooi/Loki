@@ -158,14 +158,10 @@ private extension SakatsuRowView {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        SakatsuRowView(
-            sakatsu: .preview,
-            onCopySakatsuTextButtonClick: {},
-            onEditButtonClick: {}
-        )
-    }
+#Preview {
+    SakatsuRowView(
+        sakatsu: .preview,
+        onCopySakatsuTextButtonClick: {},
+        onEditButtonClick: {}
+    )
 }
-#endif

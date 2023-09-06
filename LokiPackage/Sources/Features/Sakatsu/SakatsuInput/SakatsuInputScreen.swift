@@ -99,15 +99,11 @@ private extension View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuInputScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SakatsuInputScreen(
-                editMode: .edit(sakatsu: .preview),
-                onSakatsuSave: {}
-            )
-        }
+#Preview {
+    NavigationStack {
+        SakatsuInputScreen(
+            editMode: .edit(sakatsu: .preview),
+            onSakatsuSave: {}
+        )
     }
 }
-#endif

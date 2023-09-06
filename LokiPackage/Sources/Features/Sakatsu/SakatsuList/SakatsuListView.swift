@@ -29,15 +29,11 @@ struct SakatsuListView: View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuListView_Previews: PreviewProvider {
-    static var previews: some View {
-        SakatsuListView(
-            sakatsus: [.preview],
-            onCopySakatsuTextButtonClick: { _ in },
-            onEditButtonClick: { _ in },
-            onDelete: { _ in }
-        )
-    }
+#Preview {
+    SakatsuListView(
+        sakatsus: [.preview],
+        onCopySakatsuTextButtonClick: { _ in },
+        onEditButtonClick: { _ in },
+        onDelete: { _ in }
+    )
 }
-#endif

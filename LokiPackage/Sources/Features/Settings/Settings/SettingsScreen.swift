@@ -55,12 +55,8 @@ private extension View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SettingsScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SettingsScreen(onLicensesButtonClick: {})
-        }
+#Preview {
+    NavigationStack {
+        SettingsScreen(onLicensesButtonClick: {})
     }
 }
-#endif

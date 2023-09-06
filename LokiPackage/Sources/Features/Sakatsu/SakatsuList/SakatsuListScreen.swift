@@ -123,12 +123,8 @@ private extension View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuListScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SakatsuListScreen(onSettingsButtonClick: {})
-        }
+#Preview {
+    NavigationStack {
+        SakatsuListScreen(onSettingsButtonClick: {})
     }
 }
-#endif
