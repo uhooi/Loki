@@ -24,7 +24,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
     .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
     .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
-//    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335 // TODO: SwiftGen causes build errors.
+    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
     .enableUpcomingFeature("BareSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
     .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
@@ -58,7 +58,8 @@ let package = Package(
         // Plugins
         //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
-        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"),
+//        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"), // TODO: Waiting for Existential any support
+        .package(url: "https://github.com/treastrain/SwiftGenPlugin.git", branch: "support-existential-any"),
         .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
     ],
     targets: [

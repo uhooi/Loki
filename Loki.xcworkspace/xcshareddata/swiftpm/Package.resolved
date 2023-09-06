@@ -74,10 +74,10 @@
     {
       "identity" : "swiftgenplugin",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
+      "location" : "https://github.com/treastrain/SwiftGenPlugin.git",
       "state" : {
-        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068",
-        "version" : "6.6.2"
+        "branch" : "support-existential-any",
+        "revision" : "a968ebcd1c0b803b31b52f476e773bd7fa92e64b"
       }
     },
     {
