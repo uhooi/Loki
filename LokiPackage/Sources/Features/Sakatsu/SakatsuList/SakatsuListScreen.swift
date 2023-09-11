@@ -1,5 +1,6 @@
 import SwiftUI
 import SakatsuData
+import LogCore
 import UICore
 
 public struct SakatsuListScreen: View {
@@ -48,6 +49,8 @@ public struct SakatsuListScreen: View {
     }
 
     public init(onSettingsButtonClick: @escaping () -> Void) {
+        let message = "\(#file) \(#function)"
+        Logger.standard.debug("\(message, privacy: .public)")
         self.onSettingsButtonClick = onSettingsButtonClick
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
     }
