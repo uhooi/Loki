@@ -1,4 +1,5 @@
 import SwiftUI
+import LogCore
 import UICore
 
 struct SakatsuInputScreen: View {
@@ -66,6 +67,8 @@ struct SakatsuInputScreen: View {
         editMode: EditMode,
         onSakatsuSave: @escaping () -> Void
     ) {
+        let message = "\(#file) \(#function)"
+        Logger.standard.debug("\(message, privacy: .public)")
         self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(editMode: editMode))
         self.onSakatsuSave = onSakatsuSave
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import LogCore
 
 struct LicenseDetailScreen: View {
     let license: LicensesPlugin.License
@@ -16,6 +17,12 @@ struct LicenseDetailScreen: View {
             }
         }
         .navigationTitle(license.name)
+    }
+
+    init(license: LicensesPlugin.License) {
+        let message = "\(#file) \(#function)"
+        Logger.standard.debug("\(message, privacy: .public)")
+        self.license = license
     }
 }
 

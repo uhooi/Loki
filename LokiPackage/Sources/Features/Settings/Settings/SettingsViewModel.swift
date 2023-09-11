@@ -1,5 +1,6 @@
 import Foundation
 import SakatsuData
+import LogCore
 
 // MARK: UI state
 
@@ -51,6 +52,8 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func send(_ action: SettingsAction) {
+        let message = "\(#file) \(#function) action: \(action)"
+        Logger.standard.debug("\(message, privacy: .public)")
         switch action {
         case let .onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime):
             guard validator.validate(saunaTime: defaultSaunaTime) else {

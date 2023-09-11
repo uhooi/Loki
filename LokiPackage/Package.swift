@@ -134,6 +134,10 @@ let package = Package(
         
         // Core layer
         .target(
+            name: "LogCore",
+            dependencies: [],
+            path: "./Sources/Core/Log"),
+        .target(
             name: "UserDefaultsCore",
             dependencies: [],
             path: "./Sources/Core/UserDefaults",
@@ -153,4 +157,8 @@ let package = Package(
 
 for target in package.targets {
     target.swiftSettings = debugSwiftSettings
+
+    if target.name != "LogCore" {
+        target.dependencies.append("LogCore")
+    }
 }

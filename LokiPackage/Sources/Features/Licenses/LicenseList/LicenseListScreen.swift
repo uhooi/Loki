@@ -1,4 +1,5 @@
 import SwiftUI
+import LogCore
 
 public struct LicenseListScreen: View {
     @State private var selectedLicense: LicensesPlugin.License?
@@ -22,7 +23,10 @@ public struct LicenseListScreen: View {
         }
     }
 
-    public init() {}
+    public init() {
+        let message = "\(#file) \(#function)"
+        Logger.standard.debug("\(message, privacy: .public)")
+    }
 }
 
 // MARK: - Privates

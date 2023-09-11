@@ -1,5 +1,6 @@
 import Foundation
 import SakatsuData
+import LogCore
 
 // MARK: UI state
 
@@ -53,6 +54,8 @@ final class SakatsuListViewModel: ObservableObject {
     }
 
     func send(_ action: SakatsuListAction) {
+        let message = "\(#file) \(#function) action: \(action)"
+        Logger.standard.debug("\(message, privacy: .public)")
         switch action {
         case .onSakatsuSave:
             uiState.shouldShowInputScreen = false
