@@ -1,4 +1,5 @@
 import SwiftUI
+import LogCore
 import UICore
 
 public struct SettingsScreen: View {
@@ -29,6 +30,8 @@ public struct SettingsScreen: View {
     }
 
     public init(onLicensesButtonClick: @escaping () -> Void) {
+        let message = "\(#file) \(#function)"
+        Logger.standard.debug("\(message, privacy: .public)")
         self.onLicensesButtonClick = onLicensesButtonClick
         self._viewModel = StateObject(wrappedValue: SettingsViewModel())
     }
