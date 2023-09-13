@@ -6,7 +6,7 @@ WORKSPACE_NAME := ${PRODUCT_NAME}.xcworkspace
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
 TEST_PLATFORM := iOS Simulator
-TEST_DEVICE ?= iPhone 14 Pro Max
+TEST_DEVICE ?= iPhone 15 Pro Max
 TEST_OS ?= 17.0
 TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}'
 
