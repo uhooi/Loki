@@ -201,7 +201,7 @@ private extension SakatsuInputView {
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
-            Text("℃")
+            Text("℃", bundle: .module)
         }
     }
 }

@@ -2,7 +2,14 @@
   "sourceLanguage" : "ja",
   "strings" : {
     "© 2023 THE Uhooi" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "© 2023 THE Uhooi"
+          }
+        }
+      }
     },
     "Cool bath" : {
       "localizations" : {

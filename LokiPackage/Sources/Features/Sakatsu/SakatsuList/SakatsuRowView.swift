@@ -145,7 +145,7 @@ private extension SakatsuRowView {
                         Text(temperature.formatted())
                             .font(.system(.footnote, design: .rounded))
                             .textSelection(.enabled)
-                        Text("℃")
+                        Text("℃", bundle: .module)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }

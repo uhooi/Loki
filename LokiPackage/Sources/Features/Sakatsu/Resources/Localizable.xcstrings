@@ -5,7 +5,14 @@
 
     },
     "℃" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "℃"
+          }
+        }
+      }
     },
     "Add new sauna temperatures" : {
       "localizations" : {
