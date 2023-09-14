@@ -20,7 +20,7 @@ public struct SakatsuListScreen: View {
                 viewModel.send(.onDelete(offsets: offsets))
             }
         )
-        .navigationTitle(L10n.sakatsuList)
+        .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
         .overlay(alignment: .bottomTrailing) {
             FAB(
                 systemName: "plus",
@@ -107,7 +107,7 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         alert(
-            L10n.copy,
+            String(localized: "Copy", bundle: .module),
             isPresented: .init(get: {
                 sakatsuText != nil
             }, set: { _ in
@@ -116,7 +116,7 @@ private extension View {
             presenting: sakatsuText
         ) { _ in
         } message: { sakatsuText in
-            Text(L10n.sakatsuTextCopied)
+            Text("Sakatsu text copied.", bundle: .module)
                 .onAppear {
                     UIPasteboard.general.string = sakatsuText
                 }

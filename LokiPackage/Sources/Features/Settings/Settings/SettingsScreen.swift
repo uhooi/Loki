@@ -21,7 +21,7 @@ public struct SettingsScreen: View {
                 onLicensesButtonClick()
             }
         )
-        .navigationTitle(L10n.settings)
+        .navigationTitle(String(localized: "Settings", bundle: .module))
         .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
         .errorAlert(
             error: viewModel.uiState.settingsError,

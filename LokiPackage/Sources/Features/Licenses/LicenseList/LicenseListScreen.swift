@@ -11,13 +11,13 @@ public struct LicenseListScreen: View {
             List(LicensesPlugin.licenses, selection: $selectedLicense) { license in
                 NavigationLink(license.name, value: license)
             }
-            .navigationTitle(L10n.licenses)
+            .navigationTitle(String(localized: "Licenses", bundle: .module))
             .licenseListScreenToolbar(onCloseButtonClick: { dismiss() })
         } detail: {
             if let selectedLicense {
                 LicenseDetailScreen(license: selectedLicense)
             } else {
-                Text(L10n.selectALicense)
+                Text("Select a license", bundle: .module)
                     .foregroundColor(.secondary)
             }
         }

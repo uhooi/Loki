@@ -25,44 +25,44 @@ private extension SettingsView {
         Section {
             defaultTimeInputView(
                 emoji: "🔥",
-                title: L10n.sauna,
+                title: String(localized: "Sauna", bundle: .module),
                 defaultTime: defaultSaunaTimes.saunaTime,
-                unit: L10n.m,
+                unit: String(localized: "m", bundle: .module),
                 onTimeChange: onDefaultSaunaTimeChange
             )
             defaultTimeInputView(
                 emoji: "💧",
-                title: L10n.coolBath,
+                title: String(localized: "Cool bath", bundle: .module),
                 defaultTime: defaultSaunaTimes.coolBathTime,
-                unit: L10n.s,
+                unit: String(localized: "s", bundle: .module),
                 onTimeChange: onDefaultCoolBathTimeChange
             )
             defaultTimeInputView(
                 emoji: "🍃",
-                title: L10n.relaxation,
+                title: String(localized: "Relaxation", bundle: .module),
                 defaultTime: defaultSaunaTimes.relaxationTime,
-                unit: L10n.m,
+                unit: String(localized: "m", bundle: .module),
                 onTimeChange: onDefaultRelaxationTimeChange
             )
         } header: {
-            Text(L10n.defaultTimes)
+            Text("Default times", bundle: .module)
         }
     }
 
     var licensesSection: some View {
         Section {
-            Button(L10n.licenses, action: onLicensesButtonClick)
+            Button(String(localized: "Licenses", bundle: .module), action: onLicensesButtonClick)
         }
     }
 
     var versionSection: some View {
         Section {
             LabeledContent(
-                L10n.version,
+                String(localized: "Version", bundle: .module),
                 value: "\(Bundle.main.version) (\(Bundle.main.build))"
             )
         } footer: {
-            Text("© 2023 THE Uhooi")
+            Text("© 2023 THE Uhooi", bundle: .module)
         }
     }
 
@@ -75,7 +75,7 @@ private extension SettingsView {
     ) -> some View {
         HStack {
             Text(emoji + title)
-            TextField(L10n.optional, value: .init(get: {
+            TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 defaultTime
             }, set: { newValue in
                 onTimeChange(newValue)

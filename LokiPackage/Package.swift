@@ -9,7 +9,6 @@ private extension PackageDescription.Target.Dependency {
 }
 
 private extension PackageDescription.Target.PluginUsage {
-    static let swiftgen: Self = .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin")
     static let licenses: Self = .plugin(name: "LicensesPlugin", package: "LicensesPlugin")
 }
 
@@ -58,8 +57,6 @@ let package = Package(
         // Plugins
         //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
         .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
-//        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin.git", from: "6.6.2"), // TODO: Waiting for Existential any support
-        .package(url: "https://github.com/treastrain/SwiftGenPlugin.git", branch: "support-existential-any"),
         .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
     ],
     targets: [
@@ -89,10 +86,7 @@ let package = Package(
                 "UICore",
                 .algorithms,
             ],
-            path: "./Sources/Features/Sakatsu",
-            plugins: [
-                .swiftgen,
-            ]),
+            path: "./Sources/Features/Sakatsu"),
         .testTarget(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
@@ -103,17 +97,13 @@ let package = Package(
                 "SakatsuData",
                 "UICore",
             ],
-            path: "./Sources/Features/Settings",
-            plugins: [
-                .swiftgen,
-            ]),
+            path: "./Sources/Features/Settings"),
         .target(
             name: "LicensesFeature",
             dependencies: [
             ],
             path: "./Sources/Features/Licenses",
             plugins: [
-                .swiftgen,
                 .licenses,
             ]),
         
@@ -123,10 +113,7 @@ let package = Package(
             dependencies: [
                 "UserDefaultsCore",
             ],
-            path: "./Sources/Data/Sakatsu",
-            plugins: [
-                .swiftgen,
-            ]),
+            path: "./Sources/Data/Sakatsu"),
         .testTarget(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
@@ -140,10 +127,7 @@ let package = Package(
         .target(
             name: "UserDefaultsCore",
             dependencies: [],
-            path: "./Sources/Core/UserDefaults",
-            plugins: [
-                .swiftgen,
-            ]),
+            path: "./Sources/Core/UserDefaults"),
         .testTarget(
             name: "UserDefaultsCoreTests",
             dependencies: ["UserDefaultsCore"],
