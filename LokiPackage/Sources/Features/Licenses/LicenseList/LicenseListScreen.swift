@@ -18,7 +18,7 @@ public struct LicenseListScreen: View {
                 LicenseDetailScreen(license: selectedLicense)
             } else {
                 Text("Select a license", bundle: .module)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
     }
