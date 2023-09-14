@@ -2,7 +2,6 @@
   "sourceLanguage" : "ja",
   "strings" : {
     "Licenses" : {
-      "comment" : "LicenseListScreen",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -19,7 +18,6 @@
       }
     },
     "No license found" : {
-      "comment" : "LicenseDetailScreen",
       "localizations" : {
         "en" : {
           "stringUnit" : {

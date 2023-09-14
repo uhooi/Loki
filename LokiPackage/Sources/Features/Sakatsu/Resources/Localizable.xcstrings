@@ -72,7 +72,6 @@
       }
     },
     "Copy Sakatsu text" : {
-      "comment" : "SakatsuRowView",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -153,7 +152,6 @@
       }
     },
     "Failed to delete set." : {
-      "comment" : "SakatsuInputViewModel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -202,7 +200,6 @@
       }
     },
     "I did %lld set(s)." : {
-      "comment" : "SakatsuListViewModel",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -251,7 +248,6 @@
       }
     },
     "Register Sakatsu" : {
-      "comment" : "SakatsuInputScreen",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -268,7 +264,6 @@
       }
     },
     "Required" : {
-      "comment" : "SakatsuInputView",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -285,7 +280,6 @@
       }
     },
     "Sakatsu list" : {
-      "comment" : "SakatsuListScreen",
       "localizations" : {
         "en" : {
           "stringUnit" : {
