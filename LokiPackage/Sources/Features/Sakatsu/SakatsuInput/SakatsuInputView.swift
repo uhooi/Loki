@@ -40,15 +40,15 @@ private extension SakatsuInputView {
     var generalSection: some View {
         Section {
             HStack {
-                Text(L10n.facilityName)
-                TextField(L10n.required, text: .init(get: {
+                Text("Facility name", bundle: .module)
+                TextField(String(localized: "Required", bundle: .module), text: .init(get: {
                     sakatsu.facilityName
                 }, set: { newValue in
                     onFacilityNameChange(newValue)
                 }))
             }
             DatePicker(
-                L10n.visitingDate,
+                String(localized: "Visiting date", bundle: .module),
                 selection: .init(get: {
                     sakatsu.visitingDate
                 }, set: { newValue in
@@ -62,7 +62,7 @@ private extension SakatsuInputView {
     var forewordSection: some View {
         Section {
             TextField(
-                L10n.optional,
+                String(localized: "Optional", bundle: .module),
                 text: .init(
                     get: {
                         sakatsu.foreword ?? ""
@@ -73,7 +73,7 @@ private extension SakatsuInputView {
                 axis: .vertical
             )
         } header: {
-            Text(L10n.foreword)
+            Text("Foreword", bundle: .module)
         }
     }
 
@@ -99,9 +99,9 @@ private extension SakatsuInputView {
                     onTimeChange: onRelaxationTimeChange
                 )
             } header: {
-                Text(L10n.setLld(saunaSetIndex + 1))
+                Text("Set \(saunaSetIndex + 1)", bundle: .module)
             } footer: {
-                Button(L10n.deleteSet, role: .destructive) {
+                Button(String(localized: "Delete set", bundle: .module), role: .destructive) {
                     onRemoveSaunaSetButtonClick(saunaSetIndex)
                 }
                 .font(.footnote)
@@ -111,14 +111,14 @@ private extension SakatsuInputView {
 
     var newSaunaSetSection: some View {
         Section {
-            Button(L10n.addNewSet, action: onAddNewSaunaSetButtonClick)
+            Button(String(localized: "Add new set", bundle: .module), action: onAddNewSaunaSetButtonClick)
         }
     }
 
     var afterwordSection: some View {
         Section {
             TextField(
-                L10n.optional,
+                String(localized: "Optional", bundle: .module),
                 text: .init(
                     get: {
                         sakatsu.afterword ?? ""
@@ -129,7 +129,7 @@ private extension SakatsuInputView {
                 axis: .vertical
             )
         } header: {
-            Text(L10n.afterword)
+            Text("Afterword", bundle: .module)
         }
     }
 
@@ -146,10 +146,10 @@ private extension SakatsuInputView {
             .onDelete { offsets in
                 onTemperatureDelete(offsets)
             }
-            Button(L10n.addNewSaunaTemperatures, action: onAddNewTemperatureButtonClick)
+            Button(String(localized: "Add new sauna temperatures", bundle: .module), action: onAddNewTemperatureButtonClick)
                 .font(.footnote)
         } header: {
-            Text(L10n.temperatures)
+            Text("Temperatures", bundle: .module)
         }
     }
 
@@ -162,13 +162,13 @@ private extension SakatsuInputView {
         HStack {
             HStack(spacing: 0) {
                 Text("\(saunaSetItem.emoji)")
-                TextField(L10n.optional, text: .init(get: {
+                TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaSetItem.title
                 }, set: { newValue in
                     onTitleChange(saunaSetIndex, newValue)
                 }))
             }
-            TextField(L10n.optional, value: .init(get: {
+            TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 saunaSetItem.time
             }, set: { newValue in
                 onTimeChange(saunaSetIndex, newValue)
@@ -188,13 +188,13 @@ private extension SakatsuInputView {
         HStack {
             HStack(spacing: 0) {
                 Text("\(saunaTemperature.emoji)")
-                TextField(L10n.optional, text: .init(get: {
+                TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaTemperature.title
                 }, set: { newValue in
                     onTitleChange(saunaTemperatureIndex, newValue)
                 }))
             }
-            TextField(L10n.optional, value: .init(get: {
+            TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 saunaTemperature.temperature
             }, set: { newValue in
                 onTemperatureChange(saunaTemperatureIndex, newValue)

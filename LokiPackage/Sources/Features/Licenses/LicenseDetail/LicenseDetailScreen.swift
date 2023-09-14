@@ -12,7 +12,7 @@ struct LicenseDetailScreen: View {
                         .padding()
                 }
             } else {
-                Text(L10n.noLicenseFound)
+                Text("No license found", bundle: .module)
                     .foregroundColor(.secondary)
             }
         }

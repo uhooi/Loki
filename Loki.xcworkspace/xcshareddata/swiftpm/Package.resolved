@@ -72,15 +72,6 @@
       }
     },
     {
-      "identity" : "swiftgenplugin",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/treastrain/SwiftGenPlugin.git",
-      "state" : {
-        "branch" : "support-existential-any",
-        "revision" : "a968ebcd1c0b803b31b52f476e773bd7fa92e64b"
-      }
-    },
-    {
       "identity" : "swiftlint",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/uhooi/SwiftLint.git",

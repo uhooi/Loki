@@ -1,0 +1,56 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "Licenses" : {
+      "comment" : "LicenseListScreen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licenses"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンス"
+          }
+        }
+      }
+    },
+    "No license found" : {
+      "comment" : "LicenseDetailScreen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No license found"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンスが見つかりません"
+          }
+        }
+      }
+    },
+    "Select a license" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a license"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンスを選択してください"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
