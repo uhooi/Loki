@@ -43,7 +43,7 @@ private extension SakatsuRowView {
         Text(sakatsu.visitingDate.formatted(date: .numeric, time: .omitted))
             .font(.caption)
             .lineLimit(1)
-            .foregroundColor(.secondary)
+            .foregroundStyle(.secondary)
     }
 
     var facilityNameText: some View {
@@ -107,7 +107,7 @@ private extension SakatsuRowView {
     var arrowImage: some View {
         Image(systemName: "arrow.right")
             .font(.caption)
-            .foregroundColor(.secondary)
+            .foregroundStyle(.secondary)
     }
 
     @ViewBuilder
@@ -130,7 +130,7 @@ private extension SakatsuRowView {
                     .font(.system(.title2, design: .rounded))
                 Text(saunaSetItem.unit)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
     }
@@ -147,7 +147,7 @@ private extension SakatsuRowView {
                             .textSelection(.enabled)
                         Text("℃", bundle: .module)
                             .font(.caption2)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }

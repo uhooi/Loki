@@ -13,7 +13,7 @@ struct LicenseDetailScreen: View {
                 }
             } else {
                 Text("No license found", bundle: .module)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
         .navigationTitle(license.name)

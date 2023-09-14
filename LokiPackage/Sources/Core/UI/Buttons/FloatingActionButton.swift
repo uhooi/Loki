@@ -66,9 +66,9 @@ private struct FloatingActionButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(width: 56, height: 56)
-            .foregroundColor(foregroundColor)
+            .foregroundStyle(foregroundColor)
             .background(backgroundColor)
-            .cornerRadius(16)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
             .opacity(configuration.isPressed ? 0.5 : 1)
     }
 }
