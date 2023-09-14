@@ -161,7 +161,7 @@ private extension SakatsuInputView {
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
-                Text("\(saunaSetItem.emoji)")
+                Text(saunaSetItem.emoji)
                 TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaSetItem.title
                 }, set: { newValue in
@@ -187,7 +187,7 @@ private extension SakatsuInputView {
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
-                Text("\(saunaTemperature.emoji)")
+                Text(saunaTemperature.emoji)
                 TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaTemperature.title
                 }, set: { newValue in
