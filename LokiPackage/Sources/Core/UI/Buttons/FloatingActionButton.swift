@@ -68,7 +68,7 @@ private struct FloatingActionButtonStyle: ButtonStyle {
             .frame(width: 56, height: 56)
             .foregroundColor(foregroundColor)
             .background(backgroundColor)
-            .cornerRadius(16)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
             .opacity(configuration.isPressed ? 0.5 : 1)
     }
 }
