@@ -87,7 +87,7 @@ private extension View {
                     .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(L10n.cancel, action: onCloseButtonClick)
+                Button(L10n.cancel, role: .cancel, action: onCloseButtonClick)
             }
         }
     }
