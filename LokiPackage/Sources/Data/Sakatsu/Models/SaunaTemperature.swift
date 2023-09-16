@@ -7,6 +7,8 @@ public struct SaunaTemperature: Identifiable {
     public var temperature: Decimal?
 }
 
+extension SaunaTemperature: Hashable {}
+
 extension SaunaTemperature {
     public static var sauna: Self { .init(emoji: "🔥", title: String(localized: "Sauna", bundle: .module)) }
     public static var coolBath: Self { .init(emoji: "💧", title: String(localized: "Cool bath", bundle: .module)) }

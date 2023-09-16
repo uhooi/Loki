@@ -10,7 +10,7 @@ struct SakatsuListView: View {
 
     var body: some View {
         List {
-            ForEach(sakatsus.indexed(), id: \.index) { sakatsuIndex, sakatsu in
+            ForEach(sakatsus.indexed(), id: \.element) { sakatsuIndex, sakatsu in
                 SakatsuRowView(
                     sakatsu: sakatsu,
                     onCopySakatsuTextButtonClick: {
