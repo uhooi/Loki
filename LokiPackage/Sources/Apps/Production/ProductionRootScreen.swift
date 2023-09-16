@@ -24,11 +24,8 @@ private extension ProductionRootScreen {
         SakatsuListScreen(onSettingsButtonClick: {
             isSettingsScreenPresented = true
         })
-        .sheet(isPresented: $isSettingsScreenPresented) {
-        } content: {
-            NavigationStack {
-                makeSettingsScreen()
-            }
+        .navigationDestination(isPresented: $isSettingsScreenPresented) {
+            makeSettingsScreen()
         }
     }
 
