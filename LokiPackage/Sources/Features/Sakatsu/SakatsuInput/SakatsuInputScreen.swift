@@ -6,8 +6,7 @@ struct SakatsuInputScreen: View {
     @StateObject private var viewModel: SakatsuInputViewModel
 
     private let onSakatsuSave: () -> Void
-
-    @Environment(\.dismiss) private var dismiss
+    private let onCancelButtonClick: () -> Void
 
     var body: some View {
         SakatsuInputView(
@@ -54,7 +53,7 @@ struct SakatsuInputScreen: View {
             onSaveButtonClick: {
                 viewModel.send(.onSaveButtonClick)
                 onSakatsuSave()
-            }, onCloseButtonClick: { dismiss() }
+            }, onCancelButtonClick: { onCancelButtonClick() }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
@@ -64,12 +63,14 @@ struct SakatsuInputScreen: View {
 
     init(
         editMode: EditMode,
-        onSakatsuSave: @escaping () -> Void
+        onSakatsuSave: @escaping () -> Void,
+        onCancelButtonClick: @escaping () -> Void
     ) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
         self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(editMode: editMode))
         self.onSakatsuSave = onSakatsuSave
+        self.onCancelButtonClick = onCancelButtonClick
     }
 }
 
@@ -79,7 +80,7 @@ private extension View {
     func sakatsuInputScreenToolbar(
         saveButtonDisabled: Bool,
         onSaveButtonClick: @escaping () -> Void,
-        onCloseButtonClick: @escaping () -> Void
+        onCancelButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -87,7 +88,7 @@ private extension View {
                     .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(L10n.cancel, role: .cancel, action: onCloseButtonClick)
+                Button(L10n.cancel, role: .cancel, action: onCancelButtonClick)
             }
         }
     }
@@ -101,7 +102,8 @@ struct SakatsuInputScreen_Previews: PreviewProvider {
         NavigationStack {
             SakatsuInputScreen(
                 editMode: .edit(sakatsu: .preview),
-                onSakatsuSave: {}
+                onSakatsuSave: {},
+                onCancelButtonClick: {}
             )
         }
     }
