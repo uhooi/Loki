@@ -15,10 +15,11 @@ struct SakatsuListUiState {
 // MARK: - Action
 
 enum SakatsuListAction {
-    case onSakatsuSave
     case onAddButtonClick
     case onEditButtonClick(sakatsuIndex: Int)
     case onCopySakatsuTextButtonClick(sakatsuIndex: Int)
+    case onSakatsuSave
+    case onInputScreenCancelButtonClick
     case onInputScreenDismiss
     case onCopyingSakatsuTextAlertDismiss
     case onDelete(offsets: IndexSet)
@@ -59,10 +60,6 @@ final class SakatsuListViewModel: ObservableObject {
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
         switch action {
-        case .onSakatsuSave:
-            uiState.shouldShowInputScreen = false
-            refreshSakatsus()
-            
         case .onAddButtonClick:
             uiState.selectedSakatsu = nil
             uiState.shouldShowInputScreen = true
@@ -73,7 +70,14 @@ final class SakatsuListViewModel: ObservableObject {
             
         case let .onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex):
             uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
-            
+
+        case .onSakatsuSave:
+            uiState.shouldShowInputScreen = false
+            refreshSakatsus()
+
+        case .onInputScreenCancelButtonClick:
+            uiState.shouldShowInputScreen = false
+
         case .onInputScreenDismiss:
             uiState.shouldShowInputScreen = false
             uiState.selectedSakatsu = nil
