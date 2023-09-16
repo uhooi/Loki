@@ -16,6 +16,8 @@ public struct Sakatsu: Identifiable {
     }
 }
 
+extension Sakatsu: Hashable {}
+
 extension Sakatsu: Equatable {
     public static func == (lhs: Sakatsu, rhs: Sakatsu) -> Bool {
         lhs.id == rhs.id
