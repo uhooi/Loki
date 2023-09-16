@@ -78,7 +78,7 @@ private extension SakatsuInputView {
     }
 
     var saunaSetSections: some View {
-        ForEach(sakatsu.saunaSets.indexed(), id: \.index) { saunaSetIndex, saunaSet in
+        ForEach(sakatsu.saunaSets.indexed(), id: \.element) { saunaSetIndex, saunaSet in
             Section {
                 saunaSetItemTimeInputView(
                     saunaSetIndex: saunaSetIndex,
@@ -135,7 +135,7 @@ private extension SakatsuInputView {
 
     var temperaturesSection: some View {
         Section {
-            ForEach(sakatsu.saunaTemperatures.indexed(), id: \.index) { saunaTemperatureIndex, saunaTemperature in
+            ForEach(sakatsu.saunaTemperatures.indexed(), id: \.element) { saunaTemperatureIndex, saunaTemperature in
                 saunaTemperatureInputView(
                     saunaTemperatureIndex: saunaTemperatureIndex,
                     saunaTemperature: saunaTemperature,
