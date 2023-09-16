@@ -83,17 +83,11 @@ private extension View {
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(L10n.save) {
-                    onSaveButtonClick()
-                }
-                .disabled(saveButtonDisabled)
+                Button(L10n.save, action: onSaveButtonClick)
+                    .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    onCloseButtonClick()
-                } label: {
-                    Image(systemName: "xmark")
-                }
+                Button(L10n.cancel, role: .cancel, action: onCloseButtonClick)
             }
         }
     }

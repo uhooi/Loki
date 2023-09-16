@@ -16,6 +16,7 @@
 // SakatsuInputScreen
 "Register Sakatsu" = "サ活登録";
 "Save" = "保存";
+"Cancel" = "キャンセル";
 
 // SakatsuInputView
 "Required" = "必須";
