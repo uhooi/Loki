@@ -41,6 +41,7 @@ clean:
 distclean:
 	rm -rf ./.mint
 	rm -rf ~/Library/Developer/Xcode/DerivedData
+	rm -rf ./LokiPackage/.swiftpm/
 	$(MAKE) clean
 
 .PHONY: build-debug-production
