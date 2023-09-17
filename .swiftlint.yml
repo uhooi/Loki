@@ -222,8 +222,8 @@ analyzer_rules:
   - unused_declaration
   - unused_import
 
-included:
-  - LokiPackage/Sources
+excluded:
+  - LokiPackage/Sources/.build
 
 line_length:
   warning: 300

@@ -55,8 +55,6 @@ let package = Package(
         .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
 
         // Plugins
-        //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
-        .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
         .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
     ],
     targets: [
