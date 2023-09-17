@@ -15,17 +15,34 @@ XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
 PRODUCTION_PROJECT_NAME := Production
 DEVELOP_PROJECT_NAME := Develop
 
-PACKAGE_PATH := ./${PRODUCT_NAME}Package
+export MINT_PATH := ./.mint/lib
+export MINT_LINK_PATH := ./.mint/bin
 
 # Targets
 
 .PHONY: setup
 setup:
+	$(MAKE) install-mint-dependencies
 	$(MAKE) open
+
+.PHONY: install-mint-dependencies
+install-mint-dependencies:
+	mint bootstrap --overwrite y
 
 .PHONY: open
 open:
 	open ./${WORKSPACE_NAME}
+
+.PHINY: clean
+clean:
+	rm -rf ./LokiPackage/.build/
+
+.PHINY: distclean
+distclean:
+	rm -rf ./.mint
+	rm -rf ~/Library/Developer/Xcode/DerivedData
+	rm -rf ./LokiPackage/.swiftpm/
+	$(MAKE) clean
 
 .PHONY: build-debug-production
 build-debug-production:
@@ -50,12 +67,13 @@ clean build \
 
 .PHONY: lint
 lint:
-	swift package --package-path ${PACKAGE_PATH} plugin lint-source-code
+	mint run realm/SwiftLint swiftlint
 
-.PHONY: format
-format:
-	swift package --package-path ${PACKAGE_PATH} plugin --allow-writing-to-package-directory format-source-code
+.PHONY: fix
+fix:
+	mint run realm/SwiftLint swiftlint --fix --format
 
 .PHONY: analyze
 analyze:
-	swift package --package-path ${PACKAGE_PATH} plugin --allow-writing-to-package-directory analyze-source-code --fix --compiler-log-path ./${XCODEBUILD_BUILD_LOG_NAME}
+	$(MAKE) build-debug-develop
+	mint run realm/SwiftLint swiftlint analyze --fix --compiler-log-path ./${XCODEBUILD_BUILD_LOG_NAME}

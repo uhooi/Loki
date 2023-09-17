@@ -70,8 +70,8 @@ disabled_rules:
   #- superfluous_disable_command
   #- switch_case_alignment
   #- syntactic_sugar
-  #- todo
-  #- trailing_comma
+  - todo # TODOコメントで警告を増やしたくないため
+  - trailing_comma # 末尾にカンマを付けたいことがあるため
   #- trailing_newline
   #- trailing_semicolon
   #- trailing_whitespace
@@ -199,7 +199,7 @@ opt_in_rules:
   - static_operator
   - strict_fileprivate
   #- strong_iboutlet # `@IBOutlet` を `weak` で定義したいため
-  - switch_case_on_newline
+  #- switch_case_on_newline # Swift 5.9からのswitch式に対応していないため
   - test_case_accessibility
   - toggle_bool
   #- trailing_closure # SwiftUIのViewでラベルを省略したくないことがあるため
@@ -222,8 +222,8 @@ analyzer_rules:
   - unused_declaration
   - unused_import
 
-included:
-  - LokiPackage/Sources
+excluded:
+  - LokiPackage/Sources/.build
 
 line_length:
   warning: 300

@@ -1,4 +1,5 @@
 // swift-tools-version: 5.9
+// swiftlint:disable:previous file_name
 
 import PackageDescription
 
@@ -55,8 +56,6 @@ let package = Package(
         .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
 
         // Plugins
-        //        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.50.3"), // TODO: Use Command Plugins
-        .package(url: "https://github.com/uhooi/SwiftLint.git", branch: "feature/add_command_plugin"), // TODO: Remove
         .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
     ],
     targets: [
@@ -77,7 +76,7 @@ let package = Package(
                 .playbookUI,
             ],
             path: "./Sources/Apps/Catalog"),
-        
+
         // Feature layer
         .target(
             name: "SakatsuFeature",
@@ -106,7 +105,7 @@ let package = Package(
             plugins: [
                 .licenses,
             ]),
-        
+
         // Data layer
         .target(
             name: "SakatsuData",
@@ -118,7 +117,7 @@ let package = Package(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
             path: "./Tests/Data/SakatsuTests"),
-        
+
         // Core layer
         .target(
             name: "LogCore",

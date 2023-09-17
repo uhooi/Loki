@@ -67,8 +67,7 @@ private extension SakatsuRowView {
         }
     }
 
-    @ViewBuilder
-    var forewordText: some View {
+    @ViewBuilder var forewordText: some View {
         if let foreword = sakatsu.foreword {
             Text(foreword)
                 .font(.body)
@@ -110,8 +109,7 @@ private extension SakatsuRowView {
             .foregroundStyle(.secondary)
     }
 
-    @ViewBuilder
-    var afterwordText: some View {
+    @ViewBuilder var afterwordText: some View {
         if let afterword = sakatsu.afterword {
             Text(afterword)
                 .font(.body)

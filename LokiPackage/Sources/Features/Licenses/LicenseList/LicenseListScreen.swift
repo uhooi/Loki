@@ -4,7 +4,7 @@ import LogCore
 public struct LicenseListScreen: View {
     @State private var selectedLicense: LicensesPlugin.License?
 
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismiss // swiftlint:disable:this attributes
 
     public var body: some View {
         NavigationSplitView {

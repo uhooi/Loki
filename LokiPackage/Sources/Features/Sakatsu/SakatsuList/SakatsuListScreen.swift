@@ -6,8 +6,8 @@ import UICore
 public struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel
-    
-    @Environment(\.colorScheme) private var colorScheme
+
+    @Environment(\.colorScheme) private var colorScheme // swiftlint:disable:this attributes
 
     public var body: some View {
         SakatsuListView(

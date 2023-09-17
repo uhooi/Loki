@@ -61,11 +61,11 @@ final class SakatsuListViewModel: ObservableObject {
         case .onAddButtonClick:
             uiState.selectedSakatsu = nil
             uiState.shouldShowInputScreen = true
-            
+
         case let .onEditButtonClick(sakatsuIndex: sakatsuIndex):
             uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
             uiState.shouldShowInputScreen = true
-            
+
         case let .onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex):
             uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
 
@@ -79,10 +79,10 @@ final class SakatsuListViewModel: ObservableObject {
         case .onInputScreenDismiss:
             uiState.shouldShowInputScreen = false
             uiState.selectedSakatsu = nil
-            
+
         case .onCopyingSakatsuTextAlertDismiss:
             uiState.sakatsuText = nil
-            
+
         case let .onDelete(offsets: offsets):
             let oldValue = uiState.sakatsus
             uiState.sakatsus.remove(atOffsets: offsets)
@@ -92,7 +92,7 @@ final class SakatsuListViewModel: ObservableObject {
                 uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
                 uiState.sakatsus = oldValue
             }
-            
+
         case .onErrorAlertDismiss:
             uiState.sakatsuListError = nil
         }
