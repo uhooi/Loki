@@ -21,22 +21,18 @@ public struct SakatsuListScreen: View {
             }
         )
         .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
-        .overlay(alignment: .bottomTrailing) {
-            FAB(
-                systemName: "plus",
-                action: { viewModel.send(.onAddButtonClick) }
-            )
-            .padding(16)
-        }
         .sakatsuListScreenToolbar(
             colorScheme: colorScheme,
-            onSettingsButtonClick: { onSettingsButtonClick() }
+            sakatsusCount: viewModel.uiState.sakatsus.count,
+            onSettingsButtonClick: { onSettingsButtonClick() },
+            onAddButtonClick: { viewModel.send(.onAddButtonClick) }
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
-            onDismiss: { viewModel.send(.onInputScreenDismiss) },
-            onSakatsuSave: { viewModel.send(.onSakatsuSave) }
+            onSakatsuSave: { viewModel.send(.onSakatsuSave) },
+            onCancelButtonClick: { viewModel.send(.onInputScreenCancelButtonClick) },
+            onDismiss: { viewModel.send(.onInputScreenDismiss) }
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
@@ -62,18 +58,34 @@ public struct SakatsuListScreen: View {
 private extension View {
     func sakatsuListScreenToolbar(
         colorScheme: ColorScheme,
-        onSettingsButtonClick: @escaping () -> Void
+        sakatsusCount: Int,
+        onSettingsButtonClick: @escaping () -> Void,
+        onAddButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    onSettingsButtonClick()
-                } label: {
+                Button(action: onSettingsButtonClick) {
                     Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: onAddButtonClick) {
+                    Label {
+                        Text("New Sakatsu", bundle: .module)
+                            .bold()
+                    } icon: {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title3.bold())
+                    }
+                    .labelStyle(.titleAndIcon)
+                }
+            }
+            ToolbarItem(placement: .status) {
+                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                    .font(.caption)
             }
         }
     }
@@ -82,21 +94,23 @@ private extension View {
     func sakatsuInputSheet(
         shouldShowSheet: Bool,
         selectedSakatsu: Sakatsu?,
-        onDismiss: @escaping () -> Void,
-        onSakatsuSave: @escaping () -> Void
+        onSakatsuSave: @escaping () -> Void,
+        onCancelButtonClick: @escaping () -> Void,
+        onDismiss: @escaping () -> Void
     ) -> some View {
         sheet(
             isPresented: .init(get: {
                 shouldShowSheet
             }, set: { _ in
-                onDismiss()
             })
         ) {
+            onDismiss()
         } content: {
             NavigationStack {
                 SakatsuInputScreen(
                     editMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
-                    onSakatsuSave: onSakatsuSave
+                    onSakatsuSave: onSakatsuSave,
+                    onCancelButtonClick: onCancelButtonClick
                 )
             }
         }

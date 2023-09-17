@@ -1,9 +1,31 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
+    "%lld Sakatsu(s)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Sakatsu(s)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld件のサ活"
+          }
+        }
+      }
+    },
     "℃" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "℃"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "℃"
@@ -55,6 +77,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "あとがき"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         }
       }
@@ -215,6 +253,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lldセット行いました。"
+          }
+        }
+      }
+    },
+    "New Sakatsu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Sakatsu"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新規"
           }
         }
       }

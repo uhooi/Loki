@@ -6,6 +6,5 @@ struct AllScenarios: ScenarioProvider {
             .add(SakatsuScenarios.self)
             .add(SettingsScenarios.self)
             .add(LicensesScenarios.self)
-            .add(FloatingActionButtonScenarios.self)
     }
 }

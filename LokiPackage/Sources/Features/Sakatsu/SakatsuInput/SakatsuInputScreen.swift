@@ -6,8 +6,7 @@ struct SakatsuInputScreen: View {
     @StateObject private var viewModel: SakatsuInputViewModel
 
     private let onSakatsuSave: () -> Void
-
-    @Environment(\.dismiss) private var dismiss
+    private let onCancelButtonClick: () -> Void
 
     var body: some View {
         SakatsuInputView(
@@ -54,7 +53,7 @@ struct SakatsuInputScreen: View {
             onSaveButtonClick: {
                 viewModel.send(.onSaveButtonClick)
                 onSakatsuSave()
-            }, onCloseButtonClick: { dismiss() }
+            }, onCancelButtonClick: { onCancelButtonClick() }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
@@ -65,12 +64,14 @@ struct SakatsuInputScreen: View {
     @MainActor
     init(
         editMode: EditMode,
-        onSakatsuSave: @escaping () -> Void
+        onSakatsuSave: @escaping () -> Void,
+        onCancelButtonClick: @escaping () -> Void
     ) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
         self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(editMode: editMode))
         self.onSakatsuSave = onSakatsuSave
+        self.onCancelButtonClick = onCancelButtonClick
     }
 }
 
@@ -80,21 +81,15 @@ private extension View {
     func sakatsuInputScreenToolbar(
         saveButtonDisabled: Bool,
         onSaveButtonClick: @escaping () -> Void,
-        onCloseButtonClick: @escaping () -> Void
+        onCancelButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(String(localized: "Save", bundle: .module)) {
-                    onSaveButtonClick()
-                }
-                .disabled(saveButtonDisabled)
+                Button(String(localized: "Save", bundle: .module), action: onSaveButtonClick)
+                    .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    onCloseButtonClick()
-                } label: {
-                    Image(systemName: "xmark")
-                }
+                Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
             }
         }
     }
@@ -106,7 +101,8 @@ private extension View {
     NavigationStack {
         SakatsuInputScreen(
             editMode: .edit(sakatsu: .preview),
-            onSakatsuSave: {}
+            onSakatsuSave: {},
+            onCancelButtonClick: {}
         )
     }
 }

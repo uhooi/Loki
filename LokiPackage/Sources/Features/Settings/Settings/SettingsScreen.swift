@@ -6,8 +6,6 @@ public struct SettingsScreen: View {
     private let onLicensesButtonClick: () -> Void
     @StateObject private var viewModel: SettingsViewModel
 
-    @Environment(\.dismiss) private var dismiss
-
     public var body: some View {
         SettingsView(
             defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
@@ -22,7 +20,6 @@ public struct SettingsScreen: View {
             }
         )
         .navigationTitle(String(localized: "Settings", bundle: .module))
-        .settingsScreenToolbar(onCloseButtonClick: { dismiss() })
         .errorAlert(
             error: viewModel.uiState.settingsError,
             onDismiss: { viewModel.send(.onErrorAlertDismiss) }
@@ -35,24 +32,6 @@ public struct SettingsScreen: View {
         Logger.standard.debug("\(message, privacy: .public)")
         self.onLicensesButtonClick = onLicensesButtonClick
         self._viewModel = StateObject(wrappedValue: SettingsViewModel())
-    }
-}
-
-// MARK: - Privates
-
-private extension View {
-    func settingsScreenToolbar(
-        onCloseButtonClick: @escaping () -> Void
-    ) -> some View {
-        toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    onCloseButtonClick()
-                } label: {
-                    Image(systemName: "xmark")
-                }
-            }
-        }
     }
 }
 
