@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Sakatsu: Identifiable {
-    public var id = UUID()
+    public let id: UUID
     public var facilityName: String = ""
     public var visitingDate: Date = .now
     public var saunaTemperatures: [SaunaTemperature] = [.sauna, .coolBath]
@@ -9,9 +9,12 @@ public struct Sakatsu: Identifiable {
     public var saunaSets: [SaunaSet] = [.init()]
     public var afterword: String?
 
-    public init() {}
+    public init() {
+        self.id = UUID()
+    }
 
     public init(saunaSets: [SaunaSet]) {
+        self.id = UUID()
         self.saunaSets = saunaSets
     }
 }

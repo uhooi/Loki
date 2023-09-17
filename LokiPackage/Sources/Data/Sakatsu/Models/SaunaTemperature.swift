@@ -1,10 +1,17 @@
 import Foundation
 
 public struct SaunaTemperature: Identifiable {
-    public var id = UUID()
+    public let id: UUID
     public var emoji: String
     public var title: String
     public var temperature: Decimal?
+
+    init(emoji: String, title: String, temperature: Decimal? = nil) {
+        self.id = UUID()
+        self.emoji = emoji
+        self.title = title
+        self.temperature = temperature
+    }
 }
 
 extension SaunaTemperature: Hashable {}
