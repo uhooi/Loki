@@ -71,7 +71,7 @@ disabled_rules:
   #- switch_case_alignment
   #- syntactic_sugar
   #- todo
-  #- trailing_comma
+  - trailing_comma # 末尾にカンマを付けたいことがあるため
   #- trailing_newline
   #- trailing_semicolon
   #- trailing_whitespace
