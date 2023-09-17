@@ -21,16 +21,11 @@ public struct SakatsuListScreen: View {
             }
         )
         .navigationTitle(L10n.sakatsuList)
-        .overlay(alignment: .bottomTrailing) {
-            FAB(
-                systemName: "plus",
-                action: { viewModel.send(.onAddButtonClick) }
-            )
-            .padding(16)
-        }
         .sakatsuListScreenToolbar(
             colorScheme: colorScheme,
-            onSettingsButtonClick: { onSettingsButtonClick() }
+            sakatsusCount: viewModel.uiState.sakatsus.count,
+            onSettingsButtonClick: { onSettingsButtonClick() },
+            onAddButtonClick: { viewModel.send(.onAddButtonClick) }
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
@@ -62,18 +57,34 @@ public struct SakatsuListScreen: View {
 private extension View {
     func sakatsuListScreenToolbar(
         colorScheme: ColorScheme,
-        onSettingsButtonClick: @escaping () -> Void
+        sakatsusCount: Int,
+        onSettingsButtonClick: @escaping () -> Void,
+        onAddButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    onSettingsButtonClick()
-                } label: {
+                Button(action: onSettingsButtonClick) {
                     Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: onAddButtonClick) {
+                    Label {
+                        Text(L10n.newSakatsu)
+                            .bold()
+                    } icon: {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title3.bold())
+                    }
+                    .labelStyle(.titleAndIcon)
+                }
+            }
+            ToolbarItem(placement: .status) {
+                Text(L10n.lldSakatsuS(sakatsusCount))
+                    .font(.caption)
             }
         }
     }

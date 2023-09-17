@@ -1,5 +1,7 @@
 // SakatsuListScreen
 "Sakatsu list" = "サ活一覧";
+"New Sakatsu" = "新規";
+"%lld Sakatsu(s)" = "%lld件のサ活";
 "Copy" = "コピー";
 "Sakatsu text copied." = "サ活のテキストをコピーしました。";
 
