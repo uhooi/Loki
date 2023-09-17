@@ -199,7 +199,7 @@ opt_in_rules:
   - static_operator
   - strict_fileprivate
   #- strong_iboutlet # `@IBOutlet` を `weak` で定義したいため
-  - switch_case_on_newline
+  #- switch_case_on_newline # Swift 5.9からのswitch式に対応していないため
   - test_case_accessibility
   - toggle_bool
   #- trailing_closure # SwiftUIのViewでラベルを省略したくないことがあるため

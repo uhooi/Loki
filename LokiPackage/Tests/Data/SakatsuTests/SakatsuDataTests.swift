@@ -1,7 +1,7 @@
 import XCTest
-@testable import SakatsuFeature
+@testable import SakatsuData
 
-final class SakatsuFeatureTests: XCTestCase {
+final class SakatsuDataTests: XCTestCase {
     func testExample() throws { // swiftlint:disable:this empty_xctest_method
     }
 }

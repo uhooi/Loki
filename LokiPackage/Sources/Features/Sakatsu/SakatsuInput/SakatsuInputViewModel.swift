@@ -112,93 +112,93 @@ final class SakatsuInputViewModel: ObservableObject {
         case .onAddNewSaunaSetButtonClick:
             uiState.sakatsu.saunaSets.append(sakatsuRepository.makeDefaultSaunaSet())
 
-        case .onFacilityNameChange(facilityName: let facilityName):
+        case let .onFacilityNameChange(facilityName: facilityName):
             guard validator.validate(facilityName: facilityName) else {
                 return
             }
             uiState.sakatsu.facilityName = facilityName
 
-        case .onVisitingDateChange(visitingDate: let visitingDate):
+        case let .onVisitingDateChange(visitingDate: visitingDate):
             guard validator.validate(visitingDate: visitingDate) else {
                 return
             }
             uiState.sakatsu.visitingDate = visitingDate
 
-        case .onForewordChange(foreword: let foreword):
+        case let .onForewordChange(foreword: foreword):
             guard validator.validate(foreword: foreword) else {
                 return
             }
             uiState.sakatsu.foreword = foreword
 
-        case .onSaunaTitleChange(saunaSetIndex: let saunaSetIndex, saunaTitle: let saunaTitle):
+        case let .onSaunaTitleChange(saunaSetIndex: saunaSetIndex, saunaTitle: saunaTitle):
             guard validator.validate(saunaTitle: saunaTitle) else {
                 return
             }
             uiState.sakatsu.saunaSets[saunaSetIndex].sauna.title = saunaTitle
 
-        case .onSaunaTimeChange(saunaSetIndex: let saunaSetIndex, saunaTime: let saunaTime):
+        case let .onSaunaTimeChange(saunaSetIndex: saunaSetIndex, saunaTime: saunaTime):
             guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
                   validator.validate(saunaTime: saunaTime) else {
                 return
             }
             uiState.sakatsu.saunaSets[saunaSetIndex].sauna.time = saunaTime
 
-        case .onCoolBathTitleChange(saunaSetIndex: let saunaSetIndex, coolBathTitle: let coolBathTitle):
+        case let .onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, coolBathTitle: coolBathTitle):
             guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
                   validator.validate(coolBathTitle: coolBathTitle) else {
                 return
             }
             uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.title = coolBathTitle
 
-        case .onCoolBathTimeChange(saunaSetIndex: let saunaSetIndex, coolBathTime: let coolBathTime):
+        case let .onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, coolBathTime: coolBathTime):
             guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
                   validator.validate(coolBathTime: coolBathTime) else {
                 return
             }
             uiState.sakatsu.saunaSets[saunaSetIndex].coolBath.time = coolBathTime
 
-        case .onRelaxationTitleChange(saunaSetIndex: let saunaSetIndex, relaxationTitle: let relaxationTitle):
+        case let .onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, relaxationTitle: relaxationTitle):
             guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
                   validator.validate(relaxationTitle: relaxationTitle) else {
                 return
             }
             uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.title = relaxationTitle
 
-        case .onRelaxationTimeChange(saunaSetIndex: let saunaSetIndex, relaxationTime: let relaxationTime):
+        case let .onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, relaxationTime: relaxationTime):
             guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex),
                   validator.validate(relaxationTime: relaxationTime) else {
                 return
             }
             uiState.sakatsu.saunaSets[saunaSetIndex].relaxation.time = relaxationTime
 
-        case .onRemoveSaunaSetButtonClick(saunaSetIndex: let saunaSetIndex):
+        case let .onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex):
             guard uiState.sakatsu.saunaSets.indices.contains(saunaSetIndex) else {
                 uiState.sakatsuInputError = .saunaSetRemoveFailed
                 return
             }
             uiState.sakatsu.saunaSets.remove(at: saunaSetIndex)
 
-        case .onAfterwordChange(afterword: let afterword):
+        case let .onAfterwordChange(afterword: afterword):
             guard validator.validate(afterword: afterword) else {
                 return
             }
             uiState.sakatsu.afterword = afterword
 
-        case .onTemperatureTitleChange(temperatureIndex: let temperatureIndex, temperatureTitle: let temperatureTitle):
+        case let .onTemperatureTitleChange(temperatureIndex: temperatureIndex, temperatureTitle: temperatureTitle):
             guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
                   validator.validate(temperatureTitle: temperatureTitle) else {
                 return
             }
             uiState.sakatsu.saunaTemperatures[temperatureIndex].title = temperatureTitle
 
-        case .onTemperatureChange(temperatureIndex: let temperatureIndex, temperature: let temperature):
+        case let .onTemperatureChange(temperatureIndex: temperatureIndex, temperature: temperature):
             guard uiState.sakatsu.saunaTemperatures.indices.contains(temperatureIndex),
                   validator.validate(temperature: temperature) else {
                 return
             }
             uiState.sakatsu.saunaTemperatures[temperatureIndex].temperature = temperature
 
-        case .onTemperatureDelete(offsets: let offsets):
+        case let .onTemperatureDelete(offsets: offsets):
             uiState.sakatsu.saunaTemperatures.remove(atOffsets: offsets)
 
         case .onAddNewTemperatureButtonClick:
