@@ -15,8 +15,8 @@ XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
 PRODUCTION_PROJECT_NAME := Production
 DEVELOP_PROJECT_NAME := Develop
 
-export MINT_PATH := .mint/lib
-export MINT_LINK_PATH := .mint/bin
+export MINT_PATH := ./.mint/lib
+export MINT_LINK_PATH := ./.mint/bin
 
 # Targets
 
@@ -32,6 +32,16 @@ install-mint-dependencies:
 .PHONY: open
 open:
 	open ./${WORKSPACE_NAME}
+
+.PHINY: clean
+clean:
+	rm -rf ./LokiPackage/.build/
+
+.PHINY: distclean
+distclean:
+	rm -rf ./.mint
+	rm -rf ~/Library/Developer/Xcode/DerivedData
+	$(MAKE) clean
 
 .PHONY: build-debug-production
 build-debug-production:
