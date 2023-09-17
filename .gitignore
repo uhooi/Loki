@@ -91,3 +91,6 @@ iOSInjectionProject/
 
 # xcodebuild log
 *_Build.log
+
+# Mint
+.mint/
