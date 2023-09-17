@@ -92,8 +92,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4B70E98029912DEB00D55B7B /* Build configuration list for PBXNativeTarget "Develop" */;
 			buildPhases = (
-				4B0B92812AB71A5200FFB4A5 /* Run SwiftLint */,
 				4B70E96E29912DEA00D55B7B /* Sources */,
+				4B0B92812AB71A5200FFB4A5 /* Run SwiftLint */,
 				4B70E96F29912DEA00D55B7B /* Frameworks */,
 				4B70E97029912DEA00D55B7B /* Resources */,
 			);
@@ -173,7 +173,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/..\n\nSDKROOT=$(xcrun --sdk macosx --show-sdk-path)\nexport MINT_PATH=./.mint/lib\nexport MINT_LINK_PATH=./.mint/bin\n\n# M1 Mac\nif [ \\\"$(uname -m)\\\" = \\\"arm64\\\" ]; then\n  export HOMEBREW_HOME=/opt/homebrew\n# Intel Mac\nelse\n  export HOMEBREW_HOME=/usr/local\nfi\nif [ -d \\\"${HOMEBREW_HOME}\\\" ]; then\n  export PATH=\\\"${HOMEBREW_HOME}/bin:$PATH\\\"\nfi\n\nif which mint >/dev/null; then\n  make fix\n  make lint\nelse\n  echo \\\"warning: Mint not installed, please run \\\\`brew install mint\\\\` .\\\"\nfi\n";
+			shellScript = "cd $SRCROOT/..\n\nSDKROOT=$(xcrun --sdk macosx --show-sdk-path)\nexport MINT_PATH=./.mint/lib\nexport MINT_LINK_PATH=./.mint/bin\n\n# M1 Mac\nif [ \"$(uname -m)\" = \"arm64\" ]; then\n  export HOMEBREW_HOME=/opt/homebrew\n# Intel Mac\nelse\n  export HOMEBREW_HOME=/usr/local\nfi\nif [ -d \"${HOMEBREW_HOME}\" ]; then\n  export PATH=\"${HOMEBREW_HOME}/bin:$PATH\"\nfi\n\nif which mint >/dev/null; then\n  make fix\n  make lint\nelse\n  echo \"warning: Mint not installed, please run \\`brew install mint\\` .\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
