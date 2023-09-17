@@ -88,6 +88,7 @@ final class SakatsuInputViewModel: ObservableObject {
         self.validator = validator
     }
 
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     func send(_ action: SakatsuInputAction) {
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
