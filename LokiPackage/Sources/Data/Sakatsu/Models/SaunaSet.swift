@@ -8,12 +8,14 @@ public protocol SaunaSetItemProtocol {
 }
 
 public struct SaunaSet: Identifiable {
-    public var id = UUID()
+    public let id: UUID
     public var sauna: Sauna = .init()
     public var coolBath: CoolBath = .init()
     public var relaxation: Relaxation = .init()
 
-    public init() {}
+    public init() {
+        self.id = UUID()
+    }
 
     public struct Sauna: SaunaSetItemProtocol {
         public var emoji: String { "🔥" }
