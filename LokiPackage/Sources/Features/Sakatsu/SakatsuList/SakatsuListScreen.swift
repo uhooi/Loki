@@ -23,6 +23,7 @@ public struct SakatsuListScreen: View {
         .navigationTitle(L10n.sakatsuList)
         .sakatsuListScreenToolbar(
             colorScheme: colorScheme,
+            sakatsusCount: viewModel.uiState.sakatsus.count,
             onSettingsButtonClick: { onSettingsButtonClick() },
             onAddButtonClick: { viewModel.send(.onAddButtonClick) }
         )
@@ -56,6 +57,7 @@ public struct SakatsuListScreen: View {
 private extension View {
     func sakatsuListScreenToolbar(
         colorScheme: ColorScheme,
+        sakatsusCount: Int,
         onSettingsButtonClick: @escaping () -> Void,
         onAddButtonClick: @escaping () -> Void
     ) -> some View {
@@ -79,6 +81,10 @@ private extension View {
                     }
                     .labelStyle(.titleAndIcon)
                 }
+            }
+            ToolbarItem(placement: .status) {
+                Text(L10n.lldSakatsuS(sakatsusCount))
+                    .font(.caption)
             }
         }
     }

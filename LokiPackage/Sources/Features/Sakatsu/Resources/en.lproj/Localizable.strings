@@ -1,6 +1,7 @@
 // SakatsuListScreen
 "Sakatsu list" = "Sakatsu list";
 "New Sakatsu" = "New Sakatsu";
+"%lld Sakatsu(s)" = "%lld Sakatsu(s)";
 "Copy" = "Copy";
 "Sakatsu text copied." = "Sakatsu text copied.";
 
