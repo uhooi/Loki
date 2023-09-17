@@ -70,7 +70,7 @@ lint:
 	mint run realm/SwiftLint swiftlint
 
 .PHONY: fix
-format:
+fix:
 	mint run realm/SwiftLint swiftlint --fix --format
 
 .PHONY: analyze
