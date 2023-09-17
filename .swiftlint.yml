@@ -70,7 +70,7 @@ disabled_rules:
   #- superfluous_disable_command
   #- switch_case_alignment
   #- syntactic_sugar
-  #- todo
+  - todo # TODOコメントで警告を増やしたくないため
   - trailing_comma # 末尾にカンマを付けたいことがあるため
   #- trailing_newline
   #- trailing_semicolon
