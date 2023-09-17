@@ -1,9 +1,0 @@
-input_dir: Resources
-output_dir: ${DERIVED_SOURCES_DIR}
-
-strings:
-  inputs:
-    - ja.lproj/Localizable.strings
-  outputs:
-    - templateName: structured-swift5
-      output: LicensesFeatureStrings.swift

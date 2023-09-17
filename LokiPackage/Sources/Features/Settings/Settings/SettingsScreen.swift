@@ -19,13 +19,14 @@ public struct SettingsScreen: View {
                 onLicensesButtonClick()
             }
         )
-        .navigationTitle(L10n.settings)
+        .navigationTitle(String(localized: "Settings", bundle: .module))
         .errorAlert(
             error: viewModel.uiState.settingsError,
             onDismiss: { viewModel.send(.onErrorAlertDismiss) }
         )
     }
 
+    @MainActor
     public init(onLicensesButtonClick: @escaping () -> Void) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
@@ -36,12 +37,8 @@ public struct SettingsScreen: View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SettingsScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SettingsScreen(onLicensesButtonClick: {})
-        }
+#Preview {
+    NavigationStack {
+        SettingsScreen(onLicensesButtonClick: {})
     }
 }
-#endif

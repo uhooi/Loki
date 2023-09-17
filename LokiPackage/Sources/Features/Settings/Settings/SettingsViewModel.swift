@@ -26,10 +26,8 @@ enum SettingsError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case let .defaultSaunaSetFetchFailed(localizedDescription):
-            return localizedDescription
-        case let .defaultSaunaSetSaveFailed(localizedDescription):
-            return localizedDescription
+        case let .defaultSaunaSetFetchFailed(localizedDescription): localizedDescription
+        case let .defaultSaunaSetSaveFailed(localizedDescription): localizedDescription
         }
     }
 }

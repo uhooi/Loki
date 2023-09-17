@@ -1,0 +1,22 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "Value does not exist for the key." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value does not exist for the key."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "対象のキーに値が存在しません。"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

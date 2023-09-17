@@ -34,10 +34,8 @@ enum SakatsuListError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case let .sakatsuFetchFailed(localizedDescription):
-            return localizedDescription
-        case let .sakatsuDeleteFailed(localizedDescription):
-            return localizedDescription
+        case let .sakatsuFetchFailed(localizedDescription): localizedDescription
+        case let .sakatsuDeleteFailed(localizedDescription): localizedDescription
         }
     }
 }
@@ -119,7 +117,7 @@ private extension SakatsuListViewModel {
             text += "\(foreword)\n\n"
         }
 
-        text += L10n.iDidLldSetS(sakatsu.saunaSets.count)
+        text += String(localized: "I did \(sakatsu.saunaSets.count) set(s).", bundle: .module)
         for saunaSet in sakatsu.saunaSets {
             var saunaSetItemTexts: [String] = []
             saunaSetItemText(saunaSetItem: saunaSet.sauna).map { saunaSetItemTexts.append($0) }

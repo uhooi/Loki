@@ -45,24 +45,20 @@ enum SakatsuInputError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .saunaSetRemoveFailed:
-            return L10n.failedToDeleteSet
-        case .sakatsuSaveFailed:
-            return L10n.failedToSaveSakatsu
+        case .saunaSetRemoveFailed: .init(localized: "Failed to delete set.", bundle: .module)
+        case .sakatsuSaveFailed: .init(localized: "Failed to save Sakatsu.", bundle: .module)
         }
     }
 
     var failureReason: String? {
         switch self {
-        case .saunaSetRemoveFailed, .sakatsuSaveFailed:
-            return L10n.detailedCauseUnknown
+        case .saunaSetRemoveFailed, .sakatsuSaveFailed: .init(localized: "Detailed cause unknown.", bundle: .module)
         }
     }
 
     var recoverySuggestion: String? {
         switch self {
-        case .saunaSetRemoveFailed, .sakatsuSaveFailed:
-            return L10n.pleaseTryAgainAfterSomeTime
+        case .saunaSetRemoveFailed, .sakatsuSaveFailed: .init(localized: "Please try again after some time.", bundle: .module)
         }
     }
 }

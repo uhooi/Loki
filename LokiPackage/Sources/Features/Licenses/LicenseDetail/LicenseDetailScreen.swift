@@ -12,8 +12,8 @@ struct LicenseDetailScreen: View {
                         .padding()
                 }
             } else {
-                Text(L10n.noLicenseFound)
-                    .foregroundColor(.secondary)
+                Text("No license found", bundle: .module)
+                    .foregroundStyle(.secondary)
             }
         }
         .navigationTitle(license.name)
@@ -28,10 +28,6 @@ struct LicenseDetailScreen: View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct LicenseDetailScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LicenseDetailScreen(license: .init(id: "loki", name: "Loki", licenseText: nil))
-    }
+#Preview {
+    LicenseDetailScreen(license: .init(id: "loki", name: "Loki", licenseText: nil))
 }
-#endif

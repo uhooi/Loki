@@ -45,7 +45,7 @@ struct SakatsuInputScreen: View {
                 viewModel.send(.onAddNewTemperatureButtonClick)
             }
         )
-        .navigationTitle(L10n.registerSakatsu)
+        .navigationTitle(String(localized: "Register Sakatsu", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)
         .sakatsuInputScreenToolbar(
@@ -61,6 +61,7 @@ struct SakatsuInputScreen: View {
         )
     }
 
+    @MainActor
     init(
         editMode: EditMode,
         onSakatsuSave: @escaping () -> Void,
@@ -84,11 +85,11 @@ private extension View {
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(L10n.save, action: onSaveButtonClick)
+                Button(String(localized: "Save", bundle: .module), action: onSaveButtonClick)
                     .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(L10n.cancel, role: .cancel, action: onCancelButtonClick)
+                Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
             }
         }
     }
@@ -96,16 +97,12 @@ private extension View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuInputScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SakatsuInputScreen(
-                editMode: .edit(sakatsu: .preview),
-                onSakatsuSave: {},
-                onCancelButtonClick: {}
-            )
-        }
+#Preview {
+    NavigationStack {
+        SakatsuInputScreen(
+            editMode: .edit(sakatsu: .preview),
+            onSakatsuSave: {},
+            onCancelButtonClick: {}
+        )
     }
 }
-#endif

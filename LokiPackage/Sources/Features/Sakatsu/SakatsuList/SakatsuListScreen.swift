@@ -20,7 +20,7 @@ public struct SakatsuListScreen: View {
                 viewModel.send(.onDelete(offsets: offsets))
             }
         )
-        .navigationTitle(L10n.sakatsuList)
+        .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
         .sakatsuListScreenToolbar(
             colorScheme: colorScheme,
             sakatsusCount: viewModel.uiState.sakatsus.count,
@@ -44,6 +44,7 @@ public struct SakatsuListScreen: View {
         )
     }
 
+    @MainActor
     public init(onSettingsButtonClick: @escaping () -> Void) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
@@ -73,7 +74,7 @@ private extension View {
             ToolbarItem(placement: .bottomBar) {
                 Button(action: onAddButtonClick) {
                     Label {
-                        Text(L10n.newSakatsu)
+                        Text("New Sakatsu", bundle: .module)
                             .bold()
                     } icon: {
                         Image(systemName: "plus.circle.fill")
@@ -83,7 +84,7 @@ private extension View {
                 }
             }
             ToolbarItem(placement: .status) {
-                Text(L10n.lldSakatsuS(sakatsusCount))
+                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
                     .font(.caption)
             }
         }
@@ -120,7 +121,7 @@ private extension View {
         onDismiss: @escaping () -> Void
     ) -> some View {
         alert(
-            L10n.copy,
+            String(localized: "Copy", bundle: .module),
             isPresented: .init(get: {
                 sakatsuText != nil
             }, set: { _ in
@@ -129,7 +130,7 @@ private extension View {
             presenting: sakatsuText
         ) { _ in
         } message: { sakatsuText in
-            Text(L10n.sakatsuTextCopied)
+            Text("Sakatsu text copied.", bundle: .module)
                 .onAppear {
                     UIPasteboard.general.string = sakatsuText
                 }
@@ -139,12 +140,8 @@ private extension View {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuListScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            SakatsuListScreen(onSettingsButtonClick: {})
-        }
+#Preview {
+    NavigationStack {
+        SakatsuListScreen(onSettingsButtonClick: {})
     }
 }
-#endif

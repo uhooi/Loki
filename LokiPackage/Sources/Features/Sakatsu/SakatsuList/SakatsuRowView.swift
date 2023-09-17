@@ -43,7 +43,7 @@ private extension SakatsuRowView {
         Text(sakatsu.visitingDate.formatted(date: .numeric, time: .omitted))
             .font(.caption)
             .lineLimit(1)
-            .foregroundColor(.secondary)
+            .foregroundStyle(.secondary)
     }
 
     var facilityNameText: some View {
@@ -56,10 +56,10 @@ private extension SakatsuRowView {
     var menu: some View {
         Menu {
             Button(action: onCopySakatsuTextButtonClick) {
-                Label(L10n.copySakatsuText, systemImage: "doc.on.doc")
+                Label(String(localized: "Copy Sakatsu text", bundle: .module), systemImage: "doc.on.doc")
             }
             Button(action: onEditButtonClick) {
-                Label(L10n.edit, systemImage: "square.and.pencil")
+                Label(String(localized: "Edit", bundle: .module), systemImage: "square.and.pencil")
             }
         } label: {
             Image(systemName: "ellipsis")
@@ -107,7 +107,7 @@ private extension SakatsuRowView {
     var arrowImage: some View {
         Image(systemName: "arrow.right")
             .font(.caption)
-            .foregroundColor(.secondary)
+            .foregroundStyle(.secondary)
     }
 
     @ViewBuilder
@@ -130,7 +130,7 @@ private extension SakatsuRowView {
                     .font(.system(.title2, design: .rounded))
                 Text(saunaSetItem.unit)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
     }
@@ -145,9 +145,9 @@ private extension SakatsuRowView {
                         Text(temperature.formatted())
                             .font(.system(.footnote, design: .rounded))
                             .textSelection(.enabled)
-                        Text("℃")
+                        Text("℃", bundle: .module)
                             .font(.caption2)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
@@ -158,14 +158,10 @@ private extension SakatsuRowView {
 
 // MARK: - Previews
 
-#if DEBUG
-struct SakatsuRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        SakatsuRowView(
-            sakatsu: .preview,
-            onCopySakatsuTextButtonClick: {},
-            onEditButtonClick: {}
-        )
-    }
+#Preview {
+    SakatsuRowView(
+        sakatsu: .preview,
+        onCopySakatsuTextButtonClick: {},
+        onEditButtonClick: {}
+    )
 }
-#endif
