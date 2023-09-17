@@ -87,7 +87,7 @@ final class SakatsuInputViewModel: ObservableObject {
         self.sakatsuRepository = sakatsuRepository
         self.validator = validator
     }
-    
+
     func send(_ action: SakatsuInputAction) {
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")

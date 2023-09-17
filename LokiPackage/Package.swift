@@ -75,7 +75,7 @@ let package = Package(
                 .playbookUI,
             ],
             path: "./Sources/Apps/Catalog"),
-        
+
         // Feature layer
         .target(
             name: "SakatsuFeature",
@@ -104,7 +104,7 @@ let package = Package(
             plugins: [
                 .licenses,
             ]),
-        
+
         // Data layer
         .target(
             name: "SakatsuData",
@@ -116,7 +116,7 @@ let package = Package(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
             path: "./Tests/Data/SakatsuTests"),
-        
+
         // Core layer
         .target(
             name: "LogCore",

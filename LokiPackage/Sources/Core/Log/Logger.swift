@@ -11,5 +11,5 @@ public enum Logger {
 // MARK: - Privates
 
 private enum LogCategory: String {
-     case standard = "Standard"
+    case standard = "Standard"
 }

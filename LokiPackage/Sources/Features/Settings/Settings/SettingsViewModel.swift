@@ -37,10 +37,10 @@ enum SettingsError: LocalizedError {
 @MainActor
 final class SettingsViewModel: ObservableObject {
     @Published private(set) var uiState: SettingsUiState
-    
+
     private let repository: any SaunaTimeSettingsRepository
     private let validator: any SakatsuValidator
-    
+
     init(
         repository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
@@ -50,7 +50,7 @@ final class SettingsViewModel: ObservableObject {
         self.validator = validator
         refreshDefaultSaunaTimes()
     }
-    
+
     func send(_ action: SettingsAction) {
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
@@ -61,21 +61,21 @@ final class SettingsViewModel: ObservableObject {
             }
             uiState.defaultSaunaTimes.saunaTime = defaultSaunaTime
             saveDefaultSaunaSet()
-            
+
         case let .onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime):
             guard validator.validate(coolBathTime: defaultCoolBathTime) else {
                 return
             }
             uiState.defaultSaunaTimes.coolBathTime = defaultCoolBathTime
             saveDefaultSaunaSet()
-            
+
         case let .onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime):
             guard validator.validate(relaxationTime: defaultRelaxationTime) else {
                 return
             }
             uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
             saveDefaultSaunaSet()
-            
+
         case .onErrorAlertDismiss:
             uiState.settingsError = nil
         }

@@ -6,7 +6,7 @@ import UICore
 public struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel
-    
+
     @Environment(\.colorScheme) private var colorScheme
 
     public var body: some View {
