@@ -15,6 +15,8 @@ XCODEBUILD_BUILD_LOG_NAME := ${PRODUCT_NAME}_${PROJECT_NAME}_Build.log
 PRODUCTION_PROJECT_NAME := Production
 DEVELOP_PROJECT_NAME := Develop
 
+SWIFTLINT := mint run realm/SwiftLint swiftlint
+
 export MINT_PATH := ./.mint/lib
 export MINT_LINK_PATH := ./.mint/bin
 
@@ -67,13 +69,13 @@ clean build \
 
 .PHONY: lint
 lint:
-	mint run realm/SwiftLint swiftlint
+	$(SWIFTLINT)
 
 .PHONY: fix
 fix:
-	mint run realm/SwiftLint swiftlint --fix --format
+	$(SWIFTLINT) --fix --format
 
 .PHONY: analyze
 analyze:
 	$(MAKE) build-debug-develop
-	mint run realm/SwiftLint swiftlint analyze --fix --compiler-log-path ./${XCODEBUILD_BUILD_LOG_NAME}
+	$(SWIFTLINT) analyze --fix --compiler-log-path ./${XCODEBUILD_BUILD_LOG_NAME}
