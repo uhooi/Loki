@@ -11,8 +11,6 @@ TEST_DEVICE ?= iPhone 14 Pro Max
 TEST_OS ?= 17.0
 TEST_DESTINATION := 'platform=$(TEST_PLATFORM),name=$(TEST_DEVICE),OS=$(TEST_OS)'
 
-XCODEBUILD_BUILD_LOG_NAME := $(PRODUCT_NAME)_$(PROJECT_NAME)_Build.log
-
 PRODUCTION_PROJECT_NAME := Production
 DEVELOP_PROJECT_NAME := Develop
 
@@ -68,7 +66,7 @@ build-debug:
 -destination $(TEST_DESTINATION) \
 -skipPackagePluginValidation \
 clean build \
-| tee ./$(XCODEBUILD_BUILD_LOG_NAME)
+| tee ./$(PRODUCT_NAME)_$(PROJECT_NAME)_Build.log
 
 .PHONY: lint
 lint:
@@ -81,4 +79,4 @@ fix:
 .PHONY: analyze
 analyze:
 	$(MAKE) build-debug-develop
-	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(XCODEBUILD_BUILD_LOG_NAME)
+	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
