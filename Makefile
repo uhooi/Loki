@@ -2,6 +2,7 @@
 
 PRODUCT_NAME := Loki
 WORKSPACE_NAME := ${PRODUCT_NAME}.xcworkspace
+PACKAGE_NAME := ${PRODUCT_NAME}Package
 
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
@@ -37,13 +38,15 @@ open:
 
 .PHINY: clean
 clean:
-	rm -rf ./LokiPackage/.build/
+	rm -rf ./${PACKAGE_NAME}/.build/
 
 .PHINY: distclean
 distclean:
-	rm -rf ./.mint
+	rm -rf ${MINT_PATH}
+	rm -rf ${MINT_LINK_PATH}
+	rm -rf ./${XCODEBUILD_BUILD_LOG_NAME}
 	rm -rf ~/Library/Developer/Xcode/DerivedData
-	rm -rf ./LokiPackage/.swiftpm/
+	rm -rf ./${PACKAGE_NAME}/.swiftpm/
 	$(MAKE) clean
 
 .PHONY: build-debug-production
