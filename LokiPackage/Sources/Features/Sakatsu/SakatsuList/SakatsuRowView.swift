@@ -100,7 +100,6 @@ private extension SakatsuRowView {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .lineLimit(1)
-        .minimumScaleFactor(0.5)
     }
 
     var arrowImage: some View {
