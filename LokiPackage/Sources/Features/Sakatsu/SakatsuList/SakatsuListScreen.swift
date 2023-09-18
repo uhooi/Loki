@@ -11,7 +11,7 @@ public struct SakatsuListScreen: View {
 
     public var body: some View {
         SakatsuListView(
-            sakatsus: viewModel.uiState.sakatsus,
+            sakatsus: viewModel.uiState.filteredSakatsus,
             onCopySakatsuTextButtonClick: { sakatsuIndex in
                 viewModel.send(.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex))
             }, onEditButtonClick: { sakatsuIndex in
@@ -21,9 +21,14 @@ public struct SakatsuListScreen: View {
             }
         )
         .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
+        .searchable(text: .init(get: {
+            viewModel.uiState.searchText
+        }, set: { newValue in
+            viewModel.send(.onSearchTextChange(searchText: newValue))
+        }))
         .sakatsuListScreenToolbar(
             colorScheme: colorScheme,
-            sakatsusCount: viewModel.uiState.sakatsus.count,
+            sakatsusCount: viewModel.uiState.filteredSakatsus.count,
             onSettingsButtonClick: { onSettingsButtonClick() },
             onAddButtonClick: { viewModel.send(.onAddButtonClick) }
         )

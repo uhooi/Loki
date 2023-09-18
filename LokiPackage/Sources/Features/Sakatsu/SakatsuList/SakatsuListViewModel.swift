@@ -8,14 +8,34 @@ struct SakatsuListUiState {
     var sakatsus: [Sakatsu] = []
     var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
+    var searchText: String = ""
     var shouldShowInputScreen = false
     var sakatsuListError: SakatsuListError?
+
+    var filteredSakatsus: [Sakatsu] {
+        sakatsus.filter {
+            searchText.isEmpty
+                || $0.visitingDate.formatted(date: .numeric, time: .omitted).contains(searchText)
+                || $0.facilityName.contains(searchText)
+                || $0.foreword?.contains(searchText) == true
+                || $0.saunaSets.contains { saunaSet in
+                    saunaSet.sauna.time?.formatted().contains(searchText) == true
+                        || saunaSet.coolBath.time?.formatted().contains(searchText) == true
+                        || saunaSet.relaxation.time?.formatted().contains(searchText) == true
+                }
+                || $0.afterword?.contains(searchText) == true
+                || $0.saunaTemperatures.contains { temperature in
+                    temperature.temperature?.formatted().contains(searchText) == true
+                }
+        }
+    }
 }
 
 // MARK: - Action
 
 enum SakatsuListAction {
     case onAddButtonClick
+    case onSearchTextChange(searchText: String)
     case onEditButtonClick(sakatsuIndex: Int)
     case onCopySakatsuTextButtonClick(sakatsuIndex: Int)
     case onSakatsuSave
@@ -62,12 +82,15 @@ final class SakatsuListViewModel: ObservableObject {
             uiState.selectedSakatsu = nil
             uiState.shouldShowInputScreen = true
 
+        case let .onSearchTextChange(searchText: searchText):
+            uiState.searchText = searchText
+
         case let .onEditButtonClick(sakatsuIndex: sakatsuIndex):
-            uiState.selectedSakatsu = uiState.sakatsus[sakatsuIndex]
+            uiState.selectedSakatsu = uiState.filteredSakatsus[sakatsuIndex]
             uiState.shouldShowInputScreen = true
 
         case let .onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex):
-            uiState.sakatsuText = sakatsuText(sakatsu: uiState.sakatsus[sakatsuIndex])
+            uiState.sakatsuText = sakatsuText(sakatsu: uiState.filteredSakatsus[sakatsuIndex])
 
         case .onSakatsuSave:
             uiState.shouldShowInputScreen = false
@@ -85,7 +108,12 @@ final class SakatsuListViewModel: ObservableObject {
 
         case let .onDelete(offsets: offsets):
             let oldValue = uiState.sakatsus
-            uiState.sakatsus.remove(atOffsets: offsets)
+            for index in offsets {
+                let sakatsu = uiState.filteredSakatsus[index]
+                if let firstIndex = uiState.sakatsus.firstIndex(of: sakatsu) {
+                    uiState.sakatsus.remove(at: firstIndex)
+                }
+            }
             do {
                 try repository.saveSakatsus(uiState.sakatsus)
             } catch {
