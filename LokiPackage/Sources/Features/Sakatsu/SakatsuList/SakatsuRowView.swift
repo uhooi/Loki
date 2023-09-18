@@ -155,6 +155,7 @@ private extension SakatsuRowView {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     SakatsuRowView(
         sakatsu: .preview,
@@ -162,3 +163,4 @@ private extension SakatsuRowView {
         onEditButtonClick: {}
     )
 }
+#endif

@@ -143,8 +143,10 @@ private extension View {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     NavigationStack {
         SakatsuListScreen(onSettingsButtonClick: {})
     }
 }
+#endif

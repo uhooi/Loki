@@ -28,6 +28,8 @@ struct LicenseDetailScreen: View {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     LicenseDetailScreen(license: .init(id: "loki", name: "Loki", licenseText: nil))
 }
+#endif

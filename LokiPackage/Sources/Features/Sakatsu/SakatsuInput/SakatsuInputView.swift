@@ -208,6 +208,7 @@ private extension SakatsuInputView {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     SakatsuInputView(
         sakatsu: .preview,
@@ -229,3 +230,4 @@ private extension SakatsuInputView {
         onAddNewTemperatureButtonClick: {}
     )
 }
+#endif

@@ -29,6 +29,7 @@ struct SakatsuListView: View {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     SakatsuListView(
         sakatsus: [.preview],
@@ -37,3 +38,4 @@ struct SakatsuListView: View {
         onDelete: { _ in }
     )
 }
+#endif
