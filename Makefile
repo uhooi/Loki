@@ -36,11 +36,11 @@ install-mint-dependencies:
 open:
 	open ./${WORKSPACE_NAME}
 
-.PHINY: clean
+.PHONY: clean
 clean:
 	rm -rf ./${PACKAGE_NAME}/.build/
 
-.PHINY: distclean
+.PHONY: distclean
 distclean:
 	rm -rf ${MINT_PATH}
 	rm -rf ${MINT_LINK_PATH}
