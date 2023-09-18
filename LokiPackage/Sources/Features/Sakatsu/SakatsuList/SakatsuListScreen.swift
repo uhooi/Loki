@@ -73,14 +73,12 @@ private extension View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button(action: onAddButtonClick) {
-                    Label {
-                        Text("New Sakatsu", bundle: .module)
-                            .bold()
-                    } icon: {
+                    HStack {
                         Image(systemName: "plus.circle.fill")
-                            .font(.title3.bold())
+                            .font(.title3)
+                        Text("New Sakatsu", bundle: .module)
                     }
-                    .labelStyle(.titleAndIcon)
+                    .bold()
                 }
             }
             ToolbarItem(placement: .status) {
