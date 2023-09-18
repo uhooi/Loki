@@ -58,11 +58,6 @@ public struct SaunaSet: Identifiable {
     }
 }
 
-extension SaunaSet: Hashable {}
-extension SaunaSet.Sauna: Hashable {}
-extension SaunaSet.CoolBath: Hashable {}
-extension SaunaSet.Relaxation: Hashable {}
-
 extension SaunaSet: Codable {}
 extension SaunaSet.Sauna: Codable {}
 extension SaunaSet.CoolBath: Codable {}
