@@ -33,11 +33,11 @@ install-mint-dependencies:
 open:
 	open ./${WORKSPACE_NAME}
 
-.PHINY: clean
+.PHONY: clean
 clean:
 	rm -rf ./LokiPackage/.build/
 
-.PHINY: distclean
+.PHONY: distclean
 distclean:
 	rm -rf ./.mint
 	rm -rf ~/Library/Developer/Xcode/DerivedData
