@@ -89,6 +89,7 @@ private extension SettingsView {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     SettingsView(
         defaultSaunaTimes: .preview,
@@ -98,3 +99,4 @@ private extension SettingsView {
         onLicensesButtonClick: {}
     )
 }
+#endif

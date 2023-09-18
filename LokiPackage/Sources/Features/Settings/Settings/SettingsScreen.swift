@@ -37,8 +37,10 @@ public struct SettingsScreen: View {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     NavigationStack {
         SettingsScreen(onLicensesButtonClick: {})
     }
 }
+#endif

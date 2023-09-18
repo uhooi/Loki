@@ -97,6 +97,7 @@ private extension View {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     NavigationStack {
         SakatsuInputScreen(
@@ -106,3 +107,4 @@ private extension View {
         )
     }
 }
+#endif

@@ -49,6 +49,8 @@ private extension View {
 
 // MARK: - Previews
 
+#if DEBUG
 #Preview {
     LicenseListScreen()
 }
+#endif
