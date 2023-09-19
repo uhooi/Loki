@@ -1,29 +1,29 @@
 import Foundation
 
-public protocol SaunaSetItemProtocol {
+package protocol SaunaSetItemProtocol {
     var emoji: String { get }
     var title: String { get set }
     var unit: String { get }
     var time: TimeInterval? { get set }
 }
 
-public struct SaunaSet: Identifiable {
-    public let id: UUID
-    public var sauna: Sauna = .init()
-    public var coolBath: CoolBath = .init()
-    public var relaxation: Relaxation = .init()
+package struct SaunaSet: Identifiable {
+    package let id: UUID
+    package var sauna: Sauna = .init()
+    package var coolBath: CoolBath = .init()
+    package var relaxation: Relaxation = .init()
 
-    public init() {
+    package init() {
         self.id = UUID()
     }
 
-    public struct Sauna: SaunaSetItemProtocol {
-        public var emoji: String { "🔥" }
-        public var title: String = .init(localized: "Sauna", bundle: .module)
-        public var unit: String { .init(localized: "m", bundle: .module) }
+    package struct Sauna: SaunaSetItemProtocol {
+        package var emoji: String { "🔥" }
+        package var title: String = .init(localized: "Sauna", bundle: .module)
+        package var unit: String { .init(localized: "m", bundle: .module) }
 
         private var _time: TimeInterval?
-        public var time: TimeInterval? {
+        package var time: TimeInterval? {
             get {
                 _time.map { $0 / 60 }
             }
@@ -33,21 +33,21 @@ public struct SaunaSet: Identifiable {
         }
     }
 
-    public struct CoolBath: SaunaSetItemProtocol {
-        public var emoji: String { "💧" }
-        public var title: String = .init(localized: "Cool bath", bundle: .module)
-        public var unit: String { .init(localized: "s", bundle: .module) }
+    package struct CoolBath: SaunaSetItemProtocol {
+        package var emoji: String { "💧" }
+        package var title: String = .init(localized: "Cool bath", bundle: .module)
+        package var unit: String { .init(localized: "s", bundle: .module) }
 
-        public var time: TimeInterval?
+        package var time: TimeInterval?
     }
 
-    public struct Relaxation: SaunaSetItemProtocol {
-        public var emoji: String { "🍃" }
-        public var title: String = .init(localized: "Relaxation", bundle: .module)
-        public var unit: String { .init(localized: "m", bundle: .module) }
+    package struct Relaxation: SaunaSetItemProtocol {
+        package var emoji: String { "🍃" }
+        package var title: String = .init(localized: "Relaxation", bundle: .module)
+        package var unit: String { .init(localized: "m", bundle: .module) }
 
         private var _time: TimeInterval?
-        public var time: TimeInterval? {
+        package var time: TimeInterval? {
             get {
                 _time.map { $0 / 60 }
             }
@@ -65,7 +65,7 @@ extension SaunaSet.Relaxation: Codable {}
 
 #if DEBUG
 extension SaunaSet {
-    public static var preview: Self {
+    package static var preview: Self {
         var saunaSet = SaunaSet()
         saunaSet.sauna.time = 5
         saunaSet.coolBath.time = 30

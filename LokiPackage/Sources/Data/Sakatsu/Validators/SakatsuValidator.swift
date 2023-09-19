@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol SakatsuValidator {
+package protocol SakatsuValidator {
     func validate(facilityName: String) -> Bool
     func validate(visitingDate: Date) -> Bool
     func validate(foreword: String?) -> Bool
@@ -15,28 +15,28 @@ public protocol SakatsuValidator {
     func validate(temperature: Decimal?) -> Bool
 }
 
-public struct DefaultSakatsuValidator {
-    public init() {}
+package struct DefaultSakatsuValidator {
+    package init() {}
 }
 
 extension DefaultSakatsuValidator: SakatsuValidator {
-    public func validate(facilityName: String) -> Bool {
+    package func validate(facilityName: String) -> Bool {
         !facilityName.isEmpty
     }
 
-    public func validate(visitingDate: Date) -> Bool {
+    package func validate(visitingDate: Date) -> Bool {
         true // TODO: Disable future dates
     }
 
-    public func validate(foreword: String?) -> Bool {
+    package func validate(foreword: String?) -> Bool {
         true
     }
 
-    public func validate(saunaTitle: String) -> Bool {
+    package func validate(saunaTitle: String) -> Bool {
         true
     }
 
-    public func validate(saunaTime: TimeInterval?) -> Bool {
+    package func validate(saunaTime: TimeInterval?) -> Bool {
         if let saunaTime {
             (0 <= saunaTime && saunaTime < 1_000)
         } else {
@@ -44,11 +44,11 @@ extension DefaultSakatsuValidator: SakatsuValidator {
         }
     }
 
-    public func validate(coolBathTitle: String) -> Bool {
+    package func validate(coolBathTitle: String) -> Bool {
         true
     }
 
-    public func validate(coolBathTime: TimeInterval?) -> Bool {
+    package func validate(coolBathTime: TimeInterval?) -> Bool {
         if let coolBathTime {
             (0 <= coolBathTime && coolBathTime < 1_000)
         } else {
@@ -56,11 +56,11 @@ extension DefaultSakatsuValidator: SakatsuValidator {
         }
     }
 
-    public func validate(relaxationTitle: String) -> Bool {
+    package func validate(relaxationTitle: String) -> Bool {
         true
     }
 
-    public func validate(relaxationTime: TimeInterval?) -> Bool {
+    package func validate(relaxationTime: TimeInterval?) -> Bool {
         if let relaxationTime {
             (0 <= relaxationTime && relaxationTime < 1_000)
         } else {
@@ -68,15 +68,15 @@ extension DefaultSakatsuValidator: SakatsuValidator {
         }
     }
 
-    public func validate(afterword: String?) -> Bool {
+    package func validate(afterword: String?) -> Bool {
         true
     }
 
-    public func validate(temperatureTitle: String) -> Bool {
+    package func validate(temperatureTitle: String) -> Bool {
         true
     }
 
-    public func validate(temperature: Decimal?) -> Bool {
+    package func validate(temperature: Decimal?) -> Bool {
         if let temperature {
             (0 <= temperature && temperature < 1_000)
         } else {

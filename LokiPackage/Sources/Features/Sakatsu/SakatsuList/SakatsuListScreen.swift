@@ -3,13 +3,13 @@ import SakatsuData
 import LogCore
 import UICore
 
-public struct SakatsuListScreen: View {
+package struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel
 
     @Environment(\.colorScheme) private var colorScheme // swiftlint:disable:this attributes
 
-    public var body: some View {
+    package var body: some View {
         SakatsuListView(
             sakatsus: viewModel.uiState.filteredSakatsus,
             onCopySakatsuTextButtonClick: { sakatsuIndex in
@@ -50,7 +50,7 @@ public struct SakatsuListScreen: View {
     }
 
     @MainActor
-    public init(onSettingsButtonClick: @escaping () -> Void) {
+    package init(onSettingsButtonClick: @escaping () -> Void) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
         self.onSettingsButtonClick = onSettingsButtonClick

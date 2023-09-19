@@ -1,26 +1,26 @@
 import Foundation
 
-public struct Sakatsu: Identifiable {
-    public let id: UUID
-    public var facilityName: String = ""
-    public var visitingDate: Date = .now
-    public var saunaTemperatures: [SaunaTemperature] = [.sauna, .coolBath]
-    public var foreword: String?
-    public var saunaSets: [SaunaSet] = [.init()]
-    public var afterword: String?
+package struct Sakatsu: Identifiable {
+    package let id: UUID
+    package var facilityName: String = ""
+    package var visitingDate: Date = .now
+    package var saunaTemperatures: [SaunaTemperature] = [.sauna, .coolBath]
+    package var foreword: String?
+    package var saunaSets: [SaunaSet] = [.init()]
+    package var afterword: String?
 
-    public init() {
+    package init() {
         self.id = UUID()
     }
 
-    public init(saunaSets: [SaunaSet]) {
+    package init(saunaSets: [SaunaSet]) {
         self.id = UUID()
         self.saunaSets = saunaSets
     }
 }
 
 extension Sakatsu: Equatable {
-    public static func == (lhs: Sakatsu, rhs: Sakatsu) -> Bool {
+    package static func == (lhs: Sakatsu, rhs: Sakatsu) -> Bool {
         lhs.id == rhs.id
     }
 }
@@ -29,7 +29,7 @@ extension Sakatsu: Codable {}
 
 #if DEBUG
 extension Sakatsu {
-    public static var preview: Self {
+    package static var preview: Self {
         var sakatsu = Sakatsu()
         sakatsu.facilityName = "サウナウホーイ"
 
