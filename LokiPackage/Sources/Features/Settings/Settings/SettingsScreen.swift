@@ -2,11 +2,11 @@ import SwiftUI
 import LogCore
 import UICore
 
-public struct SettingsScreen: View {
+package struct SettingsScreen: View {
     private let onLicensesButtonClick: () -> Void
     @StateObject private var viewModel: SettingsViewModel
 
-    public var body: some View {
+    package var body: some View {
         SettingsView(
             defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
             onDefaultSaunaTimeChange: { defaultSaunaTime in
@@ -27,7 +27,7 @@ public struct SettingsScreen: View {
     }
 
     @MainActor
-    public init(onLicensesButtonClick: @escaping () -> Void) {
+    package init(onLicensesButtonClick: @escaping () -> Void) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
         self.onLicensesButtonClick = onLicensesButtonClick

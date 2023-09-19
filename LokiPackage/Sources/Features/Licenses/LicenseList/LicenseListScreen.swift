@@ -1,12 +1,12 @@
 import SwiftUI
 import LogCore
 
-public struct LicenseListScreen: View {
+package struct LicenseListScreen: View {
     @State private var selectedLicense: LicensesPlugin.License?
 
     @Environment(\.dismiss) private var dismiss // swiftlint:disable:this attributes
 
-    public var body: some View {
+    package var body: some View {
         NavigationSplitView {
             List(LicensesPlugin.licenses, selection: $selectedLicense) { license in
                 NavigationLink(license.name, value: license)
@@ -23,7 +23,7 @@ public struct LicenseListScreen: View {
         }
     }
 
-    public init() {
+    package init() {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
     }

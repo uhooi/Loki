@@ -1,10 +1,10 @@
 import Foundation
 
-public struct SaunaTemperature: Identifiable {
-    public let id: UUID
-    public var emoji: String
-    public var title: String
-    public var temperature: Decimal?
+package struct SaunaTemperature: Identifiable {
+    package let id: UUID
+    package var emoji: String
+    package var title: String
+    package var temperature: Decimal?
 
     init(emoji: String, title: String, temperature: Decimal? = nil) {
         self.id = UUID()
@@ -15,8 +15,8 @@ public struct SaunaTemperature: Identifiable {
 }
 
 extension SaunaTemperature {
-    public static var sauna: Self { .init(emoji: "🔥", title: String(localized: "Sauna", bundle: .module)) }
-    public static var coolBath: Self { .init(emoji: "💧", title: String(localized: "Cool bath", bundle: .module)) }
+    package static var sauna: Self { .init(emoji: "🔥", title: String(localized: "Sauna", bundle: .module)) }
+    package static var coolBath: Self { .init(emoji: "💧", title: String(localized: "Cool bath", bundle: .module)) }
 }
 
 extension SaunaTemperature: Codable {}

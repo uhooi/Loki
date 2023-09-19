@@ -1,8 +1,8 @@
 import Foundation
 import os
 
-public enum Logger {
-    public static let standard: os.Logger = .init(
+package enum Logger {
+    package static let standard: os.Logger = .init(
         subsystem: Bundle.main.bundleIdentifier!,
         category: LogCategory.standard.rawValue
     )

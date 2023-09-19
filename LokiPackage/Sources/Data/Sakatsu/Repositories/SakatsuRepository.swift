@@ -1,11 +1,11 @@
-public protocol SakatsuRepository {
+package protocol SakatsuRepository {
     func sakatsus() throws -> [Sakatsu]
     func saveSakatsus(_ sakatsus: [Sakatsu]) throws
     func makeDefaultSaunaSet() -> SaunaSet
 }
 
-public final class DefaultSakatsuRepository {
-    public static let shared = DefaultSakatsuRepository()
+package final class DefaultSakatsuRepository {
+    package static let shared = DefaultSakatsuRepository()
 
     private let sakatsuDataSource: any SakatsuDataSource
     private let saunaTimeSettingsRepository: any SaunaTimeSettingsRepository
@@ -20,15 +20,15 @@ public final class DefaultSakatsuRepository {
 }
 
 extension DefaultSakatsuRepository: SakatsuRepository {
-    public func sakatsus() throws -> [Sakatsu] {
+    package func sakatsus() throws -> [Sakatsu] {
         try sakatsuDataSource.sakatsus()
     }
 
-    public func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
+    package func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
         try sakatsuDataSource.saveSakatsus(sakatsus)
     }
 
-    public func makeDefaultSaunaSet() -> SaunaSet {
+    package func makeDefaultSaunaSet() -> SaunaSet {
         do {
             let defaultSaunaTimes = try saunaTimeSettingsRepository.defaultSaunaTimes()
             var defaultSaunaSet = SaunaSet()
