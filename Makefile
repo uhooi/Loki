@@ -40,9 +40,9 @@ clean:
 
 .PHONY: distclean
 distclean:
-	rm -rf $(MINT_PATH)
-	rm -rf $(MINT_LINK_PATH)
-	rm -rf ./$(XCODEBUILD_BUILD_LOG_NAME)
+	rm -rf ./.mint
+	rm -rf ./$(PRODUCT_NAME)_$(PRODUCTION_PROJECT_NAME)_Build.log
+	rm -rf ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
 	rm -rf ~/Library/Developer/Xcode/DerivedData
 	rm -rf ./$(PACKAGE_NAME)/.swiftpm/
 	$(MAKE) clean
