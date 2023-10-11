@@ -15,6 +15,7 @@ struct PlaybookScreen: View {
                 .tag(Tab.gallery)
                 .tabItem {
                     Image(systemName: "rectangle.grid.3x2")
+                        .accessibilityHidden(true)
                     Text("Gallery")
                 }
 
@@ -22,6 +23,7 @@ struct PlaybookScreen: View {
                 .tag(Tab.catalog)
                 .tabItem {
                     Image(systemName: "doc.text.magnifyingglass")
+                        .accessibilityHidden(true)
                     Text("Catalog")
                 }
         }

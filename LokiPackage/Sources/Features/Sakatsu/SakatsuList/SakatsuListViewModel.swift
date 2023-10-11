@@ -74,7 +74,7 @@ final class SakatsuListViewModel: ObservableObject {
         refreshSakatsus()
     }
 
-    func send(_ action: SakatsuListAction) {
+    func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
         switch action {
