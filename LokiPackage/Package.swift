@@ -28,6 +28,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("BareSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
     .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
+    .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
