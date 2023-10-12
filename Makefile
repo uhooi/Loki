@@ -1,11 +1,14 @@
-# Variables
+# Variables {{{
 
 product_name := Loki
 workspace_name := $(product_name).xcworkspace
 package_name := $(product_name)Package
 
 production_project_name := Production
+production_log_name := $(product_name)_$(production_project_name)_Build.log
+
 develop_project_name := Develop
+develop_log_name := $(product_name)_$(develop_project_name)_Build.log
 
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
@@ -21,7 +24,9 @@ MINT_ROOT := ./.mint
 export MINT_PATH := $(MINT_ROOT)/lib
 export MINT_LINK_PATH := $(MINT_ROOT)/bin
 
-# Targets
+# }}}
+
+# Targets {{{
 
 .PHONY: setup
 setup:
@@ -43,11 +48,14 @@ clean:
 .PHONY: distclean
 distclean:
 	rm -rf $(MINT_ROOT)
-	rm -rf ./$(product_name)_$(production_project_name)_Build.log
-	rm -rf ./$(product_name)_$(develop_project_name)_Build.log
+	rm -rf ./$(production_log_name)
+	rm -rf ./$(develop_log_name)
 	rm -rf ~/Library/Developer/Xcode/DerivedData
 	rm -rf ./$(package_name)/.swiftpm/
 	$(MAKE) clean
+
+$(develop_log_name):
+	$(MAKE) build-debug-develop
 
 .PHONY: build-debug-production
 build-debug-production:
@@ -79,5 +87,7 @@ fix:
 	$(SWIFTLINT) --fix --format
 
 .PHONY: analyze
-analyze: build-debug-develop
-	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(product_name)_$(develop_project_name)_Build.log
+analyze: $(develop_log_name)
+	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(develop_log_name)
+
+# }}}
