@@ -82,7 +82,7 @@ build-debug:
 -destination $(TEST_DESTINATION) \
 -skipPackagePluginValidation \
 clean build \
-| tee ./$(product_name)_$(PROJECT_NAME)_Build.log
+| tee $(product_name)_$(PROJECT_NAME)_Build.log
 
 .PHONY: lint
 lint:
