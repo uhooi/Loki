@@ -14,10 +14,12 @@ TEST_DEVICE ?= iPhone 14 Pro Max
 TEST_OS ?= 17.0
 TEST_DESTINATION := 'platform=$(TEST_PLATFORM),name=$(TEST_DEVICE),OS=$(TEST_OS)'
 
-SWIFTLINT := mint run realm/SwiftLint swiftlint
+MINT := mint
+SWIFTLINT := $(MINT) run realm/SwiftLint swiftlint
 
-export MINT_PATH := ./.mint/lib
-export MINT_LINK_PATH := ./.mint/bin
+MINT_ROOT := ./.mint
+export MINT_PATH := $(MINT_ROOT)/lib
+export MINT_LINK_PATH := $(MINT_ROOT)/bin
 
 # Targets
 
@@ -40,7 +42,7 @@ clean:
 
 .PHONY: distclean
 distclean:
-	rm -rf ./.mint
+	rm -rf $(MINT_ROOT)
 	rm -rf ./$(product_name)_$(production_project_name)_Build.log
 	rm -rf ./$(product_name)_$(develop_project_name)_Build.log
 	rm -rf ~/Library/Developer/Xcode/DerivedData
