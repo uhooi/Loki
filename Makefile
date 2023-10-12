@@ -77,6 +77,5 @@ fix:
 	$(SWIFTLINT) --fix --format
 
 .PHONY: analyze
-analyze:
-	$(MAKE) build-debug-develop
+analyze: build-debug-develop
 	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
