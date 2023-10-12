@@ -1,15 +1,19 @@
 # Variables {{{
 
+# Project
 product_name := Loki
 workspace_name := $(product_name).xcworkspace
 package_name := $(product_name)Package
 
+# Production
 production_project_name := Production
 production_log_name := $(product_name)_$(production_project_name)_Build.log
 
+# Develop
 develop_project_name := Develop
 develop_log_name := $(product_name)_$(develop_project_name)_Build.log
 
+# Test
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
 TEST_PLATFORM := iOS Simulator
@@ -17,9 +21,11 @@ TEST_DEVICE ?= iPhone 14 Pro Max
 TEST_OS ?= 17.0
 TEST_DESTINATION := 'platform=$(TEST_PLATFORM),name=$(TEST_DEVICE),OS=$(TEST_OS)'
 
+# Commands
 MINT := mint
 SWIFTLINT := $(MINT) run realm/SwiftLint swiftlint
 
+# Mint
 MINT_ROOT := ./.mint
 export MINT_PATH := $(MINT_ROOT)/lib
 export MINT_LINK_PATH := $(MINT_ROOT)/bin
@@ -35,7 +41,7 @@ setup:
 
 .PHONY: install-mint-dependencies
 install-mint-dependencies:
-	mint bootstrap --overwrite y
+	$(MINT) bootstrap --overwrite y
 
 .PHONY: open
 open:
@@ -88,6 +94,6 @@ fix:
 
 .PHONY: analyze
 analyze: $(develop_log_name)
-	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(develop_log_name)
+	$(SWIFTLINT) analyze --fix --compiler-log-path $(develop_log_name)
 
 # }}}
