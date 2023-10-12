@@ -1,8 +1,11 @@
 # Variables
 
-PRODUCT_NAME := Loki
-WORKSPACE_NAME := $(PRODUCT_NAME).xcworkspace
-PACKAGE_NAME := $(PRODUCT_NAME)Package
+product_name := Loki
+workspace_name := $(product_name).xcworkspace
+package_name := $(product_name)Package
+
+production_project_name := Production
+develop_project_name := Develop
 
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
@@ -10,9 +13,6 @@ TEST_PLATFORM := iOS Simulator
 TEST_DEVICE ?= iPhone 14 Pro Max
 TEST_OS ?= 17.0
 TEST_DESTINATION := 'platform=$(TEST_PLATFORM),name=$(TEST_DEVICE),OS=$(TEST_OS)'
-
-PRODUCTION_PROJECT_NAME := Production
-DEVELOP_PROJECT_NAME := Develop
 
 SWIFTLINT := mint run realm/SwiftLint swiftlint
 
@@ -32,28 +32,28 @@ install-mint-dependencies:
 
 .PHONY: open
 open:
-	open ./$(WORKSPACE_NAME)
+	open ./$(workspace_name)
 
 .PHONY: clean
 clean:
-	rm -rf ./$(PACKAGE_NAME)/.build/
+	rm -rf ./$(package_name)/.build/
 
 .PHONY: distclean
 distclean:
 	rm -rf ./.mint
-	rm -rf ./$(PRODUCT_NAME)_$(PRODUCTION_PROJECT_NAME)_Build.log
-	rm -rf ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
+	rm -rf ./$(product_name)_$(production_project_name)_Build.log
+	rm -rf ./$(product_name)_$(develop_project_name)_Build.log
 	rm -rf ~/Library/Developer/Xcode/DerivedData
-	rm -rf ./$(PACKAGE_NAME)/.swiftpm/
+	rm -rf ./$(package_name)/.swiftpm/
 	$(MAKE) clean
 
 .PHONY: build-debug-production
 build-debug-production:
-	$(MAKE) build-debug PROJECT_NAME=$(PRODUCTION_PROJECT_NAME)
+	$(MAKE) build-debug PROJECT_NAME=$(production_project_name)
 
 .PHONY: build-debug-develop
 build-debug-develop:
-	$(MAKE) build-debug PROJECT_NAME=$(DEVELOP_PROJECT_NAME)
+	$(MAKE) build-debug PROJECT_NAME=$(develop_project_name)
 
 .PHONY: build-debug
 build-debug:
@@ -61,12 +61,12 @@ build-debug:
 && xcodebuild \
 -sdk $(TEST_SDK) \
 -configuration $(TEST_CONFIGURATION) \
--workspace $(WORKSPACE_NAME) \
+-workspace $(workspace_name) \
 -scheme '$(PROJECT_NAME)' \
 -destination $(TEST_DESTINATION) \
 -skipPackagePluginValidation \
 clean build \
-| tee ./$(PRODUCT_NAME)_$(PROJECT_NAME)_Build.log
+| tee ./$(product_name)_$(PROJECT_NAME)_Build.log
 
 .PHONY: lint
 lint:
@@ -78,4 +78,4 @@ fix:
 
 .PHONY: analyze
 analyze: build-debug-develop
-	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
+	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(product_name)_$(develop_project_name)_Build.log
