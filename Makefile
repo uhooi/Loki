@@ -1,9 +1,19 @@
-# Variables
+# Variables {{{
 
-PRODUCT_NAME := Loki
-WORKSPACE_NAME := $(PRODUCT_NAME).xcworkspace
-PACKAGE_NAME := $(PRODUCT_NAME)Package
+# Project
+product_name := Loki
+workspace_name := $(product_name).xcworkspace
+package_name := $(product_name)Package
 
+# Production
+production_project_name := Production
+production_log_name := $(product_name)_$(production_project_name)_Build.log
+
+# Develop
+develop_project_name := Develop
+develop_log_name := $(product_name)_$(develop_project_name)_Build.log
+
+# Test
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
 TEST_PLATFORM := iOS Simulator
@@ -11,15 +21,18 @@ TEST_DEVICE ?= iPhone 14 Pro Max
 TEST_OS ?= 17.0
 TEST_DESTINATION := 'platform=$(TEST_PLATFORM),name=$(TEST_DEVICE),OS=$(TEST_OS)'
 
-PRODUCTION_PROJECT_NAME := Production
-DEVELOP_PROJECT_NAME := Develop
+# Commands
+MINT := mint
+SWIFTLINT := $(MINT) run realm/SwiftLint swiftlint
 
-SWIFTLINT := mint run realm/SwiftLint swiftlint
+# Mint
+MINT_ROOT := ./.mint
+export MINT_PATH := $(MINT_ROOT)/lib
+export MINT_LINK_PATH := $(MINT_ROOT)/bin
 
-export MINT_PATH := ./.mint/lib
-export MINT_LINK_PATH := ./.mint/bin
+# }}}
 
-# Targets
+# Targets {{{
 
 .PHONY: setup
 setup:
@@ -28,32 +41,35 @@ setup:
 
 .PHONY: install-mint-dependencies
 install-mint-dependencies:
-	mint bootstrap --overwrite y
+	$(MINT) bootstrap --overwrite y
 
 .PHONY: open
 open:
-	open ./$(WORKSPACE_NAME)
+	open ./$(workspace_name)
 
 .PHONY: clean
 clean:
-	rm -rf ./$(PACKAGE_NAME)/.build/
+	rm -rf ./$(package_name)/.build/
 
 .PHONY: distclean
 distclean:
-	rm -rf ./.mint
-	rm -rf ./$(PRODUCT_NAME)_$(PRODUCTION_PROJECT_NAME)_Build.log
-	rm -rf ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
+	rm -rf $(MINT_ROOT)
+	rm -rf ./$(production_log_name)
+	rm -rf ./$(develop_log_name)
 	rm -rf ~/Library/Developer/Xcode/DerivedData
-	rm -rf ./$(PACKAGE_NAME)/.swiftpm/
+	rm -rf ./$(package_name)/.swiftpm/
 	$(MAKE) clean
+
+$(develop_log_name):
+	$(MAKE) build-debug-develop
 
 .PHONY: build-debug-production
 build-debug-production:
-	$(MAKE) build-debug PROJECT_NAME=$(PRODUCTION_PROJECT_NAME)
+	$(MAKE) build-debug PROJECT_NAME=$(production_project_name)
 
 .PHONY: build-debug-develop
 build-debug-develop:
-	$(MAKE) build-debug PROJECT_NAME=$(DEVELOP_PROJECT_NAME)
+	$(MAKE) build-debug PROJECT_NAME=$(develop_project_name)
 
 .PHONY: build-debug
 build-debug:
@@ -61,12 +77,12 @@ build-debug:
 && xcodebuild \
 -sdk $(TEST_SDK) \
 -configuration $(TEST_CONFIGURATION) \
--workspace $(WORKSPACE_NAME) \
+-workspace $(workspace_name) \
 -scheme '$(PROJECT_NAME)' \
 -destination $(TEST_DESTINATION) \
 -skipPackagePluginValidation \
 clean build \
-| tee ./$(PRODUCT_NAME)_$(PROJECT_NAME)_Build.log
+| tee $(product_name)_$(PROJECT_NAME)_Build.log
 
 .PHONY: lint
 lint:
@@ -77,6 +93,7 @@ fix:
 	$(SWIFTLINT) --fix --format
 
 .PHONY: analyze
-analyze:
-	$(MAKE) build-debug-develop
-	$(SWIFTLINT) analyze --fix --compiler-log-path ./$(PRODUCT_NAME)_$(DEVELOP_PROJECT_NAME)_Build.log
+analyze: $(develop_log_name)
+	$(SWIFTLINT) analyze --fix --compiler-log-path $(develop_log_name)
+
+# }}}
