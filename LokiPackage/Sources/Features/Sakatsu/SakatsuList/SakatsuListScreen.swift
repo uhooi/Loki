@@ -68,10 +68,10 @@ private extension View {
         onAddButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 EditButton()
             }
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button(action: onSettingsButtonClick) {
                     Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }

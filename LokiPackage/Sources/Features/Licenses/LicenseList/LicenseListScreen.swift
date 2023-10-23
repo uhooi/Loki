@@ -36,7 +36,7 @@ private extension View {
         onCloseButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button {
                     onCloseButtonClick()
                 } label: {
