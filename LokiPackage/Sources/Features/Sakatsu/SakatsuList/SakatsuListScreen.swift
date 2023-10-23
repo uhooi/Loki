@@ -6,8 +6,8 @@ import UICore
 package struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel
-
     @Environment(\.colorScheme) private var colorScheme // swiftlint:disable:this attributes
+    @State private var editMode: EditMode = .inactive
 
     package var body: some View {
         SakatsuListView(
@@ -27,6 +27,7 @@ package struct SakatsuListScreen: View {
             viewModel.send(.onSearchTextChange(searchText: newValue))
         }))
         .sakatsuListScreenToolbar(
+            editMode: $editMode,
             colorScheme: colorScheme,
             sakatsusCount: viewModel.uiState.filteredSakatsus.count,
             onSettingsButtonClick: { onSettingsButtonClick() },
@@ -62,6 +63,7 @@ package struct SakatsuListScreen: View {
 
 private extension View {
     func sakatsuListScreenToolbar(
+        editMode: Binding<EditMode>,
         colorScheme: ColorScheme,
         sakatsusCount: Int,
         onSettingsButtonClick: @escaping () -> Void,
@@ -70,6 +72,7 @@ private extension View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 EditButton()
+                    .bold(editMode.wrappedValue.isEditing)
             }
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: onSettingsButtonClick) {
@@ -91,6 +94,7 @@ private extension View {
                     .font(.caption)
             }
         }
+        .environment(\.editMode, editMode)
     }
 
     @MainActor
