@@ -86,6 +86,7 @@ private extension View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(String(localized: "Save", bundle: .module), action: onSaveButtonClick)
+                    .bold()
                     .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .topBarLeading) {
