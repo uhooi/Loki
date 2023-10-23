@@ -111,7 +111,7 @@ private extension View {
         } content: {
             NavigationStack {
                 SakatsuInputScreen(
-                    editMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
+                    sakatsuEditMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
                     onSakatsuSave: onSakatsuSave,
                     onCancelButtonClick: onCancelButtonClick
                 )

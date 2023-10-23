@@ -9,7 +9,7 @@ struct SakatsuInputUiState {
     var sakatsuInputError: SakatsuInputError?
 }
 
-enum EditMode {
+enum SakatsuEditMode {
     case new
     case edit(sakatsu: Sakatsu)
 }
@@ -73,11 +73,11 @@ final class SakatsuInputViewModel: ObservableObject {
     private let validator: any SakatsuValidator
 
     init(
-        editMode: EditMode,
+        sakatsuEditMode: SakatsuEditMode,
         sakatsuRepository: some SakatsuRepository = DefaultSakatsuRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
-        switch editMode {
+        switch sakatsuEditMode {
         case .new:
             let defaultSaunaSet = sakatsuRepository.makeDefaultSaunaSet()
             self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet]))
