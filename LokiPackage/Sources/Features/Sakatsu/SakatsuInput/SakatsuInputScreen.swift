@@ -84,11 +84,11 @@ private extension View {
         onCancelButtonClick: @escaping () -> Void
     ) -> some View {
         toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button(String(localized: "Save", bundle: .module), action: onSaveButtonClick)
                     .disabled(saveButtonDisabled)
             }
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
             }
         }
