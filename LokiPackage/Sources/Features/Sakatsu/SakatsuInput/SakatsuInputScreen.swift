@@ -63,13 +63,13 @@ struct SakatsuInputScreen: View {
 
     @MainActor
     init(
-        editMode: EditMode,
+        sakatsuEditMode: SakatsuEditMode,
         onSakatsuSave: @escaping () -> Void,
         onCancelButtonClick: @escaping () -> Void
     ) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
-        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(editMode: editMode))
+        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(sakatsuEditMode: sakatsuEditMode))
         self.onSakatsuSave = onSakatsuSave
         self.onCancelButtonClick = onCancelButtonClick
     }
@@ -86,6 +86,7 @@ private extension View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(String(localized: "Save", bundle: .module), action: onSaveButtonClick)
+                    .bold()
                     .disabled(saveButtonDisabled)
             }
             ToolbarItem(placement: .topBarLeading) {
@@ -101,7 +102,7 @@ private extension View {
 #Preview {
     NavigationStack {
         SakatsuInputScreen(
-            editMode: .edit(sakatsu: .preview),
+            sakatsuEditMode: .edit(sakatsu: .preview),
             onSakatsuSave: {},
             onCancelButtonClick: {}
         )
