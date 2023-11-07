@@ -1,0 +1,11 @@
+{
+  "platform": "iOS Simulator",
+  "productName": "Develop",
+  "bundleId": "com.theuhooi.Loki-Develop",
+  "projectCommand": "-workspace '/Users/uhooi/ghq/github.com/uhooi/Loki/Loki.xcworkspace'",
+  "destination": "B324B732-82DF-4321-8B26-4A6ADC74EA71",
+  "projectFile": "/Users/uhooi/ghq/github.com/uhooi/Loki/Loki.xcworkspace",
+  "scheme": "Develop",
+  "config": "Debug",
+  "appPath": "/Users/uhooi/Library/Developer/Xcode/DerivedData/Develop-dbqzkxqizwbmkuaxbddlvxuolhvv/Build/Products/Debug-iphonesimulator/Develop.app"
+}
