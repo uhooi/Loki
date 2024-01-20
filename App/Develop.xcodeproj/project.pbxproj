@@ -11,6 +11,7 @@
 		4B70E98A29912ECC00D55B7B /* DevelopApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B70E98429912ECC00D55B7B /* DevelopApp.swift */; };
 		4B70E98B29912ECC00D55B7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B70E98729912ECC00D55B7B /* Assets.xcassets */; };
 		4B70E98C29912ECC00D55B7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B70E98929912ECC00D55B7B /* Preview Assets.xcassets */; };
+		AA2559952B5BBE560040DC10 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA2559942B5BBE560040DC10 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		4B70E98629912ECC00D55B7B /* Develop.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Develop.entitlements; sourceTree = "<group>"; };
 		4B70E98729912ECC00D55B7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B70E98929912ECC00D55B7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AA2559942B5BBE560040DC10 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				4B70E98629912ECC00D55B7B /* Develop.entitlements */,
 				4B70E98729912ECC00D55B7B /* Assets.xcassets */,
 				4B70E98829912ECC00D55B7B /* Preview Content */,
+				AA2559942B5BBE560040DC10 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA2559952B5BBE560040DC10 /* PrivacyInfo.xcprivacy in Resources */,
 				4B70E98C29912ECC00D55B7B /* Preview Assets.xcassets in Resources */,
 				4B70E98B29912ECC00D55B7B /* Assets.xcassets in Resources */,
 			);
