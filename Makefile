@@ -81,6 +81,7 @@ build-debug:
 -scheme '$(PROJECT_NAME)' \
 -destination $(TEST_DESTINATION) \
 -skipPackagePluginValidation \
+-allowProvisioningUpdates \
 clean build \
 | tee $(product_name)_$(PROJECT_NAME)_Build.log
 
