@@ -17,9 +17,7 @@ develop_log_name := $(product_name)_$(develop_project_name)_Build.log
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
 TEST_PLATFORM := iOS Simulator
-TEST_DEVICE ?= iPhone 14 Pro Max
-TEST_OS ?= 17.0
-TEST_DESTINATION := 'platform=$(TEST_PLATFORM),name=$(TEST_DEVICE),OS=$(TEST_OS)'
+TEST_DESTINATION := 'generic/platform=$(TEST_PLATFORM)'
 
 # Commands
 MINT := mint
@@ -81,7 +79,6 @@ build-debug:
 -scheme '$(PROJECT_NAME)' \
 -destination $(TEST_DESTINATION) \
 -skipPackagePluginValidation \
--allowProvisioningUpdates \
 clean build \
 | tee $(product_name)_$(PROJECT_NAME)_Build.log
 
