@@ -21,11 +21,14 @@ package struct SakatsuListScreen: View {
             }
         )
         .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
-        .searchable(text: .init(get: {
-            viewModel.uiState.searchText
-        }, set: { newValue in
-            viewModel.send(.onSearchTextChange(searchText: newValue))
-        }))
+        .searchable(
+            text: .init(get: {
+                viewModel.uiState.searchText
+            }, set: { newValue in
+                viewModel.send(.onSearchTextChange(searchText: newValue))
+            }),
+            placement: .navigationBarDrawer(displayMode: .always)
+        )
         .sakatsuListScreenToolbar(
             editMode: $editMode,
             colorScheme: colorScheme,
