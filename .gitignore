@@ -97,3 +97,4 @@ iOSInjectionProject/
 
 # xcodebuild.nvim
 .nvim/xcodebuild/*.log
+.nvim/xcodebuild/report.json
