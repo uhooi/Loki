@@ -19,12 +19,12 @@ permissions:
   contents: read
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_15.0.app
+  DEVELOPER_DIR: /Applications/Xcode_15.2.app
 
 jobs:
   build:
     name: Build for ${{ matrix.project }}
-    runs-on: macos-13
+    runs-on: macos-14
     strategy:
       fail-fast: false
       matrix:
