@@ -1,14 +1,14 @@
 {
-  "platform": "iOS Simulator",
+  "deviceName": "iPhone 15 Pro Max",
   "productName": "Develop",
   "projectFile": "/Users/uhooi/ghq/github.com/uhooi/Loki/Loki.xcworkspace",
   "config": "Debug",
-  "projectCommand": "-workspace '/Users/uhooi/ghq/github.com/uhooi/Loki/Loki.xcworkspace'",
-  "lastBuildTime": 11,
-  "deviceName": "iPhone 15 Pro Max",
-  "destination": "C1DF7E9D-20A3-4544-BC85-EF6F49184399",
+  "lastBuildTime": 10,
   "bundleId": "com.theuhooi.Loki-Develop",
-  "scheme": "Develop",
+  "platform": "iOS Simulator",
+  "destination": "C1DF7E9D-20A3-4544-BC85-EF6F49184399",
   "os": "17.2",
+  "scheme": "Develop",
+  "projectCommand": "-workspace '/Users/uhooi/ghq/github.com/uhooi/Loki/Loki.xcworkspace'",
   "appPath": "/Users/uhooi/Library/Developer/Xcode/DerivedData/Loki-dchlwzwhdangfcbztrbvmxadmexs/Build/Products/Debug-iphonesimulator/Develop.app"
 }
