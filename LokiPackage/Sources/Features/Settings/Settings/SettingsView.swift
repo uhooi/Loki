@@ -62,7 +62,7 @@ private extension SettingsView {
                 value: "\(Bundle.main.version) (\(Bundle.main.build))"
             )
         } footer: {
-            Text("© 2023 THE Uhooi", bundle: .module)
+            Text("© 2024 THE Uhooi", bundle: .module)
         }
     }
 
