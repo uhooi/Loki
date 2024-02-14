@@ -94,3 +94,7 @@ iOSInjectionProject/
 
 # Mint
 .mint/
+
+# xcodebuild.nvim
+.nvim/xcodebuild/*.log
+.nvim/xcodebuild/report.json
