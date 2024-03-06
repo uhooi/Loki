@@ -29,8 +29,9 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("DeprecateApplicationMain", .when(configuration: .debug)), // SE-0383
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
     .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
-    .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
     .enableUpcomingFeature("IsolatedDefaultValues", .when(configuration: .debug)), // SE-0411
+    .enableUpcomingFeature("GlobalConcurrency", .when(configuration: .debug)), // SE-0412
+    .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
     .enableExperimentalFeature("StrictConcurrency", .when(configuration: .debug)),
 ]
 
