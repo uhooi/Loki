@@ -29,6 +29,7 @@ let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
     .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
     .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
+    .enableExperimentalFeature("StrictConcurrency", .when(configuration: .debug)),
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
