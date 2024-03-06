@@ -1,4 +1,4 @@
-# Variables {{{
+# Variables
 
 # Project
 product_name := Loki
@@ -28,9 +28,7 @@ MINT_ROOT := ./.mint
 export MINT_PATH := $(MINT_ROOT)/lib
 export MINT_LINK_PATH := $(MINT_ROOT)/bin
 
-# }}}
-
-# Targets {{{
+# Targets
 
 .PHONY: setup
 setup:
@@ -93,5 +91,3 @@ fix:
 .PHONY: analyze
 analyze: $(develop_log_name)
 	$(SWIFTLINT) analyze --fix --compiler-log-path $(develop_log_name)
-
-# }}}
