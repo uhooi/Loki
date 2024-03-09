@@ -1,6 +1,6 @@
 import UserDefaultsCore
 
-protocol SaunaTimeSettingsLocalDataSource {
+protocol SaunaTimeSettingsLocalDataSource: Sendable {
     func defaultSaunaTimes() throws -> DefaultSaunaTimes
     func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
 }

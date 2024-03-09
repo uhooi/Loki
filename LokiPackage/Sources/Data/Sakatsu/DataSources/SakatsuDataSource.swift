@@ -1,6 +1,6 @@
 import UserDefaultsCore
 
-protocol SakatsuDataSource {
+protocol SakatsuDataSource: Sendable {
     func sakatsus() throws -> [Sakatsu]
     func saveSakatsus(_ sakatsus: [Sakatsu]) throws
 }
