@@ -1,27 +1,37 @@
 import SwiftUI
 import SakatsuData
 
+// MARK: Action
+
+enum SakatsuListViewAction {
+    case onCopySakatsuTextButtonClick(sakatsuIndex: Int)
+    case onEditButtonClick(sakatsuIndex: Int)
+    case onDelete(_ offsets: IndexSet)
+}
+
+// MARK: - View
+
 struct SakatsuListView: View {
     let sakatsus: [Sakatsu]
-
-    let onCopySakatsuTextButtonClick: (_ sakatsuIndex: Int) -> Void
-    let onEditButtonClick: (_ sakatsuIndex: Int) -> Void
-    let onDelete: (_ offsets: IndexSet) -> Void
+    let send: (SakatsuListViewAction) -> Void
 
     var body: some View {
         List {
             ForEach(sakatsus.indexed(), id: \.element.id) { sakatsuIndex, sakatsu in
                 SakatsuRowView(
                     sakatsu: sakatsu,
-                    onCopySakatsuTextButtonClick: {
-                        onCopySakatsuTextButtonClick(sakatsuIndex)
-                    }, onEditButtonClick: {
-                        onEditButtonClick(sakatsuIndex)
+                    send: { action in
+                        switch action {
+                        case .onCopySakatsuTextButtonClick:
+                            send(.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex))
+                        case .onEditButtonClick:
+                            send(.onEditButtonClick(sakatsuIndex: sakatsuIndex))
+                        }
                     }
                 )
             }
             .onDelete { offsets in
-                onDelete(offsets)
+                send(.onDelete(offsets))
             }
         }
     }
@@ -33,9 +43,7 @@ struct SakatsuListView: View {
 #Preview {
     SakatsuListView(
         sakatsus: [.preview],
-        onCopySakatsuTextButtonClick: { _ in },
-        onEditButtonClick: { _ in },
-        onDelete: { _ in }
+        send: { _ in }
     )
 }
 #endif
