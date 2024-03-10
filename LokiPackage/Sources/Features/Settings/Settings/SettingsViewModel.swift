@@ -7,15 +7,15 @@ import LogCore
 struct SettingsUiState {
     var defaultSaunaTimes: DefaultSaunaTimes = .init()
     var settingsError: SettingsError?
+
+    let onLicensesButtonClick: () -> Void
 }
 
 // MARK: - Action
 
 enum SettingsAction {
-    case onDefaultSaunaTimeChange(defaultSaunaTime: TimeInterval?)
-    case onDefaultCoolBathTimeChange(defaultCoolBathTime: TimeInterval?)
-    case onDefaultRelaxationTimeChange(defaultRelaxationTime: TimeInterval?)
-    case onErrorAlertDismiss
+    case screen(_ action: SettingsScreenAction)
+    case view(_ action: SettingsViewAction)
 }
 
 // MARK: - Error
@@ -42,10 +42,13 @@ final class SettingsViewModel: ObservableObject {
     private let validator: any SakatsuValidator
 
     init(
+        onLicensesButtonClick: @escaping () -> Void,
         repository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
-        self.uiState = SettingsUiState()
+        self.uiState = SettingsUiState(
+            onLicensesButtonClick: onLicensesButtonClick
+        )
         self.repository = repository
         self.validator = validator
         refreshDefaultSaunaTimes()
@@ -55,29 +58,38 @@ final class SettingsViewModel: ObservableObject {
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
         switch action {
-        case let .onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime):
-            guard validator.validate(saunaTime: defaultSaunaTime) else {
-                return
+        case let .screen(screenAction):
+            switch screenAction {
+            case .onErrorAlertDismiss:
+                uiState.settingsError = nil
             }
-            uiState.defaultSaunaTimes.saunaTime = defaultSaunaTime
-            saveDefaultSaunaSet()
 
-        case let .onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime):
-            guard validator.validate(coolBathTime: defaultCoolBathTime) else {
-                return
+        case let .view(viewAction):
+            switch viewAction {
+            case let .onDefaultSaunaTimeChange(defaultSaunaTime: defaultSaunaTime):
+                guard validator.validate(saunaTime: defaultSaunaTime) else {
+                    return
+                }
+                uiState.defaultSaunaTimes.saunaTime = defaultSaunaTime
+                saveDefaultSaunaSet()
+
+            case let .onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime):
+                guard validator.validate(coolBathTime: defaultCoolBathTime) else {
+                    return
+                }
+                uiState.defaultSaunaTimes.coolBathTime = defaultCoolBathTime
+                saveDefaultSaunaSet()
+
+            case let .onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime):
+                guard validator.validate(relaxationTime: defaultRelaxationTime) else {
+                    return
+                }
+                uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
+                saveDefaultSaunaSet()
+
+            case .onLicensesButtonClick:
+                uiState.onLicensesButtonClick()
             }
-            uiState.defaultSaunaTimes.coolBathTime = defaultCoolBathTime
-            saveDefaultSaunaSet()
-
-        case let .onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime):
-            guard validator.validate(relaxationTime: defaultRelaxationTime) else {
-                return
-            }
-            uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
-            saveDefaultSaunaSet()
-
-        case .onErrorAlertDismiss:
-            uiState.settingsError = nil
         }
     }
 }
