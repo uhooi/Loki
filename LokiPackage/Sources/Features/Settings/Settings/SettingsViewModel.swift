@@ -7,8 +7,6 @@ import LogCore
 struct SettingsUiState {
     var defaultSaunaTimes: DefaultSaunaTimes = .init()
     var settingsError: SettingsError?
-
-    let onLicensesButtonClick: () -> Void
 }
 
 // MARK: - Action
@@ -38,6 +36,7 @@ enum SettingsError: LocalizedError {
 final class SettingsViewModel: ObservableObject {
     @Published private(set) var uiState: SettingsUiState
 
+    private let onLicensesButtonClick: () -> Void
     private let repository: any SaunaTimeSettingsRepository
     private let validator: any SakatsuValidator
 
@@ -46,9 +45,8 @@ final class SettingsViewModel: ObservableObject {
         repository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
-        self.uiState = SettingsUiState(
-            onLicensesButtonClick: onLicensesButtonClick
-        )
+        self.uiState = SettingsUiState()
+        self.onLicensesButtonClick = onLicensesButtonClick
         self.repository = repository
         self.validator = validator
         refreshDefaultSaunaTimes()
@@ -88,7 +86,7 @@ final class SettingsViewModel: ObservableObject {
                 saveDefaultSaunaSet()
 
             case .onLicensesButtonClick:
-                uiState.onLicensesButtonClick()
+                onLicensesButtonClick()
             }
         }
     }

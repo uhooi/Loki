@@ -53,11 +53,15 @@ enum SakatsuInputError: LocalizedError {
 final class SakatsuInputViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuInputUiState
 
+    private let onSakatsuSave: () -> Void
+    private let onCancelButtonClick: () -> Void
     private let sakatsuRepository: any SakatsuRepository
     private let validator: any SakatsuValidator
 
     init(
         sakatsuEditMode: SakatsuEditMode,
+        onSakatsuSave: @escaping () -> Void,
+        onCancelButtonClick: @escaping () -> Void,
         sakatsuRepository: some SakatsuRepository = DefaultSakatsuRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
@@ -68,6 +72,8 @@ final class SakatsuInputViewModel: ObservableObject {
         case let .edit(sakatsu: sakatsu):
             self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
         }
+        self.onSakatsuSave = onSakatsuSave
+        self.onCancelButtonClick = onCancelButtonClick
         self.sakatsuRepository = sakatsuRepository
         self.validator = validator
     }
@@ -91,9 +97,13 @@ final class SakatsuInputViewModel: ObservableObject {
                 } catch {
                     uiState.sakatsuInputError = .sakatsuSaveFailed
                 }
+                onSakatsuSave()
 
             case .onErrorAlertDismiss:
                 uiState.sakatsuInputError = nil
+
+            case .onCancelButtonClick:
+                onCancelButtonClick()
             }
 
         case let .view(viewAction):

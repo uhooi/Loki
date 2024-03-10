@@ -7,14 +7,12 @@ import UICore
 enum SakatsuInputScreenAction {
     case onSaveButtonClick
     case onErrorAlertDismiss
+    case onCancelButtonClick
 }
 
 // MARK: - View
 
 struct SakatsuInputScreen: View {
-    private let onSakatsuSave: () -> Void
-    private let onCancelButtonClick: () -> Void
-
     @StateObject private var viewModel: SakatsuInputViewModel
 
     var body: some View {
@@ -29,10 +27,8 @@ struct SakatsuInputScreen: View {
         .scrollDismissesKeyboard(.interactively)
         .sakatsuInputScreenToolbar(
             saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
-            onSaveButtonClick: {
-                viewModel.send(.screen(.onSaveButtonClick))
-                onSakatsuSave()
-            }, onCancelButtonClick: { onCancelButtonClick() }
+            onSaveButtonClick: { viewModel.send(.screen(.onSaveButtonClick)) },
+            onCancelButtonClick: { viewModel.send(.screen(.onCancelButtonClick)) }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
@@ -48,9 +44,11 @@ struct SakatsuInputScreen: View {
     ) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
-        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(sakatsuEditMode: sakatsuEditMode))
-        self.onSakatsuSave = onSakatsuSave
-        self.onCancelButtonClick = onCancelButtonClick
+        self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(
+            sakatsuEditMode: sakatsuEditMode,
+            onSakatsuSave: onSakatsuSave,
+            onCancelButtonClick: onCancelButtonClick
+        ))
     }
 }
 

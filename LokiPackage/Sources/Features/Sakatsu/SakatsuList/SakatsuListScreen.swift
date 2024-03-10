@@ -13,13 +13,12 @@ enum SakatsuListScreenAction {
     case onInputScreenDismiss
     case onCopyingSakatsuTextAlertDismiss
     case onErrorAlertDismiss
+    case onSettingsButtonClick
 }
 
 // MARK: - View
 
 package struct SakatsuListScreen: View {
-    private let onSettingsButtonClick: () -> Void
-
     @StateObject private var viewModel: SakatsuListViewModel
 
     @Environment(\.colorScheme) private var colorScheme // swiftlint:disable:this attributes
@@ -46,7 +45,7 @@ package struct SakatsuListScreen: View {
             editMode: $editMode,
             colorScheme: colorScheme,
             sakatsusCount: viewModel.uiState.filteredSakatsus.count,
-            onSettingsButtonClick: { onSettingsButtonClick() },
+            onSettingsButtonClick: { viewModel.send(.screen(.onSettingsButtonClick)) },
             onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) }
         )
         .sakatsuInputSheet(
@@ -70,8 +69,9 @@ package struct SakatsuListScreen: View {
     package init(onSettingsButtonClick: @escaping () -> Void) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
-        self.onSettingsButtonClick = onSettingsButtonClick
-        self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
+        self._viewModel = StateObject(wrappedValue: SakatsuListViewModel(
+            onSettingsButtonClick: onSettingsButtonClick
+        ))
     }
 }
 

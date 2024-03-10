@@ -58,10 +58,15 @@ enum SakatsuListError: LocalizedError {
 final class SakatsuListViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
 
+    private let onSettingsButtonClick: () -> Void
     private let repository: any SakatsuRepository
 
-    init(repository: some SakatsuRepository = DefaultSakatsuRepository.shared) {
+    init(
+        onSettingsButtonClick: @escaping () -> Void,
+        repository: some SakatsuRepository = DefaultSakatsuRepository.shared
+    ) {
         self.uiState = SakatsuListUiState()
+        self.onSettingsButtonClick = onSettingsButtonClick
         self.repository = repository
         refreshSakatsus()
     }
@@ -95,6 +100,9 @@ final class SakatsuListViewModel: ObservableObject {
 
             case .onErrorAlertDismiss:
                 uiState.sakatsuListError = nil
+
+            case .onSettingsButtonClick:
+                onSettingsButtonClick()
             }
 
         case let .view(viewAction):
