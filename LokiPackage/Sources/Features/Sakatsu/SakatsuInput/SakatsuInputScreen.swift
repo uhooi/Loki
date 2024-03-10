@@ -2,7 +2,7 @@ import SwiftUI
 import LogCore
 import UICore
 
-// MARK: - Action
+// MARK: Action
 
 enum SakatsuInputScreenAction {
     case onSaveButtonClick
