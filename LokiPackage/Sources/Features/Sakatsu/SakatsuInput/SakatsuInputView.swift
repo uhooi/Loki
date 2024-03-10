@@ -2,25 +2,32 @@ import SwiftUI
 import Algorithms
 import SakatsuData
 
+// MARK: Action
+
+enum SakatsuInputViewAction {
+    case onAddNewSaunaSetButtonClick
+    case onFacilityNameChange(_ facilityName: String)
+    case onVisitingDateChange(_ visitingDate: Date)
+    case onForewordChange(_ foreword: String?)
+    case onSaunaTitleChange(saunaSetIndex: Int, _ saunaTitle: String)
+    case onSaunaTimeChange(saunaSetIndex: Int, _ saunaTime: TimeInterval?)
+    case onCoolBathTitleChange(saunaSetIndex: Int, _ coolBathTitle: String)
+    case onCoolBathTimeChange(saunaSetIndex: Int, _ coolBathTime: TimeInterval?)
+    case onRelaxationTitleChange(saunaSetIndex: Int, _ relaxationTitle: String)
+    case onRelaxationTimeChange(saunaSetIndex: Int, _ relaxationTime: TimeInterval?)
+    case onRemoveSaunaSetButtonClick(saunaSetIndex: Int)
+    case onAfterwordChange(_ afterword: String?)
+    case onTemperatureTitleChange(temperatureIndex: Int, _ temperatureTitle: String)
+    case onTemperatureChange(temperatureIndex: Int, _ temperature: Decimal?)
+    case onTemperatureDelete(_ offsets: IndexSet)
+    case onAddNewTemperatureButtonClick
+}
+
+// MARK: - View
+
 struct SakatsuInputView: View {
     let sakatsu: Sakatsu
-
-    let onAddNewSaunaSetButtonClick: () -> Void
-    let onFacilityNameChange: (_ facilityName: String) -> Void
-    let onVisitingDateChange: (_ visitingDate: Date) -> Void
-    let onForewordChange: (_ foreword: String?) -> Void
-    let onSaunaTitleChange: (_ saunaSetIndex: Int, _ saunaTitle: String) -> Void
-    let onSaunaTimeChange: (_ saunaSetIndex: Int, _ saunaTime: TimeInterval?) -> Void
-    let onCoolBathTitleChange: (_ saunaSetIndex: Int, _ coolBathTitle: String) -> Void
-    let onCoolBathTimeChange: (_ saunaSetIndex: Int, _ coolBathTime: TimeInterval?) -> Void
-    let onRelaxationTitleChange: (_ saunaSetIndex: Int, _ relaxationTitle: String) -> Void
-    let onRelaxationTimeChange: (_ saunaSetIndex: Int, _ relaxationTime: TimeInterval?) -> Void
-    let onRemoveSaunaSetButtonClick: (_ saunaSetIndex: Int) -> Void
-    let onAfterwordChange: (_ afterword: String?) -> Void
-    let onTemperatureTitleChange: (_ temperatureIndex: Int, _ temperatureTitle: String) -> Void
-    let onTemperatureChange: (_ temperatureIndex: Int, _ temperature: Decimal?) -> Void
-    let onTemperatureDelete: (_ offsets: IndexSet) -> Void
-    let onAddNewTemperatureButtonClick: () -> Void
+    let send: (SakatsuInputViewAction) -> Void
 
     var body: some View {
         Form {
@@ -44,7 +51,7 @@ private extension SakatsuInputView {
                 TextField(String(localized: "Required", bundle: .module), text: .init(get: {
                     sakatsu.facilityName
                 }, set: { newValue in
-                    onFacilityNameChange(newValue)
+                    send(.onFacilityNameChange(newValue))
                 }))
             }
             DatePicker(
@@ -52,7 +59,7 @@ private extension SakatsuInputView {
                 selection: .init(get: {
                     sakatsu.visitingDate
                 }, set: { newValue in
-                    onVisitingDateChange(newValue)
+                    send(.onVisitingDateChange(newValue))
                 }),
                 displayedComponents: [.date]
             )
@@ -67,7 +74,7 @@ private extension SakatsuInputView {
                     get: {
                         sakatsu.foreword ?? ""
                     }, set: { newValue in
-                        onForewordChange(newValue)
+                        send(.onForewordChange(newValue))
                     }
                 ),
                 axis: .vertical
@@ -83,26 +90,35 @@ private extension SakatsuInputView {
                 saunaSetItemTimeInputView(
                     saunaSetIndex: saunaSetIndex,
                     saunaSetItem: saunaSet.sauna,
-                    onTitleChange: onSaunaTitleChange,
-                    onTimeChange: onSaunaTimeChange
+                    onTitleChange: { title in
+                        send(.onSaunaTitleChange(saunaSetIndex: saunaSetIndex, title))
+                    }, onTimeChange: { time in
+                        send(.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, time))
+                    }
                 )
                 saunaSetItemTimeInputView(
                     saunaSetIndex: saunaSetIndex,
                     saunaSetItem: saunaSet.coolBath,
-                    onTitleChange: onCoolBathTitleChange,
-                    onTimeChange: onCoolBathTimeChange
+                    onTitleChange: { title in
+                        send(.onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, title))
+                    }, onTimeChange: { time in
+                        send(.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, time))
+                    }
                 )
                 saunaSetItemTimeInputView(
                     saunaSetIndex: saunaSetIndex,
                     saunaSetItem: saunaSet.relaxation,
-                    onTitleChange: onRelaxationTitleChange,
-                    onTimeChange: onRelaxationTimeChange
+                    onTitleChange: { title in
+                        send(.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, title))
+                    }, onTimeChange: { time in
+                        send(.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, time))
+                    }
                 )
             } header: {
                 Text("Set \(saunaSetIndex + 1)", bundle: .module)
             } footer: {
                 Button(String(localized: "Delete set", bundle: .module), role: .destructive) {
-                    onRemoveSaunaSetButtonClick(saunaSetIndex)
+                    send(.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex))
                 }
                 .font(.footnote)
             }
@@ -111,7 +127,9 @@ private extension SakatsuInputView {
 
     var newSaunaSetSection: some View {
         Section {
-            Button(String(localized: "Add new set", bundle: .module), action: onAddNewSaunaSetButtonClick)
+            Button(String(localized: "Add new set", bundle: .module)) {
+                send(.onAddNewSaunaSetButtonClick)
+            }
         }
     }
 
@@ -123,7 +141,7 @@ private extension SakatsuInputView {
                     get: {
                         sakatsu.afterword ?? ""
                     }, set: { newValue in
-                        onAfterwordChange(newValue)
+                        send(.onAfterwordChange(newValue))
                     }
                 ),
                 axis: .vertical
@@ -139,15 +157,20 @@ private extension SakatsuInputView {
                 saunaTemperatureInputView(
                     saunaTemperatureIndex: saunaTemperatureIndex,
                     saunaTemperature: saunaTemperature,
-                    onTitleChange: onTemperatureTitleChange,
-                    onTemperatureChange: onTemperatureChange
+                    onTitleChange: { title in
+                        send(.onTemperatureTitleChange(temperatureIndex: saunaTemperatureIndex, title))
+                    }, onTemperatureChange: { temperature in
+                        send(.onTemperatureChange(temperatureIndex: saunaTemperatureIndex, temperature))
+                    }
                 )
             }
             .onDelete { offsets in
-                onTemperatureDelete(offsets)
+                send(.onTemperatureDelete(offsets))
             }
-            Button(String(localized: "Add new sauna temperatures", bundle: .module), action: onAddNewTemperatureButtonClick)
-                .font(.footnote)
+            Button(String(localized: "Add new sauna temperatures", bundle: .module)) {
+                send(.onAddNewTemperatureButtonClick)
+            }
+            .font(.footnote)
         } header: {
             Text("Temperatures", bundle: .module)
         }
@@ -156,8 +179,8 @@ private extension SakatsuInputView {
     func saunaSetItemTimeInputView(
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
-        onTitleChange: @escaping (_ saunaSetIndex: Int, _ title: String) -> Void,
-        onTimeChange: @escaping (_ saunaSetIndex: Int, _ time: TimeInterval?) -> Void
+        onTitleChange: @escaping (_ title: String) -> Void,
+        onTimeChange: @escaping (_ time: TimeInterval?) -> Void
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
@@ -165,13 +188,13 @@ private extension SakatsuInputView {
                 TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaSetItem.title
                 }, set: { newValue in
-                    onTitleChange(saunaSetIndex, newValue)
+                    onTitleChange(newValue)
                 }))
             }
             TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 saunaSetItem.time
             }, set: { newValue in
-                onTimeChange(saunaSetIndex, newValue)
+                onTimeChange(newValue)
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
@@ -182,8 +205,8 @@ private extension SakatsuInputView {
     func saunaTemperatureInputView(
         saunaTemperatureIndex: Int,
         saunaTemperature: SaunaTemperature,
-        onTitleChange: @escaping (_ temperatureIndex: Int, _ temperatureTitle: String) -> Void,
-        onTemperatureChange: @escaping (_ temperatureIndex: Int, _ temperature: Decimal?) -> Void
+        onTitleChange: @escaping (_ temperatureTitle: String) -> Void,
+        onTemperatureChange: @escaping (_ temperature: Decimal?) -> Void
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
@@ -191,13 +214,13 @@ private extension SakatsuInputView {
                 TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaTemperature.title
                 }, set: { newValue in
-                    onTitleChange(saunaTemperatureIndex, newValue)
+                    onTitleChange(newValue)
                 }))
             }
             TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 saunaTemperature.temperature
             }, set: { newValue in
-                onTemperatureChange(saunaTemperatureIndex, newValue)
+                onTemperatureChange(newValue)
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
@@ -212,22 +235,7 @@ private extension SakatsuInputView {
 #Preview {
     SakatsuInputView(
         sakatsu: .preview,
-        onAddNewSaunaSetButtonClick: {},
-        onFacilityNameChange: { _ in },
-        onVisitingDateChange: { _ in },
-        onForewordChange: { _ in },
-        onSaunaTitleChange: { _, _ in },
-        onSaunaTimeChange: { _, _ in },
-        onCoolBathTitleChange: { _, _ in },
-        onCoolBathTimeChange: { _, _ in },
-        onRelaxationTitleChange: { _, _ in },
-        onRelaxationTimeChange: { _, _ in },
-        onRemoveSaunaSetButtonClick: { _ in },
-        onAfterwordChange: { _ in },
-        onTemperatureTitleChange: { _, _ in },
-        onTemperatureChange: { _, _ in },
-        onTemperatureDelete: { _ in },
-        onAddNewTemperatureButtonClick: {}
+        send: { _ in }
     )
 }
 #endif

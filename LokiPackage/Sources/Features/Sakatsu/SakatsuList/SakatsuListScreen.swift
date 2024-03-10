@@ -19,8 +19,11 @@ enum SakatsuListScreenAction {
 
 package struct SakatsuListScreen: View {
     private let onSettingsButtonClick: () -> Void
+
     @StateObject private var viewModel: SakatsuListViewModel
+
     @Environment(\.colorScheme) private var colorScheme // swiftlint:disable:this attributes
+
     @State private var editMode: EditMode = .inactive
 
     package var body: some View {
