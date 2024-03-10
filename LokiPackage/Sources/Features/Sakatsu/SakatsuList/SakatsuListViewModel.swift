@@ -34,16 +34,8 @@ struct SakatsuListUiState {
 // MARK: - Action
 
 enum SakatsuListAction {
-    case onAddButtonClick
-    case onSearchTextChange(searchText: String)
-    case onEditButtonClick(sakatsuIndex: Int)
-    case onCopySakatsuTextButtonClick(sakatsuIndex: Int)
-    case onSakatsuSave
-    case onInputScreenCancelButtonClick
-    case onInputScreenDismiss
-    case onCopyingSakatsuTextAlertDismiss
-    case onDelete(offsets: IndexSet)
-    case onErrorAlertDismiss
+    case screen(_ action: SakatsuListScreenAction)
+    case view(_ action: SakatsuListViewAction)
 }
 
 // MARK: - Error
@@ -66,10 +58,15 @@ enum SakatsuListError: LocalizedError {
 final class SakatsuListViewModel: ObservableObject {
     @Published private(set) var uiState: SakatsuListUiState
 
+    private let onSettingsButtonClick: () -> Void
     private let repository: any SakatsuRepository
 
-    init(repository: some SakatsuRepository = DefaultSakatsuRepository.shared) {
+    init(
+        onSettingsButtonClick: @escaping () -> Void,
+        repository: some SakatsuRepository = DefaultSakatsuRepository.shared
+    ) {
         self.uiState = SakatsuListUiState()
+        self.onSettingsButtonClick = onSettingsButtonClick
         self.repository = repository
         refreshSakatsus()
     }
@@ -78,51 +75,60 @@ final class SakatsuListViewModel: ObservableObject {
         let message = "\(#file) \(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
         switch action {
-        case .onAddButtonClick:
-            uiState.selectedSakatsu = nil
-            uiState.shouldShowInputScreen = true
+        case let .screen(screenAction):
+            switch screenAction {
+            case .onAddButtonClick:
+                uiState.selectedSakatsu = nil
+                uiState.shouldShowInputScreen = true
 
-        case let .onSearchTextChange(searchText: searchText):
-            uiState.searchText = searchText
+            case let .onSearchTextChange(searchText: searchText):
+                uiState.searchText = searchText
 
-        case let .onEditButtonClick(sakatsuIndex: sakatsuIndex):
-            uiState.selectedSakatsu = uiState.filteredSakatsus[sakatsuIndex]
-            uiState.shouldShowInputScreen = true
+            case .onSakatsuSave:
+                uiState.shouldShowInputScreen = false
+                refreshSakatsus()
 
-        case let .onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex):
-            uiState.sakatsuText = sakatsuText(sakatsu: uiState.filteredSakatsus[sakatsuIndex])
+            case .onInputScreenCancelButtonClick:
+                uiState.shouldShowInputScreen = false
 
-        case .onSakatsuSave:
-            uiState.shouldShowInputScreen = false
-            refreshSakatsus()
+            case .onInputScreenDismiss:
+                uiState.shouldShowInputScreen = false
+                uiState.selectedSakatsu = nil
 
-        case .onInputScreenCancelButtonClick:
-            uiState.shouldShowInputScreen = false
+            case .onCopyingSakatsuTextAlertDismiss:
+                uiState.sakatsuText = nil
 
-        case .onInputScreenDismiss:
-            uiState.shouldShowInputScreen = false
-            uiState.selectedSakatsu = nil
+            case .onErrorAlertDismiss:
+                uiState.sakatsuListError = nil
 
-        case .onCopyingSakatsuTextAlertDismiss:
-            uiState.sakatsuText = nil
+            case .onSettingsButtonClick:
+                onSettingsButtonClick()
+            }
 
-        case let .onDelete(offsets: offsets):
-            let oldValue = uiState.sakatsus
-            for index in offsets {
-                let sakatsu = uiState.filteredSakatsus[index]
-                if let firstIndex = uiState.sakatsus.firstIndex(of: sakatsu) {
-                    uiState.sakatsus.remove(at: firstIndex)
+        case let .view(viewAction):
+            switch viewAction {
+            case let .onEditButtonClick(sakatsuIndex: sakatsuIndex):
+                uiState.selectedSakatsu = uiState.filteredSakatsus[sakatsuIndex]
+                uiState.shouldShowInputScreen = true
+
+            case let .onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex):
+                uiState.sakatsuText = sakatsuText(sakatsu: uiState.filteredSakatsus[sakatsuIndex])
+
+            case let .onDelete(offsets: offsets):
+                let oldValue = uiState.sakatsus
+                for index in offsets {
+                    let sakatsu = uiState.filteredSakatsus[index]
+                    if let firstIndex = uiState.sakatsus.firstIndex(of: sakatsu) {
+                        uiState.sakatsus.remove(at: firstIndex)
+                    }
+                }
+                do {
+                    try repository.saveSakatsus(uiState.sakatsus)
+                } catch {
+                    uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
+                    uiState.sakatsus = oldValue
                 }
             }
-            do {
-                try repository.saveSakatsus(uiState.sakatsus)
-            } catch {
-                uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
-                uiState.sakatsus = oldValue
-            }
-
-        case .onErrorAlertDismiss:
-            uiState.sakatsuListError = nil
         }
     }
 }

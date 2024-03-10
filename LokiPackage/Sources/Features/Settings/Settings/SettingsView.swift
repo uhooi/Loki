@@ -1,13 +1,20 @@
 import SwiftUI
 import SakatsuData
 
+// MARK: Action
+
+enum SettingsViewAction {
+    case onDefaultSaunaTimeChange(_ defaultSaunaTime: TimeInterval?)
+    case onDefaultCoolBathTimeChange(_ defaultCoolBathTime: TimeInterval?)
+    case onDefaultRelaxationTimeChange(_ defaultRelaxationTime: TimeInterval?)
+    case onLicensesButtonClick
+}
+
+// MARK: - View
+
 struct SettingsView: View {
     let defaultSaunaTimes: DefaultSaunaTimes
-
-    let onDefaultSaunaTimeChange: (_ defaultSaunaTime: TimeInterval?) -> Void
-    let onDefaultCoolBathTimeChange: (_ defaultCoolBathTime: TimeInterval?) -> Void
-    let onDefaultRelaxationTimeChange: (_ defaultRelaxationTime: TimeInterval?) -> Void
-    let onLicensesButtonClick: () -> Void
+    let send: (SettingsViewAction) -> Void
 
     var body: some View {
         Form {
@@ -28,21 +35,27 @@ private extension SettingsView {
                 title: String(localized: "Sauna", bundle: .module),
                 defaultTime: defaultSaunaTimes.saunaTime,
                 unit: String(localized: "m", bundle: .module),
-                onTimeChange: onDefaultSaunaTimeChange
+                onTimeChange: { time in
+                    send(.onDefaultSaunaTimeChange(time))
+                }
             )
             defaultTimeInputView(
                 emoji: "💧",
                 title: String(localized: "Cool bath", bundle: .module),
                 defaultTime: defaultSaunaTimes.coolBathTime,
                 unit: String(localized: "s", bundle: .module),
-                onTimeChange: onDefaultCoolBathTimeChange
+                onTimeChange: { time in
+                    send(.onDefaultCoolBathTimeChange(time))
+                }
             )
             defaultTimeInputView(
                 emoji: "🍃",
                 title: String(localized: "Relaxation", bundle: .module),
                 defaultTime: defaultSaunaTimes.relaxationTime,
                 unit: String(localized: "m", bundle: .module),
-                onTimeChange: onDefaultRelaxationTimeChange
+                onTimeChange: { time in
+                    send(.onDefaultRelaxationTimeChange(time))
+                }
             )
         } header: {
             Text("Default times", bundle: .module)
@@ -51,7 +64,9 @@ private extension SettingsView {
 
     var licensesSection: some View {
         Section {
-            Button(String(localized: "Licenses", bundle: .module), action: onLicensesButtonClick)
+            Button(String(localized: "Licenses", bundle: .module)) {
+                send(.onLicensesButtonClick)
+            }
         }
     }
 
@@ -93,10 +108,7 @@ private extension SettingsView {
 #Preview {
     SettingsView(
         defaultSaunaTimes: .preview,
-        onDefaultSaunaTimeChange: { _ in },
-        onDefaultCoolBathTimeChange: { _ in },
-        onDefaultRelaxationTimeChange: { _ in },
-        onLicensesButtonClick: {}
+        send: { _ in }
     )
 }
 #endif
