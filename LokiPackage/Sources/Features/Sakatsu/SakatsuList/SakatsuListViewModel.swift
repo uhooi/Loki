@@ -68,12 +68,14 @@ final class SakatsuListViewModel: ObservableObject {
         self.uiState = SakatsuListUiState()
         self.onSettingsButtonClick = onSettingsButtonClick
         self.repository = repository
+
         refreshSakatsus()
     }
 
     func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity
-        let message = "\(#file) \(#function) action: \(action)"
+        let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
+
         switch action {
         case let .screen(screenAction):
             switch screenAction {

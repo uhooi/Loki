@@ -24,8 +24,7 @@ package struct LicenseListScreen: View {
     }
 
     package init() {
-        let message = "\(#file) \(#function)"
-        Logger.standard.debug("\(message, privacy: .public)")
+        Logger.standard.debug("\(#function, privacy: .public)")
     }
 }
 

@@ -20,8 +20,8 @@ struct LicenseDetailScreen: View {
     }
 
     init(license: LicensesPlugin.License) {
-        let message = "\(#file) \(#function)"
-        Logger.standard.debug("\(message, privacy: .public)")
+        Logger.standard.debug("\(#function, privacy: .public)")
+
         self.license = license
     }
 }

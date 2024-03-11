@@ -29,8 +29,8 @@ package struct SettingsScreen: View {
 
     @MainActor
     package init(onLicensesButtonClick: @escaping () -> Void) {
-        let message = "\(#file) \(#function)"
-        Logger.standard.debug("\(message, privacy: .public)")
+        Logger.standard.debug("\(#function, privacy: .public)")
+
         self._viewModel = StateObject(wrappedValue: SettingsViewModel(
             onLicensesButtonClick: onLicensesButtonClick
         ))
