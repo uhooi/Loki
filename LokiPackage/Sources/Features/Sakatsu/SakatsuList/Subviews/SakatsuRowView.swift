@@ -22,10 +22,13 @@ struct SakatsuRowView: View {
                     facilityNameText
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
+
                 menu
                     .frame(alignment: .topTrailing)
             }
+
             forewordText
+
             if !sakatsu.saunaSets.isEmpty {
                 GroupBox {
                     saunaSetsView
@@ -35,7 +38,9 @@ struct SakatsuRowView: View {
                         .stroke(Color(uiColor: .tertiaryLabel))
                 }
             }
+
             afterwordText
+
             if !sakatsu.saunaTemperatures.isEmpty && sakatsu.saunaTemperatures.contains(where: { $0.temperature != nil }) {
                 temperaturesView
             }
@@ -67,6 +72,7 @@ private extension SakatsuRowView {
             } label: {
                 Label(String(localized: "Copy Sakatsu text", bundle: .module), systemImage: "doc.on.doc")
             }
+
             Button {
                 send(.onEditButtonClick)
             } label: {
@@ -94,17 +100,21 @@ private extension SakatsuRowView {
                 if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
                     saunaSetItemView(saunaSetItem: saunaSet.sauna)
                 }
+
                 if !saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil {
                     if !saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil {
                         arrowImage
                     }
+
                     saunaSetItemView(saunaSetItem: saunaSet.coolBath)
                 }
+
                 if !saunaSet.relaxation.title.isEmpty || saunaSet.relaxation.time != nil {
                     if (!saunaSet.sauna.title.isEmpty || saunaSet.sauna.time != nil) ||
                         (!saunaSet.coolBath.title.isEmpty || saunaSet.coolBath.time != nil) {
                         arrowImage
                     }
+
                     saunaSetItemView(saunaSetItem: saunaSet.relaxation)
                 }
             }
@@ -133,9 +143,11 @@ private extension SakatsuRowView {
         HStack(alignment: .firstTextBaseline, spacing: 0) {
             Text(saunaSetItem.emoji)
                 .font(.body)
+
             if let time = saunaSetItem.time {
                 Text(time.formatted())
                     .font(.system(.title2, design: .rounded))
+
                 Text(saunaSetItem.unit)
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -150,9 +162,11 @@ private extension SakatsuRowView {
                     HStack(alignment: .firstTextBaseline, spacing: 0) {
                         Text(saunaTemperature.emoji)
                             .font(.footnote)
+
                         Text(temperature.formatted())
                             .font(.system(.footnote, design: .rounded))
                             .textSelection(.enabled)
+
                         Text("℃", bundle: .module)
                             .font(.caption2)
                             .foregroundStyle(.secondary)

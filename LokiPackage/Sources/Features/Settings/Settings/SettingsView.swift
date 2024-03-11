@@ -39,6 +39,7 @@ private extension SettingsView {
                     send(.onDefaultSaunaTimeChange(time))
                 }
             )
+
             defaultTimeInputView(
                 emoji: "💧",
                 title: String(localized: "Cool bath", bundle: .module),
@@ -48,6 +49,7 @@ private extension SettingsView {
                     send(.onDefaultCoolBathTimeChange(time))
                 }
             )
+
             defaultTimeInputView(
                 emoji: "🍃",
                 title: String(localized: "Relaxation", bundle: .module),
@@ -90,6 +92,7 @@ private extension SettingsView {
     ) -> some View {
         HStack {
             Text(emoji + title)
+
             TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 defaultTime
             }, set: { newValue in
@@ -97,6 +100,7 @@ private extension SettingsView {
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
+
             Text(unit)
         }
     }

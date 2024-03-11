@@ -67,8 +67,8 @@ package struct SakatsuListScreen: View {
 
     @MainActor
     package init(onSettingsButtonClick: @escaping () -> Void) {
-        let message = "\(#file) \(#function)"
-        Logger.standard.debug("\(message, privacy: .public)")
+        Logger.standard.debug("\(#function, privacy: .public)")
+
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel(
             onSettingsButtonClick: onSettingsButtonClick
         ))
@@ -90,21 +90,25 @@ private extension View {
                 EditButton()
                     .bold(editMode.wrappedValue.isEditing)
             }
+
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: onSettingsButtonClick) {
                     Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }
             }
+
             ToolbarItem(placement: .bottomBar) {
                 Button(action: onAddButtonClick) {
                     HStack {
                         Image(systemName: "plus.circle.fill")
                             .font(.title3)
+
                         Text("New Sakatsu", bundle: .module)
                     }
                     .bold()
                 }
             }
+
             ToolbarItem(placement: .status) {
                 Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
                     .font(.caption)
