@@ -121,10 +121,12 @@ private extension SakatsuInputView {
             } header: {
                 Text("Set \(saunaSetIndex + 1)", bundle: .module)
             } footer: {
-                Button(String(localized: "Delete set", bundle: .module), role: .destructive) {
+                Button(role: .destructive) {
                     send(.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex))
+                } label: {
+                    Text("Delete set", bundle: .module)
+                        .font(.footnote)
                 }
-                .font(.footnote)
             }
         }
     }
@@ -171,10 +173,13 @@ private extension SakatsuInputView {
             .onDelete { offsets in
                 send(.onTemperatureDelete(offsets))
             }
-            Button(String(localized: "Add new sauna temperatures", bundle: .module)) {
+
+            Button {
                 send(.onAddNewTemperatureButtonClick)
+            } label: {
+                Text("Add new sauna temperatures", bundle: .module)
+                    .font(.footnote)
             }
-            .font(.footnote)
         } header: {
             Text("Temperatures", bundle: .module)
         }

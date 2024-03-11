@@ -62,9 +62,11 @@ private extension View {
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(String(localized: "Save", bundle: .module), action: onSaveButtonClick)
-                    .bold()
-                    .disabled(saveButtonDisabled)
+                Button(action: onSaveButtonClick) {
+                    Text("Save", bundle: .module)
+                        .bold()
+                }
+                .disabled(saveButtonDisabled)
             }
 
             ToolbarItem(placement: .topBarLeading) {
