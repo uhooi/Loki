@@ -3,21 +3,21 @@ import OSLog
 import LogCore
 
 struct LogScreen: View {
-    private enum SearchScope: Hashable {
+    private enum CategorySearchScope: Hashable {
         case all
         case category(String)
     }
 
     @State private var entries: [LogEntry] = []
     @State private var categories: Set<String> = []
-    @State private var searchScope: SearchScope = .all
+    @State private var categorySearchScope: CategorySearchScope = .all
     @State private var query = ""
     @State private var isLoading = false
 
     private let logStore = LogStore()
 
     private var filteredEntries: [LogEntry] {
-        let filteredEntries: [LogEntry] = switch searchScope {
+        let filteredEntries: [LogEntry] = switch categorySearchScope {
         case .all:
             entries
         case let .category(category):
@@ -35,13 +35,13 @@ struct LogScreen: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Picker(selection: $searchScope) {
+            Picker(selection: $categorySearchScope) {
                 Text("All", bundle: .module)
-                    .tag(SearchScope.all)
+                    .tag(CategorySearchScope.all)
 
                 ForEach(sortedCategories, id: \.self) { category in
                     Text(category)
-                        .tag(SearchScope.category(category))
+                        .tag(CategorySearchScope.category(category))
                 }
             } label: {
                 Text("Category", bundle: .module)
