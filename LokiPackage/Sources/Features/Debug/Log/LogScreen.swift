@@ -36,7 +36,7 @@ struct LogScreen: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Picker(selection: $searchScope) {
-                Text("all")
+                Text("All", bundle: .module)
                     .tag(SearchScope.all)
 
                 ForEach(sortedCategories, id: \.self) { category in
@@ -44,7 +44,7 @@ struct LogScreen: View {
                         .tag(SearchScope.category(category))
                 }
             } label: {
-                Text("Category")
+                Text("Category", bundle: .module)
             }
             .padding(.horizontal, 8)
             .disabled(isLoading)
