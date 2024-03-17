@@ -157,22 +157,22 @@ actor LogStore {
 private extension OSLogEntryLog.Level {
     var iconName: String {
         switch self {
-        case .undefined: "stethoscope"
+        case .undefined: "circle.fill"
         case .debug: "stethoscope"
-        case .info: "stethoscope"
-        case .notice: "stethoscope"
+        case .info: "info"
+        case .notice: "bell.fill"
         case .error: "exclamationmark.2"
         case .fault: "exclamationmark.3"
-        @unknown default: "stethoscope"
+        @unknown default: "circle.fill"
         }
     }
 
     var iconForegroundColor: Color {
         switch self {
         case .undefined: .secondary
-        case .debug: .secondary
-        case .info: .secondary
-        case .notice: .secondary
+        case .debug: .gray
+        case .info: .blue
+        case .notice: .gray
         case .error: .yellow
         case .fault: .red
         @unknown default: .secondary
@@ -185,8 +185,8 @@ private extension OSLogEntryLog.Level {
         case .debug: .clear
         case .info: .clear
         case .notice: .clear
-        case .error: .yellow.opacity(0.3)
-        case .fault: .red.opacity(0.3)
+        case .error: .yellow.opacity(0.1)
+        case .fault: .red.opacity(0.1)
         @unknown default: .clear
         }
     }
