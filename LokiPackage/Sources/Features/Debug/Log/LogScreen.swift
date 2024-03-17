@@ -117,6 +117,26 @@ struct LogRowView: View {
                 }
 
                 HStack(spacing: 4) {
+                    Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+
+                    Text("\(entry.processIdentifier):\(entry.threadIdentifier)")
+                        .font(.caption.bold())
+                        .foregroundStyle(.secondary)
+                }
+
+                HStack(spacing: 4) {
+                    Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+
+                    Text(entry.subsystem)
+                        .font(.caption.bold())
+                        .foregroundStyle(.secondary)
+                }
+
+                HStack(spacing: 4) {
                     Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
                         .font(.caption2)
                         .foregroundStyle(.secondary)
@@ -131,10 +151,13 @@ struct LogRowView: View {
 }
 
 struct LogEntry: Sendable {
-    let date: Date
-    let category: String
-    let level: OSLogEntryLog.Level
     let message: String
+    let date: Date
+    let processIdentifier: String
+    let threadIdentifier: String
+    let category: String
+    let subsystem: String
+    let level: OSLogEntryLog.Level
 }
 
 actor LogStore {
@@ -146,10 +169,13 @@ actor LogStore {
             .compactMap { $0 as? OSLogEntryLog }
             .compactMap {
                 LogEntry(
+                    message: $0.composedMessage,
                     date: $0.date,
+                    processIdentifier: "\($0.processIdentifier)",
+                    threadIdentifier: String(format: "%#llx", $0.threadIdentifier),
                     category: $0.category,
-                    level: $0.level,
-                    message: $0.composedMessage
+                    subsystem: $0.subsystem,
+                    level: $0.level
                 )
             }
             .sorted { $0.date < $1.date }
