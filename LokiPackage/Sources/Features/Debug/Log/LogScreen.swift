@@ -104,8 +104,12 @@ struct LogRowView: View {
             HStack(spacing: 8) {
                 HStack(spacing: 4) {
                     Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
-                        .font(.caption2)
-                        .foregroundStyle(entry.level.iconForegroundColor)
+                        .resizable()
+                        .frame(width: 8, height: 8)
+                        .foregroundStyle(.white)
+                        .padding(3)
+                        .background(entry.level.iconBackgroundColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 2))
 
                     Text(logDateFormatter.string(from: entry.date))
                         .font(.caption.bold())
@@ -167,7 +171,7 @@ private extension OSLogEntryLog.Level {
         }
     }
 
-    var iconForegroundColor: Color {
+    var iconBackgroundColor: Color {
         switch self {
         case .undefined: .secondary
         case .debug: .gray
