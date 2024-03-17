@@ -85,6 +85,8 @@ struct LogScreen: View {
 }
 
 struct LogRowView: View {
+    let entry: LogEntry
+
     private let logDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSSS"
@@ -92,8 +94,6 @@ struct LogRowView: View {
         formatter.locale = Locale.current
         return formatter
     }()
-
-    let entry: LogEntry
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
