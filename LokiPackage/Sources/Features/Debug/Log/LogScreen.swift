@@ -1,0 +1,193 @@
+import SwiftUI
+import OSLog
+import LogCore
+
+struct LogScreen: View {
+    private enum SearchScope: Hashable {
+        case all
+        case category(String)
+    }
+
+    @State private var entries: [LogEntry] = []
+    @State private var categories: Set<String> = []
+    @State private var searchScope: SearchScope = .all
+    @State private var query = ""
+    @State private var isLoading = false
+
+    private let logStore = LogStore()
+
+    private var filteredEntries: [LogEntry] {
+        let filteredEntries: [LogEntry] = switch searchScope {
+        case .all:
+            entries
+        case let .category(category):
+            entries.filter { $0.category == category }
+        }
+
+        let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
+        return trimmedQuery.isEmpty ? filteredEntries : filteredEntries.filter { $0.message.range(of: trimmedQuery, options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive]) != nil }
+    }
+
+    private var sortedCategories: [String] {
+        Array(categories)
+            .sorted { $0 < $1 }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Picker(selection: $searchScope) {
+                Text("all")
+                    .tag(SearchScope.all)
+
+                ForEach(sortedCategories, id: \.self) { category in
+                    Text(category)
+                        .tag(SearchScope.category(category))
+                }
+            } label: {
+                Text("Category")
+            }
+            .padding(.horizontal, 8)
+            .disabled(isLoading)
+
+            Group {
+                if isLoading {
+                    ProgressView()
+                } else {
+                    List {
+                        ForEach(filteredEntries, id: \.date) { entry in
+                            LogRowView(entry: entry)
+                                .listRowBackground(entry.level.backgroundColor)
+                        }
+                    }
+                    .listStyle(.plain)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .navigationTitle(String(localized: "Log", bundle: .module))
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $query)
+        .task {
+            isLoading = true
+            do {
+                entries = try await logStore.entries()
+                categories = Set(entries.map({ $0.category }))
+            } catch {
+                print(error)
+            }
+            isLoading = false
+        }
+    }
+
+    init() {
+        Logger.standard.debug("\(#function, privacy: .public)")
+    }
+}
+
+struct LogRowView: View {
+    private let logDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss.SSSS"
+        formatter.calendar = Calendar.current
+        formatter.locale = Locale.current
+        return formatter
+    }()
+
+    let entry: LogEntry
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(entry.message)
+                .monospaced()
+                .lineLimit(5)
+
+            HStack(spacing: 8) {
+                HStack(spacing: 4) {
+                    Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
+                        .font(.caption2)
+                        .foregroundStyle(entry.level.iconForegroundColor)
+
+                    Text(logDateFormatter.string(from: entry.date))
+                        .font(.caption.bold())
+                        .foregroundStyle(.secondary)
+                }
+
+                HStack(spacing: 4) {
+                    Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+
+                    Text(entry.category)
+                        .font(.caption.bold())
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+    }
+}
+
+struct LogEntry: Sendable {
+    let date: Date
+    let category: String
+    let level: OSLogEntryLog.Level
+    let message: String
+}
+
+actor LogStore {
+    func entries() throws -> [LogEntry] {
+        let store = try OSLogStore(scope: .currentProcessIdentifier)
+        let position = store.position(timeIntervalSinceLatestBoot: 1)
+
+        return try store.getEntries(at: position)
+            .compactMap { $0 as? OSLogEntryLog }
+            .compactMap {
+                LogEntry(
+                    date: $0.date,
+                    category: $0.category,
+                    level: $0.level,
+                    message: $0.composedMessage
+                )
+            }
+            .sorted { $0.date < $1.date }
+    }
+}
+
+// MARK: - Privates
+
+private extension OSLogEntryLog.Level {
+    var iconName: String {
+        switch self {
+        case .undefined: "stethoscope"
+        case .debug: "stethoscope"
+        case .info: "stethoscope"
+        case .notice: "stethoscope"
+        case .error: "exclamationmark.2"
+        case .fault: "exclamationmark.3"
+        @unknown default: "stethoscope"
+        }
+    }
+
+    var iconForegroundColor: Color {
+        switch self {
+        case .undefined: .secondary
+        case .debug: .secondary
+        case .info: .secondary
+        case .notice: .secondary
+        case .error: .yellow
+        case .fault: .red
+        @unknown default: .secondary
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .undefined: .clear
+        case .debug: .clear
+        case .info: .clear
+        case .notice: .clear
+        case .error: .yellow.opacity(0.3)
+        case .fault: .red.opacity(0.3)
+        @unknown default: .clear
+        }
+    }
+}

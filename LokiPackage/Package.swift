@@ -71,7 +71,9 @@ let package = Package(
             path: "./Sources/Apps/Production"),
         .target(
             name: "DevelopApp",
-            dependencies: productionFeatures,
+            dependencies: productionFeatures + [
+                "DebugFeature",
+            ],
             path: "./Sources/Apps/Develop"),
         .target(
             name: "CatalogApp",
@@ -110,6 +112,11 @@ let package = Package(
             plugins: [
                 .licenses,
             ]),
+        .target(
+            name: "DebugFeature",
+            dependencies: [
+            ],
+            path: "./Sources/Features/Debug"),
 
         // Data layer
         .target(
