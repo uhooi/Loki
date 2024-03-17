@@ -84,6 +84,22 @@
           }
         }
       }
+    },
+    "Subsystem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subsystem"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サブシステム"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

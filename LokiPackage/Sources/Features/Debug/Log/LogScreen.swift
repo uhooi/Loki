@@ -3,12 +3,19 @@ import OSLog
 import LogCore
 
 struct LogScreen: View {
+    private enum SubsystemSearchScope: Hashable {
+        case all
+        case subsystem(String)
+    }
+
     private enum CategorySearchScope: Hashable {
         case all
         case category(String)
     }
 
     @State private var entries: [LogEntry] = []
+    @State private var subsystems: Set<String> = []
+    @State private var subsystemSearchScope: SubsystemSearchScope = .all
     @State private var categories: Set<String> = []
     @State private var categorySearchScope: CategorySearchScope = .all
     @State private var query = ""
@@ -17,15 +24,27 @@ struct LogScreen: View {
     private let logStore = LogStore()
 
     private var filteredEntries: [LogEntry] {
-        let filteredEntries: [LogEntry] = switch categorySearchScope {
-        case .all:
-            entries
-        case let .category(category):
-            entries.filter { $0.category == category }
-        }
+        let filteredEntries: [LogEntry] = entries
+            .filter {
+                switch subsystemSearchScope {
+                case .all: true
+                case let .subsystem(subsystem): $0.subsystem == subsystem
+                }
+            }
+            .filter {
+                switch categorySearchScope {
+                case .all: true
+                case let .category(category): $0.category == category
+                }
+            }
 
         let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
         return trimmedQuery.isEmpty ? filteredEntries : filteredEntries.filter { $0.message.range(of: trimmedQuery, options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive]) != nil }
+    }
+
+    private var sortedSubsystems: [String] {
+        Array(subsystems)
+            .sorted { $0 < $1 }
     }
 
     private var sortedCategories: [String] {
@@ -35,16 +54,30 @@ struct LogScreen: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Picker(selection: $categorySearchScope) {
-                Text("All", bundle: .module)
-                    .tag(CategorySearchScope.all)
+            HStack {
+                Picker(selection: $subsystemSearchScope) {
+                    Text("All", bundle: .module)
+                        .tag(SubsystemSearchScope.all)
 
-                ForEach(sortedCategories, id: \.self) { category in
-                    Text(category)
-                        .tag(CategorySearchScope.category(category))
+                    ForEach(sortedSubsystems, id: \.self) { subsystem in
+                        Text(subsystem)
+                            .tag(SubsystemSearchScope.subsystem(subsystem))
+                    }
+                } label: {
+                    Text("Subsystem", bundle: .module)
                 }
-            } label: {
-                Text("Category", bundle: .module)
+
+                Picker(selection: $categorySearchScope) {
+                    Text("All", bundle: .module)
+                        .tag(CategorySearchScope.all)
+
+                    ForEach(sortedCategories, id: \.self) { category in
+                        Text(category)
+                            .tag(CategorySearchScope.category(category))
+                    }
+                } label: {
+                    Text("Category", bundle: .module)
+                }
             }
             .padding(.horizontal, 8)
             .disabled(isLoading)
@@ -71,6 +104,7 @@ struct LogScreen: View {
             isLoading = true
             do {
                 entries = try await logStore.entries()
+                subsystems = Set(entries.map({ $0.subsystem }))
                 categories = Set(entries.map({ $0.category }))
             } catch {
                 print(error)
