@@ -179,8 +179,8 @@ struct LogRowView: View {
                 .lineLimit(5)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
-                    HStack(spacing: 4) {
+                HStack(spacing: 10) {
+                    HStack(spacing: 2) {
                         Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
                             .resizable()
                             .frame(width: 8, height: 8)
@@ -194,7 +194,7 @@ struct LogRowView: View {
                             .foregroundStyle(.secondary)
                     }
 
-                    HStack(spacing: 4) {
+                    HStack(spacing: 2) {
                         Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
                             .font(.caption2)
                             .foregroundStyle(.secondary)
@@ -204,7 +204,7 @@ struct LogRowView: View {
                             .foregroundStyle(.secondary)
                     }
 
-                    HStack(spacing: 4) {
+                    HStack(spacing: 2) {
                         Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
                             .font(.caption2)
                             .foregroundStyle(.secondary)
@@ -214,7 +214,7 @@ struct LogRowView: View {
                             .foregroundStyle(.secondary)
                     }
 
-                    HStack(spacing: 4) {
+                    HStack(spacing: 2) {
                         Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
                             .font(.caption2)
                             .foregroundStyle(.secondary)
