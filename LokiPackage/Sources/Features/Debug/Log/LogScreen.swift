@@ -6,11 +6,25 @@ struct LogScreen: View {
     private enum SubsystemSearchScope: Hashable {
         case all
         case subsystem(String)
+
+        var text: String {
+            switch self {
+            case .all: .init(localized: "All", bundle: .module)
+            case let .subsystem(subsystem): subsystem
+            }
+        }
     }
 
     private enum CategorySearchScope: Hashable {
         case all
         case category(String)
+
+        var text: String {
+            switch self {
+            case .all: .init(localized: "All", bundle: .module)
+            case let .category(category): category
+            }
+        }
     }
 
     @State private var entries: [LogEntry] = []
@@ -55,32 +69,61 @@ struct LogScreen: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Picker(selection: $subsystemSearchScope) {
-                    Text("All", bundle: .module)
-                        .tag(SubsystemSearchScope.all)
+                Menu {
+                    Picker(selection: $subsystemSearchScope) {
+                        Text("All", bundle: .module)
+                            .tag(SubsystemSearchScope.all)
 
-                    ForEach(sortedSubsystems, id: \.self) { subsystem in
-                        Text(subsystem)
-                            .tag(SubsystemSearchScope.subsystem(subsystem))
+                        ForEach(sortedSubsystems, id: \.self) { subsystem in
+                            Text(subsystem)
+                                .tag(SubsystemSearchScope.subsystem(subsystem))
+                        }
+                    } label: {
+                        Text("Subsystem", bundle: .module)
                     }
                 } label: {
-                    Text("Subsystem", bundle: .module)
+                    HStack(spacing: 2) {
+                        Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
+
+                        Text(subsystemSearchScope.text)
+                            .lineLimit(1)
+                    }
                 }
 
-                Picker(selection: $categorySearchScope) {
-                    Text("All", bundle: .module)
-                        .tag(CategorySearchScope.all)
+                Menu {
+                    Picker(selection: $categorySearchScope) {
+                        Text("All", bundle: .module)
+                            .tag(CategorySearchScope.all)
 
-                    ForEach(sortedCategories, id: \.self) { category in
-                        Text(category)
-                            .tag(CategorySearchScope.category(category))
+                        ForEach(sortedCategories, id: \.self) { category in
+                            Text(category)
+                                .tag(CategorySearchScope.category(category))
+                        }
+                    } label: {
+                        Text("Category", bundle: .module)
                     }
                 } label: {
-                    Text("Category", bundle: .module)
+                    HStack(spacing: 2) {
+                        Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
+
+                        Text(categorySearchScope.text)
+                            .lineLimit(1)
+                    }
+                }
+
+                Spacer()
+
+                Button {
+                    // TODO:
+                } label: {
+                    Image(systemName: "switch.2") // swiftlint:disable:this accessibility_label_for_image
                 }
             }
+            .padding(.bottom, 8)
             .padding(.horizontal, 8)
             .disabled(isLoading)
+
+            Divider()
 
             Group {
                 if isLoading {
@@ -135,49 +178,51 @@ struct LogRowView: View {
                 .monospaced()
                 .lineLimit(5)
 
-            HStack(spacing: 8) {
-                HStack(spacing: 4) {
-                    Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
-                        .resizable()
-                        .frame(width: 8, height: 8)
-                        .foregroundStyle(.white)
-                        .padding(3)
-                        .background(entry.level.iconBackgroundColor)
-                        .clipShape(RoundedRectangle(cornerRadius: 2))
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    HStack(spacing: 4) {
+                        Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
+                            .resizable()
+                            .frame(width: 8, height: 8)
+                            .foregroundStyle(.white)
+                            .padding(3)
+                            .background(entry.level.iconBackgroundColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 2))
 
-                    Text(logDateFormatter.string(from: entry.date))
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
-                }
+                        Text(logDateFormatter.string(from: entry.date))
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                    }
 
-                HStack(spacing: 4) {
-                    Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
 
-                    Text("\(entry.processIdentifier):\(entry.threadIdentifier)")
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
-                }
+                        Text("\(entry.processIdentifier):\(entry.threadIdentifier)")
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                    }
 
-                HStack(spacing: 4) {
-                    Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
 
-                    Text(entry.subsystem)
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
-                }
+                        Text(entry.subsystem)
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                    }
 
-                HStack(spacing: 4) {
-                    Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                    HStack(spacing: 4) {
+                        Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
 
-                    Text(entry.category)
-                        .font(.caption.bold())
-                        .foregroundStyle(.secondary)
+                        Text(entry.category)
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
         }

@@ -45,7 +45,7 @@ private extension DevelopRootScreen {
         } content: {
             makeLicenseListScreen()
         }
-        .sheet(isPresented: $isDebugScreenPresented) {
+        .fullScreenCover(isPresented: $isDebugScreenPresented) {
         } content: {
             NavigationStack {
                 makeDebugScreen()
