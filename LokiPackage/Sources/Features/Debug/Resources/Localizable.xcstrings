@@ -85,6 +85,22 @@
         }
       }
     },
+    "PID:TID" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PID:TID"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PID:TID"
+          }
+        }
+      }
+    },
     "Subsystem" : {
       "localizations" : {
         "en" : {
@@ -97,6 +113,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サブシステム"
+          }
+        }
+      }
+    },
+    "Timestamp" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timestamp"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タイムスタンプ"
+          }
+        }
+      }
+    },
+    "Type" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "型"
           }
         }
       }

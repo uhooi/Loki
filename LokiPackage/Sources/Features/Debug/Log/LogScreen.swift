@@ -3,6 +3,26 @@ import OSLog
 import LogCore
 
 struct LogScreen: View {
+    private enum Metadata: CaseIterable, Identifiable {
+        case type
+        case timestamp
+        case pidAndTid
+        case subsystem
+        case category
+
+        var id: Self { self }
+
+        var text: String {
+            switch self {
+            case .type: .init(localized: "Type", bundle: .module)
+            case .timestamp: .init(localized: "Timestamp", bundle: .module)
+            case .pidAndTid: .init(localized: "PID:TID", bundle: .module)
+            case .subsystem: .init(localized: "Subsystem", bundle: .module)
+            case .category: .init(localized: "Category", bundle: .module)
+            }
+        }
+    }
+
     private enum SubsystemSearchScope: Hashable {
         case all
         case subsystem(String)
@@ -33,6 +53,8 @@ struct LogScreen: View {
     @State private var categories: Set<String> = []
     @State private var categorySearchScope: CategorySearchScope = .all
     @State private var query = ""
+    @State private var isPopoverPresented = false
+    @State private var selectedMetadata: Set<Metadata> = []
     @State private var isLoading = false
 
     private let logStore = LogStore()
@@ -114,7 +136,7 @@ struct LogScreen: View {
                 Spacer()
 
                 Button {
-                    // TODO:
+                    isPopoverPresented = true
                 } label: {
                     Image(systemName: "switch.2") // swiftlint:disable:this accessibility_label_for_image
                 }
@@ -131,8 +153,15 @@ struct LogScreen: View {
                 } else {
                     List {
                         ForEach(filteredEntries, id: \.date) { entry in
-                            LogRowView(entry: entry)
-                                .listRowBackground(entry.level.backgroundColor)
+                            LogRowView(
+                                entry: entry,
+                                shouldShowType: selectedMetadata.contains(.type),
+                                shouldShowTimestamp: selectedMetadata.contains(.timestamp),
+                                shouldShowPidAndTid: selectedMetadata.contains(.pidAndTid),
+                                shouldShowSubsystem: selectedMetadata.contains(.subsystem),
+                                shouldShowCategory: selectedMetadata.contains(.category)
+                            )
+                            .listRowBackground(entry.level.backgroundColor)
                         }
                     }
                     .listStyle(.plain)
@@ -143,6 +172,14 @@ struct LogScreen: View {
         .navigationTitle(String(localized: "Log", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query)
+        .popover(isPresented: $isPopoverPresented) {
+            List(selection: $selectedMetadata) {
+                ForEach(Metadata.allCases) { metadata in
+                    Text(metadata.text)
+                }
+            }
+            .environment(\.editMode, .constant(.active))
+        }
         .task {
             isLoading = true
             do {
@@ -158,11 +195,20 @@ struct LogScreen: View {
 
     init() {
         Logger.standard.debug("\(#function, privacy: .public)")
+        Logger.standard.info("\(#function, privacy: .public)")
+        Logger.standard.notice("\(#function, privacy: .public)")
+        Logger.standard.error("\(#function, privacy: .public)")
+        Logger.standard.fault("\(#function, privacy: .public)")
     }
 }
 
 struct LogRowView: View {
     let entry: LogEntry
+    let shouldShowType: Bool
+    let shouldShowTimestamp: Bool
+    let shouldShowPidAndTid: Bool
+    let shouldShowSubsystem: Bool
+    let shouldShowCategory: Bool
 
     private let logDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -181,47 +227,57 @@ struct LogRowView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     HStack(spacing: 2) {
-                        Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
-                            .resizable()
-                            .frame(width: 8, height: 8)
-                            .foregroundStyle(.white)
-                            .padding(3)
-                            .background(entry.level.iconBackgroundColor)
-                            .clipShape(RoundedRectangle(cornerRadius: 2))
+                        if shouldShowType {
+                            Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
+                                .resizable()
+                                .frame(width: 8, height: 8)
+                                .foregroundStyle(.white)
+                                .padding(3)
+                                .background(entry.level.iconBackgroundColor)
+                                .clipShape(RoundedRectangle(cornerRadius: 2))
+                        }
 
-                        Text(logDateFormatter.string(from: entry.date))
-                            .font(.caption.bold())
-                            .foregroundStyle(.secondary)
+                        if shouldShowTimestamp {
+                            Text(logDateFormatter.string(from: entry.date))
+                                .font(.caption.bold())
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
-                    HStack(spacing: 2) {
-                        Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
+                    if shouldShowPidAndTid {
+                        HStack(spacing: 2) {
+                            Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
 
-                        Text("\(entry.processIdentifier):\(entry.threadIdentifier)")
-                            .font(.caption.bold())
-                            .foregroundStyle(.secondary)
+                            Text("\(entry.processIdentifier):\(entry.threadIdentifier)")
+                                .font(.caption.bold())
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
-                    HStack(spacing: 2) {
-                        Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
+                    if shouldShowSubsystem {
+                        HStack(spacing: 2) {
+                            Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
 
-                        Text(entry.subsystem)
-                            .font(.caption.bold())
-                            .foregroundStyle(.secondary)
+                            Text(entry.subsystem)
+                                .font(.caption.bold())
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
-                    HStack(spacing: 2) {
-                        Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
+                    if shouldShowCategory {
+                        HStack(spacing: 2) {
+                            Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
 
-                        Text(entry.category)
-                            .font(.caption.bold())
-                            .foregroundStyle(.secondary)
+                            Text(entry.category)
+                                .font(.caption.bold())
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             }
