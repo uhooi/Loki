@@ -173,12 +173,15 @@ struct LogScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query)
         .popover(isPresented: $isPopoverPresented) {
-            List(selection: $selectedMetadata) {
-                ForEach(Metadata.allCases) { metadata in
-                    Text(metadata.text)
+            NavigationStack {
+                List(selection: $selectedMetadata) {
+                    ForEach(Metadata.allCases) { metadata in
+                        Text(metadata.text)
+                    }
                 }
+                .environment(\.editMode, .constant(.active))
+                .navigationTitle(String(localized: "Metadata", bundle: .module))
             }
-            .environment(\.editMode, .constant(.active))
         }
         .task {
             isLoading = true

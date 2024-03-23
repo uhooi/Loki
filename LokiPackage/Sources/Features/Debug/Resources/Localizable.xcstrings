@@ -85,6 +85,22 @@
         }
       }
     },
+    "Metadata" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Metadata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メタデータ"
+          }
+        }
+      }
+    },
     "PID:TID" : {
       "localizations" : {
         "en" : {
