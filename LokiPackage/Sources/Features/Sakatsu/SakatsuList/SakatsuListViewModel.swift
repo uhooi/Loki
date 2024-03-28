@@ -4,7 +4,7 @@ import LogCore
 
 // MARK: UI state
 
-struct SakatsuListUiState {
+struct SakatsuListUiState: Sendable {
     var sakatsus: [Sakatsu] = []
     var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
@@ -31,11 +31,16 @@ struct SakatsuListUiState {
     }
 }
 
-// MARK: - Action
+// MARK: - Actions
 
 enum SakatsuListAction {
     case screen(_ action: SakatsuListScreenAction)
     case view(_ action: SakatsuListViewAction)
+}
+
+enum SakatsuListAsyncAction {
+    case screen(_ asyncAction: SakatsuListScreenAsyncAction)
+    case view(_ asyncAction: SakatsuListViewAsyncAction)
 }
 
 // MARK: - Error
@@ -68,8 +73,6 @@ final class SakatsuListViewModel: ObservableObject {
         self.uiState = SakatsuListUiState()
         self.onSettingsButtonClick = onSettingsButtonClick
         self.repository = repository
-
-        refreshSakatsus()
     }
 
     func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity
@@ -88,7 +91,9 @@ final class SakatsuListViewModel: ObservableObject {
 
             case .onSakatsuSave:
                 uiState.shouldShowInputScreen = false
-                refreshSakatsus()
+                Task {
+                    await refreshSakatsus()
+                }
 
             case .onInputScreenCancelButtonClick:
                 uiState.shouldShowInputScreen = false
@@ -133,16 +138,45 @@ final class SakatsuListViewModel: ObservableObject {
             }
         }
     }
+
+    nonisolated
+    func sendAsync(_ asyncAction: SakatsuListAsyncAction) async {
+        let message = "\(#function) asyncAction: \(asyncAction)"
+        Logger.standard.debug("\(message, privacy: .public)")
+
+        switch asyncAction {
+        case let .screen(screenAsyncAction):
+            switch screenAsyncAction {
+            case .task:
+                await refreshSakatsus()
+            }
+
+        case let .view(viewAsyncAction):
+            switch viewAsyncAction {
+            }
+        }
+    }
 }
 
 // MARK: - Privates
 
 private extension SakatsuListViewModel {
-    func refreshSakatsus() {
+    nonisolated
+    func refreshSakatsus() async {
         do {
-            uiState.sakatsus = try repository.sakatsus()
+            #if DEBUG
+            try await Task.sleep(for: .seconds(3))
+            #endif
+            let sakatsus = try repository.sakatsus()
+            Task { @MainActor in
+                uiState.sakatsus = sakatsus
+            }
+        } catch is CancellationError {
+            return
         } catch {
-            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
+            Task { @MainActor in
+                uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
+            }
         }
     }
 

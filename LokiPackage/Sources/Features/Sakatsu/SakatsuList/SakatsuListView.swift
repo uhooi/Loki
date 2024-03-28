@@ -1,12 +1,15 @@
 import SwiftUI
 import SakatsuData
 
-// MARK: Action
+// MARK: Actions
 
 enum SakatsuListViewAction {
     case onCopySakatsuTextButtonClick(sakatsuIndex: Int)
     case onEditButtonClick(sakatsuIndex: Int)
     case onDelete(_ offsets: IndexSet)
+}
+
+enum SakatsuListViewAsyncAction {
 }
 
 // MARK: - View

@@ -4,16 +4,21 @@ import LogCore
 
 // MARK: UI state
 
-struct SettingsUiState {
+struct SettingsUiState: Sendable {
     var defaultSaunaTimes: DefaultSaunaTimes = .init()
     var settingsError: SettingsError?
 }
 
-// MARK: - Action
+// MARK: - Actions
 
 enum SettingsAction {
     case screen(_ action: SettingsScreenAction)
     case view(_ action: SettingsViewAction)
+}
+
+enum SettingsAsyncAction {
+    case screen(_ asyncAction: SettingsScreenAsyncAction)
+    case view(_ asyncAction: SettingsViewAsyncAction)
 }
 
 // MARK: - Error
@@ -49,8 +54,6 @@ final class SettingsViewModel: ObservableObject {
         self.onLicensesButtonClick = onLicensesButtonClick
         self.repository = repository
         self.validator = validator
-
-        refreshDefaultSaunaTimes()
     }
 
     func send(_ action: SettingsAction) {
@@ -92,16 +95,45 @@ final class SettingsViewModel: ObservableObject {
             }
         }
     }
+
+    nonisolated
+    func sendAsync(_ asyncAction: SettingsAsyncAction) async {
+        let message = "\(#function) asyncAction: \(asyncAction)"
+        Logger.standard.debug("\(message, privacy: .public)")
+
+        switch asyncAction {
+        case let .screen(screenAsyncAction):
+            switch screenAsyncAction {
+            case .task:
+                await refreshDefaultSaunaTimes()
+            }
+
+        case let .view(viewAsyncAction):
+            switch viewAsyncAction {
+            }
+        }
+    }
 }
 
 // MARK: - Privates
 
 private extension SettingsViewModel {
-    func refreshDefaultSaunaTimes() {
+    nonisolated
+    func refreshDefaultSaunaTimes() async {
         do {
-            uiState.defaultSaunaTimes = try repository.defaultSaunaTimes()
+            #if DEBUG
+            try await Task.sleep(for: .seconds(3))
+            #endif
+            let defaultSaunaTimes = try repository.defaultSaunaTimes()
+            Task { @MainActor in
+                uiState.defaultSaunaTimes = defaultSaunaTimes
+            }
+        } catch is CancellationError {
+            return
         } catch {
-            uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
+            Task { @MainActor in
+                uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
+            }
         }
     }
 
