@@ -2,12 +2,15 @@ import SwiftUI
 import LogCore
 import UICore
 
-// MARK: Action
+// MARK: Actions
 
 enum SakatsuInputScreenAction {
     case onSaveButtonClick
     case onErrorAlertDismiss
     case onCancelButtonClick
+}
+
+enum SakatsuInputScreenAsyncAction {
 }
 
 // MARK: - View

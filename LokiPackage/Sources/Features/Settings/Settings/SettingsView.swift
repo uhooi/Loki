@@ -1,13 +1,16 @@
 import SwiftUI
 import SakatsuData
 
-// MARK: Action
+// MARK: Actions
 
 enum SettingsViewAction {
     case onDefaultSaunaTimeChange(_ defaultSaunaTime: TimeInterval?)
     case onDefaultCoolBathTimeChange(_ defaultCoolBathTime: TimeInterval?)
     case onDefaultRelaxationTimeChange(_ defaultRelaxationTime: TimeInterval?)
     case onLicensesButtonClick
+}
+
+enum SettingsViewAsyncAction {
 }
 
 // MARK: - View

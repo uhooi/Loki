@@ -4,7 +4,7 @@ import LogCore
 
 // MARK: UI state
 
-struct SakatsuInputUiState {
+struct SakatsuInputUiState: Sendable {
     var sakatsu: Sakatsu
     var sakatsuInputError: SakatsuInputError?
 }
@@ -14,11 +14,16 @@ enum SakatsuEditMode {
     case edit(sakatsu: Sakatsu)
 }
 
-// MARK: - Action
+// MARK: - Actions
 
 enum SakatsuInputAction {
     case screen(_ action: SakatsuInputScreenAction)
     case view(_ action: SakatsuInputViewAction)
+}
+
+enum SakatsuInputAsyncAction {
+    case screen(_ asyncAction: SakatsuInputScreenAsyncAction)
+    case view(_ asyncAction: SakatsuInputViewAsyncAction)
 }
 
 // MARK: - Error
@@ -78,8 +83,7 @@ final class SakatsuInputViewModel: ObservableObject {
         self.validator = validator
     }
 
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
-    func send(_ action: SakatsuInputAction) {
+    func send(_ action: SakatsuInputAction) { // swiftlint:disable:this cyclomatic_complexity function_body_length
         let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
 
@@ -204,6 +208,22 @@ final class SakatsuInputViewModel: ObservableObject {
 
             case .onAddNewTemperatureButtonClick:
                 uiState.sakatsu.saunaTemperatures.insert(.sauna, at: max(uiState.sakatsu.saunaTemperatures.count, 1) - 1)
+            }
+        }
+    }
+
+    nonisolated
+    func sendAsync(_ asyncAction: SakatsuInputAsyncAction) async {
+        let message = "\(#function) asyncAction: \(asyncAction)"
+        Logger.standard.debug("\(message, privacy: .public)")
+
+        switch asyncAction {
+        case let .screen(screenAsyncAction):
+            switch screenAsyncAction {
+            }
+
+        case let .view(viewAsyncAction):
+            switch viewAsyncAction {
             }
         }
     }
