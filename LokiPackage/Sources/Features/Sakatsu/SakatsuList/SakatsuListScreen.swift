@@ -3,21 +3,33 @@ import SakatsuData
 import LogCore
 import UICore
 
+// MARK: Action
+
+enum SakatsuListScreenAction {
+    case onAddButtonClick
+    case onSearchTextChange(searchText: String)
+    case onSakatsuSave
+    case onInputScreenCancelButtonClick
+    case onInputScreenDismiss
+    case onCopyingSakatsuTextAlertDismiss
+    case onErrorAlertDismiss
+    case onSettingsButtonClick
+}
+
+// MARK: - View
+
 package struct SakatsuListScreen: View {
-    private let onSettingsButtonClick: () -> Void
     @StateObject private var viewModel: SakatsuListViewModel
+
     @Environment(\.colorScheme) private var colorScheme // swiftlint:disable:this attributes
+
     @State private var editMode: EditMode = .inactive
 
     package var body: some View {
         SakatsuListView(
             sakatsus: viewModel.uiState.filteredSakatsus,
-            onCopySakatsuTextButtonClick: { sakatsuIndex in
-                viewModel.send(.onCopySakatsuTextButtonClick(sakatsuIndex: sakatsuIndex))
-            }, onEditButtonClick: { sakatsuIndex in
-                viewModel.send(.onEditButtonClick(sakatsuIndex: sakatsuIndex))
-            }, onDelete: { offsets in
-                viewModel.send(.onDelete(offsets: offsets))
+            send: { action in
+                viewModel.send(.view(action))
             }
         )
         .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
@@ -25,7 +37,7 @@ package struct SakatsuListScreen: View {
             text: .init(get: {
                 viewModel.uiState.searchText
             }, set: { newValue in
-                viewModel.send(.onSearchTextChange(searchText: newValue))
+                viewModel.send(.screen(.onSearchTextChange(searchText: newValue)))
             }),
             placement: .navigationBarDrawer(displayMode: .always)
         )
@@ -33,23 +45,23 @@ package struct SakatsuListScreen: View {
             editMode: $editMode,
             colorScheme: colorScheme,
             sakatsusCount: viewModel.uiState.filteredSakatsus.count,
-            onSettingsButtonClick: { onSettingsButtonClick() },
-            onAddButtonClick: { viewModel.send(.onAddButtonClick) }
+            onSettingsButtonClick: { viewModel.send(.screen(.onSettingsButtonClick)) },
+            onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) }
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
-            onSakatsuSave: { viewModel.send(.onSakatsuSave) },
-            onCancelButtonClick: { viewModel.send(.onInputScreenCancelButtonClick) },
-            onDismiss: { viewModel.send(.onInputScreenDismiss) }
+            onSakatsuSave: { viewModel.send(.screen(.onSakatsuSave)) },
+            onCancelButtonClick: { viewModel.send(.screen(.onInputScreenCancelButtonClick)) },
+            onDismiss: { viewModel.send(.screen(.onInputScreenDismiss)) }
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
-            onDismiss: { viewModel.send(.onCopyingSakatsuTextAlertDismiss) }
+            onDismiss: { viewModel.send(.screen(.onCopyingSakatsuTextAlertDismiss)) }
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuListError,
-            onDismiss: { viewModel.send(.onErrorAlertDismiss) }
+            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
         )
     }
 
@@ -57,8 +69,9 @@ package struct SakatsuListScreen: View {
     package init(onSettingsButtonClick: @escaping () -> Void) {
         let message = "\(#file) \(#function)"
         Logger.standard.debug("\(message, privacy: .public)")
-        self.onSettingsButtonClick = onSettingsButtonClick
-        self._viewModel = StateObject(wrappedValue: SakatsuListViewModel())
+        self._viewModel = StateObject(wrappedValue: SakatsuListViewModel(
+            onSettingsButtonClick: onSettingsButtonClick
+        ))
     }
 }
 

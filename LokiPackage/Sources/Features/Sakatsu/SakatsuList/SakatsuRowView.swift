@@ -1,11 +1,18 @@
 import SwiftUI
 import SakatsuData
 
+// MARK: Action
+
+enum SakatsuRowViewAction {
+    case onCopySakatsuTextButtonClick
+    case onEditButtonClick
+}
+
+// MARK: - View
+
 struct SakatsuRowView: View {
     let sakatsu: Sakatsu
-
-    let onCopySakatsuTextButtonClick: () -> Void
-    let onEditButtonClick: () -> Void
+    let send: (SakatsuRowViewAction) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -55,10 +62,14 @@ private extension SakatsuRowView {
 
     var menu: some View {
         Menu {
-            Button(action: onCopySakatsuTextButtonClick) {
+            Button {
+                send(.onCopySakatsuTextButtonClick)
+            } label: {
                 Label(String(localized: "Copy Sakatsu text", bundle: .module), systemImage: "doc.on.doc")
             }
-            Button(action: onEditButtonClick) {
+            Button {
+                send(.onEditButtonClick)
+            } label: {
                 Label(String(localized: "Edit", bundle: .module), systemImage: "square.and.pencil")
             }
         } label: {
@@ -159,8 +170,7 @@ private extension SakatsuRowView {
 #Preview {
     SakatsuRowView(
         sakatsu: .preview,
-        onCopySakatsuTextButtonClick: {},
-        onEditButtonClick: {}
+        send: { _ in }
     )
 }
 #endif
