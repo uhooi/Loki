@@ -2,7 +2,9 @@ import Foundation
 import os
 
 package enum Logger {
-    package static let standard: os.Logger = .init(
+    // The Logger class is thread-safe.
+    // ref: https://developer.apple.com/forums/thread/747816
+    nonisolated(unsafe) package static let standard: os.Logger = .init(
         subsystem: Bundle.main.bundleIdentifier!,
         category: LogCategory.standard.rawValue
     )

@@ -1,4 +1,4 @@
-package protocol SaunaTimeSettingsRepository {
+package protocol SaunaTimeSettingsRepository: Sendable {
     func defaultSaunaTimes() throws -> DefaultSaunaTimes
     func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
 }

@@ -1,4 +1,4 @@
-package protocol SakatsuRepository {
+package protocol SakatsuRepository: Sendable {
     func sakatsus() throws -> [Sakatsu]
     func saveSakatsus(_ sakatsus: [Sakatsu]) throws
     func makeDefaultSaunaSet() -> SaunaSet

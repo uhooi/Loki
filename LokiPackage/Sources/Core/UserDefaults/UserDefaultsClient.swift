@@ -1,11 +1,11 @@
 import Foundation
 
-package protocol UserDefaultsClient {
+package protocol UserDefaultsClient: Sendable {
     func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V
     func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws
 }
 
-package final class DefaultUserDefaultsClient {
+package final class DefaultUserDefaultsClient: Sendable {
     package static let shared = DefaultUserDefaultsClient()
 
     private let userDefaults = UserDefaults.standard
@@ -31,3 +31,7 @@ extension DefaultUserDefaultsClient: UserDefaultsClient {
         userDefaults.set(data, forKey: key.rawValue)
     }
 }
+
+// The UserDefaults class is thread-safe.
+// ref: https://developer.apple.com/documentation/foundation/userdefaults#2926903
+extension UserDefaults: @unchecked Sendable {}
