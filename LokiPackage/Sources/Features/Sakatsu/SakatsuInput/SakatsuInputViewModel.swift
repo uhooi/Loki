@@ -5,7 +5,9 @@ import LogCore
 // MARK: UI state
 
 struct SakatsuInputUiState {
-    var sakatsu: Sakatsu
+    let editMode: SakatsuEditMode
+
+    var sakatsu: Sakatsu = .init(saunaSets: [])
     var sakatsuInputError: SakatsuInputError?
 }
 
@@ -14,11 +16,16 @@ enum SakatsuEditMode {
     case edit(sakatsu: Sakatsu)
 }
 
-// MARK: - Action
+// MARK: - Actions
 
 enum SakatsuInputAction {
     case screen(_ action: SakatsuInputScreenAction)
     case view(_ action: SakatsuInputViewAction)
+}
+
+enum SakatsuInputAsyncAction {
+    case screen(_ asyncAction: SakatsuInputScreenAsyncAction)
+    case view(_ asyncAction: SakatsuInputViewAsyncAction)
 }
 
 // MARK: - Error
@@ -65,21 +72,14 @@ final class SakatsuInputViewModel: ObservableObject {
         sakatsuRepository: some SakatsuRepository = DefaultSakatsuRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
-        switch sakatsuEditMode {
-        case .new:
-            let defaultSaunaSet = sakatsuRepository.makeDefaultSaunaSet()
-            self.uiState = SakatsuInputUiState(sakatsu: .init(saunaSets: [defaultSaunaSet]))
-        case let .edit(sakatsu: sakatsu):
-            self.uiState = SakatsuInputUiState(sakatsu: sakatsu)
-        }
+        self.uiState = .init(editMode: sakatsuEditMode)
         self.onSakatsuSave = onSakatsuSave
         self.onCancelButtonClick = onCancelButtonClick
         self.sakatsuRepository = sakatsuRepository
         self.validator = validator
     }
 
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
-    func send(_ action: SakatsuInputAction) {
+    func send(_ action: SakatsuInputAction) { // swiftlint:disable:this cyclomatic_complexity function_body_length
         let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
 
@@ -87,18 +87,20 @@ final class SakatsuInputViewModel: ObservableObject {
         case let .screen(screenAction):
             switch screenAction {
             case .onSaveButtonClick:
-                do {
-                    var sakatsus = (try? sakatsuRepository.sakatsus()) ?? []
-                    if let index = sakatsus.firstIndex(of: uiState.sakatsu) {
-                        sakatsus[index] = uiState.sakatsu
-                    } else {
-                        sakatsus.append(uiState.sakatsu)
+                Task {
+                    do {
+                        var sakatsus = (try? await sakatsuRepository.sakatsus()) ?? []
+                        if let index = sakatsus.firstIndex(of: uiState.sakatsu) {
+                            sakatsus[index] = uiState.sakatsu
+                        } else {
+                            sakatsus.append(uiState.sakatsu)
+                        }
+                        try await sakatsuRepository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
+                    } catch {
+                        uiState.sakatsuInputError = .sakatsuSaveFailed
                     }
-                    try sakatsuRepository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
-                } catch {
-                    uiState.sakatsuInputError = .sakatsuSaveFailed
+                    onSakatsuSave()
                 }
-                onSakatsuSave()
 
             case .onErrorAlertDismiss:
                 uiState.sakatsuInputError = nil
@@ -111,7 +113,9 @@ final class SakatsuInputViewModel: ObservableObject {
             switch viewAction {
 
             case .onAddNewSaunaSetButtonClick:
-                uiState.sakatsu.saunaSets.append(sakatsuRepository.makeDefaultSaunaSet())
+                Task {
+                    uiState.sakatsu.saunaSets.append(await sakatsuRepository.makeDefaultSaunaSet())
+                }
 
             case let .onFacilityNameChange(facilityName):
                 guard validator.validate(facilityName: facilityName) else {
@@ -204,6 +208,29 @@ final class SakatsuInputViewModel: ObservableObject {
 
             case .onAddNewTemperatureButtonClick:
                 uiState.sakatsu.saunaTemperatures.insert(.sauna, at: max(uiState.sakatsu.saunaTemperatures.count, 1) - 1)
+            }
+        }
+    }
+
+    func sendAsync(_ asyncAction: SakatsuInputAsyncAction) async {
+        let message = "\(#function) asyncAction: \(asyncAction)"
+        Logger.standard.debug("\(message, privacy: .public)")
+
+        switch asyncAction {
+        case let .screen(screenAsyncAction):
+            switch screenAsyncAction {
+            case .task:
+                switch uiState.editMode {
+                case .new:
+                    let defaultSaunaSet = await sakatsuRepository.makeDefaultSaunaSet()
+                    uiState.sakatsu = Sakatsu(saunaSets: [defaultSaunaSet])
+                case let .edit(sakatsu: sakatsu):
+                    uiState.sakatsu = sakatsu
+                }
+            }
+
+        case let .view(viewAsyncAction):
+            switch viewAsyncAction {
             }
         }
     }

@@ -1,8 +1,8 @@
 import Foundation
 
 package protocol UserDefaultsClient: Sendable {
-    func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V
-    func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws
+    func object<V: Decodable>(forKey key: UserDefaultsKey) async throws -> V
+    func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) async throws
 }
 
 package final class DefaultUserDefaultsClient: Sendable {
@@ -14,7 +14,7 @@ package final class DefaultUserDefaultsClient: Sendable {
 }
 
 extension DefaultUserDefaultsClient: UserDefaultsClient {
-    package func object<V: Decodable>(forKey key: UserDefaultsKey) throws -> V {
+    package func object<V: Decodable>(forKey key: UserDefaultsKey) async throws -> V {
         guard let data = userDefaults.data(forKey: key.rawValue) else {
             throw UserDefaultsError.missingValue(key: key)
         }
@@ -24,7 +24,7 @@ extension DefaultUserDefaultsClient: UserDefaultsClient {
         return try jsonDecoder.decode(V.self, from: data)
     }
 
-    package func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws {
+    package func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) async throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         let data = try jsonEncoder.encode(value)
@@ -32,6 +32,6 @@ extension DefaultUserDefaultsClient: UserDefaultsClient {
     }
 }
 
-// The UserDefaults class is thread-safe.
+// The UserDefaults class is thread-safe
 // ref: https://developer.apple.com/documentation/foundation/userdefaults#2926903
 extension UserDefaults: @unchecked Sendable {}

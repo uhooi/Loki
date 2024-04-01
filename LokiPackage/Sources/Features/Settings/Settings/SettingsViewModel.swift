@@ -9,11 +9,16 @@ struct SettingsUiState {
     var settingsError: SettingsError?
 }
 
-// MARK: - Action
+// MARK: - Actions
 
 enum SettingsAction {
     case screen(_ action: SettingsScreenAction)
     case view(_ action: SettingsViewAction)
+}
+
+enum SettingsAsyncAction {
+    case screen(_ asyncAction: SettingsScreenAsyncAction)
+    case view(_ asyncAction: SettingsViewAsyncAction)
 }
 
 // MARK: - Error
@@ -49,8 +54,6 @@ final class SettingsViewModel: ObservableObject {
         self.onLicensesButtonClick = onLicensesButtonClick
         self.repository = repository
         self.validator = validator
-
-        refreshDefaultSaunaTimes()
     }
 
     func send(_ action: SettingsAction) {
@@ -71,24 +74,47 @@ final class SettingsViewModel: ObservableObject {
                     return
                 }
                 uiState.defaultSaunaTimes.saunaTime = defaultSaunaTime
-                saveDefaultSaunaSet()
+                Task {
+                    await saveDefaultSaunaSet()
+                }
 
             case let .onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime):
                 guard validator.validate(coolBathTime: defaultCoolBathTime) else {
                     return
                 }
                 uiState.defaultSaunaTimes.coolBathTime = defaultCoolBathTime
-                saveDefaultSaunaSet()
+                Task {
+                    await saveDefaultSaunaSet()
+                }
 
             case let .onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime):
                 guard validator.validate(relaxationTime: defaultRelaxationTime) else {
                     return
                 }
                 uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
-                saveDefaultSaunaSet()
+                Task {
+                    await saveDefaultSaunaSet()
+                }
 
             case .onLicensesButtonClick:
                 onLicensesButtonClick()
+            }
+        }
+    }
+
+    func sendAsync(_ asyncAction: SettingsAsyncAction) async {
+        let message = "\(#function) asyncAction: \(asyncAction)"
+        Logger.standard.debug("\(message, privacy: .public)")
+
+        switch asyncAction {
+        case let .screen(screenAsyncAction):
+            switch screenAsyncAction {
+            case .task:
+                await refreshDefaultSaunaTimes()
+            }
+
+        case let .view(viewAsyncAction):
+            switch viewAsyncAction {
             }
         }
     }
@@ -97,17 +123,19 @@ final class SettingsViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension SettingsViewModel {
-    func refreshDefaultSaunaTimes() {
+    func refreshDefaultSaunaTimes() async {
         do {
-            uiState.defaultSaunaTimes = try repository.defaultSaunaTimes()
+            uiState.defaultSaunaTimes = try await repository.defaultSaunaTimes()
+        } catch is CancellationError {
+            // Do nothing when cancelled
         } catch {
             uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
         }
     }
 
-    func saveDefaultSaunaSet() {
+    func saveDefaultSaunaSet() async {
         do {
-            try repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
+            try await repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
         } catch {
             uiState.settingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
         }

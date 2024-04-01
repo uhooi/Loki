@@ -2,7 +2,7 @@ import SwiftUI
 import Algorithms
 import SakatsuData
 
-// MARK: Action
+// MARK: Actions
 
 enum SakatsuInputViewAction {
     case onAddNewSaunaSetButtonClick
@@ -21,6 +21,9 @@ enum SakatsuInputViewAction {
     case onTemperatureChange(temperatureIndex: Int, _ temperature: Decimal?)
     case onTemperatureDelete(_ offsets: IndexSet)
     case onAddNewTemperatureButtonClick
+}
+
+enum SakatsuInputViewAsyncAction {
 }
 
 // MARK: - View

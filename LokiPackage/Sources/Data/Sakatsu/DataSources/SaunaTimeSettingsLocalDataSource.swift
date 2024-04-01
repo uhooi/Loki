@@ -1,8 +1,8 @@
 import UserDefaultsCore
 
 protocol SaunaTimeSettingsLocalDataSource: Sendable {
-    func defaultSaunaTimes() throws -> DefaultSaunaTimes
-    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
+    func defaultSaunaTimes() async throws -> DefaultSaunaTimes
+    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) async throws
 }
 
 final class SaunaTimeSettingsUserDefaultsDataSource {
@@ -18,9 +18,9 @@ final class SaunaTimeSettingsUserDefaultsDataSource {
 }
 
 extension SaunaTimeSettingsUserDefaultsDataSource: SaunaTimeSettingsLocalDataSource {
-    func defaultSaunaTimes() throws -> DefaultSaunaTimes {
+    func defaultSaunaTimes() async throws -> DefaultSaunaTimes {
         do {
-            return try userDefaultsClient.object(forKey: .defaultSaunaTimes)
+            return try await userDefaultsClient.object(forKey: .defaultSaunaTimes)
         } catch UserDefaultsError.missingValue {
             return .init()
         } catch {
@@ -28,7 +28,7 @@ extension SaunaTimeSettingsUserDefaultsDataSource: SaunaTimeSettingsLocalDataSou
         }
     }
 
-    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws {
-        try userDefaultsClient.set(defaultSaunaTimes, forKey: .defaultSaunaTimes)
+    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) async throws {
+        try await userDefaultsClient.set(defaultSaunaTimes, forKey: .defaultSaunaTimes)
     }
 }
