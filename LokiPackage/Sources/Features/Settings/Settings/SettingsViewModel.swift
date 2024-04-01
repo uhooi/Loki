@@ -4,7 +4,7 @@ import LogCore
 
 // MARK: UI state
 
-struct SettingsUiState: Sendable {
+struct SettingsUiState {
     var defaultSaunaTimes: DefaultSaunaTimes = .init()
     var settingsError: SettingsError?
 }
@@ -96,7 +96,6 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
-    nonisolated
     func sendAsync(_ asyncAction: SettingsAsyncAction) async {
         let message = "\(#function) asyncAction: \(asyncAction)"
         Logger.standard.debug("\(message, privacy: .public)")
@@ -118,22 +117,14 @@ final class SettingsViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension SettingsViewModel {
-    nonisolated
     func refreshDefaultSaunaTimes() async {
         do {
-            #if DEBUG
-            try await Task.sleep(for: .seconds(3))
-            #endif
-            let defaultSaunaTimes = try repository.defaultSaunaTimes()
-            Task { @MainActor in
-                uiState.defaultSaunaTimes = defaultSaunaTimes
-            }
+            let defaultSaunaTimes = try await repository.defaultSaunaTimes()
+            uiState.defaultSaunaTimes = defaultSaunaTimes
         } catch is CancellationError {
             return
         } catch {
-            Task { @MainActor in
-                uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
-            }
+            uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
         }
     }
 

@@ -11,6 +11,7 @@ enum SakatsuInputScreenAction {
 }
 
 enum SakatsuInputScreenAsyncAction {
+    case task
 }
 
 // MARK: - View
@@ -37,6 +38,9 @@ struct SakatsuInputScreen: View {
             error: viewModel.uiState.sakatsuInputError,
             onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
         )
+        .task {
+            await viewModel.sendAsync(.screen(.task))
+        }
     }
 
     @MainActor

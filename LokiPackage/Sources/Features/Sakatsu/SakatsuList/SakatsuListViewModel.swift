@@ -4,7 +4,7 @@ import LogCore
 
 // MARK: UI state
 
-struct SakatsuListUiState: Sendable {
+struct SakatsuListUiState {
     var sakatsus: [Sakatsu] = []
     var selectedSakatsu: Sakatsu?
     var sakatsuText: String?
@@ -139,7 +139,6 @@ final class SakatsuListViewModel: ObservableObject {
         }
     }
 
-    nonisolated
     func sendAsync(_ asyncAction: SakatsuListAsyncAction) async {
         let message = "\(#function) asyncAction: \(asyncAction)"
         Logger.standard.debug("\(message, privacy: .public)")
@@ -161,22 +160,14 @@ final class SakatsuListViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension SakatsuListViewModel {
-    nonisolated
     func refreshSakatsus() async {
         do {
-            #if DEBUG
-            try await Task.sleep(for: .seconds(3))
-            #endif
-            let sakatsus = try repository.sakatsus()
-            Task { @MainActor in
-                uiState.sakatsus = sakatsus
-            }
+            let sakatsus = try await repository.sakatsus()
+            uiState.sakatsus = sakatsus
         } catch is CancellationError {
-            return
+            // Do nothing when cancelled
         } catch {
-            Task { @MainActor in
-                uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
-            }
+            uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
         }
     }
 

@@ -1,7 +1,7 @@
 package protocol SakatsuRepository: Sendable {
-    func sakatsus() throws -> [Sakatsu]
+    func sakatsus() async throws -> [Sakatsu]
     func saveSakatsus(_ sakatsus: [Sakatsu]) throws
-    func makeDefaultSaunaSet() -> SaunaSet
+    func makeDefaultSaunaSet() async -> SaunaSet
 }
 
 package final class DefaultSakatsuRepository {
@@ -20,17 +20,17 @@ package final class DefaultSakatsuRepository {
 }
 
 extension DefaultSakatsuRepository: SakatsuRepository {
-    package func sakatsus() throws -> [Sakatsu] {
-        try sakatsuDataSource.sakatsus()
+    package func sakatsus() async throws -> [Sakatsu] {
+        try await sakatsuDataSource.sakatsus()
     }
 
     package func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
         try sakatsuDataSource.saveSakatsus(sakatsus)
     }
 
-    package func makeDefaultSaunaSet() -> SaunaSet {
+    package func makeDefaultSaunaSet() async -> SaunaSet {
         do {
-            let defaultSaunaTimes = try saunaTimeSettingsRepository.defaultSaunaTimes()
+            let defaultSaunaTimes = try await saunaTimeSettingsRepository.defaultSaunaTimes()
             var defaultSaunaSet = SaunaSet()
             defaultSaunaSet.sauna.time = defaultSaunaTimes.saunaTime
             defaultSaunaSet.coolBath.time = defaultSaunaTimes.coolBathTime

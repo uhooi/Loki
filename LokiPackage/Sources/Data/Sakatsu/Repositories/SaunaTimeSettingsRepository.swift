@@ -1,5 +1,5 @@
 package protocol SaunaTimeSettingsRepository: Sendable {
-    func defaultSaunaTimes() throws -> DefaultSaunaTimes
+    func defaultSaunaTimes() async throws -> DefaultSaunaTimes
     func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
 }
 
@@ -16,8 +16,8 @@ package final class DefaultSaunaTimeSettingsRepository {
 }
 
 extension DefaultSaunaTimeSettingsRepository: SaunaTimeSettingsRepository {
-    package func defaultSaunaTimes() throws -> DefaultSaunaTimes {
-        try localDataSource.defaultSaunaTimes()
+    package func defaultSaunaTimes() async throws -> DefaultSaunaTimes {
+        try await localDataSource.defaultSaunaTimes()
     }
 
     package func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws {
