@@ -1,8 +1,8 @@
 import UserDefaultsCore
 
 protocol SakatsuDataSource: Sendable {
-    func sakatsus() throws -> [Sakatsu]
-    func saveSakatsus(_ sakatsus: [Sakatsu]) throws
+    func sakatsus() async throws -> [Sakatsu]
+    func saveSakatsus(_ sakatsus: [Sakatsu]) async throws
 }
 
 final class SakatsuUserDefaultsDataSource {
@@ -18,9 +18,9 @@ final class SakatsuUserDefaultsDataSource {
 }
 
 extension SakatsuUserDefaultsDataSource: SakatsuDataSource {
-    func sakatsus() throws -> [Sakatsu] {
+    func sakatsus() async throws -> [Sakatsu] {
         do {
-            return try userDefaultsClient.object(forKey: .sakatsus)
+            return try await userDefaultsClient.object(forKey: .sakatsus)
         } catch UserDefaultsError.missingValue {
             return []
         } catch {
@@ -28,7 +28,7 @@ extension SakatsuUserDefaultsDataSource: SakatsuDataSource {
         }
     }
 
-    func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try userDefaultsClient.set(sakatsus, forKey: .sakatsus)
+    func saveSakatsus(_ sakatsus: [Sakatsu]) async throws {
+        try await userDefaultsClient.set(sakatsus, forKey: .sakatsus)
     }
 }

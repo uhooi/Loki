@@ -31,11 +31,16 @@ struct SakatsuListUiState {
     }
 }
 
-// MARK: - Action
+// MARK: - Actions
 
 enum SakatsuListAction {
     case screen(_ action: SakatsuListScreenAction)
     case view(_ action: SakatsuListViewAction)
+}
+
+enum SakatsuListAsyncAction {
+    case screen(_ asyncAction: SakatsuListScreenAsyncAction)
+    case view(_ asyncAction: SakatsuListViewAsyncAction)
 }
 
 // MARK: - Error
@@ -68,11 +73,9 @@ final class SakatsuListViewModel: ObservableObject {
         self.uiState = SakatsuListUiState()
         self.onSettingsButtonClick = onSettingsButtonClick
         self.repository = repository
-
-        refreshSakatsus()
     }
 
-    func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity
+    func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity function_body_length
         let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
 
@@ -88,7 +91,9 @@ final class SakatsuListViewModel: ObservableObject {
 
             case .onSakatsuSave:
                 uiState.shouldShowInputScreen = false
-                refreshSakatsus()
+                Task {
+                    await refreshSakatsus()
+                }
 
             case .onInputScreenCancelButtonClick:
                 uiState.shouldShowInputScreen = false
@@ -124,12 +129,31 @@ final class SakatsuListViewModel: ObservableObject {
                         uiState.sakatsus.remove(at: firstIndex)
                     }
                 }
-                do {
-                    try repository.saveSakatsus(uiState.sakatsus)
-                } catch {
-                    uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
-                    uiState.sakatsus = oldValue
+                Task {
+                    do {
+                        try await repository.saveSakatsus(uiState.sakatsus)
+                    } catch {
+                        uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
+                        uiState.sakatsus = oldValue
+                    }
                 }
+            }
+        }
+    }
+
+    func sendAsync(_ asyncAction: SakatsuListAsyncAction) async {
+        let message = "\(#function) asyncAction: \(asyncAction)"
+        Logger.standard.debug("\(message, privacy: .public)")
+
+        switch asyncAction {
+        case let .screen(screenAsyncAction):
+            switch screenAsyncAction {
+            case .task:
+                await refreshSakatsus()
+            }
+
+        case let .view(viewAsyncAction):
+            switch viewAsyncAction {
             }
         }
     }
@@ -138,9 +162,11 @@ final class SakatsuListViewModel: ObservableObject {
 // MARK: - Privates
 
 private extension SakatsuListViewModel {
-    func refreshSakatsus() {
+    func refreshSakatsus() async {
         do {
-            uiState.sakatsus = try repository.sakatsus()
+            uiState.sakatsus = try await repository.sakatsus()
+        } catch is CancellationError {
+            // Do nothing when cancelled
         } catch {
             uiState.sakatsuListError = .sakatsuFetchFailed(localizedDescription: error.localizedDescription)
         }

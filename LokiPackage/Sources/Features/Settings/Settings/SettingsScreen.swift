@@ -2,13 +2,17 @@ import SwiftUI
 import LogCore
 import UICore
 
-// MARK: Action
+// MARK: Actions
 
 enum SettingsScreenAction {
     case onErrorAlertDismiss
     #if DEBUG
     case onDebugButtonClick
     #endif
+}
+
+enum SettingsScreenAsyncAction {
+    case task
 }
 
 // MARK: - View
@@ -38,6 +42,9 @@ package struct SettingsScreen: View {
             error: viewModel.uiState.settingsError,
             onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
         )
+        .task {
+            await viewModel.sendAsync(.screen(.task))
+        }
     }
 
     #if DEBUG

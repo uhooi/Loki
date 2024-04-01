@@ -3,7 +3,7 @@ import SakatsuData
 import LogCore
 import UICore
 
-// MARK: Action
+// MARK: Actions
 
 enum SakatsuListScreenAction {
     case onAddButtonClick
@@ -14,6 +14,10 @@ enum SakatsuListScreenAction {
     case onCopyingSakatsuTextAlertDismiss
     case onErrorAlertDismiss
     case onSettingsButtonClick
+}
+
+enum SakatsuListScreenAsyncAction {
+    case task
 }
 
 // MARK: - View
@@ -63,6 +67,9 @@ package struct SakatsuListScreen: View {
             error: viewModel.uiState.sakatsuListError,
             onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
         )
+        .task {
+            await viewModel.sendAsync(.screen(.task))
+        }
     }
 
     @MainActor
