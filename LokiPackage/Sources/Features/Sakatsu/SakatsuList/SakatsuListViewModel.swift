@@ -164,8 +164,7 @@ final class SakatsuListViewModel: ObservableObject {
 private extension SakatsuListViewModel {
     func refreshSakatsus() async {
         do {
-            let sakatsus = try await repository.sakatsus()
-            uiState.sakatsus = sakatsus
+            uiState.sakatsus = try await repository.sakatsus()
         } catch is CancellationError {
             // Do nothing when cancelled
         } catch {

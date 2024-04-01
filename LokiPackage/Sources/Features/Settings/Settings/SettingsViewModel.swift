@@ -125,10 +125,9 @@ final class SettingsViewModel: ObservableObject {
 private extension SettingsViewModel {
     func refreshDefaultSaunaTimes() async {
         do {
-            let defaultSaunaTimes = try await repository.defaultSaunaTimes()
-            uiState.defaultSaunaTimes = defaultSaunaTimes
+            uiState.defaultSaunaTimes = try await repository.defaultSaunaTimes()
         } catch is CancellationError {
-            return
+            // Do nothing when cancelled
         } catch {
             uiState.settingsError = .defaultSaunaSetFetchFailed(localizedDescription: error.localizedDescription)
         }
