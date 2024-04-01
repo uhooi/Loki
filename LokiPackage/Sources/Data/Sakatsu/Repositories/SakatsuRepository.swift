@@ -1,6 +1,6 @@
 package protocol SakatsuRepository: Sendable {
     func sakatsus() async throws -> [Sakatsu]
-    func saveSakatsus(_ sakatsus: [Sakatsu]) throws
+    func saveSakatsus(_ sakatsus: [Sakatsu]) async throws
     func makeDefaultSaunaSet() async -> SaunaSet
 }
 
@@ -24,8 +24,8 @@ extension DefaultSakatsuRepository: SakatsuRepository {
         try await sakatsuDataSource.sakatsus()
     }
 
-    package func saveSakatsus(_ sakatsus: [Sakatsu]) throws {
-        try sakatsuDataSource.saveSakatsus(sakatsus)
+    package func saveSakatsus(_ sakatsus: [Sakatsu]) async throws {
+        try await sakatsuDataSource.saveSakatsus(sakatsus)
     }
 
     package func makeDefaultSaunaSet() async -> SaunaSet {

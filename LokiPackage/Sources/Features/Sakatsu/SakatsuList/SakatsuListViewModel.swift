@@ -75,7 +75,7 @@ final class SakatsuListViewModel: ObservableObject {
         self.repository = repository
     }
 
-    func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity
+    func send(_ action: SakatsuListAction) { // swiftlint:disable:this cyclomatic_complexity function_body_length
         let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
 
@@ -129,11 +129,13 @@ final class SakatsuListViewModel: ObservableObject {
                         uiState.sakatsus.remove(at: firstIndex)
                     }
                 }
-                do {
-                    try repository.saveSakatsus(uiState.sakatsus)
-                } catch {
-                    uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
-                    uiState.sakatsus = oldValue
+                Task {
+                    do {
+                        try await repository.saveSakatsus(uiState.sakatsus)
+                    } catch {
+                        uiState.sakatsuListError = .sakatsuDeleteFailed(localizedDescription: error.localizedDescription)
+                        uiState.sakatsus = oldValue
+                    }
                 }
             }
         }

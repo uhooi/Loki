@@ -2,7 +2,7 @@ import Foundation
 
 package protocol UserDefaultsClient: Sendable {
     func object<V: Decodable>(forKey key: UserDefaultsKey) async throws -> V
-    func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws
+    func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) async throws
 }
 
 package final class DefaultUserDefaultsClient: Sendable {
@@ -24,7 +24,7 @@ extension DefaultUserDefaultsClient: UserDefaultsClient {
         return try jsonDecoder.decode(V.self, from: data)
     }
 
-    package func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) throws {
+    package func set<V: Encodable>(_ value: V, forKey key: UserDefaultsKey) async throws {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
         let data = try jsonEncoder.encode(value)

@@ -95,7 +95,7 @@ final class SakatsuInputViewModel: ObservableObject {
                         } else {
                             sakatsus.append(uiState.sakatsu)
                         }
-                        try sakatsuRepository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
+                        try await sakatsuRepository.saveSakatsus(sakatsus.sorted(by: { $0.visitingDate > $1.visitingDate }))
                     } catch {
                         uiState.sakatsuInputError = .sakatsuSaveFailed
                     }

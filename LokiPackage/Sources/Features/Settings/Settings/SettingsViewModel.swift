@@ -74,21 +74,27 @@ final class SettingsViewModel: ObservableObject {
                     return
                 }
                 uiState.defaultSaunaTimes.saunaTime = defaultSaunaTime
-                saveDefaultSaunaSet()
+                Task {
+                    await saveDefaultSaunaSet()
+                }
 
             case let .onDefaultCoolBathTimeChange(defaultCoolBathTime: defaultCoolBathTime):
                 guard validator.validate(coolBathTime: defaultCoolBathTime) else {
                     return
                 }
                 uiState.defaultSaunaTimes.coolBathTime = defaultCoolBathTime
-                saveDefaultSaunaSet()
+                Task {
+                    await saveDefaultSaunaSet()
+                }
 
             case let .onDefaultRelaxationTimeChange(defaultRelaxationTime: defaultRelaxationTime):
                 guard validator.validate(relaxationTime: defaultRelaxationTime) else {
                     return
                 }
                 uiState.defaultSaunaTimes.relaxationTime = defaultRelaxationTime
-                saveDefaultSaunaSet()
+                Task {
+                    await saveDefaultSaunaSet()
+                }
 
             case .onLicensesButtonClick:
                 onLicensesButtonClick()
@@ -128,9 +134,9 @@ private extension SettingsViewModel {
         }
     }
 
-    func saveDefaultSaunaSet() {
+    func saveDefaultSaunaSet() async {
         do {
-            try repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
+            try await repository.saveDefaultSaunaTimes(uiState.defaultSaunaTimes)
         } catch {
             uiState.settingsError = .defaultSaunaSetSaveFailed(localizedDescription: error.localizedDescription)
         }

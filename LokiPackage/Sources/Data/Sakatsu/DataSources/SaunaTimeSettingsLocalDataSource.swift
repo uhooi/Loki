@@ -2,7 +2,7 @@ import UserDefaultsCore
 
 protocol SaunaTimeSettingsLocalDataSource: Sendable {
     func defaultSaunaTimes() async throws -> DefaultSaunaTimes
-    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws
+    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) async throws
 }
 
 final class SaunaTimeSettingsUserDefaultsDataSource {
@@ -28,7 +28,7 @@ extension SaunaTimeSettingsUserDefaultsDataSource: SaunaTimeSettingsLocalDataSou
         }
     }
 
-    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) throws {
-        try userDefaultsClient.set(defaultSaunaTimes, forKey: .defaultSaunaTimes)
+    func saveDefaultSaunaTimes(_ defaultSaunaTimes: DefaultSaunaTimes) async throws {
+        try await userDefaultsClient.set(defaultSaunaTimes, forKey: .defaultSaunaTimes)
     }
 }
