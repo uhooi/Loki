@@ -80,8 +80,9 @@ final class SakatsuInputViewModel: ObservableObject {
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     func send(_ action: SakatsuInputAction) {
-        let message = "\(#file) \(#function) action: \(action)"
+        let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
+
         switch action {
         case let .screen(screenAction):
             switch screenAction {

@@ -49,12 +49,14 @@ final class SettingsViewModel: ObservableObject {
         self.onLicensesButtonClick = onLicensesButtonClick
         self.repository = repository
         self.validator = validator
+
         refreshDefaultSaunaTimes()
     }
 
     func send(_ action: SettingsAction) {
-        let message = "\(#file) \(#function) action: \(action)"
+        let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
+
         switch action {
         case let .screen(screenAction):
             switch screenAction {

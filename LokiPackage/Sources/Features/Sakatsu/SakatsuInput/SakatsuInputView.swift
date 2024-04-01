@@ -48,12 +48,14 @@ private extension SakatsuInputView {
         Section {
             HStack {
                 Text("Facility name", bundle: .module)
+
                 TextField(String(localized: "Required", bundle: .module), text: .init(get: {
                     sakatsu.facilityName
                 }, set: { newValue in
                     send(.onFacilityNameChange(newValue))
                 }))
             }
+
             DatePicker(
                 String(localized: "Visiting date", bundle: .module),
                 selection: .init(get: {
@@ -96,6 +98,7 @@ private extension SakatsuInputView {
                         send(.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, time))
                     }
                 )
+
                 saunaSetItemTimeInputView(
                     saunaSetIndex: saunaSetIndex,
                     saunaSetItem: saunaSet.coolBath,
@@ -105,6 +108,7 @@ private extension SakatsuInputView {
                         send(.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, time))
                     }
                 )
+
                 saunaSetItemTimeInputView(
                     saunaSetIndex: saunaSetIndex,
                     saunaSetItem: saunaSet.relaxation,
@@ -117,10 +121,12 @@ private extension SakatsuInputView {
             } header: {
                 Text("Set \(saunaSetIndex + 1)", bundle: .module)
             } footer: {
-                Button(String(localized: "Delete set", bundle: .module), role: .destructive) {
+                Button(role: .destructive) {
                     send(.onRemoveSaunaSetButtonClick(saunaSetIndex: saunaSetIndex))
+                } label: {
+                    Text("Delete set", bundle: .module)
+                        .font(.footnote)
                 }
-                .font(.footnote)
             }
         }
     }
@@ -167,10 +173,13 @@ private extension SakatsuInputView {
             .onDelete { offsets in
                 send(.onTemperatureDelete(offsets))
             }
-            Button(String(localized: "Add new sauna temperatures", bundle: .module)) {
+
+            Button {
                 send(.onAddNewTemperatureButtonClick)
+            } label: {
+                Text("Add new sauna temperatures", bundle: .module)
+                    .font(.footnote)
             }
-            .font(.footnote)
         } header: {
             Text("Temperatures", bundle: .module)
         }
@@ -185,12 +194,14 @@ private extension SakatsuInputView {
         HStack {
             HStack(spacing: 0) {
                 Text(saunaSetItem.emoji)
+
                 TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaSetItem.title
                 }, set: { newValue in
                     onTitleChange(newValue)
                 }))
             }
+
             TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 saunaSetItem.time
             }, set: { newValue in
@@ -198,6 +209,7 @@ private extension SakatsuInputView {
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
+
             Text(saunaSetItem.unit)
         }
     }
@@ -211,12 +223,14 @@ private extension SakatsuInputView {
         HStack {
             HStack(spacing: 0) {
                 Text(saunaTemperature.emoji)
+
                 TextField(String(localized: "Optional", bundle: .module), text: .init(get: {
                     saunaTemperature.title
                 }, set: { newValue in
                     onTitleChange(newValue)
                 }))
             }
+
             TextField(String(localized: "Optional", bundle: .module), value: .init(get: {
                 saunaTemperature.temperature
             }, set: { newValue in
@@ -224,6 +238,7 @@ private extension SakatsuInputView {
             }), format: .number)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.trailing)
+
             Text("℃", bundle: .module)
         }
     }
