@@ -6,6 +6,7 @@ struct LogScreen: View {
     private enum Metadata: CaseIterable, Identifiable {
         case type
         case timestamp
+        case library
         case pidAndTid
         case subsystem
         case category
@@ -16,6 +17,7 @@ struct LogScreen: View {
             switch self {
             case .type: .init(localized: "Type", bundle: .module)
             case .timestamp: .init(localized: "Timestamp", bundle: .module)
+            case .library: .init(localized: "Library", bundle: .module)
             case .pidAndTid: .init(localized: "PID:TID", bundle: .module)
             case .subsystem: .init(localized: "Subsystem", bundle: .module)
             case .category: .init(localized: "Category", bundle: .module)
@@ -157,6 +159,7 @@ struct LogScreen: View {
                                 entry: entry,
                                 shouldShowType: selectedMetadata.contains(.type),
                                 shouldShowTimestamp: selectedMetadata.contains(.timestamp),
+                                shouldShowLigrary: selectedMetadata.contains(.library),
                                 shouldShowPidAndTid: selectedMetadata.contains(.pidAndTid),
                                 shouldShowSubsystem: selectedMetadata.contains(.subsystem),
                                 shouldShowCategory: selectedMetadata.contains(.category)
@@ -209,6 +212,7 @@ struct LogRowView: View {
     let entry: LogEntry
     let shouldShowType: Bool
     let shouldShowTimestamp: Bool
+    let shouldShowLigrary: Bool
     let shouldShowPidAndTid: Bool
     let shouldShowSubsystem: Bool
     let shouldShowCategory: Bool
@@ -242,6 +246,18 @@ struct LogRowView: View {
 
                         if shouldShowTimestamp {
                             Text(logDateFormatter.string(from: entry.date))
+                                .font(.caption.bold())
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    if shouldShowLigrary {
+                        HStack(spacing: 2) {
+                            Image(systemName: "building.columns") // swiftlint:disable:this accessibility_label_for_image
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+
+                            Text(entry.library)
                                 .font(.caption.bold())
                                 .foregroundStyle(.secondary)
                         }
@@ -291,6 +307,7 @@ struct LogRowView: View {
 struct LogEntry: Sendable {
     let message: String
     let date: Date
+    let library: String
     let processIdentifier: String
     let threadIdentifier: String
     let category: String
@@ -309,6 +326,7 @@ actor LogStore {
                 LogEntry(
                     message: $0.composedMessage,
                     date: $0.date,
+                    library: $0.sender,
                     processIdentifier: "\($0.processIdentifier)",
                     threadIdentifier: String(format: "%#llx", $0.threadIdentifier),
                     category: $0.category,

@@ -69,6 +69,22 @@
         }
       }
     },
+    "Library" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Library"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライブラリ"
+          }
+        }
+      }
+    },
     "Log" : {
       "localizations" : {
         "en" : {
