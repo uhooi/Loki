@@ -28,68 +28,40 @@ struct LogRowView: View {
                 HStack(spacing: 10) {
                     HStack(spacing: 2) {
                         if shouldShowType {
-                            Image(systemName: entry.level.iconName) // swiftlint:disable:this accessibility_label_for_image
-                                .resizable()
-                                .frame(width: 8, height: 8)
-                                .foregroundStyle(.white)
-                                .padding(3)
-                                .background(entry.level.iconBackgroundColor)
-                                .clipShape(RoundedRectangle(cornerRadius: 2))
+                            typeIconImage(entry.level.iconName)
                         }
 
                         if shouldShowTimestamp {
-                            Text(logDateFormatter.string(from: entry.date))
-                                .font(.caption.bold())
-                                .foregroundStyle(.secondary)
+                            metadataText(logDateFormatter.string(from: entry.date))
                         }
                     }
 
                     if shouldShowLigrary {
-                        HStack(spacing: 2) {
-                            Image(systemName: Metadata.library.iconName) // swiftlint:disable:this accessibility_label_for_image
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-
-                            Text(entry.library)
-                                .font(.caption.bold())
-                                .foregroundStyle(.secondary)
-                        }
+                        metadataView(
+                            text: entry.library,
+                            iconName: Metadata.library.iconName
+                        )
                     }
 
                     if shouldShowPidAndTid {
-                        HStack(spacing: 2) {
-                            Image(systemName: Metadata.pidAndTid.iconName) // swiftlint:disable:this accessibility_label_for_image
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-
-                            Text("\(entry.processIdentifier):\(entry.threadIdentifier)")
-                                .font(.caption.bold())
-                                .foregroundStyle(.secondary)
-                        }
+                        metadataView(
+                            text: "\(entry.processIdentifier):\(entry.threadIdentifier)",
+                            iconName: Metadata.pidAndTid.iconName
+                        )
                     }
 
                     if shouldShowSubsystem {
-                        HStack(spacing: 2) {
-                            Image(systemName: Metadata.subsystem.iconName) // swiftlint:disable:this accessibility_label_for_image
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-
-                            Text(entry.subsystem)
-                                .font(.caption.bold())
-                                .foregroundStyle(.secondary)
-                        }
+                        metadataView(
+                            text: entry.subsystem,
+                            iconName: Metadata.subsystem.iconName
+                        )
                     }
 
                     if shouldShowCategory {
-                        HStack(spacing: 2) {
-                            Image(systemName: Metadata.category.iconName) // swiftlint:disable:this accessibility_label_for_image
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-
-                            Text(entry.category)
-                                .font(.caption.bold())
-                                .foregroundStyle(.secondary)
-                        }
+                        metadataView(
+                            text: entry.category,
+                            iconName: Metadata.category.iconName
+                        )
                     }
                 }
             }
@@ -100,4 +72,29 @@ struct LogRowView: View {
 // MARK: - Privates
 
 private extension LogRowView {
+    func metadataView(text: String, iconName: String) -> some View {
+        HStack(spacing: 2) {
+            Image(systemName: iconName)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+
+            metadataText(text)
+        }
+    }
+
+    func metadataText(_ text: String) -> some View {
+        Text(text)
+            .font(.caption.bold())
+            .foregroundStyle(.secondary)
+    }
+
+    func typeIconImage(_ iconName: String) -> some View {
+        Image(systemName: iconName)
+            .resizable()
+            .frame(width: 8, height: 8)
+            .foregroundStyle(.white)
+            .padding(3)
+            .background(entry.level.iconBackgroundColor)
+            .clipShape(RoundedRectangle(cornerRadius: 2))
+    }
 }
