@@ -3,30 +3,6 @@ import OSLog
 import LogCore
 
 struct LogScreen: View {
-    private enum SubsystemSearchScope: Hashable {
-        case all
-        case subsystem(String)
-
-        var text: String {
-            switch self {
-            case .all: .init(localized: "All", bundle: .module)
-            case let .subsystem(subsystem): subsystem
-            }
-        }
-    }
-
-    private enum CategorySearchScope: Hashable {
-        case all
-        case category(String)
-
-        var text: String {
-            switch self {
-            case .all: .init(localized: "All", bundle: .module)
-            case let .category(category): category
-            }
-        }
-    }
-
     @State private var entries: [LogEntry] = []
     @State private var subsystems: Set<String> = []
     @State private var subsystemSearchScope: SubsystemSearchScope = .all
@@ -38,35 +14,6 @@ struct LogScreen: View {
     @State private var isLoading = false
 
     private let logStore = LogStore()
-
-    private var filteredEntries: [LogEntry] {
-        let filteredEntries: [LogEntry] = entries
-            .filter {
-                switch subsystemSearchScope {
-                case .all: true
-                case let .subsystem(subsystem): $0.subsystem == subsystem
-                }
-            }
-            .filter {
-                switch categorySearchScope {
-                case .all: true
-                case let .category(category): $0.category == category
-                }
-            }
-
-        let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
-        return trimmedQuery.isEmpty ? filteredEntries : filteredEntries.filter { $0.message.range(of: trimmedQuery, options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive]) != nil }
-    }
-
-    private var sortedSubsystems: [String] {
-        Array(subsystems)
-            .sorted { $0 < $1 }
-    }
-
-    private var sortedCategories: [String] {
-        Array(categories)
-            .sorted { $0 < $1 }
-    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -183,5 +130,62 @@ struct LogScreen: View {
         Logger.standard.notice("\(#function, privacy: .public)")
         Logger.standard.error("\(#function, privacy: .public)")
         Logger.standard.fault("\(#function, privacy: .public)")
+    }
+}
+
+// MARK: - Privates
+
+private enum SubsystemSearchScope: Hashable {
+    case all
+    case subsystem(String)
+
+    var text: String {
+        switch self {
+        case .all: .init(localized: "All", bundle: .module)
+        case let .subsystem(subsystem): subsystem
+        }
+    }
+}
+
+private enum CategorySearchScope: Hashable {
+    case all
+    case category(String)
+
+    var text: String {
+        switch self {
+        case .all: .init(localized: "All", bundle: .module)
+        case let .category(category): category
+        }
+    }
+}
+
+private extension LogScreen {
+    private var filteredEntries: [LogEntry] {
+        let filteredEntries: [LogEntry] = entries
+            .filter {
+                switch subsystemSearchScope {
+                case .all: true
+                case let .subsystem(subsystem): $0.subsystem == subsystem
+                }
+            }
+            .filter {
+                switch categorySearchScope {
+                case .all: true
+                case let .category(category): $0.category == category
+                }
+            }
+
+        let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
+        return trimmedQuery.isEmpty ? filteredEntries : filteredEntries.filter { $0.message.range(of: trimmedQuery, options: [.caseInsensitive, .diacriticInsensitive, .widthInsensitive]) != nil }
+    }
+
+    private var sortedSubsystems: [String] {
+        Array(subsystems)
+            .sorted { $0 < $1 }
+    }
+
+    private var sortedCategories: [String] {
+        Array(categories)
+            .sorted { $0 < $1 }
     }
 }
