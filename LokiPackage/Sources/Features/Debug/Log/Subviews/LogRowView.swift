@@ -101,29 +101,3 @@ struct LogRowView: View {
 
 private extension LogRowView {
 }
-
-private extension OSLogEntryLog.Level {
-    var iconName: String {
-        switch self {
-        case .undefined: "circle.fill"
-        case .debug: "stethoscope"
-        case .info: "info"
-        case .notice: "bell.fill"
-        case .error: "exclamationmark.2"
-        case .fault: "exclamationmark.3"
-        @unknown default: "circle.fill"
-        }
-    }
-
-    var iconBackgroundColor: Color {
-        switch self {
-        case .undefined: .secondary
-        case .debug: .gray
-        case .info: .blue
-        case .notice: .gray
-        case .error: .yellow
-        case .fault: .red
-        @unknown default: .secondary
-        }
-    }
-}

@@ -185,19 +185,3 @@ struct LogScreen: View {
         Logger.standard.fault("\(#function, privacy: .public)")
     }
 }
-
-// MARK: - Privates
-
-private extension OSLogEntryLog.Level {
-    var backgroundColor: Color {
-        switch self {
-        case .undefined: .clear
-        case .debug: .clear
-        case .info: .clear
-        case .notice: .clear
-        case .error: .yellow.opacity(0.1)
-        case .fault: .red.opacity(0.1)
-        @unknown default: .clear
-        }
-    }
-}

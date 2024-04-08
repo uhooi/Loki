@@ -1,5 +1,4 @@
 import Foundation
-import OSLog
 
 struct LogEntry: Sendable {
     let message: String
@@ -9,5 +8,5 @@ struct LogEntry: Sendable {
     let threadIdentifier: String
     let category: String
     let subsystem: String
-    let level: OSLogEntryLog.Level // TODO: Add new enum
+    let level: LogLevel
 }

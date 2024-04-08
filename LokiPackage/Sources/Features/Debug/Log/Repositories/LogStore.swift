@@ -9,7 +9,7 @@ actor LogStore {
         return try store.getEntries(at: position)
             .compactMap { $0 as? OSLogEntryLog }
             .compactMap {
-                LogEntry(
+                .init(
                     message: $0.composedMessage,
                     date: $0.date,
                     library: $0.sender,
@@ -17,7 +17,7 @@ actor LogStore {
                     threadIdentifier: String(format: "%#llx", $0.threadIdentifier),
                     category: $0.category,
                     subsystem: $0.subsystem,
-                    level: $0.level
+                    level: LogLevel(osLogLevel: $0.level)
                 )
             }
             .sorted { $0.date < $1.date }
