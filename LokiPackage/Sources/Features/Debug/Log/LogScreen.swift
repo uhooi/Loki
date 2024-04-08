@@ -184,3 +184,13 @@ private extension LogScreen {
             .sorted { $0 < $1 }
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        LogScreen()
+    }
+}
+#endif
