@@ -9,7 +9,7 @@ struct LogScreen: View {
     @State private var categories: Set<String> = []
     @State private var categorySearchScope: CategorySearchScope = .all
     @State private var query = ""
-    @State private var isPopoverPresented = false
+    @State private var isSelectingMetadataToDisplayScreenPresented = false // swiftlint:disable:this identifier_name
     @State private var selectedMetadata: Set<Metadata> = []
     @State private var isLoading = false
 
@@ -63,7 +63,7 @@ struct LogScreen: View {
                 Spacer()
 
                 Button {
-                    isPopoverPresented = true
+                    isSelectingMetadataToDisplayScreenPresented = true
                 } label: {
                     Image(systemName: "switch.2") // swiftlint:disable:this accessibility_label_for_image
                 }
@@ -100,7 +100,8 @@ struct LogScreen: View {
         .navigationTitle(String(localized: "Log", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query)
-        .popover(isPresented: $isPopoverPresented) {
+        .sheet(isPresented: $isSelectingMetadataToDisplayScreenPresented) {
+        } content: {
             NavigationStack {
                 List(selection: $selectedMetadata) {
                     ForEach(Metadata.allCases) { metadata in
