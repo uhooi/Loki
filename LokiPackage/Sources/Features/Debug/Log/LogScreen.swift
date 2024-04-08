@@ -104,7 +104,9 @@ struct LogScreen: View {
             NavigationStack {
                 List(selection: $selectedMetadata) {
                     ForEach(Metadata.allCases) { metadata in
-                        Text(metadata.text)
+                        LabeledContent(metadata.text) {
+                            Image(systemName: metadata.iconName) // swiftlint:disable:this accessibility_label_for_image
+                        }
                     }
                 }
                 .environment(\.editMode, .constant(.active))
