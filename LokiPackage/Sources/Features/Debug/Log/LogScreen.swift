@@ -3,28 +3,6 @@ import OSLog
 import LogCore
 
 struct LogScreen: View {
-    private enum Metadata: CaseIterable, Identifiable {
-        case type
-        case timestamp
-        case library
-        case pidAndTid
-        case subsystem
-        case category
-
-        var id: Self { self }
-
-        var text: String {
-            switch self {
-            case .type: .init(localized: "Type", bundle: .module)
-            case .timestamp: .init(localized: "Timestamp", bundle: .module)
-            case .library: .init(localized: "Library", bundle: .module)
-            case .pidAndTid: .init(localized: "PID:TID", bundle: .module)
-            case .subsystem: .init(localized: "Subsystem", bundle: .module)
-            case .category: .init(localized: "Category", bundle: .module)
-            }
-        }
-    }
-
     private enum SubsystemSearchScope: Hashable {
         case all
         case subsystem(String)
@@ -107,7 +85,7 @@ struct LogScreen: View {
                     }
                 } label: {
                     HStack(spacing: 2) {
-                        Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
+                        Image(systemName: Metadata.subsystem.iconName) // swiftlint:disable:this accessibility_label_for_image
 
                         Text(subsystemSearchScope.text)
                             .lineLimit(1)
@@ -128,7 +106,7 @@ struct LogScreen: View {
                     }
                 } label: {
                     HStack(spacing: 2) {
-                        Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
+                        Image(systemName: Metadata.category.iconName) // swiftlint:disable:this accessibility_label_for_image
 
                         Text(categorySearchScope.text)
                             .lineLimit(1)
@@ -253,7 +231,7 @@ struct LogRowView: View {
 
                     if shouldShowLigrary {
                         HStack(spacing: 2) {
-                            Image(systemName: "building.columns") // swiftlint:disable:this accessibility_label_for_image
+                            Image(systemName: Metadata.library.iconName) // swiftlint:disable:this accessibility_label_for_image
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
 
@@ -265,7 +243,7 @@ struct LogRowView: View {
 
                     if shouldShowPidAndTid {
                         HStack(spacing: 2) {
-                            Image(systemName: "tag") // swiftlint:disable:this accessibility_label_for_image
+                            Image(systemName: Metadata.pidAndTid.iconName) // swiftlint:disable:this accessibility_label_for_image
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
 
@@ -277,7 +255,7 @@ struct LogRowView: View {
 
                     if shouldShowSubsystem {
                         HStack(spacing: 2) {
-                            Image(systemName: "gearshape.2") // swiftlint:disable:this accessibility_label_for_image
+                            Image(systemName: Metadata.subsystem.iconName) // swiftlint:disable:this accessibility_label_for_image
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
 
@@ -289,7 +267,7 @@ struct LogRowView: View {
 
                     if shouldShowCategory {
                         HStack(spacing: 2) {
-                            Image(systemName: "square.grid.3x3") // swiftlint:disable:this accessibility_label_for_image
+                            Image(systemName: Metadata.category.iconName) // swiftlint:disable:this accessibility_label_for_image
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
 
