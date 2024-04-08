@@ -40,3 +40,15 @@ private extension View {
         }
     }
 }
+
+// MARK: - Previews
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SelectingMetadataScreen(
+            selectedMetadata: .constant([.type])
+        )
+    }
+}
+#endif
