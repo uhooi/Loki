@@ -103,15 +103,7 @@ struct LogScreen: View {
         .sheet(isPresented: $isSelectingMetadataToDisplayScreenPresented) {
         } content: {
             NavigationStack {
-                List(selection: $selectedMetadata) {
-                    ForEach(Metadata.allCases) { metadata in
-                        LabeledContent(metadata.text) {
-                            Image(systemName: metadata.iconName) // swiftlint:disable:this accessibility_label_for_image
-                        }
-                    }
-                }
-                .environment(\.editMode, .constant(.active))
-                .navigationTitle(String(localized: "Metadata", bundle: .module))
+                SelectingMetadataScreen(selectedMetadata: $selectedMetadata)
             }
         }
         .task {
