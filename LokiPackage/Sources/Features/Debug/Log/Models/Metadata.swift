@@ -7,7 +7,11 @@ enum Metadata: CaseIterable, Identifiable {
     case category
 
     var id: Self { self }
+}
 
+// MARK: - Internals
+
+extension Metadata {
     var text: String {
         switch self {
         case .type: .init(localized: "Type", bundle: .module)
