@@ -8,7 +8,7 @@ actor LogStore {
 
         return try store.getEntries(at: position)
             .compactMap { $0 as? OSLogEntryLog }
-            .compactMap {
+            .map {
                 .init(
                     message: $0.composedMessage,
                     date: $0.date,
