@@ -42,21 +42,26 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var uiState: SettingsUiState
 
     private let onLicensesButtonClick: () -> Void
+    #if DEBUG
+    private let onDebugButtonClick: () -> Void
+    #endif
     private let repository: any SaunaTimeSettingsRepository
     private let validator: any SakatsuValidator
 
     init(
         onLicensesButtonClick: @escaping () -> Void,
+        onDebugButtonClick: @escaping () -> Void,
         repository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
         validator: some SakatsuValidator = DefaultSakatsuValidator()
     ) {
         self.uiState = SettingsUiState()
         self.onLicensesButtonClick = onLicensesButtonClick
+        self.onDebugButtonClick = onDebugButtonClick
         self.repository = repository
         self.validator = validator
     }
 
-    func send(_ action: SettingsAction) {
+    func send(_ action: SettingsAction) { // swiftlint:disable:this cyclomatic_complexity
         let message = "\(#function) action: \(action)"
         Logger.standard.debug("\(message, privacy: .public)")
 
@@ -65,6 +70,11 @@ final class SettingsViewModel: ObservableObject {
             switch screenAction {
             case .onErrorAlertDismiss:
                 uiState.settingsError = nil
+
+            #if DEBUG
+            case .onDebugButtonClick:
+                onDebugButtonClick()
+            #endif
             }
 
         case let .view(viewAction):
