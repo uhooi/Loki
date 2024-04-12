@@ -1,4 +1,5 @@
 import SwiftUI
+import LogdogUI
 import LogCore
 
 package struct DebugScreen: View {
