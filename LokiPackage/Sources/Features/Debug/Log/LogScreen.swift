@@ -8,6 +8,7 @@ struct LogScreen: View {
     @State private var subsystemSearchScope: SubsystemSearchScope = .all
     @State private var categories: Set<String> = []
     @State private var categorySearchScope: CategorySearchScope = .all
+    @State private var levelSearchScope: LogLevel = .undefined
     @State private var query = ""
     @State private var isSelectingMetadataToDisplayScreenPresented = false // swiftlint:disable:this identifier_name
     @State private var selectedMetadata: Set<Metadata> = []
@@ -18,49 +19,71 @@ struct LogScreen: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Menu {
-                    Picker(selection: $subsystemSearchScope) {
-                        Text("All", bundle: .module)
-                            .tag(SubsystemSearchScope.all)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Menu {
+                            Picker(selection: $subsystemSearchScope) {
+                                Text("All", bundle: .module)
+                                    .tag(SubsystemSearchScope.all)
 
-                        ForEach(sortedSubsystems, id: \.self) { subsystem in
-                            Text(subsystem)
-                                .tag(SubsystemSearchScope.subsystem(subsystem))
+                                ForEach(sortedSubsystems, id: \.self) { subsystem in
+                                    Text(subsystem)
+                                        .tag(SubsystemSearchScope.subsystem(subsystem))
+                                }
+                            } label: {
+                                Text("Subsystem", bundle: .module)
+                            }
+                        } label: {
+                            HStack(spacing: 2) {
+                                Image(systemName: Metadata.subsystem.iconName) // swiftlint:disable:this accessibility_label_for_image
+
+                                Text(subsystemSearchScope.text)
+                                    .lineLimit(1)
+                            }
                         }
-                    } label: {
-                        Text("Subsystem", bundle: .module)
-                    }
-                } label: {
-                    HStack(spacing: 2) {
-                        Image(systemName: Metadata.subsystem.iconName) // swiftlint:disable:this accessibility_label_for_image
 
-                        Text(subsystemSearchScope.text)
-                            .lineLimit(1)
+                        Menu {
+                            Picker(selection: $categorySearchScope) {
+                                Text("All", bundle: .module)
+                                    .tag(CategorySearchScope.all)
+
+                                ForEach(sortedCategories, id: \.self) { category in
+                                    Text(category)
+                                        .tag(CategorySearchScope.category(category))
+                                }
+                            } label: {
+                                Text("Category", bundle: .module)
+                            }
+                        } label: {
+                            HStack(spacing: 2) {
+                                Image(systemName: Metadata.category.iconName) // swiftlint:disable:this accessibility_label_for_image
+
+                                Text(categorySearchScope.text)
+                                    .lineLimit(1)
+                            }
+                        }
+
+                        Menu {
+                            Picker(selection: $levelSearchScope) {
+                                ForEach(LogLevel.allCases, id: \.self) { logLevel in
+                                    LabeledContent(logLevel.text) {
+                                        Image(systemName: logLevel.iconName) // swiftlint:disable:this accessibility_label_for_image
+                                    }
+                                    .tag(logLevel)
+                                }
+                            } label: {
+                                Text("Log level", bundle: .module)
+                            }
+                        } label: {
+                            HStack(spacing: 2) {
+                                Image(systemName: "note.text") // swiftlint:disable:this accessibility_label_for_image
+
+                                Text(levelSearchScope.text)
+                                    .lineLimit(1)
+                            }
+                        }
                     }
                 }
-
-                Menu {
-                    Picker(selection: $categorySearchScope) {
-                        Text("All", bundle: .module)
-                            .tag(CategorySearchScope.all)
-
-                        ForEach(sortedCategories, id: \.self) { category in
-                            Text(category)
-                                .tag(CategorySearchScope.category(category))
-                        }
-                    } label: {
-                        Text("Category", bundle: .module)
-                    }
-                } label: {
-                    HStack(spacing: 2) {
-                        Image(systemName: Metadata.category.iconName) // swiftlint:disable:this accessibility_label_for_image
-
-                        Text(categorySearchScope.text)
-                            .lineLimit(1)
-                    }
-                }
-
-                Spacer()
 
                 Button {
                     isSelectingMetadataToDisplayScreenPresented = true
@@ -168,6 +191,9 @@ private extension LogScreen {
                 case .all: true
                 case let .category(category): $0.category == category
                 }
+            }
+            .filter {
+                $0.level.rawValue >= levelSearchScope.rawValue
             }
 
         let trimmedQuery = query.trimmingCharacters(in: .whitespaces)

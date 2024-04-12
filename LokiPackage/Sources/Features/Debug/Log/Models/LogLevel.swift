@@ -1,13 +1,13 @@
 import SwiftUI
 import OSLog
 
-enum LogLevel {
-    case undefined
-    case debug
-    case info
-    case notice
-    case error
-    case fault
+enum LogLevel: Int, CaseIterable {
+    case undefined = 0
+    case debug = 1
+    case info = 2
+    case notice = 3
+    case error = 4
+    case fault = 5
 
     init(osLogLevel: OSLogEntryLog.Level) {
         self = switch osLogLevel {
@@ -25,9 +25,20 @@ enum LogLevel {
 // MARK: - Internals
 
 extension LogLevel {
+    var text: String {
+        switch self {
+        case .undefined: .init(localized: "Undefined", bundle: .module)
+        case .debug: .init(localized: "Debug", bundle: .module)
+        case .info: .init(localized: "Info", bundle: .module)
+        case .notice: .init(localized: "Notice", bundle: .module)
+        case .error: .init(localized: "Error", bundle: .module)
+        case .fault: .init(localized: "Fault", bundle: .module)
+        }
+    }
+
     var iconName: String {
         switch self {
-        case .undefined: "circle.fill"
+        case .undefined: ""
         case .debug: "stethoscope"
         case .info: "info"
         case .notice: "bell.fill"
