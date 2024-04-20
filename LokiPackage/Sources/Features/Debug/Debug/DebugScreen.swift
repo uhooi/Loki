@@ -9,7 +9,9 @@ package struct DebugScreen: View {
         Form {
             Section {
                 NavigationLink(String(localized: "Log", bundle: .module)) {
-                    LogScreen()
+                    LogdogScreen()
+                        .navigationTitle(String(localized: "Log", bundle: .module))
+                        .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }

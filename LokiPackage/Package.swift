@@ -5,9 +5,9 @@ import PackageDescription
 
 private extension PackageDescription.Target.Dependency {
     static let algorithms: Self = .product(name: "Algorithms", package: "swift-algorithms")
+    static let logdogUI: Self = .product(name: "LogdogUI", package: "Logdog")
     static let playbook: Self = .product(name: "Playbook", package: "playbook-ios")
     static let playbookUI: Self = .product(name: "PlaybookUI", package: "playbook-ios")
-    static let logdogUI: Self = .product(name: "LogdogUI", package: "Logdog")
 }
 
 private extension PackageDescription.Target.PluginUsage {
@@ -59,8 +59,8 @@ let package = Package(
     dependencies: [
         // Libraries
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/uhooi/Logdog.git", from: "0.3.0"),
         .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
-        .package(url: "https://github.com/uhooi/Logdog.git", branch: "main"), // TODO: Use stable version
 
         // Plugins
         .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
