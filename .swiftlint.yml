@@ -166,6 +166,7 @@ opt_in_rules:
   - nslocalizedstring_require_bundle
   #- number_separator # 数字を `_` で区切りたくないため
   #- object_literal # リテラルで生成したくないこともあるため
+  #- one_declaration_per_file # 1ファイルに複数のクラスを定義したいことがあるため
   - operator_usage_whitespace
   - optional_enum_case_matching
   - overridden_super_call
