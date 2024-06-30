@@ -34,4 +34,4 @@ extension DefaultUserDefaultsClient: UserDefaultsClient {
 
 // The UserDefaults class is thread-safe
 // ref: https://developer.apple.com/documentation/foundation/userdefaults#2926903
-extension UserDefaults: @unchecked Sendable {}
+extension UserDefaults: @unchecked @retroactive Sendable {}
