@@ -62,10 +62,6 @@ private extension DevelopRootScreen {
         } content: {
             makeLicenseListScreen()
         }
-        .sheet(isPresented: $isLicenseListScreenPresented) {
-        } content: {
-            makeLicenseListScreen()
-        }
     }
     #endif
 

@@ -29,6 +29,19 @@ private extension ProductionRootScreen {
         }
     }
 
+    #if DEBUG
+    @MainActor
+    func makeSettingsScreen() -> some View {
+        SettingsScreen(onLicensesButtonClick: {
+            isLicenseListScreenPresented = true
+        }, onDebugButtonClick: {
+        })
+        .sheet(isPresented: $isLicenseListScreenPresented) {
+        } content: {
+            makeLicenseListScreen()
+        }
+    }
+    #else
     @MainActor
     func makeSettingsScreen() -> some View {
         SettingsScreen(onLicensesButtonClick: {
@@ -39,6 +52,7 @@ private extension ProductionRootScreen {
             makeLicenseListScreen()
         }
     }
+    #endif
 
     func makeLicenseListScreen() -> some View {
         LicenseListScreen()
