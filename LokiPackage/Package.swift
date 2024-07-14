@@ -1,18 +1,6 @@
 // swift-tools-version: 6.0
-// swiftlint:disable:previous file_name
 
 import PackageDescription
-
-private extension PackageDescription.Target.Dependency {
-    static let algorithms: Self = .product(name: "Algorithms", package: "swift-algorithms")
-    static let logdogUI: Self = .product(name: "LogdogUI", package: "Logdog")
-    static let playbook: Self = .product(name: "Playbook", package: "playbook-ios")
-    static let playbookUI: Self = .product(name: "PlaybookUI", package: "playbook-ios")
-}
-
-private extension PackageDescription.Target.PluginUsage {
-    static let licenses: Self = .plugin(name: "LicensesPlugin", package: "LicensesPlugin")
-}
 
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
@@ -23,17 +11,8 @@ let debugOtherSwiftFlags = [
 
 let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
-    .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
-    .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
     .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
-    .enableUpcomingFeature("BareSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
-    .enableUpcomingFeature("DeprecateApplicationMain", .when(configuration: .debug)), // SE-0383
-    .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
-    .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
-    .enableUpcomingFeature("IsolatedDefaultValues", .when(configuration: .debug)), // SE-0411
-    .enableUpcomingFeature("GlobalConcurrency", .when(configuration: .debug)), // SE-0412
     .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
-    .enableExperimentalFeature("StrictConcurrency", .when(configuration: .debug)),
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
@@ -81,8 +60,8 @@ let package = Package(
             name: "CatalogApp",
             dependencies: productionFeatures + [
                 "UICore",
-                .playbook,
-                .playbookUI,
+                .product(name: "Playbook", package: "playbook-ios"),
+                .product(name: "PlaybookUI", package: "playbook-ios"),
             ],
             path: "./Sources/Apps/Catalog"),
 
@@ -92,7 +71,7 @@ let package = Package(
             dependencies: [
                 "SakatsuData",
                 "UICore",
-                .algorithms,
+                .product(name: "Algorithms", package: "swift-algorithms"),
             ],
             path: "./Sources/Features/Sakatsu"),
         .testTarget(
@@ -112,12 +91,12 @@ let package = Package(
             ],
             path: "./Sources/Features/Licenses",
             plugins: [
-                .licenses,
+                .plugin(name: "LicensesPlugin", package: "LicensesPlugin"),
             ]),
         .target(
             name: "DebugFeature",
             dependencies: [
-                .logdogUI,
+                .product(name: "LogdogUI", package: "Logdog"),
             ],
             path: "./Sources/Features/Debug"),
 
@@ -150,7 +129,8 @@ let package = Package(
             name: "UICore",
             dependencies: [],
             path: "./Sources/Core/UI"),
-    ]
+    ],
+    swiftLanguageVersions: [.v6]
 )
 
 for target in package.targets {
