@@ -1,4 +1,4 @@
-import Foundation
+package import Foundation
 
 package struct SaunaTemperature: Identifiable {
     package let id: UUID

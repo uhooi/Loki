@@ -1,4 +1,4 @@
-import SwiftUI
+package import SwiftUI
 import LogCore
 
 package struct LicenseListScreen: View {

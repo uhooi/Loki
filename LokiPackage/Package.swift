@@ -12,7 +12,7 @@ let debugOtherSwiftFlags = [
 let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
     .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
-    .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
+    .enableUpcomingFeature("InternalImportsByDefault", .when(configuration: .debug)), // SE-0409
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [

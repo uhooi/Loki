@@ -1,5 +1,5 @@
 import Foundation
-import os
+package import struct os.Logger
 
 package enum Logger {
     package static let standard: os.Logger = .init(

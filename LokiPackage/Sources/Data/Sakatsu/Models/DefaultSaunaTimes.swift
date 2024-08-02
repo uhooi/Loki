@@ -1,4 +1,4 @@
-import Foundation
+package import Foundation
 
 package struct DefaultSaunaTimes {
     package var saunaTime: TimeInterval?

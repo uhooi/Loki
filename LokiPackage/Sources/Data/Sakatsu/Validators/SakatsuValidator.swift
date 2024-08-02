@@ -1,4 +1,4 @@
-import Foundation
+package import Foundation
 
 package protocol SakatsuValidator {
     func validate(facilityName: String) -> Bool
