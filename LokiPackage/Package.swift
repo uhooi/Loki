@@ -129,8 +129,7 @@ let package = Package(
             name: "UICore",
             dependencies: [],
             path: "./Sources/Core/UI"),
-    ],
-    swiftLanguageVersions: [.v6]
+    ]
 )
 
 for target in package.targets {
