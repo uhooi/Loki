@@ -1,5 +1,5 @@
 {
-  "originHash" : "22a2102118aa255eed3187cf83740c85cc01b36b1d2d89683f34d4326b0a743a",
+  "originHash" : "76301bbafa9f6cfd02d1e6150838fbc5e05b9af00fe59801e1cc80a1ddba6bb6",
   "pins" : [
     {
       "identity" : "licensesplugin",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/playbook-ui/playbook-ios.git",
       "state" : {
-        "revision" : "b2f25b15e82bc9aca59d60e79695f0c338e0e2e9",
-        "version" : "0.3.2"
+        "revision" : "da86a1a533e7ab5b1203908dfbb33aa38b782421",
+        "version" : "0.4.1"
       }
     },
     {

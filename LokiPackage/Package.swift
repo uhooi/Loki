@@ -39,7 +39,7 @@ let package = Package(
         // Libraries
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/uhooi/Logdog.git", from: "0.3.0"),
-        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
+        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.4.1"),
 
         // Plugins
         .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.2.0"),
