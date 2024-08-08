@@ -1,13 +1,13 @@
 {
-  "originHash" : "c8222e67b71e52ad42dbe97f9f64a00f8f9ca10eb16c103f0fcf6981ae37efd9",
+  "originHash" : "22a2102118aa255eed3187cf83740c85cc01b36b1d2d89683f34d4326b0a743a",
   "pins" : [
     {
       "identity" : "licensesplugin",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/maiyama18/LicensesPlugin",
       "state" : {
-        "revision" : "e7dbcda9f67fdd747c16244f97070a009205e814",
-        "version" : "0.1.5"
+        "revision" : "3061787a7eca7ba801d7a3abccfc077053e79d73",
+        "version" : "0.2.0"
       }
     },
     {
