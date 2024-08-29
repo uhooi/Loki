@@ -43,7 +43,6 @@ struct SakatsuInputScreen: View {
         }
     }
 
-    @MainActor
     init(
         sakatsuEditMode: SakatsuEditMode,
         onSakatsuSave: @escaping () -> Void,

@@ -19,7 +19,6 @@ public struct ProductionRootScreen: View {
 // MARK: - Screen factory
 
 private extension ProductionRootScreen {
-    @MainActor
     func makeSakatsuListScreen() -> some View {
         SakatsuListScreen(onSettingsButtonClick: {
             isSettingsScreenPresented = true
@@ -30,7 +29,6 @@ private extension ProductionRootScreen {
     }
 
     #if DEBUG
-    @MainActor
     func makeSettingsScreen() -> some View {
         SettingsScreen(onLicensesButtonClick: {
             isLicenseListScreenPresented = true
@@ -42,7 +40,6 @@ private extension ProductionRootScreen {
         }
     }
     #else
-    @MainActor
     func makeSettingsScreen() -> some View {
         SettingsScreen(onLicensesButtonClick: {
             isLicenseListScreenPresented = true
