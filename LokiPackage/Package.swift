@@ -37,7 +37,7 @@ let package = Package(
     ],
     dependencies: [
         // Libraries
-        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.2.0"),
         .package(url: "https://github.com/uhooi/Logdog.git", from: "0.3.0"),
         .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.4.1"),
 
