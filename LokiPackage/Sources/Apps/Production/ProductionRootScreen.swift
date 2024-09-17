@@ -1,4 +1,4 @@
-import SwiftUI
+public import SwiftUI
 import SakatsuFeature
 import SettingsFeature
 import LicensesFeature
@@ -19,7 +19,6 @@ public struct ProductionRootScreen: View {
 // MARK: - Screen factory
 
 private extension ProductionRootScreen {
-    @MainActor
     func makeSakatsuListScreen() -> some View {
         SakatsuListScreen(onSettingsButtonClick: {
             isSettingsScreenPresented = true
@@ -29,7 +28,18 @@ private extension ProductionRootScreen {
         }
     }
 
-    @MainActor
+    #if DEBUG
+    func makeSettingsScreen() -> some View {
+        SettingsScreen(onLicensesButtonClick: {
+            isLicenseListScreenPresented = true
+        }, onDebugButtonClick: {
+        })
+        .sheet(isPresented: $isLicenseListScreenPresented) {
+        } content: {
+            makeLicenseListScreen()
+        }
+    }
+    #else
     func makeSettingsScreen() -> some View {
         SettingsScreen(onLicensesButtonClick: {
             isLicenseListScreenPresented = true
@@ -39,6 +49,7 @@ private extension ProductionRootScreen {
             makeLicenseListScreen()
         }
     }
+    #endif
 
     func makeLicenseListScreen() -> some View {
         LicenseListScreen()

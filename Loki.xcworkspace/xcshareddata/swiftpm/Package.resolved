@@ -1,13 +1,13 @@
 {
-  "originHash" : "c8222e67b71e52ad42dbe97f9f64a00f8f9ca10eb16c103f0fcf6981ae37efd9",
+  "originHash" : "46d4a894610dea88c6f16090667e2703eb6ad07b5f0aaae8e556d491297df223",
   "pins" : [
     {
       "identity" : "licensesplugin",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/maiyama18/LicensesPlugin",
       "state" : {
-        "revision" : "e7dbcda9f67fdd747c16244f97070a009205e814",
-        "version" : "0.1.5"
+        "revision" : "3061787a7eca7ba801d7a3abccfc077053e79d73",
+        "version" : "0.2.0"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/playbook-ui/playbook-ios.git",
       "state" : {
-        "revision" : "b2f25b15e82bc9aca59d60e79695f0c338e0e2e9",
-        "version" : "0.3.2"
+        "revision" : "da86a1a533e7ab5b1203908dfbb33aa38b782421",
+        "version" : "0.4.1"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-algorithms.git",
       "state" : {
-        "revision" : "b14b7f4c528c942f121c8b860b9410b2bf57825e",
-        "version" : "1.0.0"
+        "revision" : "f6919dfc309e7f1b56224378b11e28bab5bccc42",
+        "version" : "1.2.0"
       }
     },
     {

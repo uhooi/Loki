@@ -1,4 +1,4 @@
-import SwiftUI
+package import SwiftUI
 
 extension View {
     /// - Important: After this alert disappears, should set `error`  to `nil`

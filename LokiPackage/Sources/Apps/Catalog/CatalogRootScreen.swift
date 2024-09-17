@@ -1,4 +1,4 @@
-import SwiftUI
+public import SwiftUI
 import PlaybookUI
 
 public struct CatalogRootScreen: View {

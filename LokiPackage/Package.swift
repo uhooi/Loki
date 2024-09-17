@@ -1,18 +1,6 @@
-// swift-tools-version: 5.10
-// swiftlint:disable:previous file_name
+// swift-tools-version: 6.0
 
 import PackageDescription
-
-private extension PackageDescription.Target.Dependency {
-    static let algorithms: Self = .product(name: "Algorithms", package: "swift-algorithms")
-    static let logdogUI: Self = .product(name: "LogdogUI", package: "Logdog")
-    static let playbook: Self = .product(name: "Playbook", package: "playbook-ios")
-    static let playbookUI: Self = .product(name: "PlaybookUI", package: "playbook-ios")
-}
-
-private extension PackageDescription.Target.PluginUsage {
-    static let licenses: Self = .plugin(name: "LicensesPlugin", package: "LicensesPlugin")
-}
 
 let debugOtherSwiftFlags = [
     "-Xfrontend", "-warn-long-expression-type-checking=500",
@@ -23,17 +11,8 @@ let debugOtherSwiftFlags = [
 
 let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
-    .enableUpcomingFeature("ConciseMagicFile", .when(configuration: .debug)), // SE-0274
-    .enableUpcomingFeature("ForwardTrailingClosures", .when(configuration: .debug)), // SE-0286
     .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
-    .enableUpcomingFeature("BareSlashRegexLiterals", .when(configuration: .debug)), // SE-0354
-    .enableUpcomingFeature("DeprecateApplicationMain", .when(configuration: .debug)), // SE-0383
-    .enableUpcomingFeature("ImportObjcForwardDeclarations", .when(configuration: .debug)), // SE-0384
-    .enableUpcomingFeature("DisableOutwardActorInference", .when(configuration: .debug)), // SE-0401
-    .enableUpcomingFeature("IsolatedDefaultValues", .when(configuration: .debug)), // SE-0411
-    .enableUpcomingFeature("GlobalConcurrency", .when(configuration: .debug)), // SE-0412
-    .enableExperimentalFeature("AccessLevelOnImport", .when(configuration: .debug)), // SE-0409
-    .enableExperimentalFeature("StrictConcurrency", .when(configuration: .debug)),
+    .enableUpcomingFeature("InternalImportsByDefault", .when(configuration: .debug)), // SE-0409
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
@@ -58,12 +37,12 @@ let package = Package(
     ],
     dependencies: [
         // Libraries
-        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.2.0"),
         .package(url: "https://github.com/uhooi/Logdog.git", from: "0.3.0"),
-        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.3.2"),
+        .package(url: "https://github.com/playbook-ui/playbook-ios.git", from: "0.4.1"),
 
         // Plugins
-        .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.1.5"),
+        .package(url: "https://github.com/maiyama18/LicensesPlugin", from: "0.2.0"),
     ],
     targets: [
         // App layer
@@ -81,8 +60,8 @@ let package = Package(
             name: "CatalogApp",
             dependencies: productionFeatures + [
                 "UICore",
-                .playbook,
-                .playbookUI,
+                .product(name: "Playbook", package: "playbook-ios"),
+                .product(name: "PlaybookUI", package: "playbook-ios"),
             ],
             path: "./Sources/Apps/Catalog"),
 
@@ -92,7 +71,7 @@ let package = Package(
             dependencies: [
                 "SakatsuData",
                 "UICore",
-                .algorithms,
+                .product(name: "Algorithms", package: "swift-algorithms"),
             ],
             path: "./Sources/Features/Sakatsu"),
         .testTarget(
@@ -112,12 +91,12 @@ let package = Package(
             ],
             path: "./Sources/Features/Licenses",
             plugins: [
-                .licenses,
+                .plugin(name: "LicensesPlugin", package: "LicensesPlugin"),
             ]),
         .target(
             name: "DebugFeature",
             dependencies: [
-                .logdogUI,
+                .product(name: "LogdogUI", package: "Logdog"),
             ],
             path: "./Sources/Features/Debug"),
 

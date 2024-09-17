@@ -1,4 +1,4 @@
-import SwiftUI
+package import SwiftUI
 import LogdogUI
 import LogCore
 

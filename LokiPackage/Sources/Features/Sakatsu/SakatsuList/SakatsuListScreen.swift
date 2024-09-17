@@ -1,4 +1,4 @@
-import SwiftUI
+package import SwiftUI
 import SakatsuData
 import LogCore
 import UICore
@@ -72,7 +72,6 @@ package struct SakatsuListScreen: View {
         }
     }
 
-    @MainActor
     package init(onSettingsButtonClick: @escaping () -> Void) {
         Logger.standard.debug("\(#function, privacy: .public)")
 
@@ -124,7 +123,6 @@ private extension View {
         .environment(\.editMode, editMode)
     }
 
-    @MainActor
     func sakatsuInputSheet(
         shouldShowSheet: Bool,
         selectedSakatsu: Sakatsu?,

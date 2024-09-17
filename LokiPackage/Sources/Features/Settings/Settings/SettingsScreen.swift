@@ -1,4 +1,4 @@
-import SwiftUI
+package import SwiftUI
 import LogCore
 import UICore
 
@@ -48,7 +48,6 @@ package struct SettingsScreen: View {
     }
 
     #if DEBUG
-    @MainActor
     package init(
         onLicensesButtonClick: @escaping () -> Void,
         onDebugButtonClick: @escaping () -> Void
@@ -61,7 +60,6 @@ package struct SettingsScreen: View {
         ))
     }
     #else
-    @MainActor
     package init(
         onLicensesButtonClick: @escaping () -> Void
     ) {

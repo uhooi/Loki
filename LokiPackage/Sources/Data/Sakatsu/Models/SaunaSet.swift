@@ -1,4 +1,4 @@
-import Foundation
+package import Foundation
 
 package protocol SaunaSetItemProtocol {
     var emoji: String { get }
