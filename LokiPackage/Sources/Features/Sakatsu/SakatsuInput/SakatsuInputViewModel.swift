@@ -111,7 +111,6 @@ final class SakatsuInputViewModel: ObservableObject {
 
         case let .view(viewAction):
             switch viewAction {
-
             case .onAddNewSaunaSetButtonClick:
                 Task {
                     uiState.sakatsu.saunaSets.append(await sakatsuRepository.makeDefaultSaunaSet())

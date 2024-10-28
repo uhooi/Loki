@@ -24,7 +24,7 @@ env:
 jobs:
   build:
     name: Build for ${{ matrix.project }}
-    runs-on: macos-14
+    runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
