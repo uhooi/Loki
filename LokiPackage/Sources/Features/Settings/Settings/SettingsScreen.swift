@@ -34,8 +34,8 @@ package struct SettingsScreen: View {
         .navigationTitle(String(localized: "Settings", bundle: .module))
         #if DEBUG
         .settingsScreenToolbar(
-        colorScheme: colorScheme,
-        onDebugButtonClick: { viewModel.send(.screen(.onDebugButtonClick)) }
+            colorScheme: colorScheme,
+            onDebugButtonClick: { viewModel.send(.screen(.onDebugButtonClick)) }
         )
         #endif
         .errorAlert(
