@@ -49,7 +49,7 @@ struct SakatsuInputScreen: View {
         onCancelButtonClick: @escaping () -> Void,
     ) {
         Logger.standard.debug("\(#function, privacy: .public)")
-        
+
         self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(
             sakatsuEditMode: sakatsuEditMode,
             onSakatsuSave: onSakatsuSave,
