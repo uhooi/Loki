@@ -11,7 +11,7 @@ final class SaunaTimeSettingsUserDefaultsDataSource {
     private let userDefaultsClient: any UserDefaultsClient
 
     private init(
-        userDefaultsClient: some UserDefaultsClient = DefaultUserDefaultsClient.shared
+        userDefaultsClient: some UserDefaultsClient = DefaultUserDefaultsClient.shared,
     ) {
         self.userDefaultsClient = userDefaultsClient
     }

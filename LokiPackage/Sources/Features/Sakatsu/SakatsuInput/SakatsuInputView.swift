@@ -82,7 +82,7 @@ private extension SakatsuInputView {
                         send(.onForewordChange(newValue))
                     }
                 ),
-                axis: .vertical
+                axis: .vertical,
             )
         } header: {
             Text("Foreword", bundle: .module)
@@ -151,9 +151,9 @@ private extension SakatsuInputView {
                         sakatsu.afterword ?? ""
                     }, set: { newValue in
                         send(.onAfterwordChange(newValue))
-                    }
+                    },
                 ),
-                axis: .vertical
+                axis: .vertical,
             )
         } header: {
             Text("Afterword", bundle: .module)

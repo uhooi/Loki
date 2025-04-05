@@ -79,7 +79,7 @@ private extension SettingsView {
         Section {
             LabeledContent(
                 String(localized: "Version", bundle: .module),
-                value: "\(Bundle.main.version) (\(Bundle.main.build))"
+                value: "\(Bundle.main.version) (\(Bundle.main.build))",
             )
         } footer: {
             Text("© 2024 THE Uhooi", bundle: .module)

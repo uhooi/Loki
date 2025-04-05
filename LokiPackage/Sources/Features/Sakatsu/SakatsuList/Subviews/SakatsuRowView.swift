@@ -184,7 +184,7 @@ private extension SakatsuRowView {
 #Preview {
     SakatsuRowView(
         sakatsu: .preview,
-        send: { _ in }
+        send: { _ in },
     )
 }
 #endif

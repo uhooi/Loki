@@ -134,7 +134,7 @@ private extension View {
             isPresented: .init(get: {
                 shouldShowSheet
             }, set: { _ in
-            })
+            }),
         ) {
             onDismiss()
         } content: {
@@ -159,7 +159,7 @@ private extension View {
             }, set: { _ in
                 onDismiss()
             }),
-            presenting: sakatsuText
+            presenting: sakatsuText,
         ) { _ in
         } message: { sakatsuText in
             Text("Sakatsu text copied.", bundle: .module)

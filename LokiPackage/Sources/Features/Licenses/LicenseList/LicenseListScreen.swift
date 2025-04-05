@@ -32,7 +32,7 @@ package struct LicenseListScreen: View {
 
 private extension View {
     func licenseListScreenToolbar(
-        onCloseButtonClick: @escaping () -> Void
+        onCloseButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarLeading) {
