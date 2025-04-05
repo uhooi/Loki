@@ -66,7 +66,7 @@ private extension SakatsuInputView {
                 }, set: { newValue in
                     send(.onVisitingDateChange(newValue))
                 }),
-                displayedComponents: [.date]
+                displayedComponents: [.date],
             )
         }
     }
@@ -99,7 +99,7 @@ private extension SakatsuInputView {
                         send(.onSaunaTitleChange(saunaSetIndex: saunaSetIndex, title))
                     }, onTimeChange: { time in
                         send(.onSaunaTimeChange(saunaSetIndex: saunaSetIndex, time))
-                    }
+                    },
                 )
 
                 saunaSetItemTimeInputView(
@@ -109,7 +109,7 @@ private extension SakatsuInputView {
                         send(.onCoolBathTitleChange(saunaSetIndex: saunaSetIndex, title))
                     }, onTimeChange: { time in
                         send(.onCoolBathTimeChange(saunaSetIndex: saunaSetIndex, time))
-                    }
+                    },
                 )
 
                 saunaSetItemTimeInputView(
@@ -119,7 +119,7 @@ private extension SakatsuInputView {
                         send(.onRelaxationTitleChange(saunaSetIndex: saunaSetIndex, title))
                     }, onTimeChange: { time in
                         send(.onRelaxationTimeChange(saunaSetIndex: saunaSetIndex, time))
-                    }
+                    },
                 )
             } header: {
                 Text("Set \(saunaSetIndex + 1)", bundle: .module)
@@ -170,7 +170,7 @@ private extension SakatsuInputView {
                         send(.onTemperatureTitleChange(temperatureIndex: saunaTemperatureIndex, title))
                     }, onTemperatureChange: { temperature in
                         send(.onTemperatureChange(temperatureIndex: saunaTemperatureIndex, temperature))
-                    }
+                    },
                 )
             }
             .onDelete { offsets in
@@ -192,7 +192,7 @@ private extension SakatsuInputView {
         saunaSetIndex: Int,
         saunaSetItem: any SaunaSetItemProtocol,
         onTitleChange: @escaping (_ title: String) -> Void,
-        onTimeChange: @escaping (_ time: TimeInterval?) -> Void
+        onTimeChange: @escaping (_ time: TimeInterval?) -> Void,
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
@@ -221,7 +221,7 @@ private extension SakatsuInputView {
         saunaTemperatureIndex: Int,
         saunaTemperature: SaunaTemperature,
         onTitleChange: @escaping (_ temperatureTitle: String) -> Void,
-        onTemperatureChange: @escaping (_ temperature: Decimal?) -> Void
+        onTemperatureChange: @escaping (_ temperature: Decimal?) -> Void,
     ) -> some View {
         HStack {
             HStack(spacing: 0) {
@@ -253,7 +253,7 @@ private extension SakatsuInputView {
 #Preview {
     SakatsuInputView(
         sakatsu: .preview,
-        send: { _ in }
+        send: { _ in },
     )
 }
 #endif

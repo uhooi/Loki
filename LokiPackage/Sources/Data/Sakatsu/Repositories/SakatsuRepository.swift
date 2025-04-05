@@ -12,7 +12,7 @@ package final class DefaultSakatsuRepository {
 
     private init(
         sakatsuDataSource: some SakatsuDataSource = SakatsuUserDefaultsDataSource.shared,
-        defaultSaunaTimeRepository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared
+        defaultSaunaTimeRepository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
     ) {
         self.sakatsuDataSource = sakatsuDataSource
         self.saunaTimeSettingsRepository = defaultSaunaTimeRepository

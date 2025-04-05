@@ -52,7 +52,7 @@ final class SettingsViewModel: ObservableObject {
         onLicensesButtonClick: @escaping () -> Void,
         onDebugButtonClick: @escaping () -> Void,
         repository: some SaunaTimeSettingsRepository = DefaultSaunaTimeSettingsRepository.shared,
-        validator: some SakatsuValidator = DefaultSakatsuValidator()
+        validator: some SakatsuValidator = DefaultSakatsuValidator(),
     ) {
         self.uiState = SettingsUiState()
         self.onLicensesButtonClick = onLicensesButtonClick

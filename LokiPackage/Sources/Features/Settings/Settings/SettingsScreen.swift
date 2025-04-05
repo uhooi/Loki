@@ -29,18 +29,18 @@ package struct SettingsScreen: View {
             defaultSaunaTimes: viewModel.uiState.defaultSaunaTimes,
             send: { action in
                 viewModel.send(.view(action))
-            }
+            },
         )
         .navigationTitle(String(localized: "Settings", bundle: .module))
         #if DEBUG
         .settingsScreenToolbar(
             colorScheme: colorScheme,
-            onDebugButtonClick: { viewModel.send(.screen(.onDebugButtonClick)) }
+            onDebugButtonClick: { viewModel.send(.screen(.onDebugButtonClick)) },
         )
         #endif
         .errorAlert(
             error: viewModel.uiState.settingsError,
-            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
+            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) },
         )
         .task {
             await viewModel.sendAsync(.screen(.task))
@@ -50,23 +50,23 @@ package struct SettingsScreen: View {
     #if DEBUG
     package init(
         onLicensesButtonClick: @escaping () -> Void,
-        onDebugButtonClick: @escaping () -> Void
+        onDebugButtonClick: @escaping () -> Void,
     ) {
         Logger.standard.debug("\(#function, privacy: .public)")
 
         self._viewModel = StateObject(wrappedValue: SettingsViewModel(
             onLicensesButtonClick: onLicensesButtonClick,
-            onDebugButtonClick: onDebugButtonClick
+            onDebugButtonClick: onDebugButtonClick,
         ))
     }
     #else
     package init(
-        onLicensesButtonClick: @escaping () -> Void
+        onLicensesButtonClick: @escaping () -> Void,
     ) {
         Logger.standard.debug("\(#function, privacy: .public)")
 
         self._viewModel = StateObject(wrappedValue: SettingsViewModel(
-            onLicensesButtonClick: onLicensesButtonClick
+            onLicensesButtonClick: onLicensesButtonClick,
         ))
     }
     #endif
@@ -78,7 +78,7 @@ private extension View {
     #if DEBUG
     func settingsScreenToolbar(
         colorScheme: ColorScheme,
-        onDebugButtonClick: @escaping () -> Void
+        onDebugButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -98,7 +98,7 @@ private extension View {
     NavigationStack {
         SettingsScreen(
             onLicensesButtonClick: {},
-            onDebugButtonClick: {}
+            onDebugButtonClick: {},
         )
     }
 }

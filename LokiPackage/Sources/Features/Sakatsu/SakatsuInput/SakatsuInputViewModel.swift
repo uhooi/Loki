@@ -70,7 +70,7 @@ final class SakatsuInputViewModel: ObservableObject {
         onSakatsuSave: @escaping () -> Void,
         onCancelButtonClick: @escaping () -> Void,
         sakatsuRepository: some SakatsuRepository = DefaultSakatsuRepository.shared,
-        validator: some SakatsuValidator = DefaultSakatsuValidator()
+        validator: some SakatsuValidator = DefaultSakatsuValidator(),
     ) {
         self.uiState = .init(editMode: sakatsuEditMode)
         self.onSakatsuSave = onSakatsuSave
