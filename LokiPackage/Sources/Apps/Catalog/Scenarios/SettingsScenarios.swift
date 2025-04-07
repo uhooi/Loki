@@ -10,7 +10,7 @@ struct SettingsScenarios: @preconcurrency ScenarioProvider {
                 NavigationStack {
                     SettingsScreen(
                         onLicensesButtonClick: {},
-                        onDebugButtonClick: {}
+                        onDebugButtonClick: {},
                     )
                 }
             }

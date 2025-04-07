@@ -68,7 +68,7 @@ final class SakatsuListViewModel: ObservableObject {
 
     init(
         onSettingsButtonClick: @escaping () -> Void,
-        repository: some SakatsuRepository = DefaultSakatsuRepository.shared
+        repository: some SakatsuRepository = DefaultSakatsuRepository.shared,
     ) {
         self.uiState = SakatsuListUiState()
         self.onSettingsButtonClick = onSettingsButtonClick

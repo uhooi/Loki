@@ -24,7 +24,7 @@ struct SakatsuInputScreen: View {
             sakatsu: viewModel.uiState.sakatsu,
             send: { action in
                 viewModel.send(.view(action))
-            }
+            },
         )
         .navigationTitle(String(localized: "Register Sakatsu", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
@@ -32,11 +32,11 @@ struct SakatsuInputScreen: View {
         .sakatsuInputScreenToolbar(
             saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
             onSaveButtonClick: { viewModel.send(.screen(.onSaveButtonClick)) },
-            onCancelButtonClick: { viewModel.send(.screen(.onCancelButtonClick)) }
+            onCancelButtonClick: { viewModel.send(.screen(.onCancelButtonClick)) },
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
-            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
+            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) },
         )
         .task {
             await viewModel.sendAsync(.screen(.task))
@@ -46,14 +46,14 @@ struct SakatsuInputScreen: View {
     init(
         sakatsuEditMode: SakatsuEditMode,
         onSakatsuSave: @escaping () -> Void,
-        onCancelButtonClick: @escaping () -> Void
+        onCancelButtonClick: @escaping () -> Void,
     ) {
         Logger.standard.debug("\(#function, privacy: .public)")
 
         self._viewModel = StateObject(wrappedValue: SakatsuInputViewModel(
             sakatsuEditMode: sakatsuEditMode,
             onSakatsuSave: onSakatsuSave,
-            onCancelButtonClick: onCancelButtonClick
+            onCancelButtonClick: onCancelButtonClick,
         ))
     }
 }
@@ -64,7 +64,7 @@ private extension View {
     func sakatsuInputScreenToolbar(
         saveButtonDisabled: Bool,
         onSaveButtonClick: @escaping () -> Void,
-        onCancelButtonClick: @escaping () -> Void
+        onCancelButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -90,7 +90,7 @@ private extension View {
         SakatsuInputScreen(
             sakatsuEditMode: .edit(sakatsu: .preview),
             onSakatsuSave: {},
-            onCancelButtonClick: {}
+            onCancelButtonClick: {},
         )
     }
 }

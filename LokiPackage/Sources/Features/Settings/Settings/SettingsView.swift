@@ -40,7 +40,7 @@ private extension SettingsView {
                 unit: String(localized: "m", bundle: .module),
                 onTimeChange: { time in
                     send(.onDefaultSaunaTimeChange(time))
-                }
+                },
             )
 
             defaultTimeInputView(
@@ -50,7 +50,7 @@ private extension SettingsView {
                 unit: String(localized: "s", bundle: .module),
                 onTimeChange: { time in
                     send(.onDefaultCoolBathTimeChange(time))
-                }
+                },
             )
 
             defaultTimeInputView(
@@ -60,7 +60,7 @@ private extension SettingsView {
                 unit: String(localized: "m", bundle: .module),
                 onTimeChange: { time in
                     send(.onDefaultRelaxationTimeChange(time))
-                }
+                },
             )
         } header: {
             Text("Default times", bundle: .module)
@@ -79,7 +79,7 @@ private extension SettingsView {
         Section {
             LabeledContent(
                 String(localized: "Version", bundle: .module),
-                value: "\(Bundle.main.version) (\(Bundle.main.build))"
+                value: "\(Bundle.main.version) (\(Bundle.main.build))",
             )
         } footer: {
             Text("© 2024 THE Uhooi", bundle: .module)
@@ -91,7 +91,7 @@ private extension SettingsView {
         title: String,
         defaultTime: TimeInterval?,
         unit: String,
-        onTimeChange: @escaping (_ time: TimeInterval?) -> Void
+        onTimeChange: @escaping (_ time: TimeInterval?) -> Void,
     ) -> some View {
         HStack {
             Text(emoji + title)
@@ -115,7 +115,7 @@ private extension SettingsView {
 #Preview {
     SettingsView(
         defaultSaunaTimes: .preview,
-        send: { _ in }
+        send: { _ in },
     )
 }
 #endif

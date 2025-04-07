@@ -34,7 +34,7 @@ package struct SakatsuListScreen: View {
             sakatsus: viewModel.uiState.filteredSakatsus,
             send: { action in
                 viewModel.send(.view(action))
-            }
+            },
         )
         .navigationTitle(String(localized: "Sakatsu list", bundle: .module))
         .searchable(
@@ -43,29 +43,29 @@ package struct SakatsuListScreen: View {
             }, set: { newValue in
                 viewModel.send(.screen(.onSearchTextChange(searchText: newValue)))
             }),
-            placement: .navigationBarDrawer(displayMode: .always)
+            placement: .navigationBarDrawer(displayMode: .always),
         )
         .sakatsuListScreenToolbar(
             editMode: $editMode,
             colorScheme: colorScheme,
             sakatsusCount: viewModel.uiState.filteredSakatsus.count,
             onSettingsButtonClick: { viewModel.send(.screen(.onSettingsButtonClick)) },
-            onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) }
+            onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) },
         )
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
             onSakatsuSave: { viewModel.send(.screen(.onSakatsuSave)) },
             onCancelButtonClick: { viewModel.send(.screen(.onInputScreenCancelButtonClick)) },
-            onDismiss: { viewModel.send(.screen(.onInputScreenDismiss)) }
+            onDismiss: { viewModel.send(.screen(.onInputScreenDismiss)) },
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
-            onDismiss: { viewModel.send(.screen(.onCopyingSakatsuTextAlertDismiss)) }
+            onDismiss: { viewModel.send(.screen(.onCopyingSakatsuTextAlertDismiss)) },
         )
         .errorAlert(
             error: viewModel.uiState.sakatsuListError,
-            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) }
+            onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) },
         )
         .task {
             await viewModel.sendAsync(.screen(.task))
@@ -76,7 +76,7 @@ package struct SakatsuListScreen: View {
         Logger.standard.debug("\(#function, privacy: .public)")
 
         self._viewModel = StateObject(wrappedValue: SakatsuListViewModel(
-            onSettingsButtonClick: onSettingsButtonClick
+            onSettingsButtonClick: onSettingsButtonClick,
         ))
     }
 }
@@ -89,7 +89,7 @@ private extension View {
         colorScheme: ColorScheme,
         sakatsusCount: Int,
         onSettingsButtonClick: @escaping () -> Void,
-        onAddButtonClick: @escaping () -> Void
+        onAddButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -128,13 +128,13 @@ private extension View {
         selectedSakatsu: Sakatsu?,
         onSakatsuSave: @escaping () -> Void,
         onCancelButtonClick: @escaping () -> Void,
-        onDismiss: @escaping () -> Void
+        onDismiss: @escaping () -> Void,
     ) -> some View {
         sheet(
             isPresented: .init(get: {
                 shouldShowSheet
             }, set: { _ in
-            })
+            }),
         ) {
             onDismiss()
         } content: {
@@ -142,7 +142,7 @@ private extension View {
                 SakatsuInputScreen(
                     sakatsuEditMode: selectedSakatsu != nil ? .edit(sakatsu: selectedSakatsu!) : .new,
                     onSakatsuSave: onSakatsuSave,
-                    onCancelButtonClick: onCancelButtonClick
+                    onCancelButtonClick: onCancelButtonClick,
                 )
             }
         }
@@ -150,7 +150,7 @@ private extension View {
 
     func copyingSakatsuTextAlert(
         sakatsuText: String?,
-        onDismiss: @escaping () -> Void
+        onDismiss: @escaping () -> Void,
     ) -> some View {
         alert(
             String(localized: "Copy", bundle: .module),
@@ -159,7 +159,7 @@ private extension View {
             }, set: { _ in
                 onDismiss()
             }),
-            presenting: sakatsuText
+            presenting: sakatsuText,
         ) { _ in
         } message: { sakatsuText in
             Text("Sakatsu text copied.", bundle: .module)

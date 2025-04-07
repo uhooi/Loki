@@ -30,7 +30,7 @@ struct SakatsuListView: View {
                         case .onEditButtonClick:
                             send(.onEditButtonClick(sakatsuIndex: sakatsuIndex))
                         }
-                    }
+                    },
                 )
             }
             .onDelete { offsets in
@@ -46,7 +46,7 @@ struct SakatsuListView: View {
 #Preview {
     SakatsuListView(
         sakatsus: [.preview],
-        send: { _ in }
+        send: { _ in },
     )
 }
 #endif

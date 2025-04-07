@@ -4,7 +4,7 @@ extension View {
     /// - Important: After this alert disappears, should set `error`  to `nil`
     package func errorAlert(
         error: (some LocalizedError)?,
-        onDismiss: @escaping () -> Void
+        onDismiss: @escaping () -> Void,
     ) -> some View {
         alert(
             isPresented: .init(get: {
@@ -12,7 +12,7 @@ extension View {
             }, set: { _ in
                 onDismiss()
             }),
-            error: error
+            error: error,
         ) { _ in
         } message: { error in
             Text((error.failureReason ?? "") + (error.recoverySuggestion ?? ""))

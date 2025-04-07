@@ -19,7 +19,7 @@ package struct DebugScreen: View {
         .debugScreenToolbar(
             onCloseButtonClick: {
                 dismiss()
-            }
+            },
         )
     }
 
@@ -32,7 +32,7 @@ package struct DebugScreen: View {
 
 private extension View {
     func debugScreenToolbar(
-        onCloseButtonClick: @escaping () -> Void
+        onCloseButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarLeading) {

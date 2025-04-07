@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.1
 
 import PackageDescription
 
@@ -49,13 +49,15 @@ let package = Package(
         .target(
             name: "ProductionApp",
             dependencies: productionFeatures,
-            path: "./Sources/Apps/Production"),
+            path: "./Sources/Apps/Production",
+        ),
         .target(
             name: "DevelopApp",
             dependencies: productionFeatures + [
                 "DebugFeature",
             ],
-            path: "./Sources/Apps/Develop"),
+            path: "./Sources/Apps/Develop",
+        ),
         .target(
             name: "CatalogApp",
             dependencies: productionFeatures + [
@@ -63,7 +65,8 @@ let package = Package(
                 .product(name: "Playbook", package: "playbook-ios"),
                 .product(name: "PlaybookUI", package: "playbook-ios"),
             ],
-            path: "./Sources/Apps/Catalog"),
+            path: "./Sources/Apps/Catalog",
+        ),
 
         // Feature layer
         .target(
@@ -73,18 +76,21 @@ let package = Package(
                 "UICore",
                 .product(name: "Algorithms", package: "swift-algorithms"),
             ],
-            path: "./Sources/Features/Sakatsu"),
+            path: "./Sources/Features/Sakatsu",
+        ),
         .testTarget(
             name: "SakatsuFeatureTests",
             dependencies: ["SakatsuFeature"],
-            path: "./Tests/Features/SakatsuTests"),
+            path: "./Tests/Features/SakatsuTests",
+        ),
         .target(
             name: "SettingsFeature",
             dependencies: [
                 "SakatsuData",
                 "UICore",
             ],
-            path: "./Sources/Features/Settings"),
+            path: "./Sources/Features/Settings",
+        ),
         .target(
             name: "LicensesFeature",
             dependencies: [
@@ -92,13 +98,15 @@ let package = Package(
             path: "./Sources/Features/Licenses",
             plugins: [
                 .plugin(name: "LicensesPlugin", package: "LicensesPlugin"),
-            ]),
+            ],
+        ),
         .target(
             name: "DebugFeature",
             dependencies: [
                 .product(name: "LogdogUI", package: "Logdog"),
             ],
-            path: "./Sources/Features/Debug"),
+            path: "./Sources/Features/Debug",
+        ),
 
         // Data layer
         .target(
@@ -106,29 +114,35 @@ let package = Package(
             dependencies: [
                 "UserDefaultsCore",
             ],
-            path: "./Sources/Data/Sakatsu"),
+            path: "./Sources/Data/Sakatsu",
+        ),
         .testTarget(
             name: "SakatsuDataTests",
             dependencies: ["SakatsuData"],
-            path: "./Tests/Data/SakatsuTests"),
+            path: "./Tests/Data/SakatsuTests",
+        ),
 
         // Core layer
         .target(
             name: "LogCore",
             dependencies: [],
-            path: "./Sources/Core/Log"),
+            path: "./Sources/Core/Log",
+        ),
         .target(
             name: "UserDefaultsCore",
             dependencies: [],
-            path: "./Sources/Core/UserDefaults"),
+            path: "./Sources/Core/UserDefaults",
+        ),
         .testTarget(
             name: "UserDefaultsCoreTests",
             dependencies: ["UserDefaultsCore"],
-            path: "./Tests/Core/UserDefaultsTests"),
+            path: "./Tests/Core/UserDefaultsTests",
+        ),
         .target(
             name: "UICore",
             dependencies: [],
-            path: "./Sources/Core/UI"),
+            path: "./Sources/Core/UI",
+        ),
     ]
 )
 

@@ -9,7 +9,7 @@ package final class DefaultSaunaTimeSettingsRepository {
     private let localDataSource: any SaunaTimeSettingsLocalDataSource
 
     private init(
-        localDataSource: some SaunaTimeSettingsLocalDataSource = SaunaTimeSettingsUserDefaultsDataSource.shared
+        localDataSource: some SaunaTimeSettingsLocalDataSource = SaunaTimeSettingsUserDefaultsDataSource.shared,
     ) {
         self.localDataSource = localDataSource
     }
