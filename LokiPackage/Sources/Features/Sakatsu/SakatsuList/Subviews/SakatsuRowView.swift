@@ -178,9 +178,9 @@ private extension SakatsuRowView {
     }
 }
 
+#if DEBUG
 // MARK: - Previews
 
-#if DEBUG
 #Preview {
     SakatsuRowView(
         sakatsu: .preview,

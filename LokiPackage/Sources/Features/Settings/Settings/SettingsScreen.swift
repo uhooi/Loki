@@ -91,9 +91,9 @@ private extension View {
     #endif
 }
 
+#if DEBUG
 // MARK: - Previews
 
-#if DEBUG
 #Preview {
     NavigationStack {
         SettingsScreen(
