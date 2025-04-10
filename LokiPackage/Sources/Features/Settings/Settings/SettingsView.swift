@@ -109,9 +109,9 @@ private extension SettingsView {
     }
 }
 
+#if DEBUG
 // MARK: - Previews
 
-#if DEBUG
 #Preview {
     SettingsView(
         defaultSaunaTimes: .preview,

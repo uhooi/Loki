@@ -170,9 +170,9 @@ private extension View {
     }
 }
 
+#if DEBUG
 // MARK: - Previews
 
-#if DEBUG
 #Preview {
     NavigationStack {
         SakatsuListScreen(onSettingsButtonClick: {})

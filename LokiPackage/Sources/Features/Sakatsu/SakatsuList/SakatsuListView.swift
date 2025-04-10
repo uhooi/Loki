@@ -40,9 +40,9 @@ struct SakatsuListView: View {
     }
 }
 
+#if DEBUG
 // MARK: - Previews
 
-#if DEBUG
 #Preview {
     SakatsuListView(
         sakatsus: [.preview],

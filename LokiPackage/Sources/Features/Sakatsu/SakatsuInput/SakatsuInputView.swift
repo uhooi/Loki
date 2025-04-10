@@ -247,9 +247,9 @@ private extension SakatsuInputView {
     }
 }
 
+#if DEBUG
 // MARK: - Previews
 
-#if DEBUG
 #Preview {
     SakatsuInputView(
         sakatsu: .preview,
