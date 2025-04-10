@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
+    "%lld" : {
+
+    },
     "%lld Sakatsu(s)" : {
       "localizations" : {
         "en" : {
@@ -409,6 +412,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サ活一覧"
+          }
+        }
+      }
+    },
+    "Sakatsu report" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sakatsu report"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サ活レポート"
           }
         }
       }

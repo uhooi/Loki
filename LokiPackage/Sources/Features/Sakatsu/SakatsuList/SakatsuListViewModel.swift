@@ -10,6 +10,7 @@ struct SakatsuListUiState {
     var sakatsuText: String?
     var searchText: String = ""
     var shouldShowInputScreen = false
+    var shouldShowReportScreen = false
     var sakatsuListError: SakatsuListError?
 
     var filteredSakatsus: [Sakatsu] {
@@ -107,6 +108,12 @@ final class SakatsuListViewModel: ObservableObject {
 
             case .onErrorAlertDismiss:
                 uiState.sakatsuListError = nil
+
+            case .onReportButtonClick:
+                uiState.shouldShowReportScreen = true
+
+            case .onReportScreenDismiss:
+                uiState.shouldShowReportScreen = false
 
             case .onSettingsButtonClick:
                 onSettingsButtonClick()
