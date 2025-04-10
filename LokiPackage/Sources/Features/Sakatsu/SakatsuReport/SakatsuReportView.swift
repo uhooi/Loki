@@ -48,7 +48,7 @@ private extension SakatsuReportView {
                     .font(.title)
 
                 Text(title)
-                    .font(.title3.bold())
+                    .font(.body.bold())
                     .foregroundStyle(.secondary)
             }
 
