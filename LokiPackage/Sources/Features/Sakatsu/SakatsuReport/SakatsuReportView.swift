@@ -17,15 +17,15 @@ struct SakatsuReportView: View {
         // TODO: Use real data
         VStack(spacing: 16) {
             HStack(spacing: 16) {
-                cellView(title: "サウナ", emoji: "🔥", value: 30)
+                cellView(title: "サ活", emoji: "🧖", value: 199)
 
-                cellView(title: "水風呂", emoji: "💧", value: 300)
+                cellView(title: "サウナ", emoji: "🔥", value: 30)
             }
 
             HStack(spacing: 16) {
-                cellView(title: "休憩", emoji: "🍃", value: 30)
+                cellView(title: "水風呂", emoji: "💧", value: 300)
 
-                cellView(title: "サ活", emoji: "🧖", value: 199)
+                cellView(title: "休憩", emoji: "🍃", value: 30)
             }
         }
         .padding(16)
@@ -42,23 +42,25 @@ private extension SakatsuReportView {
         emoji: String,
         value: Int,
     ) -> some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
                 Text(emoji)
                     .font(.title)
 
-                Text(title)
-                    .font(.body.bold())
-                    .foregroundStyle(.secondary)
+                Spacer()
+
+                Text("\(value)")
+                    .font(.system(.title, design: .rounded).bold())
             }
 
-            Spacer()
-
-            Text("\(value)")
-                .font(.system(.title, design: .rounded).bold())
+            Text(title)
+                .font(.body.bold())
+                .foregroundStyle(.secondary)
         }
-        .padding(16)
+        .padding(.vertical, 8)
+        .padding(.leading, 12)
+        .padding(.trailing, 14)
         .background(.white)
-        .clipShape(.rect(cornerRadius: 16))
+        .clipShape(.rect(cornerRadius: 12))
     }
 }
