@@ -16,11 +16,7 @@ package struct DebugScreen: View {
             }
         }
         .navigationTitle(String(localized: "Debug", bundle: .module))
-        .debugScreenToolbar(
-            onCloseButtonClick: {
-                dismiss()
-            },
-        )
+        .debugScreenToolbar(onCloseButtonClick: { dismiss() })
     }
 
     package init() {
