@@ -30,7 +30,7 @@ struct SakatsuReportView: View {
         }
         .padding(16)
         .frame(maxHeight: .infinity, alignment: .top)
-        .background(Color(uiColor: .secondarySystemBackground))
+        .background(Color(uiColor: .systemGroupedBackground))
     }
 }
 
@@ -60,7 +60,18 @@ private extension SakatsuReportView {
         .padding(.vertical, 8)
         .padding(.leading, 12)
         .padding(.trailing, 14)
-        .background(.white)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
         .clipShape(.rect(cornerRadius: 12))
     }
 }
+
+#if DEBUG
+// MARK: - Previews
+
+#Preview {
+    SakatsuReportView(
+        send: { _ in },
+    )
+}
+
+#endif
