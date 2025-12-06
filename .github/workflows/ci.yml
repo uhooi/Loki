@@ -9,6 +9,7 @@ on:
       - README.md
       - LICENSE
   pull_request:
+    types: [opened, reopened, synchronize]
     paths-ignore:
       - Docs/**
       - README.md
@@ -36,3 +37,9 @@ jobs:
 
       - name: Build for ${{ matrix.project }}
         run: make build-debug-${{ matrix.project }}
+
+  soundness:
+    name: Soundness
+    uses: swiftlang/github-workflows/.github/workflows/soundness.yml@0.0.1
+    with:
+      license_header_check_project_name: "Swift.org"
