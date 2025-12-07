@@ -19,24 +19,20 @@ on:
 permissions:
   contents: read
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_26.1.app
-
 jobs:
-  build:
-    name: Build for ${{ matrix.project }}
-    runs-on: macos-15
+  build_tests_ios:
+    name: Build iOS Tests for ${{ matrix.project }}
+    uses: swiftlang/github-workflows/.github/workflows/swift_package_test.yml@0.0.1
     strategy:
-      fail-fast: false
       matrix:
         project: ["production", "develop"]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build for ${{ matrix.project }}
-        run: make build-debug-${{ matrix.project }}
+    with:
+      enable_linux_checks: false
+      enable_windows_checks: false
+      enable_ios_checks: true
+      ios_host_xcode_versions: "[\"26.1\"]"
+      ios_host_versions: "[\"sequoia\"]"
+      ios_build_command: make build-debug-${{ matrix.project }}
 
   soundness:
     name: Soundness
