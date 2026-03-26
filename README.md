@@ -40,8 +40,8 @@ Loki（ロキ）は、サ活の記録に特化したアプリです。
 
 ### 必要条件
 
-- macOS 15.2+
-- Xcode 26.3 (Swift 6.2.4)
+- macOS 26.2+
+- Xcode 26.4 (Swift 6.3)
 - Make
 - Mint
 
