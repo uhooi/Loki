@@ -13,6 +13,8 @@ enum SakatsuListScreenAction {
     case onInputScreenDismiss
     case onCopyingSakatsuTextAlertDismiss
     case onErrorAlertDismiss
+    case onReportButtonClick
+    case onReportScreenDismiss
     case onSettingsButtonClick
 }
 
@@ -49,6 +51,7 @@ package struct SakatsuListScreen: View {
             editMode: $editMode,
             colorScheme: colorScheme,
             sakatsusCount: viewModel.uiState.filteredSakatsus.count,
+            onReportButtonClick: { viewModel.send(.screen(.onReportButtonClick)) },
             onSettingsButtonClick: { viewModel.send(.screen(.onSettingsButtonClick)) },
             onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) },
         )
@@ -58,6 +61,10 @@ package struct SakatsuListScreen: View {
             onSakatsuSave: { viewModel.send(.screen(.onSakatsuSave)) },
             onCancelButtonClick: { viewModel.send(.screen(.onInputScreenCancelButtonClick)) },
             onDismiss: { viewModel.send(.screen(.onInputScreenDismiss)) },
+        )
+        .sakatsuReportSheet(
+            shouldShowSheet: viewModel.uiState.shouldShowReportScreen,
+            onDismiss: { viewModel.send(.screen(.onReportScreenDismiss)) },
         )
         .copyingSakatsuTextAlert(
             sakatsuText: viewModel.uiState.sakatsuText,
@@ -88,6 +95,7 @@ private extension View {
         editMode: Binding<EditMode>,
         colorScheme: ColorScheme,
         sakatsusCount: Int,
+        onReportButtonClick: @escaping () -> Void,
         onSettingsButtonClick: @escaping () -> Void,
         onAddButtonClick: @escaping () -> Void,
     ) -> some View {
@@ -112,6 +120,12 @@ private extension View {
                         Text("New Sakatsu", bundle: .module)
                     }
                     .bold()
+                }
+            }
+
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: onReportButtonClick) {
+                    Image(systemName: "newspaper")
                 }
             }
 
@@ -144,6 +158,24 @@ private extension View {
                     onSakatsuSave: onSakatsuSave,
                     onCancelButtonClick: onCancelButtonClick,
                 )
+            }
+        }
+    }
+
+    func sakatsuReportSheet(
+        shouldShowSheet: Bool,
+        onDismiss: @escaping () -> Void,
+    ) -> some View {
+        sheet(
+            isPresented: .init(get: {
+                shouldShowSheet
+            }, set: { _ in
+            }),
+        ) {
+            onDismiss()
+        } content: {
+            NavigationStack {
+                SakatsuReportScreen()
             }
         }
     }
