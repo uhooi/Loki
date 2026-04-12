@@ -116,7 +116,6 @@ private extension View {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: onAddButtonClick) {
                         Image(systemName: "plus")
-                            .font(.title3)
                     }
                 }
             } else {
