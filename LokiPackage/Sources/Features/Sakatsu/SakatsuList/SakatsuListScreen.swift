@@ -109,6 +109,10 @@ private extension View {
                     Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
                 }
 
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                }
+
                 DefaultToolbarItem(kind: .search, placement: .bottomBar)
 
                 ToolbarSpacer(placement: .bottomBar)
@@ -119,6 +123,11 @@ private extension View {
                     }
                 }
             } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                        .bold(editMode.wrappedValue.isEditing)
+                }
+
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: onAddButtonClick) {
                         HStack {
@@ -135,11 +144,6 @@ private extension View {
                     Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
                         .font(.caption)
                 }
-            }
-
-            ToolbarItem(placement: .topBarTrailing) {
-                EditButton()
-                    .bold(editMode.wrappedValue.isEditing)
             }
 
             ToolbarItem(placement: .topBarLeading) {
