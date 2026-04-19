@@ -1,6 +1,22 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
+    "Close" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Close"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閉じる"
+          }
+        }
+      }
+    },
     "Licenses" : {
       "localizations" : {
         "en" : {

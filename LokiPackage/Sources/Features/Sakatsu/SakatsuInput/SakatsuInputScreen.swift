@@ -80,6 +80,7 @@ private extension View {
                     Button(role: .cancel, action: onCancelButtonClick) {
                         Image(systemName: "xmark")
                     }
+                    .accessibilityLabel(String(localized: "Cancel", bundle: .module))
                 }
             } else {
                 ToolbarItem(placement: .topBarTrailing) {

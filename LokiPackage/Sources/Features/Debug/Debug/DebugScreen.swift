@@ -36,11 +36,12 @@ private extension View {
     ) -> some View {
         toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
+                Button(role: .cancel) {
                     onCloseButtonClick()
                 } label: {
                     Image(systemName: "xmark")
                 }
+                .accessibilityLabel(String(localized: "Close", bundle: .module))
             }
         }
     }
