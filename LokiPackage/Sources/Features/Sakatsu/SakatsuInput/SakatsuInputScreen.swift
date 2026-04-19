@@ -73,6 +73,7 @@ private extension View {
                         Image(systemName: "checkmark")
                     }
                     .buttonStyle(.glassProminent)
+                    .accessibilityLabel(String(localized: "Save", bundle: .module))
                     .disabled(saveButtonDisabled)
                 }
 
