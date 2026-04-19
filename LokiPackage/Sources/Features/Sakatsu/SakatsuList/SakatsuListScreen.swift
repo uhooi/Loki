@@ -29,6 +29,14 @@ package struct SakatsuListScreen: View {
 
     @State private var editMode: EditMode = .inactive
 
+    private var availableIOS26: Bool {
+        if #available(iOS 26.0, *) {
+            true
+        } else {
+            false
+        }
+    }
+
     package var body: some View {
         SakatsuListView(
             sakatsus: viewModel.uiState.filteredSakatsus,
@@ -43,7 +51,7 @@ package struct SakatsuListScreen: View {
             }, set: { newValue in
                 viewModel.send(.screen(.onSearchTextChange(searchText: newValue)))
             }),
-            placement: .navigationBarDrawer(displayMode: .always),
+            placement: availableIOS26 ? .automatic : .navigationBarDrawer(displayMode: .always),
         )
         .sakatsuListScreenToolbar(
             editMode: $editMode,
@@ -84,7 +92,7 @@ package struct SakatsuListScreen: View {
 // MARK: - Privates
 
 private extension View {
-    func sakatsuListScreenToolbar(
+    func sakatsuListScreenToolbar( // swiftlint:disable:this function_body_length
         editMode: Binding<EditMode>,
         colorScheme: ColorScheme,
         sakatsusCount: Int,
@@ -92,32 +100,62 @@ private extension View {
         onAddButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                EditButton()
-                    .bold(editMode.wrappedValue.isEditing)
+            if #available(iOS 26.0, *) {
+                ToolbarItem(placement: .largeSubtitle) {
+                    Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                ToolbarItem(placement: .subtitle) {
+                    Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                }
+
+                DefaultToolbarItem(kind: .search, placement: .bottomBar)
+
+                ToolbarSpacer(placement: .bottomBar)
+
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: onAddButtonClick) {
+                        Image(systemName: "plus")
+                    }
+                    .buttonStyle(.glassProminent)
+                }
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                        .bold(editMode.wrappedValue.isEditing)
+                }
+
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: onAddButtonClick) {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.title3)
+
+                            Text("New Sakatsu", bundle: .module)
+                        }
+                        .bold()
+                    }
+                }
+
+                ToolbarItem(placement: .status) {
+                    Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                        .font(.caption)
+                }
             }
 
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: onSettingsButtonClick) {
                     Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
                 }
-            }
-
-            ToolbarItem(placement: .bottomBar) {
-                Button(action: onAddButtonClick) {
-                    HStack {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title3)
-
-                        Text("New Sakatsu", bundle: .module)
-                    }
-                    .bold()
-                }
-            }
-
-            ToolbarItem(placement: .status) {
-                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
-                    .font(.caption)
             }
         }
         .environment(\.editMode, editMode)

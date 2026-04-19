@@ -67,16 +67,32 @@ private extension View {
         onCancelButtonClick: @escaping () -> Void,
     ) -> some View {
         toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: onSaveButtonClick) {
-                    Text("Save", bundle: .module)
-                        .bold()
+            if #available(iOS 26.0, *) {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onSaveButtonClick) {
+                        Image(systemName: "checkmark")
+                    }
+                    .buttonStyle(.glassProminent)
+                    .disabled(saveButtonDisabled)
                 }
-                .disabled(saveButtonDisabled)
-            }
 
-            ToolbarItem(placement: .topBarLeading) {
-                Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(role: .cancel, action: onCancelButtonClick) {
+                        Image(systemName: "xmark")
+                    }
+                }
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onSaveButtonClick) {
+                        Text("Save", bundle: .module)
+                            .bold()
+                    }
+                    .disabled(saveButtonDisabled)
+                }
+
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
+                }
             }
         }
     }
