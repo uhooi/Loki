@@ -12,7 +12,7 @@ package struct LicenseListScreen: View {
                 NavigationLink(license.name, value: license)
             }
             .navigationTitle(String(localized: "Licenses", bundle: .module))
-            .licenseListScreenToolbar(onCloseButtonClick: { dismiss() })
+            .toolbar { toolbarContent(onCloseButtonClick: { dismiss() }) }
         } detail: {
             if let selectedLicense {
                 LicenseDetailScreen(license: selectedLicense)
@@ -30,19 +30,18 @@ package struct LicenseListScreen: View {
 
 // MARK: - Privates
 
-private extension View {
-    func licenseListScreenToolbar(
+private extension LicenseListScreen {
+    @ToolbarContentBuilder
+    func toolbarContent(
         onCloseButtonClick: @escaping () -> Void,
-    ) -> some View {
-        toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button(role: .cancel) {
-                    onCloseButtonClick()
-                } label: {
-                    Image(systemName: "xmark")
-                }
-                .accessibilityLabel(String(localized: "Close", bundle: .module))
+    ) -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button(role: .cancel) {
+                onCloseButtonClick()
+            } label: {
+                Image(systemName: "xmark")
             }
+            .accessibilityLabel(String(localized: "Close", bundle: .module))
         }
     }
 }

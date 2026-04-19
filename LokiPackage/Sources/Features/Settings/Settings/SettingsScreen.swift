@@ -33,10 +33,12 @@ package struct SettingsScreen: View {
         )
         .navigationTitle(String(localized: "Settings", bundle: .module))
         #if DEBUG
-        .settingsScreenToolbar(
-            colorScheme: colorScheme,
-            onDebugButtonClick: { viewModel.send(.screen(.onDebugButtonClick)) },
-        )
+        .toolbar {
+            toolbarContent(
+                colorScheme: colorScheme,
+                onDebugButtonClick: { viewModel.send(.screen(.onDebugButtonClick)) },
+            )
+        }
         #endif
         .errorAlert(
             error: viewModel.uiState.settingsError,
@@ -74,17 +76,16 @@ package struct SettingsScreen: View {
 
 // MARK: - Privates
 
-private extension View {
+private extension SettingsScreen {
     #if DEBUG
-    func settingsScreenToolbar(
+    @ToolbarContentBuilder
+    func toolbarContent(
         colorScheme: ColorScheme,
         onDebugButtonClick: @escaping () -> Void,
-    ) -> some View {
-        toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: onDebugButtonClick) {
-                    Image(systemName: colorScheme != .dark ? "ladybug" : "ladybug.fill")
-                }
+    ) -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button(action: onDebugButtonClick) {
+                Image(systemName: colorScheme != .dark ? "ladybug" : "ladybug.fill")
             }
         }
     }

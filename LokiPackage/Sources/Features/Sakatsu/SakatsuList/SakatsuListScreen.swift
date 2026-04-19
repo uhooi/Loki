@@ -53,13 +53,15 @@ package struct SakatsuListScreen: View {
             }),
             placement: availableIOS26 ? .automatic : .navigationBarDrawer(displayMode: .always),
         )
-        .sakatsuListScreenToolbar(
-            editMode: $editMode,
-            colorScheme: colorScheme,
-            sakatsusCount: viewModel.uiState.filteredSakatsus.count,
-            onSettingsButtonClick: { viewModel.send(.screen(.onSettingsButtonClick)) },
-            onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) },
-        )
+        .toolbar {
+            toolbarContent(
+                editMode: $editMode,
+                colorScheme: colorScheme,
+                sakatsusCount: viewModel.uiState.filteredSakatsus.count,
+                onSettingsButtonClick: { viewModel.send(.screen(.onSettingsButtonClick)) },
+                onAddButtonClick: { viewModel.send(.screen(.onAddButtonClick)) },
+            )
+        }
         .sakatsuInputSheet(
             shouldShowSheet: viewModel.uiState.shouldShowInputScreen,
             selectedSakatsu: viewModel.uiState.selectedSakatsu,
@@ -78,6 +80,7 @@ package struct SakatsuListScreen: View {
         .task {
             await viewModel.sendAsync(.screen(.task))
         }
+        .environment(\.editMode, $editMode)
     }
 
     package init(onSettingsButtonClick: @escaping () -> Void) {
@@ -91,77 +94,77 @@ package struct SakatsuListScreen: View {
 
 // MARK: - Privates
 
-private extension View {
-    func sakatsuListScreenToolbar( // swiftlint:disable:this function_body_length
+private extension SakatsuListScreen {
+    @ToolbarContentBuilder
+    func toolbarContent(
         editMode: Binding<EditMode>,
         colorScheme: ColorScheme,
         sakatsusCount: Int,
         onSettingsButtonClick: @escaping () -> Void,
         onAddButtonClick: @escaping () -> Void,
-    ) -> some View {
-        toolbar {
-            if #available(iOS 26.0, *) {
-                ToolbarItem(placement: .largeSubtitle) {
-                    Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+    ) -> some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            ToolbarItem(placement: .largeSubtitle) {
+                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            ToolbarItem(placement: .subtitle) {
+                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                EditButton()
+            }
+
+            DefaultToolbarItem(kind: .search, placement: .bottomBar)
+
+            ToolbarSpacer(placement: .bottomBar)
+
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: onAddButtonClick) {
+                    Image(systemName: "plus")
                 }
+                .buttonStyle(.glassProminent)
+                .accessibilityLabel(String(localized: "New Sakatsu", bundle: .module))
+            }
+        } else {
+            ToolbarItem(placement: .topBarTrailing) {
+                EditButton()
+                    .bold(editMode.wrappedValue.isEditing)
+            }
 
-                ToolbarItem(placement: .subtitle) {
-                    Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: onAddButtonClick) {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title3)
 
-                ToolbarItem(placement: .topBarTrailing) {
-                    EditButton()
-                }
-
-                DefaultToolbarItem(kind: .search, placement: .bottomBar)
-
-                ToolbarSpacer(placement: .bottomBar)
-
-                ToolbarItem(placement: .bottomBar) {
-                    Button(action: onAddButtonClick) {
-                        Image(systemName: "plus")
+                        Text("New Sakatsu", bundle: .module)
                     }
-                    .buttonStyle(.glassProminent)
-                    .accessibilityLabel(String(localized: "New Sakatsu", bundle: .module))
-                }
-            } else {
-                ToolbarItem(placement: .topBarTrailing) {
-                    EditButton()
-                        .bold(editMode.wrappedValue.isEditing)
-                }
-
-                ToolbarItem(placement: .bottomBar) {
-                    Button(action: onAddButtonClick) {
-                        HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title3)
-
-                            Text("New Sakatsu", bundle: .module)
-                        }
-                        .bold()
-                    }
-                }
-
-                ToolbarItem(placement: .status) {
-                    Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
-                        .font(.caption)
+                    .bold()
                 }
             }
 
-            ToolbarItem(placement: .topBarLeading) {
-                Button(action: onSettingsButtonClick) {
-                    Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
-                }
+            ToolbarItem(placement: .status) {
+                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                    .font(.caption)
             }
         }
-        .environment(\.editMode, editMode)
-    }
 
+        ToolbarItem(placement: .topBarLeading) {
+            Button(action: onSettingsButtonClick) {
+                Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
+            }
+        }
+    }
+}
+
+private extension View {
     func sakatsuInputSheet(
         shouldShowSheet: Bool,
         selectedSakatsu: Sakatsu?,
