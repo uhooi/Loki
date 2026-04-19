@@ -103,10 +103,15 @@ private extension View {
             if #available(iOS 26.0, *) {
                 ToolbarItem(placement: .largeSubtitle) {
                     Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
                 ToolbarItem(placement: .subtitle) {
                     Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
 
                 ToolbarItem(placement: .topBarTrailing) {
