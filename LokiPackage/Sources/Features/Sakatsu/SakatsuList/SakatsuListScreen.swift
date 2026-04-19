@@ -126,6 +126,7 @@ private extension View {
                     Button(action: onAddButtonClick) {
                         Image(systemName: "plus")
                     }
+                    .buttonStyle(.glassProminent)
                 }
             } else {
                 ToolbarItem(placement: .topBarTrailing) {
