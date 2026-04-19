@@ -127,6 +127,7 @@ private extension View {
                         Image(systemName: "plus")
                     }
                     .buttonStyle(.glassProminent)
+                    .accessibilityLabel(String(localized: "New Sakatsu", bundle: .module))
                 }
             } else {
                 ToolbarItem(placement: .topBarTrailing) {
