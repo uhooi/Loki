@@ -73,6 +73,7 @@ private extension View {
                         Image(systemName: "checkmark")
                     }
                     .buttonStyle(.glassProminent)
+                    .accessibilityLabel(String(localized: "Save", bundle: .module))
                     .disabled(saveButtonDisabled)
                 }
 
@@ -80,6 +81,7 @@ private extension View {
                     Button(role: .cancel, action: onCancelButtonClick) {
                         Image(systemName: "xmark")
                     }
+                    .accessibilityLabel(String(localized: "Cancel", bundle: .module))
                 }
             } else {
                 ToolbarItem(placement: .topBarTrailing) {
