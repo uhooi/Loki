@@ -16,11 +16,7 @@ package struct DebugScreen: View {
             }
         }
         .navigationTitle(String(localized: "Debug", bundle: .module))
-        .debugScreenToolbar(
-            onCloseButtonClick: {
-                dismiss()
-            },
-        )
+        .toolbar { toolbarContent(onCloseButtonClick: { dismiss() }) }
     }
 
     package init() {
@@ -30,19 +26,18 @@ package struct DebugScreen: View {
 
 // MARK: - Privates
 
-private extension View {
-    func debugScreenToolbar(
+private extension DebugScreen {
+    @ToolbarContentBuilder
+    func toolbarContent(
         onCloseButtonClick: @escaping () -> Void,
-    ) -> some View {
-        toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button(role: .cancel) {
-                    onCloseButtonClick()
-                } label: {
-                    Image(systemName: "xmark")
-                }
-                .accessibilityLabel(String(localized: "Close", bundle: .module))
+    ) -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button(role: .cancel) {
+                onCloseButtonClick()
+            } label: {
+                Image(systemName: "xmark")
             }
+            .accessibilityLabel(String(localized: "Close", bundle: .module))
         }
     }
 }

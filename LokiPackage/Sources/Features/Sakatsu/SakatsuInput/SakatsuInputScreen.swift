@@ -29,11 +29,13 @@ struct SakatsuInputScreen: View {
         .navigationTitle(String(localized: "Register Sakatsu", bundle: .module))
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)
-        .sakatsuInputScreenToolbar(
-            saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
-            onSaveButtonClick: { viewModel.send(.screen(.onSaveButtonClick)) },
-            onCancelButtonClick: { viewModel.send(.screen(.onCancelButtonClick)) },
-        )
+        .toolbar {
+            toolbarContent(
+                saveButtonDisabled: viewModel.uiState.sakatsu.facilityName.isEmpty,
+                onSaveButtonClick: { viewModel.send(.screen(.onSaveButtonClick)) },
+                onCancelButtonClick: { viewModel.send(.screen(.onCancelButtonClick)) },
+            )
+        }
         .errorAlert(
             error: viewModel.uiState.sakatsuInputError,
             onDismiss: { viewModel.send(.screen(.onErrorAlertDismiss)) },
@@ -60,41 +62,40 @@ struct SakatsuInputScreen: View {
 
 // MARK: - Privates
 
-private extension View {
-    func sakatsuInputScreenToolbar(
+private extension SakatsuInputScreen {
+    @ToolbarContentBuilder
+    func toolbarContent(
         saveButtonDisabled: Bool,
         onSaveButtonClick: @escaping () -> Void,
         onCancelButtonClick: @escaping () -> Void,
-    ) -> some View {
-        toolbar {
-            if #available(iOS 26.0, *) {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: onSaveButtonClick) {
-                        Image(systemName: "checkmark")
-                    }
-                    .buttonStyle(.glassProminent)
-                    .accessibilityLabel(String(localized: "Save", bundle: .module))
-                    .disabled(saveButtonDisabled)
+    ) -> some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: onSaveButtonClick) {
+                    Image(systemName: "checkmark")
                 }
+                .buttonStyle(.glassProminent)
+                .accessibilityLabel(String(localized: "Save", bundle: .module))
+                .disabled(saveButtonDisabled)
+            }
 
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(role: .cancel, action: onCancelButtonClick) {
-                        Image(systemName: "xmark")
-                    }
-                    .accessibilityLabel(String(localized: "Cancel", bundle: .module))
+            ToolbarItem(placement: .topBarLeading) {
+                Button(role: .cancel, action: onCancelButtonClick) {
+                    Image(systemName: "xmark")
                 }
-            } else {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: onSaveButtonClick) {
-                        Text("Save", bundle: .module)
-                            .bold()
-                    }
-                    .disabled(saveButtonDisabled)
+                .accessibilityLabel(String(localized: "Cancel", bundle: .module))
+            }
+        } else {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: onSaveButtonClick) {
+                    Text("Save", bundle: .module)
+                        .bold()
                 }
+                .disabled(saveButtonDisabled)
+            }
 
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
-                }
+            ToolbarItem(placement: .topBarLeading) {
+                Button(String(localized: "Cancel", bundle: .module), role: .cancel, action: onCancelButtonClick)
             }
         }
     }
