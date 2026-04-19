@@ -92,7 +92,7 @@ package struct SakatsuListScreen: View {
 // MARK: - Privates
 
 private extension View {
-    func sakatsuListScreenToolbar(
+    func sakatsuListScreenToolbar( // swiftlint:disable:this function_body_length
         editMode: Binding<EditMode>,
         colorScheme: ColorScheme,
         sakatsusCount: Int,
