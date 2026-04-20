@@ -105,16 +105,12 @@ private extension SakatsuListScreen {
     ) -> some ToolbarContent {
         if #available(iOS 26.0, *) {
             ToolbarItem(placement: .largeSubtitle) {
-                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                sakatsusCountText(sakatsusCount: sakatsusCount)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             ToolbarItem(placement: .subtitle) {
-                Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                sakatsusCountText(sakatsusCount: sakatsusCount)
             }
 
             ToolbarItem(placement: .topBarTrailing) {
@@ -161,6 +157,13 @@ private extension SakatsuListScreen {
                 Image(systemName: colorScheme != .dark ? "gearshape" : "gearshape.fill")
             }
         }
+    }
+
+    @available(iOS 26.0, *)
+    private func sakatsusCountText(sakatsusCount: Int) -> some View {
+        Text("\(sakatsusCount) Sakatsu(s)", bundle: .module)
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
     }
 }
 
