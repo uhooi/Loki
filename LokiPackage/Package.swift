@@ -9,7 +9,7 @@ let debugOtherSwiftFlags = [
     "-enable-actor-data-race-checks",
 ]
 
-let debugSwiftSettings: [PackageDescription.SwiftSetting] = [
+let swiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
     .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
     .enableUpcomingFeature("InternalImportsByDefault"), // SE-0409
@@ -147,7 +147,7 @@ let package = Package(
 )
 
 for target in package.targets {
-    target.swiftSettings = debugSwiftSettings
+    target.swiftSettings = swiftSettings
 
     if target.name != "LogCore" {
         target.dependencies.append("LogCore")
