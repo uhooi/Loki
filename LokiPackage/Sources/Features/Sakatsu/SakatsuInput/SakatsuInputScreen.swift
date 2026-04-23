@@ -1,6 +1,10 @@
 import SwiftUI
+import os
 import LogCore
 import UICore
+#if DEBUG
+import SakatsuData
+#endif
 
 // MARK: Actions
 

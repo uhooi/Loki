@@ -1,4 +1,5 @@
 import SwiftUI
+import os
 import LogCore
 
 struct LicenseDetailScreen: View {

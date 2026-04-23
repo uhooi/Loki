@@ -11,8 +11,12 @@ let debugOtherSwiftFlags = [
 
 let swiftSettings: [PackageDescription.SwiftSetting] = [
     .unsafeFlags(debugOtherSwiftFlags, .when(configuration: .debug)),
-    .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
+    .enableUpcomingFeature("ExistentialAny"), // SE-0335
     .enableUpcomingFeature("InternalImportsByDefault"), // SE-0409
+    .enableUpcomingFeature("MemberImportVisibility"), // SE-0444
+    .enableUpcomingFeature("InferIsolatedConformances"), // SE-0470
+    .enableUpcomingFeature("NonisolatedNonsendingByDefault"), // SE-0461
+    .enableUpcomingFeature("ImmutableWeakCaptures"), // SE-0481
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
