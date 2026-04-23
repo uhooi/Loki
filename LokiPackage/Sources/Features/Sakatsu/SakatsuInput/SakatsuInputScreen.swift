@@ -71,12 +71,9 @@ private extension SakatsuInputScreen {
     ) -> some ToolbarContent {
         if #available(iOS 26.0, *) {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: onSaveButtonClick) {
-                    Image(systemName: "checkmark")
-                }
-                .buttonStyle(.glassProminent)
-                .accessibilityLabel(String(localized: "Save", bundle: .module))
-                .disabled(saveButtonDisabled)
+                Button(role: .confirm, action: onSaveButtonClick)
+                    .accessibilityLabel(String(localized: "Save", bundle: .module))
+                    .disabled(saveButtonDisabled)
             }
 
             ToolbarItem(placement: .topBarLeading) {
