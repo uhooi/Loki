@@ -16,6 +16,7 @@ let swiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("MemberImportVisibility"), // SE-0444
     .enableUpcomingFeature("InferIsolatedConformances"), // SE-0470
     .enableUpcomingFeature("NonisolatedNonsendingByDefault"), // SE-0461
+    .enableUpcomingFeature("ImmutableWeakCaptures"), // SE-0481
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
