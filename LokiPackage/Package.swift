@@ -14,6 +14,7 @@ let swiftSettings: [PackageDescription.SwiftSetting] = [
     .enableUpcomingFeature("ExistentialAny", .when(configuration: .debug)), // SE-0335
     .enableUpcomingFeature("InternalImportsByDefault"), // SE-0409
     .enableUpcomingFeature("MemberImportVisibility"), // SE-0444
+    .enableUpcomingFeature("InferIsolatedConformances"), // SE-0470
 ]
 
 let productionFeatures: [PackageDescription.Target.Dependency] = [
