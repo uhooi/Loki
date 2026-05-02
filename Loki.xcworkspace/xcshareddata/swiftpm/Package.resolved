@@ -1,5 +1,5 @@
 {
-  "originHash" : "46d4a894610dea88c6f16090667e2703eb6ad07b5f0aaae8e556d491297df223",
+  "originHash" : "6cc40a35da6763feeb27a61934dc91f7e852491b226432f80ddb20ec9d652931",
   "pins" : [
     {
       "identity" : "licensesplugin",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/uhooi/Logdog.git",
       "state" : {
-        "revision" : "bc02bf2122f9da59e99710d1abb5e55fe40c950b",
-        "version" : "0.3.0"
+        "revision" : "da322c041897e064d36ae2b7ad969de768b6dfd2",
+        "version" : "0.5.0"
       }
     },
     {
