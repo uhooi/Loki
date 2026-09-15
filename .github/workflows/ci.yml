@@ -20,20 +20,26 @@ permissions:
   contents: read
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_26.6.app
+  DEVELOPER_DIR: /Applications/Xcode_27.0.app
 
 jobs:
   build:
     name: Build for ${{ matrix.project }}
-    runs-on: macos-26
+    # https://github.com/actions/runner-images/issues/14404
+    runs-on: xcode-27
     strategy:
       fail-fast: false
       matrix:
-        project: ["production", "develop"]
+        project: ["production", "develop", "catalog"]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Show Xcode and Swift versions
+        run: |
+          xcodebuild -version
+          swift --version
 
       - name: Build for ${{ matrix.project }}
         run: make build-debug-${{ matrix.project }}
