@@ -13,6 +13,9 @@ production_log_name := $(product_name)_$(production_project_name)_Build.log
 develop_project_name := Develop
 develop_log_name := $(product_name)_$(develop_project_name)_Build.log
 
+# Catalog
+catalog_project_name := Catalog
+
 # Test
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
@@ -66,6 +69,10 @@ build-debug-production:
 .PHONY: build-debug-develop
 build-debug-develop:
 	$(MAKE) build-debug PROJECT_NAME=$(develop_project_name)
+
+.PHONY: build-debug-catalog
+build-debug-catalog:
+	$(MAKE) build-debug PROJECT_NAME=$(catalog_project_name)
 
 .PHONY: build-debug
 build-debug:
